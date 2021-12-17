@@ -1,0 +1,6 @@
+COLUMN id TYPE id
+COLUMN name TYPE text
+COLUMN email TYPE text
+COLUMN avatar TYPE text
+COLUMN created_at TYPE datetime
+COLUMN updated_at TYPE timestamp

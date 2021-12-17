@@ -1,0 +1,11 @@
+pre .str, code .str { color: #e7d469; } /* string */
+pre .kwd, code .kwd { color: #3387cc; } /* keyword */
+pre .com, code .com { color: #9899a1; font-style: italic; } /* comment */
+pre .typ, code .typ { color: #38cc93; } /* type */
+pre .lit, code .lit { color: #cc9633; } /* literal */
+pre .pun, code .pun { color: #dfe2ec; } /* punctuation */
+pre .pln, code .pln { color: #dadce2; } /* plaintext */
+pre .tag, code .tag { color: #75a9ec; } /* html tag */
+pre .atn, code .atn { color: #e7d469; } /* html attribute name */
+pre .atv, code .atv { color: #80d15a; } /* html attribute value */
+pre .dec, code .dec { color: #3387cc; } /* decimal */

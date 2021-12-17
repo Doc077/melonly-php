@@ -1,0 +1,8 @@
+{
+    "config": {
+        "vendor-dir": "plugins/"
+    },
+    "require": {
+        "php": "^8.0"
+    }
+}

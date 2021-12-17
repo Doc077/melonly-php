@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title><?= ($text ? ' '.$text : '') ?></title>
+
+        <style>
+            <?php include __DIR__ . '/styles.css' ?>
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <h1 class="header">
+                <span class="code"><?= $status ?></span>
+
+                <?= ($text ? ' '.$text : '') ?>
+            </h1>
+        </main>
+    </body>
+</html>
