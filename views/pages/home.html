@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Melonly | Home</title>
@@ -18,7 +19,13 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                flex-direction: column;
                 height: 100vh;
+            }
+
+            .main {
+                display: flex;
+                align-items: center;
             }
 
             .logo {
@@ -32,25 +39,45 @@
                 opacity: 0.85;
             }
 
+            .footer {
+                background: #002731;
+                color: #c7ccd3;
+                display: flex;
+                justify-content: space-between;
+                padding: 22px;
+                border-radius: 8px;
+                margin-top: 32px;
+                width: 720px;
+            }
+
             .link {
-                color: #10B981;
+                color: #1fcf95;
                 text-decoration: none;
                 margin-left: 8px;
-                font-weight: 600;
+            }
+
+            .link:hover {
+                border-bottom: 1px solid #1fcf95;
             }
         </style>
     </head>
 
     <body>
-        <img class="logo" src="/logo.png" alt="Logo">
+        <main class="main">
+            <img class="logo" src="/logo.png" alt="Logo">
 
-        <h1>Untitled Project - Melonly <span class="version">v{{ MELONLY_VERSION }}</span></h1>
+            <h1>Untitled Project - Melonly <span class="version">v{{ MELONLY_VERSION }}</span></h1>
+        </main>
 
-        [if Auth::logged()]
-            <a class="link" href="/logout">Logout</a>
+        <footer class="footer">
+            [if Auth::logged()]
+                <a class="link" href="/logout">Logout</a>
 
-            [else]
-                <a class="link" href="/login">Log in</a>
-        [endif]
+                [else]
+                    <a class="link" href="/login">Log in</a>
+            [endif]
+
+            <span>PHP version: {{ PHP_VERSION }}</span>
+        </footer>
     </body>
 </html>
