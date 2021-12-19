@@ -9,6 +9,7 @@ use PDOException;
 use Melonly\Services\Container;
 use Melonly\Http\Response;
 use Melonly\Http\Url;
+use Melonly\Filesystem\File;
 
 class ExceptionHandler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): void {
@@ -30,7 +31,7 @@ class ExceptionHandler {
          */
         $linesCount = 0;
 
-        $linesCount = getFileLinesCount($exception->getFile());
+        $linesCount = File::lines($exception->getFile());
 
         $errorFile = $exception->getFile();
 

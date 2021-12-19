@@ -19,7 +19,7 @@ class Application {
             'container',
             'database',
             'exceptions',
-            //'filesystem',
+            'filesystem',
             'helpers',
             'http',
             'localization',
