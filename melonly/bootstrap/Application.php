@@ -4,10 +4,13 @@ namespace Melonly\Bootstrap;
 
 use Throwable;
 use Exception;
+use ReflectionClass;
+use ReflectionMethod;
 use Dotenv\Dotenv;
 use Melonly\Utilities\Autoloading\Autoloader;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
+use Melonly\Routing\Attributes\Route;
 use Melonly\Support\Helpers\Str;
 use Melonly\Exceptions\ExceptionHandler;
 
@@ -75,6 +78,32 @@ class Application {
             }
             elseif (file_exists(__DIR__ . '/../../plugins/autoload.php')) {
                 require_once __DIR__ . '/../../plugins/autoload.php';
+            }
+
+            /**
+             * Get all controllers and create attribute instances.
+             * It will register HTTP routes.
+             */
+            foreach (getNamespaceClasses('App\Controllers') as $class) {
+                $controller = new ReflectionClass('\App\Controllers\\' . $class);
+
+                $methods = $controller->getMethods(ReflectionMethod::IS_PUBLIC);
+
+                foreach ($methods as $method) {
+                    $methodReflection = new ReflectionMethod($method->class, $method->name);
+
+                    foreach ($methodReflection->getAttributes() as $attribute) {
+                        try {
+                            $instance = $attribute->newInstance();
+                        } catch (Throwable) {
+                            continue;
+                        }
+
+                        if (!$instance instanceof Route) {
+                            continue;
+                        }
+                    }
+                }
             }
 
             Container::get(Router::class)->evaluate();

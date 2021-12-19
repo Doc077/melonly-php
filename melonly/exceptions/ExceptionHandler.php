@@ -7,9 +7,9 @@ use Exception;
 use TypeError;
 use PDOException;
 use Melonly\Services\Container;
+use Melonly\Filesystem\File;
 use Melonly\Http\Response;
 use Melonly\Http\Url;
-use Melonly\Filesystem\File;
 
 class ExceptionHandler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): void {

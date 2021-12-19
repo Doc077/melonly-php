@@ -47,7 +47,27 @@ class File {
         return true;
     }
 
-    public function copy(string $path, string $target): bool {
+    public static function copy(string $path, string $target): bool {
         return copy($path, $target);
+    }
+
+    public static function name(string $path): array | string {
+        return pathinfo($path, PATHINFO_FILENAME);
+    }
+
+    public static function basename(string $path): array | string {
+        return pathinfo($path, PATHINFO_BASENAME);
+    }
+
+    public static function dirname(string $path): array | string {
+        return pathinfo($path, PATHINFO_DIRNAME);
+    }
+
+    public static function extension(string $path): array | string {
+        return pathinfo($path, PATHINFO_EXTENSION);
+    }
+
+    public static function size(string $path): int | false {
+        return filesize($path);
     }
 }
