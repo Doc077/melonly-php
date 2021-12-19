@@ -106,6 +106,22 @@ class Application {
                 }
             }
 
+            /**
+             * Minify response content.
+             */
+            if ((bool) env('APP_OUTPUT_COMPRESS')) {
+                ob_start(function (string $buffer): string {
+                    $search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'];
+                    $replace = ['>', '<', '\\1'];
+            
+                    if (preg_match('/\<html/i', $buffer) === 1 && preg_match('/\<\/html\>/i', $buffer) === 1) {
+                        $buffer = preg_replace($search, $replace, $buffer);
+                    }
+            
+                    return str_replace('	', '', $buffer);
+                });
+            }
+
             Container::get(Router::class)->evaluate();
         } catch (Throwable $exception) {
             ExceptionHandler::handle($exception);
