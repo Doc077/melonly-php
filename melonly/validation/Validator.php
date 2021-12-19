@@ -27,7 +27,7 @@ class Validator {
     public static function evaluate(array $array): bool {
         foreach ($array as $field => $rules) {
             foreach ($rules as $rule) {
-                if (!self::fulfillsRule($_POST[$field], $rule)) {
+                if (!empty($_POST[$field]) && !self::fulfillsRule($_POST[$field], $rule)) {
                     return false;
                 }
             }
