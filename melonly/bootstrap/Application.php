@@ -14,6 +14,7 @@ use Melonly\Exceptions\ExceptionHandler;
 class Application {
     protected const INCLUDE_FOLDERS = [
         'framework' => [
+            'auth',
             'config',
             'container',
             'database',
