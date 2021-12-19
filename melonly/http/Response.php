@@ -138,6 +138,8 @@ class Response {
 
     protected array $viewVariables = [];
 
+    protected int $status = self::OK;
+
     public function abort($status, $text = false): void {
         http_response_code($status);
 
@@ -166,16 +168,20 @@ class Response {
         return [$this->view, $this->viewVariables];
     }
 
-    public function send($data): void {
+    public function send(mixed $data): void {
         $this->data .= $data;
     }
 
-    public function redirect($url, $data = []): void {
+    public function status(int $code): void {
+        $this->status = $code;
+    }
+
+    public function redirect($uri, $data = []): void {
         foreach ($data as $key => $value) {
             $_SESSION['MELONLY_FLASH_' . $key] = $value;
         }
 
-        header('Location: ' . $url);
+        redirect($uri);
 
         exit;
     }
