@@ -11,6 +11,6 @@ Router::get('/', function (Request $request, Response $response): void {
 
 Router::get('/login', function (Request $request, Response $response): void {
     Validator::evaluate([
-        'username' => ['min:3', 'max:32']
+        'username' => ['required', 'min:3', 'max:32']
     ]);
 });
