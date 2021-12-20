@@ -10,6 +10,7 @@ use Melonly\Services\Container;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Http\Mime;
+use Melonly\Http\Method as HttpMethod;
 use Melonly\Views\View;
 
 class Router implements RouterInterface {
@@ -23,12 +24,19 @@ class Router implements RouterInterface {
 
     protected array $redirects = [];
 
-    public function add(string $method, string $uri, callable $action, array $data = []): void {
+    public function add(HttpMethod | string $method, string $uri, callable $action, array $data = []): void {
         if ($uri[0] === '/') {
             $uri = substr($uri, 1);
         }
 
-        $method = strtoupper($method);
+        /**
+         * Convert HTTP method enum to string.
+         */
+        if (!is_string($method)) {
+            $method = $method->value;
+        } else {
+            $method = strtoupper($method);
+        }
 
         /**
          * Create RegExp for dynamic parameters and route.
@@ -45,36 +53,36 @@ class Router implements RouterInterface {
     }
 
     public static function get(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('GET', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Get, $uri, $action, $data);
     }
 
     public static function post(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('POST', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Post, $uri, $action, $data);
     }
 
     public static function put(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('PUT', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Put, $uri, $action, $data);
     }
 
     public static function patch(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('PATCH', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Patch, $uri, $action, $data);
     }
 
     public static function delete(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('DELETE', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Delete, $uri, $action, $data);
     }
 
     public static function options(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('OPTIONS', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Options, $uri, $action, $data);
     }
 
     public static function any(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add('GET', $uri, $action, $data);
-        Container::get(self::class)->add('POST', $uri, $action, $data);
-        Container::get(self::class)->add('PUT', $uri, $action, $data);
-        Container::get(self::class)->add('PATCH', $uri, $action, $data);
-        Container::get(self::class)->add('DELETE', $uri, $action, $data);
-        Container::get(self::class)->add('OPTIONS', $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Get, $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Post, $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Put, $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Patch, $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Delete, $uri, $action, $data);
+        Container::get(self::class)->add(HttpMethod::Options, $uri, $action, $data);
     }
 
     public function evaluate(): void {

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Melonly\Http\Request;
 use Melonly\Http\Response;
+use Melonly\Http\Method as HttpMethod;
 use Melonly\Routing\Attributes\Route;
 
 class LoginController {
@@ -13,7 +14,7 @@ class LoginController {
         echo'WORKS PARTIALLY';
     }
 
-    #[Route(path: '/register', method: 'POST', class: self::class)]
+    #[Route(path: '/register', method: HttpMethod::Post, class: self::class)]
     public function register() {
         
     }

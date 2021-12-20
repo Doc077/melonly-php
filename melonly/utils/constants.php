@@ -1,4 +1,4 @@
 <?php
 
 const MELONLY_VERSION = '2.2.4';
-const MELONLY_MIN_PHP_VERSION = 8.0;
+const MELONLY_MIN_PHP_VERSION = 8.1;

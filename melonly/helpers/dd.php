@@ -1,6 +1,6 @@
 <?php
 
-function dd(...$variables) {
+function dd(...$variables): never {
     dump(...$variables);
 
     exit;

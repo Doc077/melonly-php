@@ -6,7 +6,7 @@ use PDO;
 use Exception;
 
 class DBConnection implements DBConnectionInterface {
-    protected string $system = 'mysql';
+    protected readonly string $system;
 
     protected array $credentials = [];
 

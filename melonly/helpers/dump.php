@@ -1,6 +1,6 @@
 <?php
 
-function dump(...$variables) {
+function dump(...$variables): void {
     echo '<div style="padding: 14px 16px; background: #2a2b32; color: #ddd; font-family: Cascadia Mono, Consolas, monospace; font-size: 14px; border-radius: 10px; line-height: 1.6;">';
     echo '<div style="color: #b8bcc9; margin-bottom: 8px;">Dumped variables (' . count($variables) . '):</div>';
 

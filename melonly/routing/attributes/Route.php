@@ -5,12 +5,12 @@ namespace Melonly\Routing\Attributes;
 use Attribute;
 use ReflectionClass;
 use ReflectionMethod;
+use Melonly\Http\Method as HttpMethod;
 use Melonly\Services\Container;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route {
-    // TODO: PHP 8.1 enum for HTTP methods
-    public function __construct(string $path, string $class, string $method = 'GET') {
+    public function __construct(string $path, string $class, HttpMethod $method = HttpMethod::Get) {
         $classReflection = new ReflectionClass($class);
 
         $object = new $class();

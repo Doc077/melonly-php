@@ -75,14 +75,15 @@
                 background: #003441;
                 color: #1fcf95;
                 padding: 8px 14px;
+                border-bottom: 1px solid #004353;
+                padding-bottom: 7px;
                 border-radius: 8px;
                 text-decoration: none;
                 margin-left: 8px;
             }
 
             .link:hover {
-                border-bottom: 1px solid #004353;
-                padding-bottom: 7px;
+                background: #003947;
             }
         </style>
     </head>
@@ -90,18 +91,16 @@
     <body>
         <header>
             <nav class="nav">
-                <a class="link" href="/">Home</a>
-
                 [if Auth::logged()]
-                    <a class="link" href="/logout">Logout</a>
+                    <a class="link" href="/logout">Log out</a>
 
                     [else]
                         <a class="link" href="/login">Log in</a>
                 [endif]
 
-                <a class="link" href="/register">Create account</a>
+                <a class="link" href="https://github.com/Doc077/melonly" target="_blank">GitHub</a>
 
-                <a class="link" href="https://melonly.dev/docs" target="_blank">Melonly Documentation</a>
+                <a class="link" href="https://melonly.dev/docs" target="_blank">Documentation</a>
             </nav>
         </header>
 
@@ -114,7 +113,7 @@
         <footer class="footer">
             <span>PHP version: {{ PHP_VERSION }}</span>
 
-            <a class="link" href="https://melonly.dev/docs" target="_blank">Documentation</a>
+            <a class="link" href="https://melonly.dev/docs" target="_blank">Melonly Documentation</a>
         </footer>
     </body>
 </html>
