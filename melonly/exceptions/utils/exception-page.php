@@ -18,7 +18,7 @@
 
     <body>
         <main class="container">
-            <h1 class="header">Exception thrown: <?= $exception->getMessage() ?? 'Error' ?></h1>
+            <h1 class="header">Exception: <?= $exception->getMessage() ?? 'Error' ?></h1>
 
             <p class="info">
                 <span class="info__value">File:</span> <strong class="bold"><?= $exceptionrrorFile ?? 'Unknown' ?></strong>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
 
 *,
 *::before,
@@ -33,9 +33,9 @@
 
 body {
     margin: 0;
-    background: #131820;
+    background: #002029;
     color: #fff;
-    font-family: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', sans-serif;
+    font-family: 'DM Sans', 'Segoe UI Variable Text', 'Segoe UI', sans-serif;
     line-height: 1.8;
     display: flex;
     justify-content: center;
@@ -44,7 +44,7 @@ body {
 }
 
 .container {
-    background: #181f26;
+    background: #002731;
     border-radius: 6px;
     padding: 36px 50px;
     width: calc(100vw - 500px);
@@ -101,7 +101,7 @@ body {
     display: inline-flex;
     justify-content: flex-end;
     align-items: center;
-    background: #282c34;
+    background: #003441;
     margin-right: 14px;
     color: #ddd;
 }
@@ -112,4 +112,8 @@ body {
 
 .line--error::before {
     background: #c33131;
+}
+
+.line--error > * {
+    color: #e8eef3 !important;
 }
