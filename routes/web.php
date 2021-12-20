@@ -9,8 +9,8 @@ Router::get('/', function (Request $request, Response $response): void {
     $response->view('pages.home');
 });
 
-Router::get('/login', function (Request $request, Response $response): void {
-    Validator::evaluate([
-        'username' => ['required', 'min:3', 'max:32']
-    ]);
-});
+// Router::get('/login', function (Request $request, Response $response): void {
+//     Validator::evaluate([
+//         'username' => ['required', 'min:3', 'max:32']
+//     ]);
+// });

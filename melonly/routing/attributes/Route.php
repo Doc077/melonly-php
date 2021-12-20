@@ -9,7 +9,8 @@ use Melonly\Services\Container;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route {
-    public function __construct($path, $class, $method = 'GET') {
+    // TODO: PHP 8.1 enum for HTTP methods
+    public function __construct(string $path, string $class, string $method = 'GET') {
         $classReflection = new ReflectionClass($class);
 
         $object = new $class();

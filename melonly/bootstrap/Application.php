@@ -82,7 +82,7 @@ class Application {
 
             /**
              * Get all controllers and create attribute instances.
-             * It will register HTTP routes.
+             * Here application will register HTTP routes.
              */
             foreach (getNamespaceClasses('App\Controllers') as $class) {
                 $controller = new ReflectionClass('\App\Controllers\\' . $class);
@@ -122,6 +122,9 @@ class Application {
                 });
             }
 
+            /**
+             * Evaluate routing and generate HTTP response.
+             */
             Container::get(Router::class)->evaluate();
         } catch (Throwable $exception) {
             ExceptionHandler::handle($exception);
