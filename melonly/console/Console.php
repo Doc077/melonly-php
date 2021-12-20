@@ -37,6 +37,32 @@ class Console {
         shell_exec("php -S 127.0.0.1:$port public/index.php");
     }
 
+    public static function newComponent(): void {
+        global $argv;
+
+        $fileName = __DIR__ . '/../../views/components/' . $argv[2] . '.php';
+
+        if (file_exists($fileName)) {
+            echo Color::LIGHT_RED, 'Component \'' . $argv[2] . '\' already exists', PHP_EOL, Color::RESET;
+
+            return;
+        }
+
+        /**
+         * Create folder if not exists.
+         */
+        if (!file_exists(__DIR__ . '/../../views/components')) {
+            mkdir(__DIR__ . '/../../views/components', 0777, true);
+        }
+
+        file_put_contents($fileName, '<div>
+    {{ $prop }}
+</div>
+');
+
+        echo Color::LIGHT_GREEN, 'Created component \'' . $argv[2] . '\'', PHP_EOL, Color::RESET;
+    }
+
     public static function newController(): void {
         global $argv;
 
@@ -129,5 +155,11 @@ COLUMN updated_at TYPE timestamp
 ');
 
         echo Color::LIGHT_GREEN, 'Created table migration \'' . $argv[2] . '\'', PHP_EOL, Color::RESET;
+    }
+
+    public static function test(): void {
+        echo Color::LIGHT_GREEN, 'Running tests', PHP_EOL, Color::RESET;
+
+        shell_exec('../vendor/bin/phpunit tests');
     }
 }
