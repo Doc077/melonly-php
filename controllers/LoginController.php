@@ -16,6 +16,6 @@ class LoginController {
 
     #[Route(path: '/register', method: HttpMethod::Post, class: self::class)]
     public function register() {
-        
+        // 
     }
 }

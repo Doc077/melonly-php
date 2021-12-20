@@ -107,9 +107,14 @@ class Application {
             }
 
             /**
-             * Minify response content.
+             * Minify response content if it's not a file request.
              */
-            if ((bool) env('APP_OUTPUT_COMPRESS')) {
+            $uri = $_SERVER['REQUEST_URI'];
+
+            if (
+                !array_key_exists('extension', pathinfo($uri)) &&
+                (bool) env('APP_OUTPUT_COMPRESS')
+            ) {
                 ob_start(function (string $buffer): string {
                     $search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'];
                     $replace = ['>', '<', '\\1'];

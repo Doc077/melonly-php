@@ -7,4 +7,4 @@ const Application = (
     </div>
 );
 
-ReactDOM.render(<Application />, document.querySelector('#react'));
+ReactDOM.render(<Application />, document.querySelector('#root'));

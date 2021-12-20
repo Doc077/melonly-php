@@ -25,6 +25,7 @@ class Vector implements ArrayAccess, Countable {
                     throw new Exception("Vector must store items of the same type");
                 }
             }
+
             $this->dataType = $type;
 
             $this->firstTimeEmpty = false;

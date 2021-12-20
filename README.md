@@ -16,7 +16,7 @@ $ git clone https://github.com/Doc077/melonly.git
 $ npm install
 ```
 
-Melonly is available to download from the [official site](https://melonly.dev).
+Melonly is also available to download from the [official site](https://melonly.dev).
 
 ## Application Development
 

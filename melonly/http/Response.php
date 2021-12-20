@@ -140,7 +140,7 @@ class Response {
 
     protected int $status = self::OK;
 
-    public function abort($status, $text = false): void {
+    public function abort($status, $text = false): never {
         http_response_code($status);
 
         ob_end_clean();
@@ -186,7 +186,7 @@ class Response {
         exit;
     }
 
-    public function redirectBack($data = []): void {
+    public function redirectBack($data = []): never {
         foreach ($data as $key => $value) {
             $_SESSION['MELONLY_FLASH_' . $key] = $value;
         }
