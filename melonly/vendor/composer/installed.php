@@ -1,24 +1,33 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => '2.x-dev',
+    'version' => '2.9999999.9999999.9999999-dev',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '9fd7acb7d377df8c9f819fdf045acff9f2750f3e',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => '2.x-dev',
+      'version' => '2.9999999.9999999.9999999-dev',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '9fd7acb7d377df8c9f819fdf045acff9f2750f3e',
+    ),
+    'ably/ably-php' => 
+    array (
+      'pretty_version' => '1.1.4',
+      'version' => '1.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'db4ca828378922ef85224d891dd09f9f40194120',
     ),
     'codedungeon/php-cli-colors' => 
     array (
