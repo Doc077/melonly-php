@@ -261,7 +261,7 @@ COLUMN updated_at TYPE timestamp
             /**
              * Add columns.
              */
-            $matchIter = 0;
+            $matchIterator = 0;
 
             foreach (file($migration) as $line) {
                 if (preg_match('/^COLUMN (.*) TYPE (.*).$/', $line, $matches)) {
@@ -273,10 +273,10 @@ COLUMN updated_at TYPE timestamp
                     $type = str_replace('datetime', 'datetime DEFAULT CURRENT_TIMESTAMP', $type);
                     $type = str_replace('timestamp', 'timestamp DEFAULT CURRENT_TIMESTAMP', $type);
                     
-                    $sql .= '`' . $matches[1] . '` ' . $type . ($matchIter === count(file($migration)) - 1 ? '' : ',') . PHP_EOL;
+                    $sql .= '`' . $matches[1] . '` ' . $type . ($matchIterator === count(file($migration)) - 1 ? '' : ',') . PHP_EOL;
                 }
 
-                $matchIter++;
+                $matchIterator++;
             }
 
             /**

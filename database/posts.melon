@@ -1,0 +1,5 @@
+COLUMN id TYPE id
+COLUMN user_id TYPE int
+COLUMN content TYPE text
+COLUMN created_at TYPE datetime
+COLUMN updated_at TYPE timestamp

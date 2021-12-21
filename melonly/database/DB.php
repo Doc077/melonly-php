@@ -6,12 +6,11 @@ use PDOException;
 use Melonly\Services\Container;
 use Melonly\Support\Containers\Vector;
 use Melonly\Exceptions\ExceptionHandler;
-use Codedungeon\PHPCliColors\Color;
 
 class DB implements DBInterface {
     public static function query(string $sql, array $boundParams = []): mixed {
         try {
-            $pdo = Container::get(Connection::class)->getConnection();
+            $pdo = Container::get(DBConnection::class)->getConnection();
 
             $pdo->query('SET NAMES UTF8');
             $pdo->query('SET CHARACTER SET UTF8');
@@ -53,13 +52,6 @@ class DB implements DBInterface {
 
             return $records;
         } catch (PDOException $exception) {
-            /**
-             * If CLI mode is enabled, show error line.
-             */
-            if (php_sapi_name() === 'cli') {
-                echo Color::LIGHT_RED, $exception->getMessage(), PHP_EOL, Color::RESET;
-            }
-
             ExceptionHandler::handle($exception);
         }
     }

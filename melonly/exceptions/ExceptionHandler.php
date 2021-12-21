@@ -6,6 +6,7 @@ use Error;
 use Exception;
 use TypeError;
 use PDOException;
+use Codedungeon\PHPCliColors\Color;
 use Melonly\Services\Container;
 use Melonly\Filesystem\File;
 use Melonly\Http\Response;
@@ -15,6 +16,15 @@ class ExceptionHandler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
         if (env('APP_DEBUG') === 'false') {
             Container::get(Response::class)->abort(500);
+        }
+
+        /**
+         * If CLI mode is enabled, show error line.
+         */
+        if (php_sapi_name() === 'cli') {
+            echo Color::LIGHT_RED, $exception->getMessage(), PHP_EOL, Color::RESET;
+
+            exit;
         }
 
         /**

@@ -12,7 +12,7 @@ To start a basic project, You can use git clone:
 
 ```
 $ git clone https://github.com/Doc077/melonly.git
-
+$ cd melonly
 $ npm install
 ```
 
