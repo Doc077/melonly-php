@@ -47,20 +47,18 @@ if (!isset($argv) || !isset($argv[1]) || empty($argv[1])) {
     exit;
 }
 
+$console = new Console();
+
 /**
  * Handle commands with 'new:'.
  */
 if (preg_match('/new:(.*)/', $argv[1], $matches)) {
-    switch ($matches[1]) {
-        case 'controller':
-        case 'model':
-        case 'table':
-            Console::{'new' . ucfirst($matches[1])}();
-    
-            break;
-    
-        default:
-            echo Color::LIGHT_RED, "Unknown command '{$argv[1]}' or cannot create new instance of '{$matches[1]}'", PHP_EOL, Color::RESET;
+    $method = 'new' . ucfirst($matches[1]);
+
+    if (method_exists($console, $method)) {
+        $console->$method();
+    } else {
+        echo Color::LIGHT_RED, "Unknown command '{$argv[1]}' or cannot create new instance of '{$matches[1]}'", PHP_EOL, Color::RESET;
     }
 
     exit;
@@ -72,7 +70,7 @@ if (preg_match('/new:(.*)/', $argv[1], $matches)) {
 switch ($argv[1]) {
     case 'server':
     case 'version':
-        Console::{$argv[1]}();
+        $console->{$argv[1]}();
 
         break;
 

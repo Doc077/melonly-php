@@ -6,7 +6,17 @@ use Codedungeon\PHPCliColors\Color;
 use LucidFrame\Console\ConsoleTable;
 
 class Console {
-    public static function version(): void {
+    protected array $arguments = [];
+
+    public function __construct() {
+        global $argv;
+
+        foreach ($argv as $argument) {
+            $this->arguments[] = $argument;
+        }
+    }
+
+    public function version(): void {
         $table = new ConsoleTable();
     
         echo Color::LIGHT_BLUE, PHP_EOL;
@@ -23,13 +33,11 @@ class Console {
         echo Color::RESET, PHP_EOL;
     }
 
-    public static function server(): void {
-        global $argv;
-
+    public function server(): void {
         $port = 5000;
 
-        if (isset($argv[2]) && (int) $argv !== $port) {
-            $port = $argv[2];
+        if (isset($this->arguments[2]) && (int) $this->arguments[2] !== $port) {
+            $port = $this->arguments[2];
         }
 
         echo Color::LIGHT_GREEN, "Starting Melonly development server [localhost:$port]", PHP_EOL, Color::RESET;
@@ -37,13 +45,11 @@ class Console {
         shell_exec("php -S 127.0.0.1:$port public/index.php");
     }
 
-    public static function newComponent(): void {
-        global $argv;
-
-        $fileName = __DIR__ . '/../../views/components/' . $argv[2] . '.php';
+    public function newComponent(): void {
+        $fileName = __DIR__ . '/../../views/components/' . $this->arguments[2] . '.php';
 
         if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Component \'' . $argv[2] . '\' already exists', PHP_EOL, Color::RESET;
+            echo Color::LIGHT_RED, 'Component \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
 
             return;
         }
@@ -55,21 +61,19 @@ class Console {
             mkdir(__DIR__ . '/../../views/components', 0777, true);
         }
 
-        file_put_contents($fileName, '<div>
+        file_put_contents($fileName, '<div class="' . strtolower($this->arguments[2]) . '">
     {{ $prop }}
 </div>
 ');
 
-        echo Color::LIGHT_GREEN, 'Created component \'' . $argv[2] . '\'', PHP_EOL, Color::RESET;
+        echo Color::LIGHT_GREEN, 'Created component \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
     }
 
-    public static function newController(): void {
-        global $argv;
-
-        $fileName = __DIR__ . '/../../controllers/' . $argv[2] . '.php';
+    public function newController(): void {
+        $fileName = __DIR__ . '/../../controllers/' . $this->arguments[2] . '.php';
 
         if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Controller \'' . $argv[2] . '\' already exists', PHP_EOL, Color::RESET;
+            echo Color::LIGHT_RED, 'Controller \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
 
             return;
         }
@@ -87,7 +91,7 @@ namespace App\Controllers;
 
 use Melonly\Routing\Attributes\Route;
 
-class '.$argv[2].' {
+class '.$this->arguments[2].' {
     #[Route(path: \'/\')]
     public function index() {
         
@@ -95,16 +99,14 @@ class '.$argv[2].' {
 }
 ');
 
-        echo Color::LIGHT_GREEN, 'Created controller \'' . $argv[2] . '\'', PHP_EOL, Color::RESET;
+        echo Color::LIGHT_GREEN, 'Created controller \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
     }
 
-    public static function newModel(): void {
-        global $argv;
-
-        $fileName = __DIR__ . '/../../models/' . $argv[2] . '.php';
+    public function newModel(): void {
+        $fileName = __DIR__ . '/../../models/' . $this->arguments[2] . '.php';
 
         if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Model \'' . $argv[2] . '\' already exists', PHP_EOL, Color::RESET;
+            echo Color::LIGHT_RED, 'Model \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
 
             return;
         }
@@ -122,21 +124,19 @@ namespace App\Models;
 
 use Melonly\Database\Model;
 
-class '.$argv[2].' extends Model {
+class '.$this->arguments[2].' extends Model {
     
 }
 ');
 
-        echo Color::LIGHT_GREEN, 'Created model \'' . $argv[2] . '\'', PHP_EOL, Color::RESET;
+        echo Color::LIGHT_GREEN, 'Created model \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
     }
 
-    public static function newTable(): void {
-        global $argv;
-
-        $fileName = __DIR__ . '/../../database/' . $argv[2] . '.melon';
+    public function newTable(): void {
+        $fileName = __DIR__ . '/../../database/' . $this->arguments[2] . '.melon';
 
         if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Table migration \'' . $argv[2] . '\' already exists', PHP_EOL, Color::RESET;
+            echo Color::LIGHT_RED, 'Table migration \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
 
             return;
         }
@@ -154,12 +154,16 @@ COLUMN created_at TYPE datetime
 COLUMN updated_at TYPE timestamp
 ');
 
-        echo Color::LIGHT_GREEN, 'Created table migration \'' . $argv[2] . '\'', PHP_EOL, Color::RESET;
+        echo Color::LIGHT_GREEN, 'Created table migration \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
     }
 
-    public static function test(): void {
+    public function test(): void {
         echo Color::LIGHT_GREEN, 'Running tests', PHP_EOL, Color::RESET;
 
         shell_exec('../vendor/bin/phpunit tests');
+    }
+
+    public function database(): void {
+
     }
 }
