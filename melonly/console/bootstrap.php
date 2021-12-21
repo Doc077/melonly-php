@@ -2,11 +2,13 @@
 
 use Codedungeon\PHPCliColors\Color;
 use LucidFrame\Console\ConsoleTable;
+use Melonly\Bootstrap\Application;
 use Melonly\Console\Console;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../utils/constants.php';
+require_once __DIR__ . '/../bootstrap/Application.php';
 require_once __DIR__ . '/Console.php';
+
+$app = new Application;
 
 /**
  * If command not supplied, list all commands.
@@ -19,7 +21,7 @@ if (!isset($argv) || !isset($argv[1]) || empty($argv[1])) {
     echo Color::LIGHT_BLUE, PHP_EOL;
 
     $table->addHeader('Generating files')
-        ->addHeader('Utility commands')
+        ->addHeader('Other commands')
         ->addRow()
         ->addColumn('new:component')
         ->addColumn('test')
@@ -67,13 +69,8 @@ if (preg_match('/new:(.*)/', $argv[1], $matches)) {
 /**
  * Call the corresponding command function.
  */
-switch ($argv[1]) {
-    case 'server':
-    case 'version':
-        $console->{$argv[1]}();
-
-        break;
-
-    default:
-        echo Color::LIGHT_RED, "Unknown command '{$argv[1]}'", PHP_EOL, Color::RESET;
+if (method_exists($console, $argv[1])) {
+    $console->{$argv[1]}();
+} else {
+    echo Color::LIGHT_RED, "Unknown command '{$argv[1]}'", PHP_EOL, Color::RESET;
 }

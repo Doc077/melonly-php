@@ -4,6 +4,7 @@ namespace Melonly\Console;
 
 use Codedungeon\PHPCliColors\Color;
 use LucidFrame\Console\ConsoleTable;
+use Melonly\Database\DB;
 
 class Console {
     protected array $arguments = [];
@@ -132,6 +133,42 @@ class '.$this->arguments[2].' extends Model {
         echo Color::LIGHT_GREEN, 'Created model \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
     }
 
+    public function newPage(): void {
+        $fileName = __DIR__ . '/../../views/pages/' . $this->arguments[2] . '.php';
+
+        if (file_exists($fileName)) {
+            echo Color::LIGHT_RED, 'Page \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
+
+            return;
+        }
+
+        /**
+         * Create folder if not exists.
+         */
+        if (!file_exists(__DIR__ . '/../../views/pages')) {
+            mkdir(__DIR__ . '/../../views/pages', 0777, true);
+        }
+
+        file_put_contents($fileName, '<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>' . ucfirst($this->arguments[2]) . '</title>
+    </head>
+
+    <body>
+        <main></main>
+    </body>
+</html>
+');
+
+        echo Color::LIGHT_GREEN, 'Created page \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
+    }
+
     public function newTable(): void {
         $fileName = __DIR__ . '/../../database/' . $this->arguments[2] . '.melon';
 
@@ -157,13 +194,111 @@ COLUMN updated_at TYPE timestamp
         echo Color::LIGHT_GREEN, 'Created table migration \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
     }
 
+    public function newView(): void {
+        $fileName = __DIR__ . '/../../views/' . $this->arguments[2] . '.php';
+
+        if (file_exists($fileName)) {
+            echo Color::LIGHT_RED, 'View \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
+
+            return;
+        }
+
+        /**
+         * Create folder if not exists.
+         */
+        if (!file_exists(__DIR__ . '/../../views')) {
+            mkdir(__DIR__ . '/../../views', 0777, true);
+        }
+
+        file_put_contents($fileName, '<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>' . ucfirst($this->arguments[2]) . '</title>
+    </head>
+
+    <body>
+        <main></main>
+    </body>
+</html>
+');
+
+        echo Color::LIGHT_GREEN, 'Created view \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
+    }
+
     public function test(): void {
         echo Color::LIGHT_GREEN, 'Running tests', PHP_EOL, Color::RESET;
 
         shell_exec('../vendor/bin/phpunit tests');
     }
 
-    public function database(): void {
+    public function migrate(): void {
+        /**
+         * Read all migration files.
+         */
+        $tables = [];
+        $migrations = [];
 
+        foreach (glob(__DIR__ . '/../../database/*.melon', GLOB_BRACE) as $file) {
+            $tableName = explode('/', $file);
+            $tableName = explode('.', end($tableName));
+
+            $tables[] = $tableName[0];
+            $migrations[] = $file;
+        }
+
+        $iteration = 0;
+
+        foreach ($migrations as $migration) {
+            $sql = '
+                CREATE TABLE IF NOT EXISTS `' . $tables[$iteration] . '` (
+            ';
+
+            /**
+             * Add columns.
+             */
+            $matchIter = 0;
+
+            foreach (file($migration) as $line) {
+                if (preg_match('/^COLUMN (.*) TYPE (.*).$/', $line, $matches)) {
+                    $type = $matches[2];
+
+                    $type = str_replace('text', 'varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL', $type);
+                    $type = str_replace('int', 'bigint(20) UNSIGNED NOT NULL', $type);
+                    $type = str_replace('id', 'bigint(20) UNSIGNED NOT NULL', $type);
+                    $type = str_replace('datetime', 'datetime DEFAULT CURRENT_TIMESTAMP', $type);
+                    $type = str_replace('timestamp', 'timestamp DEFAULT CURRENT_TIMESTAMP', $type);
+                    
+                    $sql .= '`' . $matches[1] . '` ' . $type . ($matchIter === count(file($migration)) - 1 ? '' : ',') . PHP_EOL;
+                }
+
+                $matchIter++;
+            }
+
+            /**
+             * End SQL code and execute it.
+             */
+            $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
+
+            DB::query($sql);
+
+            DB::query('
+                ALTER TABLE `' . $tables[$iteration] . '`
+                ADD PRIMARY KEY (`id`);
+            ');
+
+            DB::query('
+                ALTER TABLE `' . $tables[$iteration] . '`
+                MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+            ');
+
+            echo Color::LIGHT_GREEN, "Created table $tables[$iteration]", PHP_EOL, Color::RESET;
+
+            $iteration++;
+        }
     }
 }
