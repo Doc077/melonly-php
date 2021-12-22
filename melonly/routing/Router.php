@@ -28,7 +28,7 @@ class Router implements RouterInterface {
         if ($uri[0] === '/') {
             $uri = substr($uri, 1);
         }
-
+echo 'Added: ' .$uri.'<br>';
         /**
          * Convert HTTP method enum to string.
          */

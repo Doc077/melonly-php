@@ -7,15 +7,15 @@ use Countable;
 use Exception;
 
 class Vector implements ArrayAccess, Countable {
-    protected array $data = [];
+    protected array $items = [];
 
-    protected string $dataType = 'integer';
+    protected string $type = 'integer';
 
     protected bool $firstTimeEmpty = true;
 
     public function __construct(...$values) {
         $array = [...$values];
-        $this->data = $array;
+        $this->items = $array;
 
         if (count($array) > 0) {
             $type = gettype($array[0]);
@@ -26,26 +26,22 @@ class Vector implements ArrayAccess, Countable {
                 }
             }
 
-            $this->dataType = $type;
+            $this->type = $type;
 
             $this->firstTimeEmpty = false;
         }
-    }
-
-    public function count(): int {
-        return count($this->data);
     }
 
     protected function add(mixed $value): void {
-        if (count($this->data) === 0 && $this->firstTimeEmpty) {
-            $this->dataType = gettype($value);
+        if (count($this->items) === 0 && $this->firstTimeEmpty) {
+            $this->type = gettype($value);
 
             $this->firstTimeEmpty = false;
-        } elseif (gettype($value) !== $this->dataType) {
-            throw new Exception("This vector can only store values of type {$this->dataType}");
+        } elseif (gettype($value) !== $this->type) {
+            throw new Exception("This vector can only store values of type {$this->type}");
         }
 
-        $this->data[] = $value;
+        $this->items[] = $value;
     }
 
     public function offsetSet(mixed $offset, mixed $value): void {
@@ -61,7 +57,7 @@ class Vector implements ArrayAccess, Countable {
             return false;
         }
 
-        return isset($this->data[$offset]);
+        return isset($this->items[$offset]);
     }
 
     public function offsetGet(mixed $offset): mixed {
@@ -69,11 +65,31 @@ class Vector implements ArrayAccess, Countable {
             throw new Exception("Vector offset must be type of int");
         }
 
-        return $this->data[$offset];
+        return $this->items[$offset];
     }
 
     public function offsetUnset($offset): void {
-        unset($this->data[$offset]);
+        unset($this->items[$offset]);
+    }
+
+    public function all(): array {
+        return $this->items;
+    }
+
+    public function average(): float {
+        if ($this->type !== 'integer' || $this->type !== 'float' || $this->type !== 'double') {
+            throw new Exception("Cannot get average value of non-numeric vector");
+        }
+
+        $items = array_filter($this->items);
+
+        $avg = array_sum($items) / count($items);
+
+        return $avg;
+    }
+
+    public function count(): int {
+        return count($this->items);
     }
 
     public function append(...$values): void {
@@ -83,11 +99,11 @@ class Vector implements ArrayAccess, Countable {
     }
 
     public function length(): int {
-        return count($this->data);
+        return count($this->items);
     }
 
     public function map(callable $callback): Vector {
-        $array = array_map($callback, $this->data);
+        $array = array_map($callback, $this->items);
 
         $new = new self(...$array);
 
@@ -108,7 +124,7 @@ class Vector implements ArrayAccess, Countable {
             /**
              * In case of variadic arguments, merge them.
              */
-            $new = new self(...$this->data);
+            $new = new self(...$this->items);
 
             foreach ($values as $value) {
                 $new->add($value);
@@ -116,5 +132,9 @@ class Vector implements ArrayAccess, Countable {
         }
 
         return $new;
+    }
+
+    public static function range(int $from, int $to): static {
+        return new static(range($from, $to));
     }
 }

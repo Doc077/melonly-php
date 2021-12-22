@@ -10,7 +10,7 @@ use Melonly\Services\Container;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route {
-    public function __construct(string $path, string $class, HttpMethod $method = HttpMethod::Get) {
+    public function __construct(string $path, string $class, HttpMethod $method = HttpMethod::Get, array $data = []) {
         $classReflection = new ReflectionClass($class);
 
         $object = new $class();
@@ -18,9 +18,12 @@ class Route {
         foreach ($classReflection->getMethods() as $classMethod) {
             $methodReflection = new ReflectionMethod($classMethod->class, $classMethod->name);
 
-            $closure = $classReflection->getMethod($classMethod->name)->getClosure($object);
-
-            Container::get(Router::class)->add($method, $path, $closure);
+            //$closure = $classReflection->getMethod($classMethod->name)->getClosure($object);
+            $closure = [$object, $classMethod->name];
+            echo $path;
+            echo $classMethod->name;
+            echo $closure();
+            Container::get(Router::class)->add($method, $path, [$object, $classMethod->name], $data);
         }
     }
 }
