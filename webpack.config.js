@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
     entry: path.join(__dirname, 'assets', 'react', 'index.js'),
@@ -19,6 +19,13 @@ module.exports = {
                         presets: ['@babel/preset-env', '@babel/preset-react']
                     }
                 }
+            },
+            {
+                test: /\.s[ac]ss$/,
+                exclude: /node_modules/,
+                use: [
+                    'sass-loader'
+                ]
             }
         ]
     }

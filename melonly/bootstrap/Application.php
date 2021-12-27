@@ -6,6 +6,7 @@ use Throwable;
 use Exception;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionProperty;
 use Dotenv\Dotenv;
 use Melonly\Utilities\Autoloading\Autoloader;
 use Melonly\Services\Container;
@@ -94,13 +95,37 @@ class Application {
 
                     foreach ($methodReflection->getAttributes() as $attribute) {
                         try {
-                            $instance = $attribute->newInstance();
+                            // TODO: Forward parameters to instance getArguments()
+                            $instance = $attribute->newInstance(...$attribute->getArguments());
                         } catch (Throwable) {
                             continue;
                         }
 
                         if (!$instance instanceof Route) {
                             continue;
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Initialize models with column data types.
+             */
+            foreach (getNamespaceClasses('App\Models') as $class) {
+                $modelReflection = new ReflectionClass('\App\Models\\' . $class);
+
+                /**
+                 * Get all model class properties.
+                 */
+                $properties = $modelReflection->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
+
+                /**
+                 * Assign types to column names.
+                 */
+                foreach ($properties as $property) {
+                    foreach ($property->getAttributes() as $attribute) {
+                        if ($attribute->getName() === 'Melonly\Database\Attributes\Column') {
+                            ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = $attribute->getArguments()['type'];
                         }
                     }
                 }

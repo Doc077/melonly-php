@@ -19,7 +19,7 @@ class ExceptionHandler {
         }
 
         /**
-         * If CLI mode is enabled, show error line.
+         * If CLI mode is enabled, show exception line.
          */
         if (php_sapi_name() === 'cli') {
             echo Color::LIGHT_RED, 'Exception: ' . $exception->getMessage(), PHP_EOL, Color::RESET;
@@ -37,22 +37,22 @@ class ExceptionHandler {
         $url = rtrim(Url::full(), '/');
 
         /**
-         * Get error file lines count and content.
+         * Get exception file lines count and content.
          */
         $linesCount = 0;
 
         $linesCount = File::lines($exception->getFile());
 
-        $errorFile = $exception->getFile();
+        $exceptionFile = $exception->getFile();
 
         /**
-         * If error occured in a view, replace file to uncompiled template.
+         * If exception occured in a view, replace file to uncompiled template.
          */
-        if (strpos($errorFile, 'storage\views') !== false) {
-            $errorFile = $GLOBALS['CURRENT_VIEW'];
+        if (strpos($exceptionFile, 'storage\views') !== false) {
+            $exceptionFile = $GLOBALS['CURRENT_VIEW'];
         }
 
-        $fileContent = file($errorFile);
+        $fileContent = file($exceptionFile);
 
         include __DIR__ . '/utils/exception-page.php';
 
@@ -60,7 +60,7 @@ class ExceptionHandler {
     }
 }
 
-set_error_handler(function (int | string $code, string $message, string $file, int $line) {
+set_exception_handler(function (int | string $code, string $message, string $file, int $line) {
     $notice = new Notice($code, $message, $file, $line);
 
     ExceptionHandler::handle($notice);

@@ -7,17 +7,19 @@ use Melonly\Support\Containers\Vector;
 abstract class Model {
     protected string $table;
 
+    public static array $columnTypes = [];
+
     protected static function getTable(): string {
-        $className = explode('\\', static::class);
-        $className = strtolower(end($className)) . 's';
+        $tableName = explode('\\', static::class);
+        $tableName = strtolower(end($tableName)) . 's';
 
         $instance = new static();
 
         if (isset($instance->table)) {
-            $className = $instance->table;
+            $tableName = $instance->table;
         }
 
-        return $className;
+        return $tableName;
     }
 
     public static function all(): Vector | Record | array {
@@ -38,15 +40,17 @@ abstract class Model {
         );
     }
 
-    public static function __callStatic(string $method, array $args) {
+    public static function __callStatic(string $method, array $args): mixed {
         switch ($method) {
-            case 'getTable':
             case 'all':
             case 'create':
+            case 'getTable':
+                return self::{$method}(...$args);
+
                 break;
 
             default:
-                return (new Query())->{$method};
+                return (new Query())->setTable(self::getTable())->{$method}(...$args);
         }
     }
 }

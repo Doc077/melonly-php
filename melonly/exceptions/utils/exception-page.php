@@ -21,7 +21,7 @@
             <h1 class="header">Exception: <?= $exception->getMessage() ?? 'Error' ?></h1>
 
             <p class="info">
-                <span class="info__value">File:</span> <strong class="bold"><?= $exceptionrrorFile ?? 'Unknown' ?></strong>
+                <span class="info__value">File:</span> <strong class="bold"><?= $exceptionFile ?? 'Unknown' ?></strong>
             </p>
 
             <p class="info">
@@ -29,12 +29,18 @@
             </p>
 
             <p class="info">
-                <span class="info__value">URL:</span> <strong class="bold"><?= $url ?? 'Unknown' ?></strong>
+                <span class="info__value">URI:</span> <strong class="bold"><?= $url ?? 'Unknown' ?></strong>
             </p>
 
             <p class="info">
                 <span class="info__value">HTTP Method:</span> <strong class="bold"><?= $_SERVER['REQUEST_METHOD'] ?? 'Unknown' ?></strong>
             </p>
+
+            <?php if ($exception->getCode() > 0): ?>
+                <p class="info">
+                    <span class="info__value">Exception code:</span> <strong class="bold">#<?= $exception->getCode() ?></strong>
+                </p>
+            <?php endif; ?>
 
             <?php if (!empty($fileContent)): ?>
                 <pre class="pre prettyprint"><code class="code">
