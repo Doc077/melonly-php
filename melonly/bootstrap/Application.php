@@ -128,7 +128,7 @@ class Application {
                             /**
                              * Check whether field is nullable or not.
                              */
-                            if ($attribute->getArguments()['nullable']) {
+                            if (array_key_exists('nullable', $attribute->getArguments()) && $attribute->getArguments()['nullable']) {
                                 ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = [$attribute->getArguments()['type'], 'null'];
                             } else {
                                 ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = [$attribute->getArguments()['type']];
