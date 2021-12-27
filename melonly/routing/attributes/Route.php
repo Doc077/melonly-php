@@ -20,9 +20,7 @@ class Route {
 
             //$closure = $classReflection->getMethod($classMethod->name)->getClosure($object);
             $closure = [$object, $classMethod->name];
-            echo $path;
-            echo $classMethod->name;
-            echo $closure();
+
             Container::get(Router::class)->add($method, $path, [$object, $classMethod->name], $data);
         }
     }

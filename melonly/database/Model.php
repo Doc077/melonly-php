@@ -20,7 +20,7 @@ abstract class Model {
         return $className;
     }
 
-    public static function all(): Vector | Record {
+    public static function all(): Vector | Record | array {
         return DB::query('SELECT * FROM ' . self::getTable());
     }
 
@@ -36,5 +36,17 @@ abstract class Model {
         DB::query(
             'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $columns) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
         );
+    }
+
+    public static function __callStatic(string $method, array $args) {
+        switch ($method) {
+            case 'getTable':
+            case 'all':
+            case 'create':
+                break;
+
+            default:
+                return (new Query())->{$method};
+        }
     }
 }

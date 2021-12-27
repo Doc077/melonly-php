@@ -45,9 +45,9 @@ class Vector implements ArrayAccess, Countable {
     }
 
     public function offsetSet(mixed $offset, mixed $value): void {
-        if (!is_int($offset)) {
-            throw new Exception("Vector offset must be type of int");
-        }
+        // if (!is_int($offset)) {
+        //     throw new Exception("Vector offset must be type of int");
+        // }
 
         $this->add($value);
     }
@@ -103,11 +103,15 @@ class Vector implements ArrayAccess, Countable {
     }
 
     public function map(callable $callback): Vector {
-        $array = array_map($callback, $this->items);
+        $items = array_map($callback, $this->items, array_keys($this->items));
 
-        $new = new self(...$array);
-
+        $new = new static(array_combine(array_keys($this->items), $items));
+// clone $this
         return $new;
+    }
+
+    public function forEach(callable $callback): void {
+        array_map($callback, $this->items);
     }
 
     public function merge(...$values): Vector {

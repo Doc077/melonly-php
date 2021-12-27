@@ -22,7 +22,7 @@ class ExceptionHandler {
          * If CLI mode is enabled, show error line.
          */
         if (php_sapi_name() === 'cli') {
-            echo Color::LIGHT_RED, $exception->getMessage(), PHP_EOL, Color::RESET;
+            echo Color::LIGHT_RED, 'Exception: ' . $exception->getMessage(), PHP_EOL, Color::RESET;
 
             exit;
         }

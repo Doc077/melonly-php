@@ -8,7 +8,7 @@ use Melonly\Support\Containers\Vector;
 use Melonly\Exceptions\ExceptionHandler;
 
 class DB implements DBInterface {
-    public static function query(string $sql, array $boundParams = []): mixed {
+    public static function query(string $sql, array $boundParams = []): Vector | Record | array {
         try {
             $pdo = Container::get(DBConnection::class)->getConnection();
 
@@ -27,6 +27,13 @@ class DB implements DBInterface {
             $query->execute();
 
             $result = $query->fetchAll();
+
+            /**
+             * Return element if SELECT query fetched only one element.
+             */
+            if (is_array($result[0] && count($result[0]) === 1)) {
+                return $result[0];
+            }
 
             /**
              * Create record objects for fetched records.
