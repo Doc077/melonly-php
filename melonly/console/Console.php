@@ -92,7 +92,7 @@ namespace App\Controllers;
 
 use Melonly\Routing\Attributes\Route;
 
-class '.$this->arguments[2].' {
+class ' . $this->arguments[2] . ' {
     #[Route(path: \'/\')]
     public function index() {
         
@@ -124,9 +124,15 @@ class '.$this->arguments[2].' {
 namespace App\Models;
 
 use Melonly\Database\Model;
+use Melonly\Database\Attributes\Column;
+use Melonly\Database\Attributes\IncrementingID;
 
-class '.$this->arguments[2].' extends Model {
-    
+class ' . $this->arguments[2] . ' extends Model {
+    #[IncrementingID]
+    public $id;
+
+    #[Column(type: \'string\')]
+    public $name;
 }
 ');
 
@@ -186,7 +192,7 @@ class '.$this->arguments[2].' extends Model {
         }
 
         file_put_contents($fileName, 'COLUMN id TYPE id
-COLUMN column_name TYPE text
+COLUMN name TYPE text
 COLUMN created_at TYPE datetime
 COLUMN updated_at TYPE timestamp
 ');

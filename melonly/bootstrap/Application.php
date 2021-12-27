@@ -125,7 +125,16 @@ class Application {
                 foreach ($properties as $property) {
                     foreach ($property->getAttributes() as $attribute) {
                         if ($attribute->getName() === 'Melonly\Database\Attributes\Column') {
-                            ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = $attribute->getArguments()['type'];
+                            /**
+                             * Check whether field is nullable or not.
+                             */
+                            if ($attribute->getArguments()['nullable']) {
+                                ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = [$attribute->getArguments()['type'], 'null'];
+                            } else {
+                                ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = [$attribute->getArguments()['type']];
+                            }
+                        } elseif ($attribute->getName() === 'Melonly\Database\Attributes\IncrementingID') {
+                            ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = 'id';
                         }
                     }
                 }

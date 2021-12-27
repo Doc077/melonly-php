@@ -3,8 +3,8 @@
 use Melonly\Bootstrap\Application;
 
 /**
- * Path to framework files.
- * Change this path when moving to server from local environment.
+ * Framework files path.
+ * Adjust this path when moving to server from local environment.
  */
 const INCLUDE_PATH = '/../melonly';
 
