@@ -16,8 +16,8 @@ Router::get('/', function (Request $request, Response $response): void {
     ]);
 });
 
-Router::post('/login', function (Request $request, Response $response): void {
-    Validator::rules([
-        'username' => ['required', 'min:3', 'max:32']
-    ]);
-});
+// Router::post('/login', function (Request $request, Response $response): void {
+//     Validator::rules([
+//         'username' => ['required', 'min:3', 'max:32']
+//     ]);
+// });

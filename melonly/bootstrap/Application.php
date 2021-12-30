@@ -97,8 +97,9 @@ class Application {
                     $methodReflection = new ReflectionMethod($method->class, $method->name);
 
                     foreach ($methodReflection->getAttributes() as $attribute) {
-                        if ($attribute->getName() === 'Melonly\Routing\Attributes\Route') {
-                            $instance = $attribute->newInstance();
+                        if ($attribute->getName() === Route::class) {
+                            //$attribute->newInstance(...array_values($attribute->getArguments()));
+                            new Route(...$attribute->getArguments(), class: $method->class);
                         }
                     }
                 }
