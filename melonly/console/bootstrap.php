@@ -8,7 +8,7 @@ use Melonly\Console\Console;
 require_once __DIR__ . '/../bootstrap/Application.php';
 require_once __DIR__ . '/Console.php';
 
-$app = new Application;
+$app = new Application();
 
 /**
  * If command not supplied, list all commands.

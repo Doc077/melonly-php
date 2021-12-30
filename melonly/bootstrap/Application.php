@@ -86,23 +86,19 @@ class Application {
              * Here application will register HTTP routes.
              */
             foreach (getNamespaceClasses('App\Controllers') as $class) {
-                $controller = new ReflectionClass('\App\Controllers\\' . $class);
+                $controllerReflection = new ReflectionClass('\App\Controllers\\' . $class);
 
-                $methods = $controller->getMethods(ReflectionMethod::IS_PUBLIC);
+                /**
+                 * Get all controller public methods.
+                 */
+                $methods = $controllerReflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
                 foreach ($methods as $method) {
                     $methodReflection = new ReflectionMethod($method->class, $method->name);
 
                     foreach ($methodReflection->getAttributes() as $attribute) {
-                        try {
-                            // TODO: Forward parameters to instance getArguments()
-                            $instance = $attribute->newInstance(...$attribute->getArguments());
-                        } catch (Throwable) {
-                            continue;
-                        }
-
-                        if (!$instance instanceof Route) {
-                            continue;
+                        if ($attribute->getName() === 'Melonly\Routing\Attributes\Route') {
+                            $instance = $attribute->newInstance();
                         }
                     }
                 }

@@ -2,7 +2,6 @@
 
 namespace Melonly\Routing;
 
-use Closure;
 use Exception;
 use ReflectionFunction;
 use ReflectionException;
@@ -146,20 +145,20 @@ class Router implements RouterInterface {
                 }
 
                 /**
-                 * Call route action in case of Closure argument.
+                 * Call route action in case of callable argument.
                  */
-                if ($this->actions[$pattern] instanceof Closure) {
+                if (is_callable($this->actions[$pattern])) {
                     if (isset($parameters) && isset($parameters[1])) {
                         Container::get(Request::class)->setParameter(explode('?', $parameters[1])[0]);
                     }
 
                     /**
-                     * Inject services to closure.
+                     * Inject services to callable.
                      */
                     try {
                         $reflector = new ReflectionFunction($this->actions[$pattern]);
                     } catch (ReflectionException) {
-                        throw new Exception('Cannot create instance of service');
+                        throw new Exception('Cannot create instance of a service');
                     }
 
                     $services = [];
@@ -171,7 +170,7 @@ class Router implements RouterInterface {
                     }
 
                     /**
-                     * Execute closure from controller.
+                     * Execute callable from controller.
                      */
                     $this->actions[$pattern](...$services);
 

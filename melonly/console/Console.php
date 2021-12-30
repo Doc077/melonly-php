@@ -23,11 +23,11 @@ class Console {
         echo Color::LIGHT_BLUE, PHP_EOL;
     
         $table->addHeader('Version')
-            ->addHeader('Release date')
+            ->addHeader('Released')
             ->addHeader('Author')
             ->addRow()
             ->addColumn(MELONLY_VERSION . ' STABLE RELEASE')
-            ->addColumn('Dec 2021')
+            ->addColumn('Jan 2022')
             ->addColumn('Dominik Rajkowski (dom.rajkowski@gmail.com)')
             ->display();
         

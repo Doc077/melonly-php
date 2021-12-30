@@ -10,14 +10,14 @@ use Melonly\Routing\Attributes\Route;
 class LoginController {
     #[Route(path: '/login', class: self::class)]
     public function index(Request $request, Response $response) {
-        echo'WORKS PARTIALLY';
+        echo 'WORKS PARTIALLY';
         $response->send('IT WORKS');
-        return 6;
+        return 'login route';
     }
 
     #[Route(path: '/register', method: HttpMethod::Post, class: self::class)]
     public function register() {
-        // 
-        return 7;
+        echo 'works register';
+        return 'register route';
     }
 }
