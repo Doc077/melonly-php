@@ -14,6 +14,7 @@ use Melonly\Routing\Router;
 use Melonly\Routing\Attributes\Route;
 use Melonly\Support\Helpers\Str;
 use Melonly\Exceptions\ExceptionHandler;
+use Melonly\Database\Attributes\Column;
 
 class Application {
     protected const INCLUDE_FOLDERS = [
@@ -98,7 +99,9 @@ class Application {
 
                     foreach ($methodReflection->getAttributes() as $attribute) {
                         if ($attribute->getName() === Route::class) {
-                            //$attribute->newInstance(...array_values($attribute->getArguments()));
+                            /**
+                             * Create new attribute instance.
+                             */
                             new Route(...$attribute->getArguments(), class: $method->class);
                         }
                     }
@@ -121,17 +124,17 @@ class Application {
                  */
                 foreach ($properties as $property) {
                     foreach ($property->getAttributes() as $attribute) {
-                        if ($attribute->getName() === 'Melonly\Database\Attributes\Column') {
+                        if ($attribute->getName() === Column::class) {
                             /**
                              * Check whether field is nullable or not.
                              */
                             if (array_key_exists('nullable', $attribute->getArguments()) && $attribute->getArguments()['nullable']) {
-                                ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = [$attribute->getArguments()['type'], 'null'];
+                                ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [$attribute->getArguments()['type'], 'null'];
                             } else {
-                                ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = [$attribute->getArguments()['type']];
+                                ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [$attribute->getArguments()['type']];
                             }
                         } elseif ($attribute->getName() === 'Melonly\Database\Attributes\IncrementingID') {
-                            ('\App\Models\\' . $class)::$columnTypes[$property->getName()] = 'id';
+                            ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = 'id';
                         }
                     }
                 }
@@ -143,7 +146,7 @@ class Application {
                  */
                 $uri = $_SERVER['REQUEST_URI'];
 
-                if (!array_key_exists('extension', pathinfo($uri)) && (bool) env('APP_OUTPUT_COMPRESS')) {
+                if (!array_key_exists('extension', pathinfo($uri)) && env('APP_OUTPUT_COMPRESS') === 'true') {
                     ob_start(function (string $buffer): string {
                         $search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'];
                         $replace = ['>', '<', '\\1'];

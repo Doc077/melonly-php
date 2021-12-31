@@ -5,7 +5,7 @@ namespace Melonly\Database\Attributes;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class IncrementingID {
+class IncrementingPrimaryKey {
     public function __construct() {
         // 
     }

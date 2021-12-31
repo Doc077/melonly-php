@@ -2,12 +2,13 @@
 
 namespace Melonly\Database;
 
+use Exception;
 use Melonly\Support\Containers\Vector;
 
 abstract class Model {
     protected string $table;
 
-    public static array $columnTypes = [];
+    public static array $fieldTypes = [];
 
     protected static function getTable(): string {
         $tableName = explode('\\', static::class);
@@ -27,19 +28,32 @@ abstract class Model {
     }
 
     public static function create(array $data): void {
-        $columns = [];
+        $fields = [];
         $values = [];
 
-        foreach ($data as $column => $value) {
-            $columns[] = $column;
+        foreach ($data as $field => $value) {
+            /**
+             * Compare values with registered model data types.
+             * Types are supplied by model attributes.
+             */
+            if (self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== gettype($value)) {
+                $typeName = self::$fieldTypes[$field];
+
+                throw new Exception("Invalid model data type: field $field must be type of {$typeName}");
+            }
+
+            $fields[] = $field;
             $values[] = $value;
         }
 
         DB::query(
-            'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $columns) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
+            'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $fields) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
         );
     }
 
+    /**
+     * Handle all static calls for query builder interface.
+     */
     public static function __callStatic(string $method, array $args): mixed {
         switch ($method) {
             case 'all':

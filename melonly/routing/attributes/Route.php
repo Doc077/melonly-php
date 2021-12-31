@@ -4,7 +4,6 @@ namespace Melonly\Routing\Attributes;
 
 use Attribute;
 use ReflectionClass;
-use ReflectionMethod;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
@@ -17,16 +16,7 @@ class Route {
         $object = new $class();
 
         foreach ($classReflection->getMethods() as $classMethod) {
-            $methodReflection = new ReflectionMethod($classMethod->class, $classMethod->name);
-
             $closure = $classReflection->getMethod($classMethod->name)->getClosure($object);
-            // $closure = function () use ($class, $classMethod) {
-            //     $class = '\\' . $class;
-            //     $controller = new $class();
-
-            //     echo $controller->{$classMethod->name}();
-            //     echo 5555;
-            // };
 
             Container::get(Router::class)->add($method, $path, $closure, $data);
         }

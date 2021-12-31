@@ -51,7 +51,6 @@ class View implements ViewInterface {
             'Auth' => 'Melonly\Authentication\Auth',
             'DB' => 'Melonly\Database\DB',
             'File' => 'Melonly\Filesystem\File',
-            'Http' => 'Melonly\Http\Http',
             'Str' => 'Melonly\Support\Helpers\Str',
             'Time' => 'Melonly\Support\Helpers\Time',
             'Url' => 'Melonly\Http\Url',

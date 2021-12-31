@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Melonly\Database\Model;
 use Melonly\Database\Attributes\Column;
-use Melonly\Database\Attributes\IncrementingID;
+use Melonly\Database\Attributes\IncrementingPrimaryKey;
 
 class User extends Model {
-    #[IncrementingID]
+    #[IncrementingPrimaryKey]
     public $id;
 
     #[Column(type: 'string')]
