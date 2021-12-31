@@ -189,7 +189,7 @@ class Router implements RouterInterface {
 
                         $file = __DIR__ . '/../../views/' . $view . '.html';
 
-                        $GLOBALS['CURRENT_VIEW'] = $file;
+                        View::$currentView = $file;
 
                         $compiled = View::compile($file);
 

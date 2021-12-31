@@ -10,6 +10,7 @@ use Codedungeon\PHPCliColors\Color;
 use Melonly\Services\Container;
 use Melonly\Filesystem\File;
 use Melonly\Http\Response;
+use Melonly\Views\View;
 use Melonly\Http\Url;
 
 class ExceptionHandler {
@@ -49,7 +50,7 @@ class ExceptionHandler {
          * If exception occured in a view, replace file to uncompiled template.
          */
         if (strpos($exceptionFile, 'storage\views') !== false) {
-            $exceptionFile = $GLOBALS['CURRENT_VIEW'];
+            $exceptionFile = View::$currentView;
         }
 
         $fileContent = file($exceptionFile);

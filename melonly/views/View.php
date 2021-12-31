@@ -2,7 +2,11 @@
 
 namespace Melonly\Views;
 
+use Exception;
+
 class View implements ViewInterface {
+    public static string | null $currentView = null;
+
     public static function compile(string $file): string {
         $content = file_get_contents($file);
 
@@ -47,18 +51,49 @@ class View implements ViewInterface {
          * Add necessary namespaces.
          */
         $namespaces = [
-            'Arr' => 'Melonly\Support\Helpers\Arr',
-            'Auth' => 'Melonly\Authentication\Auth',
-            'DB' => 'Melonly\Database\DB',
-            'File' => 'Melonly\Filesystem\File',
-            'Str' => 'Melonly\Support\Helpers\Str',
-            'Time' => 'Melonly\Support\Helpers\Time',
-            'Url' => 'Melonly\Http\Url',
-            'Vector' => 'Melonly\Support\Containers\Vector',
+            'Arr' => \Melonly\Support\Helpers\Arr::class,
+            'Auth' => \Melonly\Authentication\Auth::class,
+            'DB' => \Melonly\Database\DB::class,
+            'File' => \Melonly\Filesystem\File::class,
+            'Str' => \Melonly\Support\Helpers\Str::class,
+            'Time' => \Melonly\Support\Helpers\Time::class,
+            'Url' => \Melonly\Http\Url::class,
+            'Vector' => \Melonly\Support\Containers\Vector::class
         ];
 
         foreach ($namespaces as $key => $value) {
             $content = str_replace($key . '::', $value . '::', $content);
+        }
+
+        /**
+         * Get all registered components and compile component tags.
+         */
+        if (file_exists(__DIR__ . '/../../views/components')) {
+            $componentFiles = array_diff(scandir(__DIR__ . '/../../views/components'), ['.', '..']);
+
+            foreach ($componentFiles as $componentFile) {
+                $name = explode('.html', $componentFile)[0];
+
+                /**
+                 * Handle self-closing tags.
+                 */
+                $content = preg_replace(
+                    '/<' . $name . '( (.*)="(.*)")* ?\/>/',
+                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
+
+                    $content
+                );
+
+                /**
+                 * Handle opening & closing tags.
+                 */
+                $content = preg_replace(
+                    '/<' . $name . '( (.*)="(.*)")* ?>(?<slot>.*?)<\/' . $name . '>/',
+                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
+
+                    $content
+                );
+            }
         }
 
         /**
@@ -70,5 +105,30 @@ class View implements ViewInterface {
         file_put_contents($filename, $content);
 
         return $filename;
+    }
+
+    public static function renderComponent(string $file, array $attributes = []): void {//echo 'render';
+        if (!file_exists(__DIR__ . '/../../views/components/' . $file)) {
+            throw new Exception('Component "' . $file . '" does not exist');
+        }
+
+        $file = __DIR__ . '/../../views/components/' . $file;
+
+        self::$currentView = $file;
+
+        $compiled = self::compile($file);
+
+        /**
+         * Get passed variables and include compiled view.
+         */
+        extract($attributes);
+        ob_start();
+
+        include $compiled;
+
+        /**
+         * Remove temporary file.
+         */
+        unlink($compiled);
     }
 }
