@@ -47,13 +47,15 @@ class ExceptionHandler {
         $exceptionFile = $exception->getFile();
 
         /**
-         * If exception occured in a view, replace file to uncompiled template.
+         * If exception occured in a view, replace the file with uncompiled template.
          */
         if (strpos($exceptionFile, 'storage\views') !== false) {
             $exceptionFile = View::$currentView;
         }
 
         $fileContent = file($exceptionFile);
+
+        $exceptionType = get_class($exception);
 
         include __DIR__ . '/utils/exception-page.php';
 

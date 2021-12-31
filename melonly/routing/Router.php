@@ -183,28 +183,7 @@ class Router implements RouterInterface {
                     if ($view !== null) {
                         $view = str_replace('.', '/', $view);
 
-                        if (!file_exists(__DIR__ . '/../../views/' . $view . '.html')) {
-                            throw new Exception("View file '$view' does not exist");
-                        }
-
-                        $file = __DIR__ . '/../../views/' . $view . '.html';
-
-                        View::$currentView = $file;
-
-                        $compiled = View::compile($file);
-
-                        /**
-                         * Get passed variables and include compiled view.
-                         */
-                        extract($viewVariables);
-                        ob_start();
-
-                        include $compiled;
-
-                        /**
-                         * Remove temporary file.
-                         */
-                        unlink($compiled);
+                        View::renderView($view, $viewVariables);
 
                         return;
                     }

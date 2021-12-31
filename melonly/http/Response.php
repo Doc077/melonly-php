@@ -140,22 +140,29 @@ class Response {
 
     protected int $status = self::OK;
 
-    public function abort($status, $text = false): never {
+    public function abort(int $status, string | bool $text = false): never {
         http_response_code($status);
 
         ob_end_clean();
 
-        $text = 'Status';
+        $text = '';
 
         if (!in_array($status, [401, 403, 404, 419, 429, 500, 503])) {
-            throw new Exception("Aborted with status {$status}");
+            throw new Exception("Aborted with code {$status}");
         }
 
         if (array_key_exists($status, self::$statusDescriptions)) {
             $text = self::$statusDescriptions[$status];
         }
 
-        include __DIR__ . '/utils/status-page.php';
+        /**
+         * Include custom view or predefined one.
+         */
+        if (file_exists($view = __DIR__ . '/../../views/pages/errors/' . $status . '.html')) {
+            include $view;
+        } else {
+            include __DIR__ . '/utils/status-page.php';
+        }
 
         exit;
     }
@@ -176,7 +183,7 @@ class Response {
         $this->status = $code;
     }
 
-    public function redirect($uri, $data = []): void {
+    public function redirect(string $uri, array $data = []): void {
         foreach ($data as $key => $value) {
             $_SESSION['MELONLY_FLASH_' . $key] = $value;
         }
@@ -186,7 +193,7 @@ class Response {
         exit;
     }
 
-    public function redirectBack($data = []): never {
+    public function redirectBack(array $data = []): never {
         foreach ($data as $key => $value) {
             $_SESSION['MELONLY_FLASH_' . $key] = $value;
         }
@@ -200,7 +207,7 @@ class Response {
         exit;
     }
 
-    public function view($name, $variables = []): void {
+    public function view(string $name, array $variables = []): void {
         $this->view = $name;
         $this->viewVariables = $variables;
     }

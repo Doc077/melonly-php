@@ -107,9 +107,35 @@ class View implements ViewInterface {
         return $filename;
     }
 
-    public static function renderComponent(string $file, array $attributes = []): void {//echo 'render';
+    public static function renderView(string $file, array $variables = []): void {
+        if (!file_exists(__DIR__ . '/../../views/' . $file . '.html')) {
+            throw new Exception("View '$file' does not exist");
+        }
+
+        $file = __DIR__ . '/../../views/' . $file . '.html';
+
+        self::$currentView = $file;
+
+        $compiled = self::compile($file);
+
+        /**
+         * Get passed variables and include compiled view.
+         */
+        extract($variables);
+
+        ob_start();
+
+        include $compiled;
+
+        /**
+         * Remove temporary file.
+         */
+        unlink($compiled);
+    }
+
+    public static function renderComponent(string $file, array $attributes = []): void {
         if (!file_exists(__DIR__ . '/../../views/components/' . $file)) {
-            throw new Exception('Component "' . $file . '" does not exist');
+            throw new Exception("Component '$file' does not exist");
         }
 
         $file = __DIR__ . '/../../views/components/' . $file;
@@ -122,6 +148,7 @@ class View implements ViewInterface {
          * Get passed variables and include compiled view.
          */
         extract($attributes);
+
         ob_start();
 
         include $compiled;
