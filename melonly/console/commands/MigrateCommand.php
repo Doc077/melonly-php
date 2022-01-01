@@ -17,7 +17,7 @@ return new class extends Command {
         $tables = [];
         $migrations = [];
 
-        foreach (glob(__DIR__ . '/../../database/*.melon', GLOB_BRACE) as $file) {
+        foreach (glob(__DIR__ . '/../../../database/*.melon', GLOB_BRACE) as $file) {
             $tableName = explode('/', $file);
             $tableName = explode('.', end($tableName));
 

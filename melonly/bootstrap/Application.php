@@ -133,7 +133,7 @@ class Application {
                             } else {
                                 ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [$attribute->getArguments()['type']];
                             }
-                        } elseif ($attribute->getName() === 'Melonly\Database\Attributes\IncrementingID') {
+                        } elseif ($attribute->getName() === \Melonly\Database\Attributes\PrimaryKey::class) {
                             ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = 'id';
                         }
                     }

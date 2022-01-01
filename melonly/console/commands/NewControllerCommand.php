@@ -10,7 +10,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../controllers/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../controllers/' . $this->arguments[2] . '.php';
 
         if (file_exists($fileName)) {
             echo Color::LIGHT_RED, 'Controller \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
@@ -21,8 +21,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!file_exists(__DIR__ . '/../../controllers')) {
-            mkdir(__DIR__ . '/../../controllers', 0777, true);
+        if (!file_exists(__DIR__ . '/../../../controllers')) {
+            mkdir(__DIR__ . '/../../../controllers', 0777, true);
         }
 
         file_put_contents($fileName, '<?php
@@ -39,6 +39,6 @@ class ' . $this->arguments[2] . ' {
 }
 ');
 
-        echo Color::LIGHT_GREEN, 'Created controller \'' . $this->arguments[2] . '\'', PHP_EOL, Color::RESET;
+        echo Color::LIGHT_GREEN, "Created controller '{$this->arguments[2]}'", PHP_EOL, Color::RESET;
     }
 };

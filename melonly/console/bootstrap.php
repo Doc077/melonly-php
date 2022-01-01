@@ -5,7 +5,6 @@ use LucidFrame\Console\ConsoleTable;
 use Melonly\Bootstrap\Application;
 
 require_once __DIR__ . '/../bootstrap/Application.php';
-require_once __DIR__ . '/Console.php';
 require_once __DIR__ . '/Command.php';
 
 $app = new Application();
