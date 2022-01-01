@@ -36,10 +36,12 @@ abstract class Model {
              * Compare values with registered model data types.
              * Types are supplied by model attributes.
              */
-            if (self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== gettype($value)) {
-                $typeName = self::$fieldTypes[$field];
-
-                throw new Exception("Invalid model data type: field $field must be type of {$typeName}");
+            if (self::$fieldTypes[$field] !== 'id') {
+                foreach (self::$fieldTypes[$field] as $type) {
+                    if (self::$fieldTypes[$field] !== gettype($value)) {
+                        throw new Exception("Invalid model data type: field $field must be type of {$type}");
+                    }
+                }
             }
 
             $fields[] = $field;

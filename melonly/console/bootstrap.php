@@ -3,10 +3,10 @@
 use Codedungeon\PHPCliColors\Color;
 use LucidFrame\Console\ConsoleTable;
 use Melonly\Bootstrap\Application;
-use Melonly\Console\Console;
 
 require_once __DIR__ . '/../bootstrap/Application.php';
 require_once __DIR__ . '/Console.php';
+require_once __DIR__ . '/Command.php';
 
 $app = new Application();
 
@@ -49,16 +49,16 @@ if (!isset($argv) || !isset($argv[1]) || empty($argv[1])) {
     exit;
 }
 
-$console = new Console();
-
 /**
  * Handle commands with 'new:'.
  */
 if (preg_match('/new:(.*)/', $argv[1], $matches)) {
-    $method = 'new' . ucfirst($matches[1]);
+    $name = 'New' . ucfirst($matches[1]);
 
-    if (method_exists($console, $method)) {
-        $console->$method();
+    if (file_exists($file = __DIR__ . '/commands/' . $name . 'Command.php')) {
+        $command = require_once $file;
+
+        (new $command())->handle();
     } else {
         echo Color::LIGHT_RED, "Unknown command '{$argv[1]}' or cannot create new instance of '{$matches[1]}'", PHP_EOL, Color::RESET;
     }
@@ -69,8 +69,10 @@ if (preg_match('/new:(.*)/', $argv[1], $matches)) {
 /**
  * Call the corresponding command function.
  */
-if (method_exists($console, $argv[1])) {
-    $console->{$argv[1]}();
+if (file_exists($file = __DIR__ . '/commands/' . ucfirst($argv[1]) . 'Command.php')) {
+    $command = require_once $file;
+
+    (new $command())->handle();
 } else {
     echo Color::LIGHT_RED, "Unknown command '{$argv[1]}'", PHP_EOL, Color::RESET;
 }

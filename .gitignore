@@ -1,8 +1,8 @@
 /node_modules
 /vendor
-.config
+/public/data
+/melonly/storage/views/*
 npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/melonly/storage/views/*
