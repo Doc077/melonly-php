@@ -6,13 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-docblock/src'),
+    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
+    'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
+    'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
+    'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
     'Pusher\\' => array($vendorDir . '/pusher/pusher-php-server/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
@@ -29,5 +32,6 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Codedungeon\\PHPCliColors\\' => array($vendorDir . '/codedungeon/php-cli-colors/src'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
+    'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'Ably\\' => array($vendorDir . '/ably/ably-php/src'),
 );

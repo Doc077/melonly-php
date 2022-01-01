@@ -6,7 +6,7 @@ use Melonly\Http\Response;
 use Melonly\Validation\Validator;
 use App\Models\User;
 
-//echo vect(1, 2, 3)->map(fn ($item, $i) => $item + $i)[1];
+echo vector(1, 2, 3)->map(fn ($item, $i) => $item + $i)[1];
 Router::get('/', function (Request $request, Response $response): void {
     $user = User::where('id', '=', 1)->orWhere('age', '>', 10)->fetch();
 
@@ -16,7 +16,7 @@ Router::get('/', function (Request $request, Response $response): void {
 });
 
 // Router::post('/login', function (Request $request, Response $response): void {
-//     Validator::rules([
+//     Validator::check([
 //         'username' => ['required', 'min:3', 'max:32']
 //     ]);
 // });

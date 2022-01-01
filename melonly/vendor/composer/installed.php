@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '89788acf504ff42a4c60eee5a9185df17f6cf54d',
+    'reference' => '38fd1a4dce6e3c9ff5ce0c390c66592df944c1f2',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '89788acf504ff42a4c60eee5a9185df17f6cf54d',
+      'reference' => '38fd1a4dce6e3c9ff5ce0c390c66592df944c1f2',
     ),
     'ably/ably-php' => 
     array (
@@ -28,6 +28,15 @@
       array (
       ),
       'reference' => 'db4ca828378922ef85224d891dd09f9f40194120',
+    ),
+    'brick/math' => 
+    array (
+      'pretty_version' => '0.9.3',
+      'version' => '0.9.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
     ),
     'codedungeon/php-cli-colors' => 
     array (
@@ -333,6 +342,31 @@
       ),
       'reference' => '120b605dfeb996808c31b6477290a714d356e822',
     ),
+    'ramsey/collection' => 
+    array (
+      'pretty_version' => '1.2.2',
+      'version' => '1.2.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'cccc74ee5e328031b15640b51056ee8d3bb66c0a',
+    ),
+    'ramsey/uuid' => 
+    array (
+      'pretty_version' => '4.2.3',
+      'version' => '4.2.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fc9bb7fb5388691fd7373cd44dcb4d63bbcf24df',
+    ),
+    'rhumsaa/uuid' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '4.2.3',
+      ),
+    ),
     'sebastian/cli-parser' => 
     array (
       'pretty_version' => '1.0.1',
@@ -512,6 +546,15 @@
       array (
       ),
       'reference' => '1100343ed1a92e3a38f9ae122fc0eb21602547be',
+    ),
+    'symfony/polyfill-php81' => 
+    array (
+      'pretty_version' => 'v1.23.0',
+      'version' => '1.23.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e66119f3de95efc359483f810c4c3e6436279436',
     ),
     'symfony/translation' => 
     array (

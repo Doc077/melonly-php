@@ -38,8 +38,13 @@ abstract class Model {
              */
             if (self::$fieldTypes[$field] !== 'id') {
                 foreach (self::$fieldTypes[$field] as $type) {
-                    if (self::$fieldTypes[$field] !== gettype($value)) {
-                        throw new Exception("Invalid model data type: field $field must be type of {$type}");
+                    if ($type !== strtolower(gettype($value))) {
+                        /**
+                         * Create union type representation.
+                         */
+                        $types = implode('|', self::$fieldTypes);
+
+                        throw new Exception("Invalid model data type: field $field must be type of {$types}");
                     }
                 }
             }

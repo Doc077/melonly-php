@@ -70,4 +70,12 @@ class File {
     public static function size(string $path): int | false {
         return filesize($path);
     }
+
+    public static function symlink(string $target, string $link): bool {
+        if (!strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return symlink($target, $link);
+        }
+
+        return false;
+    }
 }

@@ -103,11 +103,13 @@ class Vector implements ArrayAccess, Countable {
     }
 
     public function map(callable $callback): Vector {
-        $items = array_map($callback, $this->items, array_keys($this->items));
+        $items = $this->items;
 
-        $new = new static(array_combine(array_keys($this->items), $items));
-// clone $this
-        return $new;
+        for ($i = 0; $i < count($items); $i++) {
+            $items[$i] = $callback($items[$i], $i);
+        }
+        print_r($items[2]);exit;
+        return new static($items);
     }
 
     public function forEach(callable $callback): void {
@@ -116,7 +118,7 @@ class Vector implements ArrayAccess, Countable {
 
     public function merge(...$values): Vector {
         /**
-         * In case of array argument, get first element.
+         * Get the first element in case of array argument.
          */
         if (is_array($values[0])) {
             $new = new self(...$values[0]);
@@ -140,5 +142,9 @@ class Vector implements ArrayAccess, Countable {
 
     public static function range(int $from, int $to): static {
         return new static(range($from, $to));
+    }
+
+    public function first(): mixed {
+        return $this->items[0];
     }
 }
