@@ -4,7 +4,7 @@ namespace Melonly\Support\Helpers;
 
 use Ramsey\Uuid\Uuid as UuidGenerator;
 
-class Uuid {
+class Uuid extends UuidGenerator {
     public static function v1(): string {
         return UuidGenerator::uuid1()->toString();
     }
