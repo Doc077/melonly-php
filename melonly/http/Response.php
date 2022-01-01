@@ -3,6 +3,7 @@
 namespace Melonly\Http;
 
 use Exception;
+use Melonly\Views\View;
 
 class Response {
     public const CONTINUE = 100;
@@ -159,7 +160,7 @@ class Response {
          * Include custom view or predefined one.
          */
         if (file_exists($view = __DIR__ . '/../../views/pages/errors/' . $status . '.html')) {
-            include $view;
+            View::renderView($view);
         } else {
             include __DIR__ . '/utils/status-page.php';
         }

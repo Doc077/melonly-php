@@ -14,7 +14,6 @@ use Melonly\Routing\Router;
 use Melonly\Routing\Attributes\Route;
 use Melonly\Support\Helpers\Str;
 use Melonly\Exceptions\ExceptionHandler;
-use Melonly\Database\Attributes\Column;
 
 class Application {
     protected const INCLUDE_FOLDERS = [
@@ -61,8 +60,8 @@ class Application {
 
             $phpVersion = Str::splitAtOccurence('.', 2, phpversion())[0];
 
-            if ($phpVersion < MELONLY_MIN_PHP_VERSION) {
-                throw new Exception('Melonly requires PHP version ' . MELONLY_MIN_PHP_VERSION . ' or higher');
+            if ($phpVersion < MELONLY_PHP_MIN_VERSION) {
+                throw new Exception('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or higher');
             }
 
             /**
@@ -124,7 +123,7 @@ class Application {
                  */
                 foreach ($properties as $property) {
                     foreach ($property->getAttributes() as $attribute) {
-                        if ($attribute->getName() === Column::class) {
+                        if ($attribute->getName() === \Melonly\Database\Attributes\Column::class) {
                             /**
                              * Check whether field is nullable or not.
                              */
