@@ -59,6 +59,15 @@ class ExceptionHandler {
 
         include __DIR__ . '/utils/exception-page.php';
 
+        /**
+         * Delete all compiled temporary templates.
+         */
+        foreach (glob(__DIR__ . '/../storage/views/*.php', GLOB_BRACE) as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            }
+        }
+
         exit;
     }
 }
