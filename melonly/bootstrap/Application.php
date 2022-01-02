@@ -12,7 +12,6 @@ use Melonly\Utilities\Autoloading\Autoloader;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
 use Melonly\Routing\Attributes\Route;
-use Melonly\Support\Helpers\Str;
 use Melonly\Exceptions\ExceptionHandler;
 
 class Application {

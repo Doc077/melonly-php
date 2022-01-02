@@ -9,7 +9,7 @@ if (!function_exists('trans')) {
         $file = __DIR__ . '/../../lang/' . Lang::getCurrent() . '/' . $parts[0] . '.json';
 
         if (!file_exists($file)) {
-            throw new Exception("Translation file '$parts[0]' does not exist");
+            throw new Exception("Translation file '{$parts[0]}' does not exist");
         }
 
         $json = json_decode(file_get_contents($file), true);
