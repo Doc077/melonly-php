@@ -58,9 +58,7 @@ class Application {
 
             Container::initialize();
 
-            $phpVersion = Str::splitAtOccurence('.', 2, phpversion())[0];
-
-            if ($phpVersion < MELONLY_PHP_MIN_VERSION) {
+            if (PHP_VERSION_ID < MELONLY_PHP_MIN_VERSION) {
                 throw new Exception('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or higher');
             }
 

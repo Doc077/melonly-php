@@ -170,6 +170,20 @@ class Vector implements ArrayAccess, Countable {
         return new static(range($from, $to));
     }
 
+    public function some(callable $callback): bool {
+        $some = false;
+
+        for ($i = 0; $i < $this->length(); $i++) {
+            if ($callback($this->items[$i], $i)) {
+                $some = true;
+
+                break;
+            }
+        }
+
+        return $some;
+    }
+
     public function unshift(...$values): static {
         foreach ($values as $value) {
             array_unshift($value, $this->items);
