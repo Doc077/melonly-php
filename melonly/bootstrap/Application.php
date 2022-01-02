@@ -28,6 +28,7 @@ class Application {
             'localization',
             'mail',
             'routing',
+            'testing',
             'utils',
             'validation',
             'vectors',
