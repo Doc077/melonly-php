@@ -108,12 +108,16 @@ class Vector implements ArrayAccess, Countable {
         for ($i = 0; $i < count($items); $i++) {
             $items[$i] = $callback($items[$i], $i);
         }
-        print_r($items[2]);exit;
-        return new static($items);
+
+        return new static(...$items);
     }
 
-    public function forEach(callable $callback): void {
-        array_map($callback, $this->items);
+    public function forEach(callable $callback): Vector {
+        for ($i = 0; $i < count($this->items); $i++) {
+            $this->items[$i] = $callback($this->items[$i], $i);
+        }
+
+        return $this;
     }
 
     public function merge(...$values): Vector {
