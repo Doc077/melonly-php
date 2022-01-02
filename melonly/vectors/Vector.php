@@ -45,9 +45,9 @@ class Vector implements ArrayAccess, Countable {
     }
 
     public function offsetSet(mixed $offset, mixed $value): void {
-        // if (!is_int($offset)) {
-        //     throw new Exception("Vector offset must be type of int");
-        // }
+        if (is_string($offset)) {
+            throw new Exception("Vector offset must be type of int");
+        }
 
         $this->add($value);
     }
@@ -76,6 +76,12 @@ class Vector implements ArrayAccess, Countable {
         return $this->items;
     }
 
+    public function append(...$values): void {
+        foreach ($values as $value) {
+            $this->add($value);
+        }
+    }
+
     public function average(): float {
         if ($this->type !== 'integer' || $this->type !== 'float' || $this->type !== 'double') {
             throw new Exception("Cannot get average value of non-numeric vector");
@@ -92,17 +98,41 @@ class Vector implements ArrayAccess, Countable {
         return count($this->items);
     }
 
-    public function append(...$values): void {
-        foreach ($values as $value) {
-            $this->add($value);
+    public function every(callable $callback): bool {
+        $every = true;
+
+        for ($i = 0; $i < $this->length(); $i++) {
+            if (!$callback($this->items[$i], $i)) {
+                $every = false;
+
+                break;
+            }
         }
+
+        return $every;
+    }
+
+    public function first(): mixed {
+        return $this->items[0];
+    }
+
+    public function forEach(callable $callback): Vector {
+        for ($i = 0; $i < $this->length(); $i++) {
+            $callback($this->items[$i], $i);
+        }
+
+        return $this;
+    }
+
+    public function last(): mixed {
+        return end($this->items);
     }
 
     public function length(): int {
         return count($this->items);
     }
 
-    public function map(callable $callback): Vector {
+    public function map(callable $callback): static {
         $items = $this->items;
 
         for ($i = 0; $i < count($items); $i++) {
@@ -110,14 +140,6 @@ class Vector implements ArrayAccess, Countable {
         }
 
         return new static(...$items);
-    }
-
-    public function forEach(callable $callback): Vector {
-        for ($i = 0; $i < count($this->items); $i++) {
-            $this->items[$i] = $callback($this->items[$i], $i);
-        }
-
-        return $this;
     }
 
     public function merge(...$values): Vector {
@@ -148,7 +170,11 @@ class Vector implements ArrayAccess, Countable {
         return new static(range($from, $to));
     }
 
-    public function first(): mixed {
-        return $this->items[0];
+    public function unshift(...$values): static {
+        foreach ($values as $value) {
+            array_unshift($value, $this->items);
+        }
+
+        return $this;
     }
 }
