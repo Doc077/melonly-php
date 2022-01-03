@@ -5,9 +5,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'public', 'js'),
     },
-    resolve: {
-        '@': path.resolve(__dirname, 'assets', 'react')
-    },
     module: {
         rules: [
             {
