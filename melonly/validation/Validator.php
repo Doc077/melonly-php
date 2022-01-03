@@ -4,7 +4,7 @@ namespace Melonly\Validation;
 
 use Exception;
 
-class Validator {
+class Validator implements ValidatorInterface {
     protected static function fulfillsRule(mixed $value, string $rule, string $field): bool {
         switch (true) {
             case preg_match('/^min:(\\d+)$/', $rule, $matches):

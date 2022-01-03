@@ -38,7 +38,8 @@ class Application {
         'app' => [
             'controllers',
             'models',
-            'routes'
+            'routes',
+            'tests'
         ]
     ];
 
@@ -50,7 +51,7 @@ class Application {
             Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
             /**
-             * Include framework files.
+             * Include internal framework files.
              */
             foreach (self::INCLUDE_FOLDERS['framework'] as $folder) {
                 Autoloader::loadAll(__DIR__ . '/../' . $folder);
@@ -72,11 +73,10 @@ class Application {
             /**
              * Include composer packages in main directory.
              */
-            if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
-                require_once __DIR__ . '/../../vendor/autoload.php';
-            }
-            elseif (file_exists(__DIR__ . '/../../plugins/autoload.php')) {
-                require_once __DIR__ . '/../../plugins/autoload.php';
+            if (file_exists($file = __DIR__ . '/../../vendor/autoload.php')) {
+                require_once $file;
+            } elseif (file_exists($file = __DIR__ . '/../../plugins/autoload.php')) {
+                require_once $file;
             }
 
             /**

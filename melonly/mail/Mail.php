@@ -2,7 +2,7 @@
 
 namespace Melonly\Mailing;
 
-class Mail {
+class Mail implements MailInterface {
     public static function send(string $to, string $subject, string $message): void {
         $message = wordwrap($message, 68);
 
