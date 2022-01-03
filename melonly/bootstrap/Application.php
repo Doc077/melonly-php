@@ -9,6 +9,7 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Dotenv\Dotenv;
 use Melonly\Utilities\Autoloading\Autoloader;
+use Melonly\Authentication\Auth;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
 use Melonly\Routing\Attributes\Route;
@@ -50,6 +51,8 @@ class Application {
 
             Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
+            session_start();
+
             /**
              * Include internal framework files.
              */
@@ -77,6 +80,13 @@ class Application {
                 require_once $file;
             } elseif (file_exists($file = __DIR__ . '/../../plugins/autoload.php')) {
                 require_once $file;
+            }
+
+            /**
+             * If user is authenticated, save data to Auth.
+             */
+            if (Auth::logged()) {
+                Auth::$userData = $_SESSION['MELONLY_AUTH_USER_DATA'];
             }
 
             /**

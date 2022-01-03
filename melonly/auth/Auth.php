@@ -5,20 +5,30 @@ namespace Melonly\Authentication;
 use Melonly\Database\DB;
 
 class Auth {
+    public static array $userData = [];
+
     public static function login(string $email, string $password): bool {
+        if (self::logged()) {
+            return false;
+        }
+
         $user = DB::query("SELECT * FROM `users` WHERE `email` = '$email'");
 
-        if (count($user) > 0 && password_verify($password, $user['password'])) {
-            $_SESSION['MELONLY_LOGGED'] = true;
+        /**
+         * Validate password hash.
+         */
+        if (count($user) > 0 && password_verify($password, $user->password)) {
+            $_SESSION['MELONLY_AUTHENTICATED'] = true;
+            $_SESSION['MELONLY_AUTH_USER_DATA'] = get_object_vars($user);
 
-            // $_SESSION['MELONLY_USER'] = new User($user);
-
-            redirect('/');
+            foreach (get_object_vars($user) as $field => $value) {
+                self::$userData[$field] = $value;
+            }
 
             return true;
         }
 
-        $_SESSION['MELONLY_LOGGED'] = false;
+        $_SESSION['MELONLY_AUTHENTICATED'] = false;
 
         redirect('/login');
 
@@ -33,18 +43,20 @@ class Auth {
     }
 
     public static function logged(): bool {
-        if (isset($_SESSION['MELONLY_LOGGED']) && $_SESSION['MELONLY_LOGGED'] === true) {
+        if (isset($_SESSION['MELONLY_AUTHENTICATED']) && $_SESSION['MELONLY_AUTHENTICATED'] === true) {
             return true;
         }
 
         return false;
     }
 
-    public static function user(): mixed {
-        if (isset($_SESSION['MELONLY_USER'])) {
-            return $_SESSION['MELONLY_USER'];
+    public static function user(): User {
+        $authUser = new User();
+
+        foreach (self::$userData as $field => $value) {
+            $authUser->{$field} = $value;
         }
 
-        return null;
+        return $authUser;
     }
 }
