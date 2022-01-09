@@ -24,6 +24,17 @@ class Router implements RouterInterface {
     protected array $redirects = [];
 
     public function add(HttpMethod | string $method, string $uri, callable $action, array $data = []): void {
+        /**
+         * Register multiple routes in case of array argument.
+         */
+        if (is_array($uri)) {
+            foreach ($uri as $address) {
+                Container::get(self::class)->add($method, $address, $action, $data);
+            }
+
+            return;
+        }
+
         if ($uri[0] === '/') {
             $uri = substr($uri, 1);
         }
@@ -51,27 +62,27 @@ class Router implements RouterInterface {
         $this->actions[$pattern] = $action;
     }
 
-    public static function get(string $uri, callable $action, array $data = []): void {
+    public static function get(string | array $uri, callable $action, array $data = []): void {
         Container::get(self::class)->add(HttpMethod::Get, $uri, $action, $data);
     }
 
-    public static function post(string $uri, callable $action, array $data = []): void {
+    public static function post(string | array $uri, callable $action, array $data = []): void {
         Container::get(self::class)->add(HttpMethod::Post, $uri, $action, $data);
     }
 
-    public static function put(string $uri, callable $action, array $data = []): void {
+    public static function put(string | array $uri, callable $action, array $data = []): void {
         Container::get(self::class)->add(HttpMethod::Put, $uri, $action, $data);
     }
 
-    public static function patch(string $uri, callable $action, array $data = []): void {
+    public static function patch(string | array $uri, callable $action, array $data = []): void {
         Container::get(self::class)->add(HttpMethod::Patch, $uri, $action, $data);
     }
 
-    public static function delete(string $uri, callable $action, array $data = []): void {
+    public static function delete(string | array $uri, callable $action, array $data = []): void {
         Container::get(self::class)->add(HttpMethod::Delete, $uri, $action, $data);
     }
 
-    public static function options(string $uri, callable $action, array $data = []): void {
+    public static function options(string | array $uri, callable $action, array $data = []): void {
         Container::get(self::class)->add(HttpMethod::Options, $uri, $action, $data);
     }
 
@@ -188,7 +199,19 @@ class Router implements RouterInterface {
                         return;
                     }
 
-                    echo Container::get(Response::class)->getData();
+                    /**
+                     * Return response content.
+                     * In case of array return JSON.
+                     */
+                    $responseData = Container::get(Response::class)->getData();
+
+                    if (is_array(Container::get(Response::class)->getData())) {
+                        header('Content-Type: application/json');
+
+                        echo json_encode($responseData);
+                    } else {
+                        echo $responseData;
+                    }
                 }
 
                 break;

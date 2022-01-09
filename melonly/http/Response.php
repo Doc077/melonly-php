@@ -133,7 +133,7 @@ class Response {
         511 => 'Network Authentication Required'
     ];
 
-    protected string $data = '';
+    protected mixed $data = '';
 
     protected null | string $view = null;
 
@@ -168,7 +168,7 @@ class Response {
         exit;
     }
 
-    public function getData(): string {
+    public function getData(): mixed {
         return $this->data;
     }
 
@@ -177,6 +177,12 @@ class Response {
     }
 
     public function send(mixed $data): void {
+        if (is_array($data)) {
+            $this->data = $data;
+
+            return;
+        }
+
         $this->data .= $data;
     }
 
