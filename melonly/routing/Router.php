@@ -23,7 +23,7 @@ class Router implements RouterInterface {
 
     protected array $redirects = [];
 
-    public function add(HttpMethod | string $method, string $uri, callable $action, array $data = []): void {
+    public function add(HttpMethod | string $method, string | array $uri, callable $action, array $data = []): void {
         /**
          * Register multiple routes in case of array argument.
          */
