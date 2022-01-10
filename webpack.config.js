@@ -5,6 +5,7 @@ module.exports = {
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'public', 'js'),
+        filename: 'index.js'
     },
     module: {
         rules: [
