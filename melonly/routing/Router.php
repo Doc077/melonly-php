@@ -118,7 +118,7 @@ class Router implements RouterInterface {
                 return;
             }
 
-            $extensionMimeTypes = Mime::TYPES;
+            $extensionMimeTypes = Mime::EXTENSION_TYPES;
 
             /**
              * Remove file security vulnerabilities.

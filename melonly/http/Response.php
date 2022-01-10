@@ -206,7 +206,7 @@ class Response {
         }
 
         if (!isset($_SERVER['HTTP_REFERER'])) {
-            header('Location: /');
+            throw new Exception('Cannot redirect to previous location');
         }
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);

@@ -2,9 +2,11 @@
 
 Melonly is a fast and clean-syntax web framework for PHP. It makes easy to write high-secure, fast web applications with fun.
 
+
 ## Documentation
 
 If you want to learn other advanced features, you may visit official [documentation](https://melonly.dev/docs).
+
 
 ## Download
 
@@ -19,7 +21,8 @@ $ npm install
 
 Melonly is also available to download from the [official site](https://melonly.dev).
 
-## Application Development
+
+## Run Application & Development
 
 To run your application on local environment, use the command line:
 
@@ -30,6 +33,27 @@ $ php melon server
 ```
 
 Your application will be available on [localhost:5000](http://localhost:5000).
+
+
+## Useful Melon CLI Commands
+
+Melonly ships with many useful commands for CLI.
+
+```
+# Display information about framework version
+$ php melon version
+```
+
+```
+# Create new controller file
+$ php melon new:controller PostController
+```
+
+```
+# Run unit tests
+$ php melon test
+```
+
 
 ## License
 
