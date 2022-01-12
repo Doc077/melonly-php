@@ -1,16 +1,18 @@
 # Melonly PHP Framework
 
-Melonly is a fast, modern web application framework for PHP. It makes easy to create secure, fast web applications with pleasure.
+Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
+
+Melonly is available to download from the [official site](https://melonly.dev).
 
 
 ## Documentation
 
-If you want to dig deeper and learn other advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
+If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
 
 
 ## Download
 
-To start a basic project, You can use git clone:
+To start a basic project, You can clone the repository:
 
 ```
 > git clone https://github.com/Doc077/melonly.git
@@ -19,9 +21,7 @@ To start a basic project, You can use git clone:
 > npm install
 ```
 
-Then remove .git folder from the main directory and start using your app.
-
-Melonly is also available to download from the [official site](https://melonly.dev).
+Then remove .git folder from the main directory and start your app.
 
 
 ## Run Application & Development
@@ -29,7 +29,9 @@ Melonly is also available to download from the [official site](https://melonly.d
 To run your application on local environment, use the command line:
 
 ```
-> cd C:\melonly
+> cd C:\path\to\your\app
+
+# Run the Melonly development server
 
 > php melon server
 ```
@@ -37,22 +39,31 @@ To run your application on local environment, use the command line:
 Your application will be available on [localhost:5000](http://localhost:5000).
 
 
-## Useful Melon CLI Commands
+## Useful Melonly CLI Commands
 
-Melonly ships with many useful commands for CLI.
+Melonly ships with Melon CLI - Terminal mode client for development. It has many useful commands. Below You can test some of them:
 
 ```
 # Display information about framework version
+
 > php melon version
 ```
 
 ```
 # Create new controller file
+
 > php melon new:controller PostController
 ```
 
 ```
+# Create new ORM model
+
+> php melon new:model Post
+```
+
+```
 # Run unit tests
+
 > php melon test
 ```
 
