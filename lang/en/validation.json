@@ -1,5 +1,7 @@
 {
+    "max_number": "Field :field must be less than :value",
+    "max_string": "Field :field must be maximum :value characters long",
     "min_number": "Field :field must be greater than :value",
-    "min_string": "Field :field must be :value characters long",
+    "min_string": "Field :field must be at least :value characters long",
     "required": "Field :field is required"
 }
