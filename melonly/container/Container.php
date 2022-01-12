@@ -3,11 +3,13 @@
 namespace Melonly\Services;
 
 use Exception;
+use Melonly\Broadcasting\WebSocketConnection;
+use Melonly\Database\DBConnection;
+use Melonly\Encryption\Hasher;
 use Melonly\Http\Request as HttpRequest;
 use Melonly\Http\Response as HttpResponse;
 use Melonly\Routing\Router;
-use Melonly\Database\DBConnection;
-use Melonly\Broadcasting\WebSocketConnection;
+use Melonly\Validation\Validator;
 
 class Container implements ContainerInterface {
     protected static array $instances = [];
@@ -29,8 +31,10 @@ class Container implements ContainerInterface {
             HttpRequest::class,
             HttpResponse::class,
             Router::class,
+            Hasher::class,
             DBConnection::class,
-            WebSocketConnection::class
+            WebSocketConnection::class,
+            Validator::class
         ];
 
         foreach ($services as $service) {

@@ -159,7 +159,7 @@ class Response {
         /**
          * Include custom view or predefined one.
          */
-        if (file_exists($view = __DIR__ . '/../../views/pages/errors/' . $status . '.html')) {
+        if (file_exists($view = __DIR__ . '/../../views/errors/' . $status . '.html')) {
             View::renderView($view);
         } else {
             include __DIR__ . '/utils/status-page.php';
@@ -174,6 +174,10 @@ class Response {
 
     public function getView(): string | array {
         return [$this->view, $this->viewVariables];
+    }
+
+    public function getStatus(): int {
+        return $this->status;
     }
 
     public function send(mixed $data): void {

@@ -15,5 +15,9 @@ class Autoloader {
         foreach (glob($path . '/attributes/*.php', GLOB_BRACE) as $filename) {
             require_once $filename;
         }
+
+        foreach (glob($path . '/facades/*.php', GLOB_BRACE) as $filename) {
+            require_once $filename;
+        }
     }
 }

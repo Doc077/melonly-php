@@ -200,6 +200,11 @@ class Router implements RouterInterface {
                     }
 
                     /**
+                     * Set reponse HTTP status code.
+                     */
+                    http_response_code(Container::get(Response::class)->getStatus());
+
+                    /**
                      * Return response content.
                      * In case of array return JSON.
                      */

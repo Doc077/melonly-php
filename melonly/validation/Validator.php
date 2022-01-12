@@ -3,9 +3,11 @@
 namespace Melonly\Validation;
 
 use Exception;
+use Melonly\Http\Response;
+use Melonly\Services\Container;
 
 class Validator implements ValidatorInterface {
-    protected static function fulfillsRule(mixed $value, string $rule, string $field): bool {
+    protected function fulfillsRule(mixed $value, string $rule, string $field): bool {
         switch (true) {
             case preg_match('/^min:(\\d+)$/', $rule, $matches):
                 if (is_int($value)) {
@@ -32,10 +34,12 @@ class Validator implements ValidatorInterface {
         }
     }
 
-    public static function check(array $array): bool {
+    public function check(array $array): bool {
         foreach ($array as $field => $rules) {
             foreach ($rules as $rule) {
-                if (!empty($_POST[$field]) && !self::fulfillsRule($_POST[$field], $rule, $field)) {
+                if (!empty($_POST[$field]) && !$this->fulfillsRule($_POST[$field], $rule, $field)) {
+                    Container::get(Response::class)->status(422);
+
                     return false;
                 }
             }

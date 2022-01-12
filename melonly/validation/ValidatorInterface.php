@@ -3,5 +3,5 @@
 namespace Melonly\Validation;
 
 interface ValidatorInterface {
-    public static function check(array $array): bool;
+    public function check(array $array): bool;
 }

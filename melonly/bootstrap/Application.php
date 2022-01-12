@@ -22,6 +22,7 @@ class Application {
             'config',
             'container',
             'database',
+            'encryption',
             'exceptions',
             'filesystem',
             'helpers',
