@@ -2,18 +2,18 @@
 
 namespace Melonly\Bootstrap;
 
-use Throwable;
-use Exception;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionProperty;
 use Dotenv\Dotenv;
+use Exception;
 use Melonly\Utilities\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
 use Melonly\Routing\Attributes\Route;
 use Melonly\Exceptions\ExceptionHandler;
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
+use Throwable;
 
 class Application {
     public static float $performance;
@@ -29,10 +29,10 @@ class Application {
             'filesystem',
             'helpers',
             'http',
-            'localization',
             'mail',
             'routing',
             'testing',
+            'translation',
             'utils',
             'validation',
             'vectors',
@@ -51,9 +51,6 @@ class Application {
         define('PERFORMANCE_START', microtime(true));
 
         try {
-            require_once __DIR__ . '/../vendor/autoload.php';
-            require_once __DIR__ . '/../autoloading/Autoloader.php';
-
             $this->initializeAndAutoload();
 
             $this->registerControllers();
@@ -65,7 +62,14 @@ class Application {
         }
     }
 
+    public static function start(): static {
+        return new static();
+    }
+
     protected function initializeAndAutoload(): void {
+        require_once __DIR__ . '/../vendor/autoload.php';
+        require_once __DIR__ . '/../autoloading/Autoloader.php';
+
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
         session_start();

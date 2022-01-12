@@ -1,6 +1,6 @@
 <?php
 
-use Melonly\Localization\Lang;
+use Melonly\Translation\Lang;
 
 if (!function_exists('trans')) {
     function trans(string $key): string {

@@ -8,6 +8,7 @@ use Melonly\Database\DBConnection;
 use Melonly\Encryption\Hasher;
 use Melonly\Http\Request as HttpRequest;
 use Melonly\Http\Response as HttpResponse;
+use Melonly\Mailing\Mailer;
 use Melonly\Routing\Router;
 use Melonly\Validation\Validator;
 
@@ -32,6 +33,7 @@ class Container implements ContainerInterface {
             HttpResponse::class,
             Router::class,
             Hasher::class,
+            Mailer::class,
             DBConnection::class,
             WebSocketConnection::class,
             Validator::class

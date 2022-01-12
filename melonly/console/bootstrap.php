@@ -7,7 +7,7 @@ use Melonly\Bootstrap\Application;
 require_once __DIR__ . '/../bootstrap/Application.php';
 require_once __DIR__ . '/Command.php';
 
-$app = new Application();
+Application::start();
 
 /**
  * If command not supplied, list all commands.

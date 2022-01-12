@@ -1,6 +1,6 @@
 <?php
 
-namespace Melonly\Localization;
+namespace Melonly\Translation;
 
 class Lang {
     protected static $currentLanguage = 'en';
