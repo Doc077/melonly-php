@@ -28,7 +28,6 @@ return new class extends Command {
         file_put_contents($fileName, 'COLUMN id TYPE id
 COLUMN name TYPE text
 COLUMN created_at TYPE datetime
-COLUMN updated_at TYPE timestamp
 ');
 
         echo Color::LIGHT_GREEN, "Created table migration '{$this->arguments[2]}'", PHP_EOL, Color::RESET;

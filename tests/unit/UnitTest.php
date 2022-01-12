@@ -4,8 +4,11 @@ namespace Tests\Unit;
 
 use Melonly\Testing\TestCase;
 
-class MelonlyTest extends TestCase {
-    public function some_test() {
+class UnitTest extends TestCase {
+    /**
+     * Unit test example.
+     */
+    public function unit_test_example() {
         $variable = true;
 
         $this->assertTrue($variable);
