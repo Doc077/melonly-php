@@ -36,7 +36,7 @@ abstract class Model {
              * Compare values with registered model data types.
              * Types are supplied by model attributes.
              */
-            if (self::$fieldTypes[$field] !== 'id') {
+            if (self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== ['datetime']) {
                 foreach (self::$fieldTypes[$field] as $type) {
                     if ($type !== strtolower(gettype($value))) {
                         /**

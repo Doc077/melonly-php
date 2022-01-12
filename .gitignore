@@ -1,4 +1,5 @@
 /node_modules
+/plugins
 /vendor
 /public/data
 /melonly/storage/views/*

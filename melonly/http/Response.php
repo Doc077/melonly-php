@@ -190,6 +190,10 @@ class Response {
         $this->data .= $data;
     }
 
+    public function json(array $data): void {
+        $this->data = $data;
+    }
+
     public function status(int $code): void {
         $this->status = $code;
     }
