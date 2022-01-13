@@ -78,7 +78,7 @@ class Application {
          * Include internal framework files.
          */
         foreach (self::INCLUDE_FOLDERS['framework'] as $folder) {
-            Autoloader::loadAll(__DIR__ . '/../' . $folder);
+            Autoloader::loadFiles(__DIR__ . '/../' . $folder);
         }
 
         Container::initialize();
@@ -91,7 +91,7 @@ class Application {
          * Include application files.
          */
         foreach (self::INCLUDE_FOLDERS['app'] as $folder) {
-            Autoloader::loadAll(__DIR__ . '/../../' . $folder);
+            Autoloader::loadFiles(__DIR__ . '/../../' . $folder);
         }
 
         /**
