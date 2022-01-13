@@ -20,7 +20,7 @@ return new class extends Command {
             ->addHeader('Author')
             ->addRow()
             ->addColumn(MELONLY_VERSION . ' STABLE RELEASE')
-            ->addColumn('Jan 2022')
+            ->addColumn(MELONLY_VERSION_RELEASE_DATE)
             ->addColumn('Dominik Rajkowski (dom.rajkowski@gmail.com)')
             ->display();
         
