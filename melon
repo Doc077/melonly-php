@@ -1,3 +1,7 @@
 <?php
 
-require_once __DIR__ . '/melonly/console/bootstrap.php';
+use Melonly\Console\TerminalApplication;
+
+require_once __DIR__ . '/melonly/console/TerminalApplication.php';
+
+TerminalApplication::start();
