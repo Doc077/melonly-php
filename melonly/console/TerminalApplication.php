@@ -8,13 +8,38 @@ use Melonly\Bootstrap\Application;
 
 class TerminalApplication {
     public function __construct() {
+        global $argv;
+
+        $this->bootstrap();
+
+        $this->registerDefaultCommand();
+
+        $this->registerFileCreationCommands();
+
+        /**
+         * Call the corresponding command function.
+         */
+        if (file_exists($file = __DIR__ . '/commands/' . ucfirst($argv[1]) . 'Command.php')) {
+            $command = require_once $file;
+
+            (new $command())->handle();
+        } else {
+            echo Color::LIGHT_RED, "Unknown command '{$argv[1]}'", PHP_EOL, Color::RESET;
+        }
+    }
+
+    protected function bootstrap(): void {
         require_once __DIR__ . '/../bootstrap/Application.php';
         require_once __DIR__ . '/Command.php';
 
         Application::start();
+    }
+
+    protected function registerDefaultCommand(): void {
+        global $argv;
 
         /**
-         * If command not supplied, list all commands.
+         * If command was not supplied, list all commands.
          */
         if (!isset($argv) || !isset($argv[1]) || empty($argv[1])) {
             echo Color::LIGHT_GREEN, 'Melonly CLI commands:', PHP_EOL, Color::RESET;
@@ -51,6 +76,10 @@ class TerminalApplication {
 
             exit;
         }
+    }
+
+    protected function registerFileCreationCommands(): void {
+        global $argv;
 
         /**
          * Handle commands with 'new:'.
@@ -67,17 +96,6 @@ class TerminalApplication {
             }
 
             exit;
-        }
-
-        /**
-         * Call the corresponding command function.
-         */
-        if (file_exists($file = __DIR__ . '/commands/' . ucfirst($argv[1]) . 'Command.php')) {
-            $command = require_once $file;
-
-            (new $command())->handle();
-        } else {
-            echo Color::LIGHT_RED, "Unknown command '{$argv[1]}'", PHP_EOL, Color::RESET;
         }
     }
 

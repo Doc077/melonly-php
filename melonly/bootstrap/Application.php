@@ -56,14 +56,10 @@ class Application {
             $this->registerControllers();
             $this->registerModels();
 
-            $this->responseAndTerminate();
+            $this->respondAndTerminate();
         } catch (Throwable $exception) {
             ExceptionHandler::handle($exception);
         }
-    }
-
-    public static function start(): static {
-        return new static();
     }
 
     protected function initializeAndAutoload(): void {
@@ -173,7 +169,7 @@ class Application {
         }
     }
 
-    protected function responseAndTerminate(): void {
+    protected function respondAndTerminate(): void {
         if (php_sapi_name() !== 'cli') {
             /**
              * Minify response content if it's not a file request.
@@ -205,5 +201,9 @@ class Application {
              */
             Container::get(Router::class)->evaluate();
         }
+    }
+
+    public static function start(): static {
+        return new static();
     }
 }
