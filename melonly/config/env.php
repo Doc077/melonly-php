@@ -2,7 +2,9 @@
 
 if (!function_exists('env')) {
     function env(string $key, mixed $default = null): mixed {
-        if (!isset($_ENV[$key])) {
+        $value = $_ENV[$key];
+
+        if (!isset($value)) {
             if ($default === null) {
                 throw new Exception("Env option '$key' is not set");
             } else {
@@ -10,11 +12,9 @@ if (!function_exists('env')) {
             }
         }
 
-        if ($_ENV[$key] === false) {
+        if ($value === false) {
             throw new Exception("Env option '$key' is invalid");
         }
-
-        $value = getenv($key);
 
         switch (strtolower($value)) {
             case 'true':

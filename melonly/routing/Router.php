@@ -118,7 +118,7 @@ class Router implements RouterInterface {
                 return;
             }
 
-            $extensionMimeTypes = Mime::EXTENSION_TYPES;
+            $extensionMimeTypes = Mime::TYPES;
 
             /**
              * Remove file security vulnerabilities.
@@ -131,6 +131,10 @@ class Router implements RouterInterface {
 
             if (array_key_exists(pathinfo($uri)['extension'], $extensionMimeTypes)) {
                 $mimeType = $extensionMimeTypes[$extension];
+            }
+
+            if (pathinfo($uri)['extension'] === 'css') {
+                $mimeType = 'text/css';
             }
 
             header('Content-Type: ' . $mimeType);

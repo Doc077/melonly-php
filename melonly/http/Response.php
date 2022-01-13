@@ -144,7 +144,12 @@ class Response {
     public function abort(int $status, string | bool $text = false): never {
         http_response_code($status);
 
-        ob_end_clean();
+        /**
+         * Clean output
+         */
+        if (ob_get_contents()) {
+            ob_end_clean();
+        }
 
         $text = '';
 

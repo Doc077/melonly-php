@@ -33,7 +33,7 @@
 
 body {
     margin: 0;
-    background: #01192c;
+    background: #0d1c29;
     color: #fff;
     font-family: 'DM Sans', 'Segoe UI Variable Text', 'Segoe UI', sans-serif;
     line-height: 1.8;
@@ -44,7 +44,7 @@ body {
 }
 
 .container {
-    background: #002731;
+    background: #142531;
     border-radius: 6px;
     padding: 36px 50px;
     width: calc(100vw - 500px);

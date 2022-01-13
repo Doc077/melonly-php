@@ -10,7 +10,7 @@
 
         <style>
             <?php include __DIR__ . '/styles.css' ?>
-            <?php include __DIR__ . '/theme.css' ?>
+            <?php include __DIR__ . '/syntax.css' ?>
         </style>
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
