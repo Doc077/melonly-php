@@ -1,0 +1,18 @@
+<header>
+    <nav class="nav">
+        <menu-logo />
+
+        <div class="nav__section">
+            [if Auth::logged()]
+                <a class="link" href="/logout">Log out</a>
+
+                [else]
+                    <a class="link" href="/login">Log in</a>
+            [endif]
+
+            <a class="link" href="https://github.com/Doc077/melonly" target="_blank">GitHub</a>
+
+            <a class="link" href="https://melonly.dev/docs" target="_blank">Documentation</a>
+        </div>
+    </nav>
+</header>

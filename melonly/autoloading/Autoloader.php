@@ -1,6 +1,6 @@
 <?php
 
-namespace Melonly\Utilities\Autoloading;
+namespace Melonly\Autoloading;
 
 class Autoloader {
     protected const PATTERNS = [

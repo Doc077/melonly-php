@@ -36,7 +36,6 @@
                 border-radius: 8px;
                 text-decoration: none;
                 margin-left: 8px;
-                box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.026);
             }
 
             .link:hover {
@@ -118,24 +117,12 @@
     </head>
 
     <body>
-        <header>
-            <nav class="nav">
-                <menu-logo />
+        <!--
+            Example Melonly HTML components
+            Edit: (views/components)
+        -->
 
-                <div class="nav__section">
-                    [if Auth::logged()]
-                        <a class="link" href="/logout">Log out</a>
-
-                        [else]
-                            <a class="link" href="/login">Log in</a>
-                    [endif]
-
-                    <a class="link" href="https://github.com/Doc077/melonly" target="_blank">GitHub</a>
-
-                    <a class="link" href="https://melonly.dev/docs" target="_blank">Documentation</a>
-                </div>
-            </nav>
-        </header>
+        <menu-nav />
 
         <main-content />
 
@@ -143,8 +130,8 @@
 
 
         <!--
-            React.js root element and script
-            Edit: (assets/react/index.js) and run: npm run melon
+            React.js root element and compiled script
+            Edit: (assets/react/index.js) and run: > npm run melon
         -->
 
         <div id="root"></div>

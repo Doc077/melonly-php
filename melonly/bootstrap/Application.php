@@ -4,7 +4,7 @@ namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
 use Exception;
-use Melonly\Utilities\Autoloading\Autoloader;
+use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
