@@ -15,6 +15,8 @@ If you want to dig deeper and learn some advanced Melonly features, you may visi
 To start a basic project, You can clone the repository:
 
 ```
+> cd path-to-your-app
+
 > git clone https://github.com/Doc077/melonly.git
 
 > cd melonly
@@ -29,8 +31,6 @@ Then remove .git folder from the main directory and start your app.
 To run your application on local environment, use the command line:
 
 ```
-> cd C:\path\to\your\app
-
 # Run the Melonly development server
 
 > php melon server
