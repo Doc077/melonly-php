@@ -1,8 +1,11 @@
 {
-    "config": {
-        "vendor-dir": "plugins/"
-    },
+    "license": "MIT",
     "require": {
         "php": "^8.1"
+    },
+    "config": {
+        "vendor-dir": "plugins/",
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }
