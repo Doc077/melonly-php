@@ -116,7 +116,7 @@ class Vector implements ArrayAccess, Countable {
         return $this->items[0];
     }
 
-    public function forEach(callable $callback): Vector {
+    public function forEach(callable $callback): static {
         for ($i = 0; $i < $this->length(); $i++) {
             $callback($this->items[$i], $i);
         }
@@ -142,12 +142,12 @@ class Vector implements ArrayAccess, Countable {
         return new static(...$items);
     }
 
-    public function merge(...$values): Vector {
+    public function merge(...$values): static {
         /**
          * Get the first element in case of array argument.
          */
         if (is_array($values[0])) {
-            $new = new self(...$values[0]);
+            $new = new static(...$values[0]);
 
             foreach ($values[0] as $value) {
                 $new->add($value);
@@ -156,7 +156,7 @@ class Vector implements ArrayAccess, Countable {
             /**
              * In case of variadic arguments, merge them.
              */
-            $new = new self(...$this->items);
+            $new = new static(...$this->items);
 
             foreach ($values as $value) {
                 $new->add($value);

@@ -32,22 +32,7 @@ abstract class Model {
         $values = [];
 
         foreach ($data as $field => $value) {
-            /**
-             * Compare values with registered model data types.
-             * Types are supplied by model attributes.
-             */
-            if (self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== ['datetime']) {
-                foreach (self::$fieldTypes[$field] as $type) {
-                    if ($type !== strtolower(gettype($value))) {
-                        /**
-                         * Create union type representation.
-                         */
-                        $types = implode('|', self::$fieldTypes);
-
-                        throw new Exception("Invalid model data type: field $field must be type of {$types}");
-                    }
-                }
-            }
+            self::validateField($field, $value);
 
             $fields[] = $field;
             $values[] = $value;
@@ -56,6 +41,25 @@ abstract class Model {
         DB::query(
             'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $fields) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
         );
+    }
+
+    protected static function validateField(string $field, mixed $value): void {
+        /**
+         * Compare values with registered model data types.
+         * Types are supplied by model attributes.
+         */
+        if (self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== ['datetime']) {
+            foreach (self::$fieldTypes[$field] as $type) {
+                if ($type !== strtolower(gettype($value))) {
+                    /**
+                     * Create union type representation.
+                     */
+                    $union = implode('|', self::$fieldTypes);
+
+                    throw new InvalidDataTypeException("Invalid model data type: field $field must be type of {$union}");
+                }
+            }
+        }
     }
 
     /**

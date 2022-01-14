@@ -63,8 +63,8 @@ class Application {
     }
 
     protected function initializeAndAutoload(): void {
-        require_once __DIR__ . '/../vendor/autoload.php';
-        require_once __DIR__ . '/../autoloading/Autoloader.php';
+        require __DIR__ . '/../vendor/autoload.php';
+        require __DIR__ . '/../autoloading/Autoloader.php';
 
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
