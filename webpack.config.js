@@ -2,11 +2,14 @@ const path = require('path')
 
 module.exports = {
     entry: path.join(__dirname, 'assets', 'react', 'index.js'),
+
     mode: 'development',
+
     output: {
         path: path.resolve(__dirname, 'public', 'js'),
         filename: 'index.js'
     },
+
     module: {
         rules: [
             {
@@ -15,7 +18,10 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react']
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ]
                     }
                 }
             },
