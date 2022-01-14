@@ -2,6 +2,7 @@
 
 namespace Melonly\Authentication;
 
+use App\Models\User;
 use Melonly\Database\DB;
 
 class Auth {

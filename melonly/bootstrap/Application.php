@@ -3,7 +3,6 @@
 namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
-use Exception;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Services\Container;
@@ -65,6 +64,7 @@ class Application {
     protected function initializeAndAutoload(): void {
         require __DIR__ . '/../vendor/autoload.php';
         require __DIR__ . '/../autoloading/Autoloader.php';
+        require __DIR__ . '/UnsupportedPHPVersionException.php';
 
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
@@ -80,7 +80,7 @@ class Application {
         Container::initialize();
 
         if (PHP_VERSION_ID < MELONLY_PHP_MIN_VERSION_ID) {
-            throw new Exception('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or greater');
+            throw new UnsupportedPHPVersionException('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or greater');
         }
 
         /**

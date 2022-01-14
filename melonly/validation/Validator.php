@@ -2,12 +2,14 @@
 
 namespace Melonly\Validation;
 
-use Exception;
 use Melonly\Http\Response;
 use Melonly\Services\Container;
 
 class Validator implements ValidatorInterface {
     protected function fulfillsRule(mixed $value, string $rule, string $field): bool {
+        /**
+         * Check which rule to validate.
+         */
         switch (true) {
             case preg_match('/^min:(\\d+)$/', $rule, $matches):
                 if (is_int($value)) {
@@ -30,7 +32,7 @@ class Validator implements ValidatorInterface {
                 break;
 
             default:
-                throw new Exception("Invalid validator rule '$rule'");
+                throw new InvalidValidatorRuleException("Invalid validator rule '$rule'");
         }
     }
 
@@ -38,6 +40,9 @@ class Validator implements ValidatorInterface {
         foreach ($array as $field => $rules) {
             foreach ($rules as $rule) {
                 if (!empty($_POST[$field]) && !$this->fulfillsRule($_POST[$field], $rule, $field)) {
+                    /**
+                     * Set HTTP 422: Unprocessable Entity status.
+                     */
                     Container::get(Response::class)->status(422);
 
                     return false;
