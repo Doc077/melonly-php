@@ -157,9 +157,14 @@ class Application {
                          * Check whether field is nullable or not.
                          */
                         if (array_key_exists('nullable', $attribute->getArguments()) && $attribute->getArguments()['nullable']) {
-                            ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [$attribute->getArguments()['type'], 'null'];
+                            ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [
+                                $attribute->getArguments()['type'],
+                                'null'
+                            ];
                         } else {
-                            ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [$attribute->getArguments()['type']];
+                            ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = [
+                                $attribute->getArguments()['type']
+                            ];
                         }
                     } elseif ($attribute->getName() === \Melonly\Database\Attributes\PrimaryKey::class) {
                         ('\App\Models\\' . $class)::$fieldTypes[$property->getName()] = 'id';
@@ -171,11 +176,16 @@ class Application {
 
     protected function compressOutput(): void {
         ob_start(function (string $buffer): string {
-            $search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'];
-            $replace = ['>', '<', '\\1'];
+            $patterns = [
+                '/\>[^\S ]+/s',
+                '/[^\S ]+\</s',
+                '/(\s)+/s'
+            ];
+
+            $replacements = ['>', '<', '\\1'];
     
             if (preg_match('/\<html/i', $buffer) === 1 && preg_match('/\<\/html\>/i', $buffer) === 1) {
-                $buffer = preg_replace($search, $replace, $buffer);
+                $buffer = preg_replace($patterns, $replacements, $buffer);
             }
     
             return str_replace('	', '', $buffer);

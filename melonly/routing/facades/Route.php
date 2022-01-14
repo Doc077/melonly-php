@@ -1,12 +1,12 @@
 <?php
 
-namespace Melonly\Encryption;
+namespace Melonly\Routing;
 
 use Melonly\Services\Facade;
 
-class Hash extends Facade {
+class Route extends Facade {
     protected static function getAccessor(): string {
-        return Hasher::class;
+        return Router::class;
     }
 
     public static function __callStatic(string $method, array $args): mixed {

@@ -29,7 +29,7 @@ class Router implements RouterInterface {
          */
         if (is_array($uri)) {
             foreach ($uri as $address) {
-                Container::get(self::class)->add($method, $address, $action, $data);
+                $this->add($method, $address, $action, $data);
             }
 
             return;
@@ -62,37 +62,37 @@ class Router implements RouterInterface {
         $this->actions[$pattern] = $action;
     }
 
-    public static function get(string | array $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Get, $uri, $action, $data);
+    public function get(string | array $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Get, $uri, $action, $data);
     }
 
-    public static function post(string | array $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Post, $uri, $action, $data);
+    public function post(string | array $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Post, $uri, $action, $data);
     }
 
-    public static function put(string | array $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Put, $uri, $action, $data);
+    public function put(string | array $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Put, $uri, $action, $data);
     }
 
-    public static function patch(string | array $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Patch, $uri, $action, $data);
+    public function patch(string | array $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Patch, $uri, $action, $data);
     }
 
-    public static function delete(string | array $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Delete, $uri, $action, $data);
+    public function delete(string | array $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Delete, $uri, $action, $data);
     }
 
-    public static function options(string | array $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Options, $uri, $action, $data);
+    public function options(string | array $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Options, $uri, $action, $data);
     }
 
-    public static function any(string $uri, callable $action, array $data = []): void {
-        Container::get(self::class)->add(HttpMethod::Get, $uri, $action, $data);
-        Container::get(self::class)->add(HttpMethod::Post, $uri, $action, $data);
-        Container::get(self::class)->add(HttpMethod::Put, $uri, $action, $data);
-        Container::get(self::class)->add(HttpMethod::Patch, $uri, $action, $data);
-        Container::get(self::class)->add(HttpMethod::Delete, $uri, $action, $data);
-        Container::get(self::class)->add(HttpMethod::Options, $uri, $action, $data);
+    public function any(string $uri, callable $action, array $data = []): void {
+        $this->add(HttpMethod::Get, $uri, $action, $data);
+        $this->add(HttpMethod::Post, $uri, $action, $data);
+        $this->add(HttpMethod::Put, $uri, $action, $data);
+        $this->add(HttpMethod::Patch, $uri, $action, $data);
+        $this->add(HttpMethod::Delete, $uri, $action, $data);
+        $this->add(HttpMethod::Options, $uri, $action, $data);
     }
 
     public function evaluate(): void {

@@ -5,8 +5,7 @@ namespace Melonly\Routing\Attributes;
 use Attribute;
 use ReflectionClass;
 use Melonly\Http\Method as HttpMethod;
-use Melonly\Services\Container;
-use Melonly\Routing\Router;
+use Melonly\Routing\Route as RouteFacade;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route {
@@ -18,7 +17,7 @@ class Route {
         foreach ($classReflection->getMethods() as $classMethod) {
             $closure = $classReflection->getMethod($classMethod->name)->getClosure($object);
 
-            Container::get(Router::class)->add($method, $path, $closure, $data);
+            RouteFacade::add($method, $path, $closure, $data);
         }
     }
 }
