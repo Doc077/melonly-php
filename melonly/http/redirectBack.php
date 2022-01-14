@@ -7,7 +7,7 @@ if (!function_exists('redirectBack')) {
         }
 
         if (!isset($_SERVER['HTTP_REFERER'])) {
-            redirect('/');
+            throw new Exception('Cannot redirect to previous location');
         }
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);

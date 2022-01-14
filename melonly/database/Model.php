@@ -32,7 +32,7 @@ abstract class Model {
         $values = [];
 
         foreach ($data as $field => $value) {
-            self::validateField($field, $value);
+            self::validateFieldType($field, $value);
 
             $fields[] = $field;
             $values[] = $value;
@@ -43,7 +43,19 @@ abstract class Model {
         );
     }
 
-    protected static function validateField(string $field, mixed $value): void {
+    public static function update(array $data): void {
+        $sets = '';
+
+        foreach ($data as $field => $value) {
+            self::validateFieldType($field, $value);
+
+            $sets .= $field . ' = ' . $value;
+        }
+
+        DB::query('UPDATE ' . self::getTable() . ' SET ' . $sets);
+    }
+
+    protected static function validateFieldType(string $field, mixed $value): void {
         /**
          * Compare values with registered model data types.
          * Types are supplied by model attributes.
@@ -70,6 +82,7 @@ abstract class Model {
             case 'all':
             case 'create':
             case 'getTable':
+            case 'update':
                 return self::{$method}(...$args);
 
                 break;
