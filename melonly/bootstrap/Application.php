@@ -169,6 +169,19 @@ class Application {
         }
     }
 
+    protected function compressOutput(): void {
+        ob_start(function (string $buffer): string {
+            $search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'];
+            $replace = ['>', '<', '\\1'];
+    
+            if (preg_match('/\<html/i', $buffer) === 1 && preg_match('/\<\/html\>/i', $buffer) === 1) {
+                $buffer = preg_replace($search, $replace, $buffer);
+            }
+    
+            return str_replace('	', '', $buffer);
+        });
+    }
+
     protected function respondAndTerminate(): void {
         if (php_sapi_name() !== 'cli') {
             /**
@@ -176,17 +189,8 @@ class Application {
              */
             $uri = $_SERVER['REQUEST_URI'];
 
-            if (!array_key_exists('extension', pathinfo($uri)) && env('APP_OUTPUT_COMPRESS') === true) {
-                ob_start(function (string $buffer): string {
-                    $search = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'];
-                    $replace = ['>', '<', '\\1'];
-            
-                    if (preg_match('/\<html/i', $buffer) === 1 && preg_match('/\<\/html\>/i', $buffer) === 1) {
-                        $buffer = preg_replace($search, $replace, $buffer);
-                    }
-            
-                    return str_replace('	', '', $buffer);
-                });
+            if (!array_key_exists('extension', pathinfo($uri)) && env('OUTPUT_COMPRESS') === true) {
+                $this->compressOutput();
             }
 
             define('PERFORMANCE_STOP', microtime(true));
