@@ -57,7 +57,7 @@ class View implements ViewInterface {
             'File' => \Melonly\Filesystem\File::class,
             'Str' => \Melonly\Support\Helpers\Str::class,
             'Time' => \Melonly\Support\Helpers\Time::class,
-            'Url' => \Melonly\Http\Url::class,
+            'Url' => \Melonly\Support\Helpers\Url::class,
             'Vector' => \Melonly\Support\Containers\Vector::class
         ];
 

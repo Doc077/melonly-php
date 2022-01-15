@@ -1,6 +1,6 @@
 <?php
 
-namespace Melonly\Http;
+namespace Melonly\Support\Helpers;
 
 class Url {
     public static function full(): string {

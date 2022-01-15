@@ -121,7 +121,7 @@ class Router implements RouterInterface {
             $extensionMimeTypes = Mime::TYPES;
 
             /**
-             * Remove file security vulnerabilities.
+             * Secure vulnerable files.
              */
             if ($extension === 'php' || $uri === '.htaccess') {
                 Container::get(Response::class)->abort(404);

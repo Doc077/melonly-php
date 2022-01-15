@@ -11,7 +11,7 @@ use Melonly\Services\Container;
 use Melonly\Filesystem\File;
 use Melonly\Http\Response;
 use Melonly\Views\View;
-use Melonly\Http\Url;
+use Melonly\Support\Helpers\Url;
 
 class ExceptionHandler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
