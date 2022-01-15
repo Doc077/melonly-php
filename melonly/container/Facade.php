@@ -3,10 +3,8 @@
 namespace Melonly\Services;
 
 abstract class Facade {
-    abstract protected static function getAccessor(): string;
-
-    public static function __callStatic(string $method, array $args): mixed {
-        $instance = Container::get(self::getAccessor());
+    protected static function handleCall(string $method, array $args, string $accessor): mixed {
+        $instance = Container::get($accessor);
 
         return $instance->$method(...$args);
     }
