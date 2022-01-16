@@ -5,11 +5,13 @@ namespace Melonly\Routing;
 use Exception;
 use ReflectionFunction;
 use ReflectionException;
-use Melonly\Services\Container;
+use Melonly\Filesystem\File;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Http\Mime;
 use Melonly\Http\Method as HttpMethod;
+use Melonly\Services\Container;
+use Melonly\Support\Helpers\Regex;
 use Melonly\Support\Helpers\Str;
 use Melonly\Views\View;
 
@@ -52,7 +54,7 @@ class Router implements RouterInterface {
         /**
          * Create RegExp for dynamic parameters and route.
          */
-        $pattern = preg_replace('/:(.*)/', '(.*)', $uri) . '(\\?.*?)?';
+        $pattern = Regex::replace('/:(.*)/', '(.*)', $uri) . '(\\?.*?)?';
 
         $pattern = '/^' . $method . Str::replace('/', '\/', $pattern) . '$/';
 
@@ -153,7 +155,7 @@ class Router implements RouterInterface {
         /**
          * If file doesn't exist, return 404 error
          */
-        if (!file_exists(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri)) {
+        if (!File::exists(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri)) {
             Container::get(Response::class)->abort(404);
 
             return;
