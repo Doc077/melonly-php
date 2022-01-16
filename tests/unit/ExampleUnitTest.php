@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Melonly\Testing\TestCase;
 
-class UnitTest extends TestCase {
+class ExampleUnitTest extends TestCase {
     /**
      * Unit test example.
      */

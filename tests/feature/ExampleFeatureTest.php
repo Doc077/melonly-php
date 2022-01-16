@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Melonly\Testing\TestCase;
 
-class FeatureTest extends TestCase {
+class ExampleFeatureTest extends TestCase {
     /**
      * Feature test example.
      */
