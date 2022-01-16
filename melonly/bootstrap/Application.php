@@ -68,7 +68,7 @@ class Application {
     protected function initializeAndAutoload(): void {
         require __DIR__ . '/../vendor/autoload.php';
         require __DIR__ . '/../autoloading/Autoloader.php';
-        require __DIR__ . '/UnsupportedPHPVersionException.php';
+        require __DIR__ . '/UnsupportedPHPException.php';
 
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
