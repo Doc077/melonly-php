@@ -21,7 +21,7 @@ class ExampleAuthController {
      * Authentiate user by provided credentials.
      */
     #[Route(path: '/login', method: HttpMethod::Post)]
-    public function register(Request $request, Response $response) {
+    public function login(Request $request, Response $response) {
         $email = $request->getField('email');
         $password = $request->getField('password');
 
