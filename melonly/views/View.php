@@ -3,12 +3,14 @@
 namespace Melonly\Views;
 
 use Exception;
+use Melonly\Filesystem\File;
+use Melonly\Support\Helpers\Str;
 
 class View implements ViewInterface {
     public static string | null $currentView = null;
 
     public static function compile(string $file): string {
-        $content = file_get_contents($file);
+        $content = File::content($file);
 
         $stringExpressions = [
             '{{{' => '<?=',
@@ -20,7 +22,7 @@ class View implements ViewInterface {
         ];
 
         foreach ($stringExpressions as $key => $value) {
-            $content = str_replace($key, $value, $content);
+            $content = Str::replace($key, $value, $content);
         }
 
         $regexExpressions = [
@@ -64,13 +66,13 @@ class View implements ViewInterface {
         ];
 
         foreach ($namespaces as $key => $value) {
-            $content = str_replace($key . '::', $value . '::', $content);
+            $content = Str::replace($key . '::', $value . '::', $content);
         }
 
         /**
          * Get all registered components and compile component tags.
          */
-        if (file_exists(__DIR__ . '/../../views/components')) {
+        if (File::exists(__DIR__ . '/../../views/components')) {
             $componentFiles = array_diff(scandir(__DIR__ . '/../../views/components'), ['.', '..']);
 
             foreach ($componentFiles as $componentFile) {
@@ -104,13 +106,13 @@ class View implements ViewInterface {
         $filename = random_bytes(16);
         $filename = __DIR__ . '/../storage/views/' . bin2hex($filename) . '.html';
 
-        file_put_contents($filename, $content);
+        File::put($filename, $content);
 
         return $filename;
     }
 
     public static function renderView(string $file, array $variables = []): void {
-        if (!file_exists(__DIR__ . '/../../views/' . $file . '.html')) {
+        if (!File::exists(__DIR__ . '/../../views/' . $file . '.html')) {
             throw new Exception("View '$file' does not exist");
         }
 
@@ -132,11 +134,11 @@ class View implements ViewInterface {
         /**
          * Remove temporary file.
          */
-        unlink($compiled);
+        File::delete($compiled);
     }
 
     public static function renderComponent(string $file, array $attributes = []): void {
-        if (!file_exists(__DIR__ . '/../../views/components/' . $file)) {
+        if (!File::exists(__DIR__ . '/../../views/components/' . $file)) {
             throw new Exception("Component '$file' does not exist");
         }
 
@@ -158,6 +160,6 @@ class View implements ViewInterface {
         /**
          * Remove temporary file.
          */
-        unlink($compiled);
+        File::delete($compiled);
     }
 }

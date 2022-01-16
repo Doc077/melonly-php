@@ -10,6 +10,7 @@ use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Http\Mime;
 use Melonly\Http\Method as HttpMethod;
+use Melonly\Support\Helpers\Str;
 use Melonly\Views\View;
 
 class Router implements RouterInterface {
@@ -36,7 +37,7 @@ class Router implements RouterInterface {
         }
 
         if ($uri[0] === '/') {
-            $uri = substr($uri, 1);
+            $uri = Str::substring($uri, 1);
         }
 
         /**
@@ -45,7 +46,7 @@ class Router implements RouterInterface {
         if (!is_string($method)) {
             $method = $method->value;
         } else {
-            $method = strtoupper($method);
+            $method = Str::uppercase($method);
         }
 
         /**
@@ -53,7 +54,7 @@ class Router implements RouterInterface {
          */
         $pattern = preg_replace('/:(.*)/', '(.*)', $uri) . '(\\?.*?)?';
 
-        $pattern = '/^' . $method . str_replace('/', '\/', $pattern) . '$/';
+        $pattern = '/^' . $method . Str::replace('/', '\/', $pattern) . '$/';
 
         /**
          * Add route data to static arrays.
@@ -99,7 +100,7 @@ class Router implements RouterInterface {
         $uri = Container::get(Request::class)->uri();
 
         if ($uri[0] === '/') {
-            $uri = substr($uri, 1);
+            $uri = Str::substring($uri, 1);
         }
 
         /**
@@ -216,7 +217,7 @@ class Router implements RouterInterface {
         $viewVariables = Container::get(Response::class)->getView()[1];
 
         if ($view !== null) {
-            $view = str_replace('.', '/', $view);
+            $view = Str::replace('.', '/', $view);
 
             View::renderView($view, $viewVariables);
 

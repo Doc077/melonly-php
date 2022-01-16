@@ -11,6 +11,10 @@ class Str {
         return strtolower($string);
     }
 
+    public static function substring(string $string, int $offset): string {
+        return substr($string, $offset);
+    }
+
     public static function pascalCase(string $string, bool $replaceDashes = true): string {
         if ($replaceDashes) {
             $string = str_replace('-', ' ', $string);

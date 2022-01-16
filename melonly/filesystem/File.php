@@ -16,6 +16,10 @@ class File {
         return file_exists($path);
     }
 
+    public static function content(string $path): string | false {
+        return file_get_contents($path);
+    }
+
     public static function include(string $path): void {
         require_once $path;
     }

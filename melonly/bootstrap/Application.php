@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\ExceptionHandler;
+use Melonly\Filesystem\File;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
@@ -71,8 +72,6 @@ class Application {
 
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
-        Session::start();
-
         /**
          * Include internal framework files.
          */
@@ -80,6 +79,7 @@ class Application {
             Autoloader::loadFiles(__DIR__ . '/../' . $folder);
         }
 
+        Session::start();
         Container::initialize();
 
         if (PHP_VERSION_ID < MELONLY_PHP_MIN_VERSION_ID) {
@@ -96,9 +96,9 @@ class Application {
         /**
          * Include composer packages in main directory.
          */
-        if (file_exists($file = __DIR__ . '/../../vendor/autoload.php'))
+        if (File::exists($file = __DIR__ . '/../../vendor/autoload.php'))
             require_once $file;
-        elseif (file_exists($file = __DIR__ . '/../../plugins/autoload.php'))
+        elseif (File::exists($file = __DIR__ . '/../../plugins/autoload.php'))
             require_once $file;
 
         /**
