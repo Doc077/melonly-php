@@ -19,9 +19,9 @@ return new class extends Command {
             ->addHeader('Released')
             ->addHeader('Author')
             ->addRow()
-            ->addColumn(MELONLY_VERSION . ' STABLE RELEASE')
+            ->addColumn(MELONLY_VERSION)
             ->addColumn(MELONLY_VERSION_RELEASE_DATE)
-            ->addColumn('Dominik Rajkowski (dom.rajkowski@gmail.com)')
+            ->addColumn(MELONLY_AUTHOR)
             ->display();
         
         echo Color::RESET, PHP_EOL;

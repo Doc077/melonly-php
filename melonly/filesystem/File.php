@@ -2,10 +2,16 @@
 
 namespace Melonly\Filesystem;
 
-use SplFileObject;
 use ErrorException;
+use SplFileObject;
 
 class File {
+    protected readonly string $path;
+
+    public function __construct(string $path) {
+        $this->path = $path;
+    }
+
     public static function exists(string $path): bool {
         return file_exists($path);
     }
