@@ -84,7 +84,7 @@ class Application {
         Container::initialize();
 
         if (PHP_VERSION_ID < MELONLY_PHP_MIN_VERSION_ID) {
-            throw new UnsupportedPHPVersionException('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or greater');
+            throw new UnsupportedPHPException('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or greater');
         }
 
         /**
@@ -104,7 +104,7 @@ class Application {
         }
 
         /**
-         * Check or generate security CSRF token.
+         * Check (if exists) or generate security CSRF token.
          */
         if (Session::isSet('MELONLY_CSRF_TOKEN')) {
             if ($_SERVER['REQUEST_METHOD'] === Method::Post->value && !hash_equals(Session::get('MELONLY_CSRF_TOKEN'), $_POST['csrf_token'])) {

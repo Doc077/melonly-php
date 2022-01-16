@@ -4,6 +4,6 @@ namespace Melonly\Bootstrap;
 
 use Exception;
 
-class UnsupportedPHPVersionException extends Exception {
+class UnsupportedPHPException extends Exception {
     // 
 }
