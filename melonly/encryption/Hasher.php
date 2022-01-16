@@ -16,4 +16,8 @@ class Hasher {
 
         return $hash;
     }
+
+    public function check(string $input, string $output): bool {
+        return password_verify($input, $output);
+    }
 }

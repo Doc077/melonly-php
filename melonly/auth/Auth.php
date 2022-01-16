@@ -4,6 +4,7 @@ namespace Melonly\Authentication;
 
 use App\Models\User;
 use Melonly\Database\DB;
+use Melonly\Encryption\Hash;
 use Melonly\Http\Session;
 
 class Auth {
@@ -19,7 +20,7 @@ class Auth {
         /**
          * Validate password hash.
          */
-        if (count($user) > 0 && password_verify($password, $user->password)) {
+        if (count($user) > 0 && Hash::check($password, $user->password)) {
             Session::set('MELONLY_AUTHENTICATED', true);
             Session::set('MELONLY_AUTH_USER_DATA', get_object_vars($user));
 
