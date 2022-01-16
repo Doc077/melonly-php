@@ -106,40 +106,7 @@ class Router implements RouterInterface {
          * If URI requests a file, send it and return
          */
         if (array_key_exists('extension', pathinfo($uri)) && pathinfo($uri)['extension']) {
-            $extension = pathinfo($uri)['extension'];
-            $mimeType = 'text/plain';
-
-            /**
-             * If file doesn't exist, return 404 error
-             */
-            if (!file_exists(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri)) {
-                Container::get(Response::class)->abort(404);
-
-                return;
-            }
-
-            $extensionMimeTypes = Mime::TYPES;
-
-            /**
-             * Secure vulnerable files.
-             */
-            if ($extension === 'php' || $uri === '.htaccess') {
-                Container::get(Response::class)->abort(404);
-
-                exit;
-            }
-
-            if (array_key_exists(pathinfo($uri)['extension'], $extensionMimeTypes)) {
-                $mimeType = $extensionMimeTypes[$extension];
-            }
-
-            if (pathinfo($uri)['extension'] === 'css') {
-                $mimeType = 'text/css';
-            }
-
-            header('Content-Type: ' . $mimeType);
-
-            echo readfile(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri);
+            $this->handleFileRequest($uri);
 
             return;
         }
@@ -163,64 +130,7 @@ class Router implements RouterInterface {
                  * Call route action in case of callable argument.
                  */
                 if (is_callable($this->actions[$pattern])) {
-                    if (isset($parameters) && isset($parameters[1])) {
-                        Container::get(Request::class)->setParameter(explode('?', $parameters[1])[0]);
-                    }
-
-                    /**
-                     * Inject services to callable.
-                     */
-                    try {
-                        $reflector = new ReflectionFunction($this->actions[$pattern]);
-                    } catch (ReflectionException) {
-                        throw new Exception('Cannot create instance of a service');
-                    }
-
-                    $services = [];
-
-                    foreach ($reflector->getParameters() as $param) {
-                        $class = $param->getType();
-
-                        $services[] = Container::get($class);
-                    }
-
-                    /**
-                     * Execute callable from controller.
-                     */
-                    $this->actions[$pattern](...$services);
-
-                    /**
-                     * Render view or show raw response data.
-                     */
-                    $view = Container::get(Response::class)->getView()[0];
-                    $viewVariables = Container::get(Response::class)->getView()[1];
-
-                    if ($view !== null) {
-                        $view = str_replace('.', '/', $view);
-
-                        View::renderView($view, $viewVariables);
-
-                        return;
-                    }
-
-                    /**
-                     * Set reponse HTTP status code.
-                     */
-                    http_response_code(Container::get(Response::class)->getStatus());
-
-                    /**
-                     * Return response content.
-                     * In case of array return JSON.
-                     */
-                    $responseData = Container::get(Response::class)->getData();
-
-                    if (is_array(Container::get(Response::class)->getData())) {
-                        header('Content-Type: application/json');
-
-                        echo json_encode($responseData);
-                    } else {
-                        echo $responseData;
-                    }
+                    $this->handleClosure($pattern);
                 }
 
                 break;
@@ -232,6 +142,104 @@ class Router implements RouterInterface {
          */
         if (!$matchesRoute) {
             Container::get(Response::class)->abort(404);
+        }
+    }
+
+    protected function handleFileRequest(string $uri): void {
+        $extension = pathinfo($uri)['extension'];
+        $mimeType = 'text/plain';
+
+        /**
+         * If file doesn't exist, return 404 error
+         */
+        if (!file_exists(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri)) {
+            Container::get(Response::class)->abort(404);
+
+            return;
+        }
+
+        $extensionMimeTypes = Mime::TYPES;
+
+        /**
+         * Secure vulnerable files.
+         */
+        if ($extension === 'php' || $uri === '.htaccess') {
+            Container::get(Response::class)->abort(404);
+
+            exit;
+        }
+
+        if (array_key_exists(pathinfo($uri)['extension'], $extensionMimeTypes)) {
+            $mimeType = $extensionMimeTypes[$extension];
+        }
+
+        if (pathinfo($uri)['extension'] === 'css') {
+            $mimeType = 'text/css';
+        }
+
+        header('Content-Type: ' . $mimeType);
+
+        echo readfile(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri);
+    }
+
+    protected function handleClosure(string $pattern): void {
+        if (isset($parameters) && isset($parameters[1])) {
+            Container::get(Request::class)->setParameter(explode('?', $parameters[1])[0]);
+        }
+
+        /**
+         * Inject services to callable.
+         */
+        try {
+            $reflector = new ReflectionFunction($this->actions[$pattern]);
+        } catch (ReflectionException) {
+            throw new Exception('Cannot create instance of a service');
+        }
+
+        $services = [];
+
+        foreach ($reflector->getParameters() as $param) {
+            $class = $param->getType();
+
+            $services[] = Container::get($class);
+        }
+
+        /**
+         * Execute callable from controller.
+         */
+        $this->actions[$pattern](...$services);
+
+        /**
+         * Render view or show raw response data.
+         */
+        $view = Container::get(Response::class)->getView()[0];
+        $viewVariables = Container::get(Response::class)->getView()[1];
+
+        if ($view !== null) {
+            $view = str_replace('.', '/', $view);
+
+            View::renderView($view, $viewVariables);
+
+            return;
+        }
+
+        /**
+         * Set response HTTP status code.
+         */
+        http_response_code(Container::get(Response::class)->getStatus());
+
+        /**
+         * Return response content.
+         * In case of array return JSON.
+         */
+        $responseData = Container::get(Response::class)->getData();
+
+        if (is_array(Container::get(Response::class)->getData())) {
+            header('Content-Type: application/json');
+
+            echo json_encode($responseData);
+        } else {
+            echo $responseData;
         }
     }
 }
