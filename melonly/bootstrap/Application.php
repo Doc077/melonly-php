@@ -5,10 +5,11 @@ namespace Melonly\Bootstrap;
 use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
+use Melonly\Exceptions\ExceptionHandler;
+use Melonly\Http\Session;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
 use Melonly\Routing\Attributes\Route;
-use Melonly\Exceptions\ExceptionHandler;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -100,10 +101,17 @@ class Application {
         }
 
         /**
+         * Generate security CSRF token.
+         */
+        if (!Session::isSet('MELONLY_CSRF_TOKEN')) {
+            Session::set('MELONLY_CSRF_TOKEN', bin2hex(random_bytes(32)));
+        }
+
+        /**
          * If user is authenticated, save data to Auth.
          */
         if (Auth::logged()) {
-            Auth::$userData = $_SESSION['MELONLY_AUTH_USER_DATA'];
+            Auth::$userData = Session::get('MELONLY_AUTH_USER_DATA');
         }
     }
 

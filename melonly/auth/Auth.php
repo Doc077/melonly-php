@@ -4,6 +4,7 @@ namespace Melonly\Authentication;
 
 use App\Models\User;
 use Melonly\Database\DB;
+use Melonly\Http\Session;
 
 class Auth {
     public static array $userData = [];
@@ -19,8 +20,8 @@ class Auth {
          * Validate password hash.
          */
         if (count($user) > 0 && password_verify($password, $user->password)) {
-            $_SESSION['MELONLY_AUTHENTICATED'] = true;
-            $_SESSION['MELONLY_AUTH_USER_DATA'] = get_object_vars($user);
+            Session::set('MELONLY_AUTHENTICATED', true);
+            Session::set('MELONLY_AUTH_USER_DATA', get_object_vars($user));
 
             foreach (get_object_vars($user) as $field => $value) {
                 self::$userData[$field] = $value;
@@ -29,7 +30,7 @@ class Auth {
             return true;
         }
 
-        $_SESSION['MELONLY_AUTHENTICATED'] = false;
+        Session::set('MELONLY_AUTHENTICATED', false);
 
         redirect('/login');
 
@@ -44,7 +45,7 @@ class Auth {
     }
 
     public static function logged(): bool {
-        if (isset($_SESSION['MELONLY_AUTHENTICATED']) && $_SESSION['MELONLY_AUTHENTICATED'] === true) {
+        if (Session::isSet('MELONLY_AUTHENTICATED') && Session::get('MELONLY_AUTHENTICATED') === true) {
             return true;
         }
 

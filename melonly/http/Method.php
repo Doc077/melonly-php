@@ -9,4 +9,5 @@ enum Method: string {
     case Patch = 'PATCH';
     case Delete = 'DELETE';
     case Options = 'OPTIONS';
+    case Trace = 'TRACE';
 }

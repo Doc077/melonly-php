@@ -3,6 +3,7 @@
 namespace Melonly\Http;
 
 use Exception;
+use Melonly\Http\Session;
 use Melonly\Views\View;
 
 class Response {
@@ -205,7 +206,7 @@ class Response {
 
     public function redirect(string $uri, array $data = []): void {
         foreach ($data as $key => $value) {
-            $_SESSION['MELONLY_FLASH_' . $key] = $value;
+            Session::set('MELONLY_FLASH_' . $key, $value);
         }
 
         redirect($uri);
@@ -215,7 +216,7 @@ class Response {
 
     public function redirectBack(array $data = []): never {
         foreach ($data as $key => $value) {
-            $_SESSION['MELONLY_FLASH_' . $key] = $value;
+            Session::set('MELONLY_FLASH_' . $key, $value);
         }
 
         if (!isset($_SERVER['HTTP_REFERER'])) {
