@@ -147,12 +147,7 @@ class Response {
     public function abort(int $status, string | bool $text = false): never {
         http_response_code($status);
 
-        /**
-         * Clean output
-         */
-        if (ob_get_contents()) {
-            ob_end_clean();
-        }
+        View::clearBuffer();
 
         $text = '';
 

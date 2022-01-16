@@ -11,8 +11,12 @@ class Str {
         return strtolower($string);
     }
 
-    public static function substring(string $string, int $offset): string {
-        return substr($string, $offset);
+    public static function substring(string $string, int $offset, ?int $length = null): string {
+        if ($length === null) {
+            substr($string, $offset);
+        }
+
+        return substr($string, $offset, $length);
     }
 
     public static function pascalCase(string $string, bool $replaceDashes = true): string {

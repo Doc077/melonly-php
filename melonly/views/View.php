@@ -5,6 +5,7 @@ namespace Melonly\Views;
 use Exception;
 use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Str;
+use Melonly\Support\Helpers\Regex;
 
 class View implements ViewInterface {
     public static string | null $currentView = null;
@@ -48,7 +49,7 @@ class View implements ViewInterface {
         ];
 
         foreach ($regexExpressions as $key => $value) {
-            $content = preg_replace($key, $value, $content);
+            $content = Regex::replace($key, $value, $content);
         }
 
         /**
@@ -81,7 +82,7 @@ class View implements ViewInterface {
                 /**
                  * Handle self-closing tags.
                  */
-                $content = preg_replace(
+                $content = Regex::replace(
                     '/<' . $name . '( (.*)="(.*)")* ?\/>/',
                     '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
 
@@ -91,7 +92,7 @@ class View implements ViewInterface {
                 /**
                  * Handle opening & closing tags.
                  */
-                $content = preg_replace(
+                $content = Regex::replace(
                     '/<' . $name . '( (.*)="(.*)")* ?>(?<slot>.*?)<\/' . $name . '>/',
                     '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
 
@@ -161,5 +162,11 @@ class View implements ViewInterface {
          * Remove temporary file.
          */
         File::delete($compiled);
+    }
+
+    public static function clearBuffer(): void {
+        if (ob_get_contents()) {
+            ob_end_clean();
+        }
     }
 }

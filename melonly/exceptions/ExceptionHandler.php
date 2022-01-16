@@ -28,12 +28,7 @@ class ExceptionHandler {
             exit;
         }
 
-        /**
-         * Clean output
-         */
-        if (ob_get_contents()) {
-            ob_end_clean();
-        }
+        View::clearBuffer();
 
         $url = rtrim(Url::full(), '/');
 
@@ -49,7 +44,7 @@ class ExceptionHandler {
         /**
          * If exception occured in a view, replace the file with uncompiled template.
          */
-        if (strpos($exceptionFile, 'storage\views') !== false) {
+        if (str_contains($exceptionFile, 'storage\views')) {
             $exceptionFile = View::$currentView;
         }
 
@@ -64,7 +59,7 @@ class ExceptionHandler {
          */
         foreach (glob(__DIR__ . '/../storage/views/*.php', GLOB_BRACE) as $file) {
             if (is_file($file)) {
-                unlink($file);
+                File::delete($file);
             }
         }
 
