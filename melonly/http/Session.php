@@ -11,7 +11,7 @@ class Session {
         return $_SESSION[$key];
     }
 
-    public static function set(string $key, mixed $value): mixed {
+    public static function set(string $key, mixed $value): void {
         $_SESSION[$key] = $value;
     }
 

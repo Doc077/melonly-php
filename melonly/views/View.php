@@ -40,7 +40,9 @@ class View implements ViewInterface {
             '/\\[ ?endwhile ?\\]/' => '<?php endwhile; ?>',
 
             '/\\[ ?break ?\\]/' => '<?php break; ?>',
-            '/\\[ ?continue ?\\]/' => '<?php continue; ?>'
+            '/\\[ ?continue ?\\]/' => '<?php continue; ?>',
+
+            '/\\[csrf\\]/' => '<input type="hidden" value="<?= csrfToken() ?>">'
         ];
 
         foreach ($regexExpressions as $key => $value) {

@@ -6,6 +6,9 @@ use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\ExceptionHandler;
+use Melonly\Http\Method as HttpMethod;
+use Melonly\Http\Method;
+use Melonly\Http\Response;
 use Melonly\Http\Session;
 use Melonly\Services\Container;
 use Melonly\Routing\Router;
@@ -101,9 +104,13 @@ class Application {
         }
 
         /**
-         * Generate security CSRF token.
+         * Check or generate security CSRF token.
          */
-        if (!Session::isSet('MELONLY_CSRF_TOKEN')) {
+        if (Session::isSet('MELONLY_CSRF_TOKEN')) {
+            if ($_SERVER['REQUEST_METHOD'] === Method::Post->value && !hash_equals(Session::get('MELONLY_CSRF_TOKEN'), $_POST['csrf_token'])) {
+                Container::get(Response::class)->abort(419);
+            }
+        } else {
             Session::set('MELONLY_CSRF_TOKEN', bin2hex(random_bytes(32)));
         }
 

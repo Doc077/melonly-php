@@ -48,6 +48,7 @@ class Response {
     public const REQUESTED_RANGE_NOT_SATISFIABLE = 416;
     public const EXPECTATION_FAILED = 417;
     public const I_AM_A_TEAPOT = 418;
+    public const TOKEN_EXPIRED = 419;
     public const MISDIRECTED_REQUEST = 421;
     public const UNPROCESSABLE_ENTITY = 422;
     public const LOCKED = 423;
@@ -111,6 +112,7 @@ class Response {
         416 => 'Range Not Satisfiable',
         417 => 'Expectation Failed',
         418 => 'I\'m a teapot',
+        419 => 'Token expired',
         421 => 'Misdirected Request',
         422 => 'Unprocessable Entity',
         423 => 'Locked',
