@@ -7,7 +7,6 @@ use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\ExceptionHandler;
 use Melonly\Http\Method as HttpMethod;
-use Melonly\Http\Method;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
 use Melonly\Services\Container;
@@ -72,7 +71,7 @@ class Application {
 
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
-        session_start();
+        Session::start();
 
         /**
          * Include internal framework files.
@@ -97,17 +96,16 @@ class Application {
         /**
          * Include composer packages in main directory.
          */
-        if (file_exists($file = __DIR__ . '/../../vendor/autoload.php')) {
+        if (file_exists($file = __DIR__ . '/../../vendor/autoload.php'))
             require_once $file;
-        } elseif (file_exists($file = __DIR__ . '/../../plugins/autoload.php')) {
+        elseif (file_exists($file = __DIR__ . '/../../plugins/autoload.php'))
             require_once $file;
-        }
 
         /**
          * Check (if exists) or generate security CSRF token.
          */
         if (Session::isSet('MELONLY_CSRF_TOKEN')) {
-            if ($_SERVER['REQUEST_METHOD'] === Method::Post->value && !hash_equals(Session::get('MELONLY_CSRF_TOKEN'), $_POST['csrf_token'])) {
+            if ($_SERVER['REQUEST_METHOD'] === HttpMethod::Post->value && !hash_equals(Session::get('MELONLY_CSRF_TOKEN'), $_POST['csrf_token'])) {
                 Container::get(Response::class)->abort(419);
             }
         } else {

@@ -39,8 +39,7 @@ class Auth {
     }
 
     public static function logout(): void {
-        session_unset();
-        session_destroy();
+        Session::clear();
 
         redirect('/login');
     }
