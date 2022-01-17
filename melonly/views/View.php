@@ -10,63 +10,65 @@ use Melonly\Support\Helpers\Regex;
 class View implements ViewInterface {
     public static ?string $currentView = null;
 
+    protected static array $namespaces = [
+        'Arr' => \Melonly\Support\Helpers\Arr::class,
+        'Auth' => \Melonly\Authentication\Auth::class,
+        'DB' => \Melonly\Database\DB::class,
+        'File' => \Melonly\Filesystem\File::class,
+        'HtmlNodeString' => \Melonly\Views\HtmlNodeString::class,
+        'Str' => \Melonly\Support\Helpers\Str::class,
+        'Time' => \Melonly\Support\Helpers\Time::class,
+        'Url' => \Melonly\Support\Helpers\Url::class,
+        'Vector' => \Melonly\Support\Containers\Vector::class
+    ];
+
+    protected static array $stringExpressions = [
+        '{{{' => '<?=',
+        '}}}' => '?>',
+        '{{' => '<?= printData(',
+        '}}' => ') ?>',
+        '[[' => '<?= trans(',
+        ']]' => ') ?>'
+    ];
+
+    protected static array $regexExpressions = [
+        '/\\[ ?foreach ?(:?.*?) ?\\]/' => '<?php foreach ($1): ?>',
+        '/\\[ ?endforeach ?\\]/' => '<?php endforeach; ?>',
+
+        '/\\[ ?if ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php if ($1): ?>',
+        '/\\[ ?endif ?\\]/' => '<?php endif; ?>',
+
+        '/\\[ ?elseif ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php elseif ($1): ?>',
+        '/\\[ ?else ?\\]/' => '<?php else: ?>',
+
+        '/\\[ ?for ?(.*?) ?\\]/' => '<?php for ($1): ?>',
+        '/\\[ ?endfor ?\\]/' => '<?php endfor; ?>',
+
+        '/\\[ ?while ?(.*?) ?\\]/' => '<?php while ($1): ?>',
+        '/\\[ ?endwhile ?\\]/' => '<?php endwhile; ?>',
+
+        '/\\[ ?break ?\\]/' => '<?php break; ?>',
+        '/\\[ ?continue ?\\]/' => '<?php continue; ?>',
+
+        '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">'
+    ];
+
     public static function compile(string $file): string {
         $content = File::content($file);
 
-        $stringExpressions = [
-            '{{{' => '<?=',
-            '}}}' => '?>',
-            '{{' => '<?= printData(',
-            '}}' => ') ?>',
-            '[[' => '<?= trans(',
-            ']]' => ') ?>'
-        ];
-
-        foreach ($stringExpressions as $key => $value) {
+        foreach (self::$stringExpressions as $key => $value) {
             $content = Str::replace($key, $value, $content);
         }
 
-        $regexExpressions = [
-            '/\\[ ?foreach ?(:?.*?) ?\\]/' => '<?php foreach ($1): ?>',
-            '/\\[ ?endforeach ?\\]/' => '<?php endforeach; ?>',
-
-            '/\\[ ?if ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php if ($1): ?>',
-            '/\\[ ?endif ?\\]/' => '<?php endif; ?>',
-
-            '/\\[ ?elseif ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php elseif ($1): ?>',
-            '/\\[ ?else ?\\]/' => '<?php else: ?>',
-
-            '/\\[ ?for ?(.*?) ?\\]/' => '<?php for ($1): ?>',
-            '/\\[ ?endfor ?\\]/' => '<?php endfor; ?>',
-
-            '/\\[ ?while ?(.*?) ?\\]/' => '<?php while ($1): ?>',
-            '/\\[ ?endwhile ?\\]/' => '<?php endwhile; ?>',
-
-            '/\\[ ?break ?\\]/' => '<?php break; ?>',
-            '/\\[ ?continue ?\\]/' => '<?php continue; ?>',
-
-            '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">'
-        ];
-
-        foreach ($regexExpressions as $key => $value) {
+        foreach (self::$regexExpressions as $key => $value) {
             $content = Regex::replace($key, $value, $content);
         }
 
         /**
          * Add necessary namespaces.
          */
-        $namespaces = [
-            'Arr' => \Melonly\Support\Helpers\Arr::class,
-            'Auth' => \Melonly\Authentication\Auth::class,
-            'DB' => \Melonly\Database\DB::class,
-            'File' => \Melonly\Filesystem\File::class,
-            'Str' => \Melonly\Support\Helpers\Str::class,
-            'Time' => \Melonly\Support\Helpers\Time::class,
-            'Url' => \Melonly\Support\Helpers\Url::class,
-            'Vector' => \Melonly\Support\Containers\Vector::class
-        ];
 
-        foreach ($namespaces as $key => $value) {
+        foreach (self::$namespaces as $key => $value) {
             $content = Str::replace($key . '::', $value . '::', $content);
         }
 

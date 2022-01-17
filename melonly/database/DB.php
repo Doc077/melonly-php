@@ -5,7 +5,7 @@ namespace Melonly\Database;
 use PDOException;
 use Melonly\Services\Container;
 use Melonly\Support\Containers\Vector;
-use Melonly\Exceptions\ExceptionHandler;
+use Melonly\Exceptions\Handler;
 
 class DB implements DBInterface {
     public static function query(string $sql, array $boundParams = []): Vector | Record | array {
@@ -59,7 +59,7 @@ class DB implements DBInterface {
 
             return $records;
         } catch (PDOException $exception) {
-            ExceptionHandler::handle($exception);
+            Handler::handle($exception);
         }
     }
 }

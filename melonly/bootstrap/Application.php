@@ -5,7 +5,7 @@ namespace Melonly\Bootstrap;
 use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
-use Melonly\Exceptions\ExceptionHandler;
+use Melonly\Exceptions\Handler;
 use Melonly\Filesystem\File;
 use Melonly\GraphQL\GraphQL;
 use Melonly\Http\Method as HttpMethod;
@@ -63,7 +63,7 @@ class Application {
 
             $this->respondAndTerminate();
         } catch (Throwable $exception) {
-            ExceptionHandler::handle($exception);
+            Handler::handle($exception);
         }
     }
 

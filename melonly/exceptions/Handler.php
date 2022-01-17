@@ -13,7 +13,7 @@ use Melonly\Http\Response;
 use Melonly\Views\View;
 use Melonly\Support\Helpers\Url;
 
-class ExceptionHandler {
+class Handler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
         if (env('APP_DEBUG') === false) {
             Container::get(Response::class)->abort(500);
