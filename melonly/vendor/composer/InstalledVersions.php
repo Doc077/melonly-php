@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '2.x-dev',
-    'version' => '2.9999999.9999999.9999999-dev',
+    'pretty_version' => '3.x-dev',
+    'version' => '3.9999999.9999999.9999999-dev',
     'aliases' => 
     array (
     ),
-    'reference' => '38fd1a4dce6e3c9ff5ce0c390c66592df944c1f2',
+    'reference' => '00c451be0f5ec395019437a6320c00ee13d1c91c',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '2.x-dev',
-      'version' => '2.9999999.9999999.9999999-dev',
+      'pretty_version' => '3.x-dev',
+      'version' => '3.9999999.9999999.9999999-dev',
       'aliases' => 
       array (
       ),
-      'reference' => '38fd1a4dce6e3c9ff5ce0c390c66592df944c1f2',
+      'reference' => '00c451be0f5ec395019437a6320c00ee13d1c91c',
     ),
     'ably/ably-php' => 
     array (
@@ -115,6 +115,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '089edd38f5b8abba6cb01567c2a8aaa47cec4c72',
+    ),
+    'intervention/image' => 
+    array (
+      'pretty_version' => '2.7.1',
+      'version' => '2.7.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
     ),
     'myclabs/deep-copy' => 
     array (
