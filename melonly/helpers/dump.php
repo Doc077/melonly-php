@@ -1,8 +1,8 @@
 <?php
 
 function dump(...$variables): void {
-    echo '<div style="padding: 14px 16px; background: #2a2b32; color: #ddd; font-family: Cascadia Mono, Consolas, monospace; font-size: 14px; border-radius: 10px; line-height: 1.6;">';
-    echo '<div style="color: #b8bcc9; margin-bottom: 8px;">Dumped variables (' . count($variables) . '):</div>';
+    print('<div style="padding: 14px 16px; background: #2a2b32; color: #ddd; font-family: Cascadia Mono, Consolas, monospace; font-size: 14px; border-radius: 10px; line-height: 1.6;">');
+    print('<div style="color: #b8bcc9; margin-bottom: 8px;">Dumped variables (' . count($variables) . '):</div>');
 
     foreach ($variables as $variable) {
         $type = gettype($variable);
@@ -59,45 +59,45 @@ function dump(...$variables): void {
             $arrayTypes = implode(', ', $types);
         }
 
-        echo '<div><span style="color: #e491fd;">' . $type . '</span>' . (is_array($variable) ? "&lt;<span style=\"color: #8ec6ff;\">{$arrayTypes}</span>&gt;" : '') . ': <span style="color: #a1cf7f;">' . (is_array($variable) ? '[' : $value) . '</span></div>';
+        print('<div><span style="color: #e491fd;">' . $type . '</span>' . (is_array($variable) ? "&lt;<span style=\"color: #8ec6ff;\">{$arrayTypes}</span>&gt;" : '') . ': <span style="color: #a1cf7f;">' . (is_array($variable) ? '[' : $value) . '</span></div>');
 
         if (is_array($variable)) {
             foreach ($variable as $element) {
-                echo '<div style="width: 10px; margin-left: 20px;">';
+                print('<div style="width: 10px; margin-left: 20px;">');
 
                 switch (gettype($element)) {
                     case 'array':
-                        echo 'array';
+                        print('array');
         
                         break;
         
                     case 'string':
-                        echo $element;
+                        print($element);
         
                         break;
         
                     case 'boolean':
-                        echo $value ? 'true' : 'false';
+                        print($value ? 'true' : 'false');
         
                         break;
         
                     case 'object':
                         $type = get_class($element);
         
-                        echo 'new ' . get_class($element) . '()';
+                        print('new ' . get_class($element) . '()');
         
                         break;
         
                     case 'NULL':
-                        echo 'null';
+                        print('null');
         
                         break;
                 }
 
-                echo '</div>';
+                print('</div>');
             }
         }
     }
 
-    echo '</div>';
+    print('</div>');
 }

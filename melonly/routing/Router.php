@@ -52,7 +52,7 @@ class Router implements RouterInterface {
         }
 
         /**
-         * Create RegExp for dynamic parameters and route.
+         * Create pattern for dynamic parameters and route URI.
          */
         $pattern = Regex::replace('/:(.*)/', '(.*)', $uri) . '(\\?.*?)?';
 
@@ -182,7 +182,7 @@ class Router implements RouterInterface {
 
         header('Content-Type: ' . $mimeType);
 
-        echo readfile(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri);
+        print(readfile(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri));
     }
 
     protected function handleClosure(string $pattern): void {
@@ -240,9 +240,9 @@ class Router implements RouterInterface {
         if (is_array(Container::get(Response::class)->getData())) {
             header('Content-Type: application/json');
 
-            echo json_encode($responseData);
+            print(json_encode($responseData));
         } else {
-            echo $responseData;
+            print($responseData);
         }
     }
 }
