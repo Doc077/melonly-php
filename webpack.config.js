@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-    entry: path.join(__dirname, 'assets', 'react', 'index.js'),
+    entry: path.join(__dirname, 'frontend', 'react', 'index.js'),
 
     mode: 'development',
 

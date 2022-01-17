@@ -73,8 +73,8 @@ class View implements ViewInterface {
         /**
          * Get all registered components and compile component tags.
          */
-        if (File::exists(__DIR__ . '/../../views/components')) {
-            $componentFiles = array_diff(scandir(__DIR__ . '/../../views/components'), ['.', '..']);
+        if (File::exists(__DIR__ . '/../../frontend/views/components')) {
+            $componentFiles = array_diff(scandir(__DIR__ . '/../../frontend/views/components'), ['.', '..']);
 
             foreach ($componentFiles as $componentFile) {
                 $name = explode('.html', $componentFile)[0];
@@ -113,11 +113,11 @@ class View implements ViewInterface {
     }
 
     public static function renderView(string $file, array $variables = []): void {
-        if (!File::exists(__DIR__ . '/../../views/' . $file . '.html')) {
+        if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html')) {
             throw new Exception("View '$file' does not exist");
         }
 
-        $file = __DIR__ . '/../../views/' . $file . '.html';
+        $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
 
         self::$currentView = $file;
 
@@ -139,11 +139,11 @@ class View implements ViewInterface {
     }
 
     public static function renderComponent(string $file, array $attributes = []): void {
-        if (!File::exists(__DIR__ . '/../../views/components/' . $file)) {
+        if (!File::exists(__DIR__ . '/../../frontend/views/components/' . $file)) {
             throw new Exception("Component '$file' does not exist");
         }
 
-        $file = __DIR__ . '/../../views/components/' . $file;
+        $file = __DIR__ . '/../../frontend/views/components/' . $file;
 
         self::$currentView = $file;
 

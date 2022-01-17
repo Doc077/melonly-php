@@ -6,7 +6,7 @@ if (!function_exists('trans')) {
     function trans(string $key): string {
         $parts = explode('.', $key);
 
-        $file = __DIR__ . '/../../lang/' . Lang::getCurrent() . '/' . $parts[0] . '.json';
+        $file = __DIR__ . '/../../frontend/lang/' . Lang::getCurrent() . '/' . $parts[0] . '.json';
 
         if (!file_exists($file)) {
             throw new Exception("Translation file '{$parts[0]}' does not exist");

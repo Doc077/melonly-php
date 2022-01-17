@@ -10,7 +10,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../views/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../frontend/views/' . $this->arguments[2] . '.php';
 
         if (file_exists($fileName)) {
             echo Color::LIGHT_RED, 'View \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;

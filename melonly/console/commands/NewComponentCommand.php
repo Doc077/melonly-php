@@ -10,7 +10,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../views/components/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../frontend/views/components/' . $this->arguments[2] . '.php';
 
         if (file_exists($fileName)) {
             echo Color::LIGHT_RED, 'Component \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
@@ -21,8 +21,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!file_exists(__DIR__ . '/../../../views/components')) {
-            mkdir(__DIR__ . '/../../../views/components', 0777, true);
+        if (!file_exists(__DIR__ . '/../../../frontend/views/components')) {
+            mkdir(__DIR__ . '/../../../frontend/views/components', 0777, true);
         }
 
         file_put_contents($fileName, '<div class="' . strtolower($this->arguments[2]) . '">
