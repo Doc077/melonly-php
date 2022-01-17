@@ -197,6 +197,12 @@ class Response {
         $this->data = $data;
     }
 
+    public function header(iterable $headers): void {
+        foreach ($headers as $header => $value) {
+            header($header . ': ' . $value);
+        }
+    }
+
     public function status(int $code): void {
         $this->status = $code;
     }

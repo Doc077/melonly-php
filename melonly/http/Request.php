@@ -25,6 +25,10 @@ class Request {
         return phpversion();
     }
 
+    public function header(string $key): string {
+        return getallheaders()[$key];
+    }
+
     public function headers(): false | array {
         return getallheaders();
     }
