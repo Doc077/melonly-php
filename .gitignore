@@ -2,7 +2,6 @@
 /plugins
 /vendor
 /public/data
-/melonly/storage/views/*.php
 npm-debug.log
 yarn-error.log
 /.idea
