@@ -38,6 +38,9 @@ class Router implements RouterInterface {
             return;
         }
 
+        /**
+         * Trim leading slash.
+         */
         if ($uri[0] === '/') {
             $uri = Str::substring($uri, 1);
         }
@@ -101,6 +104,9 @@ class Router implements RouterInterface {
     public function evaluate(): void {
         $uri = Container::get(Request::class)->uri();
 
+        /**
+         * Trim leading slash.
+         */
         if ($uri[0] === '/') {
             $uri = Str::substring($uri, 1);
         }
@@ -117,13 +123,17 @@ class Router implements RouterInterface {
         /**
          * Check if URI matches with one of registered routes.
          */
-        $matchesRoute = false;
+        $this->checkMatchedRoute($uri);
+    }
+
+    protected function checkMatchedRoute(string $uri): void {
+        $matchesOneRoute = false;
 
         foreach ($this->patterns as $pattern) {
             $matchPattern = $_SERVER['REQUEST_METHOD'] . $uri;
 
             if (preg_match($pattern, $matchPattern, $parameters)) {
-                $matchesRoute = true;
+                $matchesOneRoute = true;
 
                 if (array_key_exists($pattern, $this->redirects)) {
                     header('Location: ' . $this->redirects[$pattern]);
@@ -143,7 +153,7 @@ class Router implements RouterInterface {
         /**
          * If route has not been found, throw 404 error.
          */
-        if (!$matchesRoute) {
+        if (!$matchesOneRoute) {
             Container::get(Response::class)->abort(404);
         }
     }
