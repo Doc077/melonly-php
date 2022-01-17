@@ -5,5 +5,7 @@ use Melonly\Http\Response;
 use Melonly\Routing\Route;
 
 Route::get('/', function (Request $request, Response $response): void {
-    $response->view('pages.home');
+    $response->view('pages.home', [
+        'ip' => $request->ip()
+    ]);
 });

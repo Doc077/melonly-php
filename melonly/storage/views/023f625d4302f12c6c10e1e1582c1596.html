@@ -123,11 +123,11 @@
             Edit: (frontend/views/components)
         -->
 
-        <menu-nav />
+        <?php \Melonly\Views\View::renderComponent("menu-nav.html", ["ip" => 127.0.0.1,'' => '', '' => '']); ?>
 
-        <main-content />
+        <?php \Melonly\Views\View::renderComponent("main-content.html", ["ip" => 127.0.0.1,'' => '', '' => '']); ?>
 
-        <footer-info />
+        <?php \Melonly\Views\View::renderComponent("footer-info.html", ["ip" => 127.0.0.1,'' => '', '' => '']); ?>
 
 
         <!--

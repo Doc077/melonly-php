@@ -53,9 +53,12 @@ class View implements ViewInterface {
         '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">'
     ];
 
-    public static function compile(string $file): string {
+    public static function compile(string $file, array $variables = []): string {
         $content = File::content($file);
 
+        /**
+         * Replace template syntax with PHP code.
+         */
         foreach (self::$stringExpressions as $key => $value) {
             $content = Str::replace($key, $value, $content);
         }
@@ -67,9 +70,17 @@ class View implements ViewInterface {
         /**
          * Add necessary namespaces.
          */
-
         foreach (self::$namespaces as $key => $value) {
             $content = Str::replace($key . '::', $value . '::', $content);
+        }
+
+        /**
+         * Extract variables passed to a view and pass them to component.
+         */
+        $variablesAsString = '';
+
+        foreach ($variables as $variable => $value) {
+            $variablesAsString .= '"' . $variable . '" => "' . $value . '",';
         }
 
         /**
@@ -86,7 +97,7 @@ class View implements ViewInterface {
                  */
                 $content = Regex::replace(
                     '/<' . $name . '( (.*)="(.*)")* ?\/>/',
-                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
+                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [' . $variablesAsString . '\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
 
                     $content
                 );
@@ -96,7 +107,7 @@ class View implements ViewInterface {
                  */
                 $content = Regex::replace(
                     '/<' . $name . '( (.*)="(.*)")* ?>(?<slot>.*?)<\/' . $name . '>/',
-                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
+                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [' . $variablesAsString . '\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
 
                     $content
                 );
@@ -123,7 +134,7 @@ class View implements ViewInterface {
 
         self::$currentView = $file;
 
-        $compiled = self::compile($file);
+        $compiled = self::compile($file, $variables);
 
         /**
          * Get passed variables and include compiled view.

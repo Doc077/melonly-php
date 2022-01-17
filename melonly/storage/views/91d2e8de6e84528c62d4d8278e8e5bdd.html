@@ -123,11 +123,11 @@
             Edit: (frontend/views/components)
         -->
 
-        <menu-nav />
+        <?php extract(Array); \Melonly\Views\View::renderComponent("menu-nav.html", ['' => '', '' => '']); ?>
 
-        <main-content />
+        <?php extract(Array); \Melonly\Views\View::renderComponent("main-content.html", ['' => '', '' => '']); ?>
 
-        <footer-info />
+        <?php extract(Array); \Melonly\Views\View::renderComponent("footer-info.html", ['' => '', '' => '']); ?>
 
 
         <!--
