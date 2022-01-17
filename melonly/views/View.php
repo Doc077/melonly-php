@@ -75,7 +75,7 @@ class View implements ViewInterface {
         }
 
         /**
-         * Extract variables passed to a view and pass them to component.
+         * Extract variables passed to a view and pass them further to component.
          */
         $variablesAsString = '';
 
@@ -127,7 +127,7 @@ class View implements ViewInterface {
 
     public static function renderView(string $file, array $variables = []): void {
         if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html')) {
-            throw new Exception("View '$file' does not exist");
+            throw new ViewNotFoundException("View '$file' does not exist");
         }
 
         $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
@@ -153,7 +153,7 @@ class View implements ViewInterface {
 
     public static function renderComponent(string $file, array $attributes = []): void {
         if (!File::exists(__DIR__ . '/../../frontend/views/components/' . $file)) {
-            throw new Exception("Component '$file' does not exist");
+            throw new ComponentNotFoundException("Component '$file' does not exist");
         }
 
         $file = __DIR__ . '/../../frontend/views/components/' . $file;
