@@ -7,6 +7,7 @@ use Melonly\Broadcasting\WebSocketConnection;
 use Melonly\Database\DBConnection;
 use Melonly\Encryption\Encrypter;
 use Melonly\Encryption\Hasher;
+use Melonly\GraphQL\GraphQLServer;
 use Melonly\Http\Request as HttpRequest;
 use Melonly\Http\Response as HttpResponse;
 use Melonly\Mailing\Mailer;
@@ -34,6 +35,7 @@ class Container implements ContainerInterface {
             HttpResponse::class,
             Router::class,
             Encrypter::class,
+            GraphQLServer::class,
             Hasher::class,
             Mailer::class,
             DBConnection::class,
