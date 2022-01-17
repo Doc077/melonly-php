@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '00c451be0f5ec395019437a6320c00ee13d1c91c',
+    'reference' => '6129ef7d66134c440a5c4e328e05f5e38f335bcb',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '00c451be0f5ec395019437a6320c00ee13d1c91c',
+      'reference' => '6129ef7d66134c440a5c4e328e05f5e38f335bcb',
     ),
     'ably/ably-php' => 
     array (
@@ -124,6 +124,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
+    ),
+    'leocavalcante/siler' => 
+    array (
+      'pretty_version' => 'v1.7.9',
+      'version' => '1.7.9.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e3821ae04e2d5790e86b4a9717fb6fbfdfdec1f4',
     ),
     'myclabs/deep-copy' => 
     array (
@@ -640,6 +649,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+    ),
+    'webonyx/graphql-php' => 
+    array (
+      'pretty_version' => 'v14.11.3',
+      'version' => '14.11.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a7192e7a2b0487dc5e185feb4f4df1fc24d35d86',
     ),
   ),
 );

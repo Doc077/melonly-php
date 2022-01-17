@@ -3,8 +3,10 @@
 namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
+use GraphQL\GraphQL;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
+use Melonly\Database\DB;
 use Melonly\Exceptions\ExceptionHandler;
 use Melonly\Filesystem\File;
 use Melonly\Http\Method as HttpMethod;
@@ -16,6 +18,7 @@ use Melonly\Routing\Attributes\Route;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
+use Siler\Graphql as GraphQLSchema;
 use Throwable;
 
 class Application {
@@ -117,6 +120,21 @@ class Application {
          */
         if (Auth::logged()) {
             Auth::$userData = Session::get('MELONLY_AUTH_USER_DATA');
+        }
+
+        /**
+         * Initialize GraphQl if enabled.
+         */
+        if (env('USE_GRAPHQL') === true) {
+            $schema = require __DIR__ . '/../database/graphql/schema.graphql';
+
+            $context = [
+                'sql' => function ($query) {
+                    return DB::query($query);
+                }
+            ];
+
+            GraphQLSchema\init($schema, null, $context);
         }
     }
 
