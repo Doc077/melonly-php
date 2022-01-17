@@ -15,7 +15,7 @@ If you want to dig deeper and learn some advanced Melonly features, you may visi
 To start a basic project, You can clone the repository:
 
 ```
-> cd path-to-your-app
+> cd <path-to-your-app>
 
 > git clone https://github.com/Doc077/melonly.git
 
@@ -66,6 +66,20 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 
 > php melon test
 ```
+
+
+## Basic Routing
+
+To register application routes, edit routes/web.php file.
+
+```php
+Route::get('/my-path', function (Request $request, Response $response): void {
+    $response->send('My first route');
+});
+```
+
+As you can see, you can supply a simple callback with injected request & response objects to return some response.
+Enter the localhost:5000/my-path route and look for the result.
 
 
 ## License
