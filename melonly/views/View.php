@@ -16,7 +16,7 @@ class View implements ViewInterface {
         $stringExpressions = [
             '{{{' => '<?=',
             '}}}' => '?>',
-            '{{' => '<?= htmlspecialchars(',
+            '{{' => '<?= printData(',
             '}}' => ') ?>',
             '[[' => '<?= trans(',
             ']]' => ') ?>'
