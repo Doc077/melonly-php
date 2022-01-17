@@ -10,7 +10,7 @@ class DBConnection implements DBConnectionInterface {
 
     protected array $credentials = [];
 
-    protected null | PDO $pdo = null;
+    protected ?PDO $pdo = null;
 
     public function __construct() {
         $this->system = env('DB_SYSTEM');

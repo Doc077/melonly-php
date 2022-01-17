@@ -8,7 +8,7 @@ use Melonly\Support\Helpers\Str;
 use Melonly\Support\Helpers\Regex;
 
 class View implements ViewInterface {
-    public static string | null $currentView = null;
+    public static ?string $currentView = null;
 
     public static function compile(string $file): string {
         $content = File::content($file);
