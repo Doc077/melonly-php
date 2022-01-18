@@ -2,6 +2,7 @@
 
 use Melonly\Console\TerminalApplication;
 
+require __DIR__ . '/melonly/console/DisplaysOutput.php';
 require __DIR__ . '/melonly/console/TerminalApplication.php';
 
 TerminalApplication::start();

@@ -38,6 +38,6 @@ return new class extends Command {
             ->addColumn('version')
             ->display();
 
-        $this->infoLine('Enter your command to execute [php melon <command>]:');
+        $this->infoLine('Enter your command to execute [php melon ...]:');
     }
 };

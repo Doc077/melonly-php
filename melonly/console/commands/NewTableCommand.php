@@ -15,7 +15,7 @@ return new class extends Command {
         $fileName = __DIR__ . '/../../../database/' . $this->arguments[2] . '.melon';
 
         if (File::exists($fileName)) {
-            $this->errorLine('Table migration \'' . $this->arguments[2] . '\' already exists');
+            $this->errorLine("Table migration '{$this->arguments[2]}' already exists");
 
             return;
         }

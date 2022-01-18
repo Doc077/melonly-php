@@ -15,7 +15,7 @@ return new class extends Command {
         $fileName = __DIR__ . '/../../../frontend/views/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
-            $this->errorLine('View \'' . $this->arguments[2] . '\' already exists');
+            $this->errorLine("View '{$this->arguments[2]}' already exists");
 
             return;
         }
@@ -27,7 +27,7 @@ return new class extends Command {
             mkdir(__DIR__ . '/../../../views', 0777, true);
         }
 
-        File::put($fileName, '<!DOCTYPE html>
+        File::put($fileName, '<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">

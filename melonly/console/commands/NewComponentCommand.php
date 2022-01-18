@@ -15,7 +15,7 @@ return new class extends Command {
         $fileName = __DIR__ . '/../../../frontend/views/components/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
-            $this->errorLine('Component \'' . $this->arguments[2] . '\' already exists');
+            $this->errorLine("Component '{$this->arguments[2]}' already exists");
 
             return;
         }

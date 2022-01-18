@@ -2,10 +2,7 @@
 
 namespace Melonly\Console;
 
-use Codedungeon\PHPCliColors\Color;
 use Melonly\Bootstrap\Application;
-
-require_once __DIR__ . '/DisplaysOutput.php';
 
 class TerminalApplication {
     use DisplaysOutput;
@@ -33,7 +30,7 @@ class TerminalApplication {
 
             (new $command())->handle();
         } else {
-            echo Color::LIGHT_RED, "Unknown command '{$this->arguments[1]}'", PHP_EOL, Color::RESET;
+            $this->errorLine("Unknown command '{$this->arguments[1]}'");
         }
     }
 
@@ -69,7 +66,7 @@ class TerminalApplication {
 
                 (new $command())->handle();
             } else {
-                echo Color::LIGHT_RED, "Unknown command '{$this->arguments[1]}' or cannot create new instance of '{$matches[1]}'", PHP_EOL, Color::RESET;
+                $this->errorLine("Unknown command '{$this->arguments[1]}' or cannot create new instance of '{$matches[1]}'");
             }
 
             exit;

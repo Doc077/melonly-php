@@ -15,7 +15,7 @@ return new class extends Command {
         $fileName = __DIR__ . '/../../../controllers/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
-            $this->errorLine('Controller \'' . $this->arguments[2] . '\' already exists');
+            $this->errorLine("Controller '{$this->arguments[2]}' already exists");
 
             return;
         }

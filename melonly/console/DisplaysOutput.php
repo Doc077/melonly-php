@@ -13,7 +13,7 @@ trait DisplaysOutput {
 
     protected function errorLine(string $data): void {
         render('
-            <div class="text-red-400 my-2">' . $data . '</div>
+            <div class="text-red-400 w-full my-1">' . $data . '</div>
         ');
     }
 
@@ -25,7 +25,7 @@ trait DisplaysOutput {
 
     protected function infoLine(string $data): void {
         render('
-            <div class="text-green-400 my-2">' . $data . '</div>
+            <div class="text-green-400 w-full my-1">' . $data . '</div>
         ');
     }
 }

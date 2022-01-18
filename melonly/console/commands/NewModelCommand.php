@@ -15,7 +15,7 @@ return new class extends Command {
         $fileName = __DIR__ . '/../../../models/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
-            $this->errorLine('Model \'' . $this->arguments[2] . '\' already exists');
+            $this->errorLine("Model '{$this->arguments[2]}' already exists");
 
             return;
         }
