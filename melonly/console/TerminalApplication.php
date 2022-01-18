@@ -67,7 +67,7 @@ class TerminalApplication {
         if (preg_match('/new:(.*)/', $this->arguments[1], $matches)) {
             $name = 'New' . Str::uppercaseFirst($matches[1]);
 
-            if (File::exists($file = __DIR__ . '/commands/' . $name . 'Command.php')) {
+            if (File::exists($file = __DIR__ . '/commands/' . Str::pascalCase($name) . 'Command.php')) {
                 $command = require_once $file;
 
                 (new $command())->handle();
