@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "melon": "webpack --watch",
-        "melon-build": "webpack"
+        "melon-build": "webpack",
+        "start": "webpack --watch"
     },
     "devDependencies": {
         "@babel/core": "^7.16.1",

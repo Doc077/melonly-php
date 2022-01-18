@@ -2,7 +2,6 @@
 
 namespace Melonly\Services;
 
-use Exception;
 use Melonly\Broadcasting\WebSocketConnection;
 use Melonly\Database\DBConnection;
 use Melonly\Encryption\Encrypter;
@@ -19,7 +18,7 @@ class Container implements ContainerInterface {
 
     public static function get(string $key): mixed {
         if (!array_key_exists($key, self::$instances)) {
-            throw new Exception("Unregistered service '{$key}'");
+            throw new UnregisteredServiceException("Unregistered service '{$key}'");
         }
 
         return self::$instances[$key];
