@@ -14,7 +14,7 @@ class GraphQLServer {
     protected readonly array $context;
 
     public function __construct() {
-        if ($_SERVER['REQUEST_METHOD'] === HttpMethod::Post->value) {
+        if (php_sapi_name() !== 'cli' && $_SERVER['REQUEST_METHOD'] === HttpMethod::Post->value) {
             $this->schema = new GraphQLSchema\schema(
                 File::content(__DIR__ . '/../database/graphql/schema.graphql'),
                 include __DIR__ . '/../database/graphql/resolvers.php'
