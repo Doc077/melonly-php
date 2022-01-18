@@ -2,9 +2,11 @@
 
 namespace Melonly\Console;
 
-use Codedungeon\PHPCliColors\Color;
+use Melonly\Filesystem\File;
 
 return new class extends Command {
+    use DisplaysOutput;
+
     public function __construct() {
         parent::__construct();
     }
@@ -12,8 +14,8 @@ return new class extends Command {
     public function handle(): void {
         $fileName = __DIR__ . '/../../../models/' . $this->arguments[2] . '.php';
 
-        if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Model \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
+        if (File::exists($fileName)) {
+            $this->errorLine('Model \'' . $this->arguments[2] . '\' already exists');
 
             return;
         }
@@ -21,11 +23,11 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!file_exists(__DIR__ . '/../../../models')) {
+        if (!File::exists(__DIR__ . '/../../../models')) {
             mkdir(__DIR__ . '/../../../models', 0777, true);
         }
 
-        file_put_contents($fileName, '<?php
+        File::put($fileName, '<?php
 
 namespace App\Models;
 
@@ -42,6 +44,6 @@ class ' . $this->arguments[2] . ' extends Model {
 }
 ');
 
-        echo Color::LIGHT_GREEN, "Created model '{$this->arguments[2]}'", PHP_EOL, Color::RESET;
+        $this->infoLine("Created model '{$this->arguments[2]}'");
     }
 };

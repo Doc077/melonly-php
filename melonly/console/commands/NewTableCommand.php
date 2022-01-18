@@ -2,9 +2,11 @@
 
 namespace Melonly\Console;
 
-use Codedungeon\PHPCliColors\Color;
+use Melonly\Filesystem\File;
 
 return new class extends Command {
+    use DisplaysOutput;
+
     public function __construct() {
         parent::__construct();
     }
@@ -12,8 +14,8 @@ return new class extends Command {
     public function handle(): void {
         $fileName = __DIR__ . '/../../../database/' . $this->arguments[2] . '.melon';
 
-        if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Table migration \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
+        if (File::exists($fileName)) {
+            $this->errorLine('Table migration \'' . $this->arguments[2] . '\' already exists');
 
             return;
         }
@@ -21,15 +23,15 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!file_exists(__DIR__ . '/../../../database')) {
+        if (!File::exists(__DIR__ . '/../../../database')) {
             mkdir(__DIR__ . '/../../../database', 0777, true);
         }
 
-        file_put_contents($fileName, 'COLUMN id TYPE id
+        File::put($fileName, 'COLUMN id TYPE id
 COLUMN name TYPE text
 COLUMN created_at TYPE datetime
 ');
 
-        echo Color::LIGHT_GREEN, "Created table migration '{$this->arguments[2]}'", PHP_EOL, Color::RESET;
+        $this->infoLine("Created table migration '{$this->arguments[2]}'");
     }
 };

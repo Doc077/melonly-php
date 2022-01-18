@@ -5,7 +5,11 @@ namespace Melonly\Console;
 use Codedungeon\PHPCliColors\Color;
 use Melonly\Bootstrap\Application;
 
+require_once __DIR__ . '/DisplaysOutput.php';
+
 class TerminalApplication {
+    use DisplaysOutput;
+
     protected array $arguments = [];
 
     public function __construct() {

@@ -2,9 +2,9 @@
 
 namespace Melonly\Console;
 
-use Codedungeon\PHPCliColors\Color;
-
 return new class extends Command {
+    use DisplaysOutput;
+
     public function __construct() {
         parent::__construct();
     }
@@ -16,7 +16,7 @@ return new class extends Command {
             $port = $this->arguments[2];
         }
 
-        echo Color::LIGHT_GREEN, "Starting Melonly development server [localhost:$port]", PHP_EOL, Color::RESET;
+        $this->infoLine("Starting Melonly development server [localhost:$port]");
 
         shell_exec("php -S 127.0.0.1:$port public/index.php");
     }

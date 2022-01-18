@@ -2,9 +2,11 @@
 
 namespace Melonly\Console;
 
-use Codedungeon\PHPCliColors\Color;
+use Melonly\Filesystem\File;
 
 return new class extends Command {
+    use DisplaysOutput;
+
     public function __construct() {
         parent::__construct();
     }
@@ -12,8 +14,8 @@ return new class extends Command {
     public function handle(): void {
         $fileName = __DIR__ . '/../../../controllers/' . $this->arguments[2] . '.php';
 
-        if (file_exists($fileName)) {
-            echo Color::LIGHT_RED, 'Controller \'' . $this->arguments[2] . '\' already exists', PHP_EOL, Color::RESET;
+        if (File::exists($fileName)) {
+            $this->errorLine('Controller \'' . $this->arguments[2] . '\' already exists');
 
             return;
         }
@@ -21,11 +23,11 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!file_exists(__DIR__ . '/../../../controllers')) {
+        if (!File::exists(__DIR__ . '/../../../controllers')) {
             mkdir(__DIR__ . '/../../../controllers', 0777, true);
         }
 
-        file_put_contents($fileName, '<?php
+        File::put($fileName, '<?php
 
 namespace App\Controllers;
 
@@ -39,6 +41,6 @@ class ' . $this->arguments[2] . ' {
 }
 ');
 
-        echo Color::LIGHT_GREEN, "Created controller '{$this->arguments[2]}'", PHP_EOL, Color::RESET;
+        $this->infoLine("Created controller '{$this->arguments[2]}'");
     }
 };

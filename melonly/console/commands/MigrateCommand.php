@@ -2,10 +2,11 @@
 
 namespace Melonly\Console;
 
-use Codedungeon\PHPCliColors\Color;
 use Melonly\Database\DB;
 
 return new class extends Command {
+    use DisplaysOutput;
+
     public function __construct() {
         parent::__construct();
     }
@@ -70,7 +71,7 @@ return new class extends Command {
                 MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
             ');
 
-            echo Color::LIGHT_GREEN, "Created table $tables[$iteration]", PHP_EOL, Color::RESET;
+            $this->infoLine("Created table $tables[$iteration]");
 
             $iteration++;
         }
