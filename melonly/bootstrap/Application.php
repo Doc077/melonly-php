@@ -18,7 +18,7 @@ use Throwable;
 class Application {
     public static float $performance;
 
-    protected const INCLUDE_FOLDERS = [
+    protected const AUTOLOAD_FOLDERS = [
         'framework' => [
             'auth',
             'config',
@@ -57,6 +57,13 @@ class Application {
             ClassRegistrar::registerControllers();
             ClassRegistrar::registerModels();
 
+            define('PERFORMANCE_STOP', microtime(true));
+
+            /**
+             * Save the app bootstrap performance result in seconds.
+             */
+            self::$performance = number_format((PERFORMANCE_STOP - PERFORMANCE_START), 4);
+
             $this->respondAndTerminate();
         } catch (Throwable $exception) {
             Handler::handle($exception);
@@ -74,7 +81,7 @@ class Application {
         /**
          * Include internal framework files.
          */
-        foreach (self::INCLUDE_FOLDERS['framework'] as $folder) {
+        foreach (self::AUTOLOAD_FOLDERS['framework'] as $folder) {
             Autoloader::loadFiles(__DIR__ . '/../' . $folder);
         }
 
@@ -88,7 +95,7 @@ class Application {
         /**
          * Include application files.
          */
-        foreach (self::INCLUDE_FOLDERS['app'] as $folder) {
+        foreach (self::AUTOLOAD_FOLDERS['app'] as $folder) {
             Autoloader::loadFiles(__DIR__ . '/../../' . $folder);
         }
 
@@ -154,13 +161,6 @@ class Application {
             if (!array_key_exists('extension', pathinfo($uri)) && env('OUTPUT_COMPRESS') === true) {
                 $this->compressOutput();
             }
-
-            define('PERFORMANCE_STOP', microtime(true));
-
-            /**
-             * Save the app bootstrap performance result in seconds.
-             */
-            self::$performance = number_format((PERFORMANCE_STOP - PERFORMANCE_START), 4);
 
             /**
              * Evaluate routing and generate HTTP response.
