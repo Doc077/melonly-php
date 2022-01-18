@@ -2,13 +2,13 @@
 
 namespace Melonly\Http;
 
-use Exception;
+use Melonly\Support\Helpers\Str;
 
 class Request {
-    protected null | string $parameter = null;
+    protected ?string $parameter = null;
 
     public function preferredLanguage(): string {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $lang = Str::substring($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
         return $lang;
     }
@@ -47,7 +47,7 @@ class Request {
 
     public function file(string $name): mixed {
         if (!isset($_FILES[$name])) {
-            throw new Exception("File '{$name}' has not been uploaded");
+            throw new FileNotUploadedException("File '{$name}' has not been uploaded");
         }
 
         return $_FILES[$name]['tmp_name'];
@@ -74,10 +74,10 @@ class Request {
     }
 
     public function redirectData(string $name): mixed {
-        if (isset($_SESSION['MELONLY_FLASH_' . $name])) {
-            $value = $_SESSION['MELONLY_FLASH_' . $name];
+        if (Session::isSet('MELONLY_FLASH_' . $name)) {
+            $value = Session::get('MELONLY_FLASH_' . $name);
 
-            unset($_SESSION['MELONLY_FLASH_' . $name]);
+            Session::unset('MELONLY_FLASH_' . $name);
 
             return $value;
         }
