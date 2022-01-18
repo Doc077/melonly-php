@@ -1,8 +1,13 @@
-/node_modules
+node_modules/
+jspm_packages/
 /plugins
 /vendor
 /public/data
-npm-debug.log
-yarn-error.log
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 /.idea
 /.vscode
