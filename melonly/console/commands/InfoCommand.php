@@ -16,38 +16,38 @@ return new class extends Command {
             <thead>
                 <tr>
                     <th>Generating files</th>
-                    <th>Other commands</th>
+                    <th align="right">Other commands</th>
                 </tr>
             </thead>
 
             <tr>
                 <td>new:component</td>
-                <td>test</td>
+                <td align="right">test</td>
             </tr>
 
             <tr>
                 <td>new:controller</td>
-                <td>cache</td>
+                <td align="right">cache</td>
             </tr>
 
             <tr>
                 <td>new:model</td>
-                <td>clear</td>
+                <td align="right">clear</td>
             </tr>
 
             <tr>
                 <td>new:page</td>
-                <td>migrate</td>
+                <td align="right">migrate</td>
             </tr>
 
             <tr>
                 <td>new:table</td>
-                <td>server</td>
+                <td align="right">server</td>
             </tr>
 
             <tr>
                 <td>new:view</td>
-                <td>version</td>
+                <td align="right">version</td>
             </tr>
         ');
 

@@ -3,6 +3,7 @@
 namespace Melonly\Console;
 
 use Melonly\Filesystem\File;
+use Melonly\Support\Helpers\Str;
 
 return new class extends Command {
     use DisplaysOutput;
@@ -35,7 +36,7 @@ return new class extends Command {
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>' . ucfirst($this->arguments[2]) . '</title>
+        <title>' . Str::uppercaseFirst($this->arguments[2]) . '</title>
     </head>
 
     <body>

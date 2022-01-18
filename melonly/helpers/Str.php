@@ -11,6 +11,14 @@ class Str {
         return strtolower($string);
     }
 
+    public static function uppercaseFirst(string $string): string {
+        return ucfirst($string);
+    }
+
+    public static function lowercaseFirst(string $string): string {
+        return lcfirst($string);
+    }
+
     public static function substring(string $string, int $offset, ?int $length = null): string {
         if ($length === null) {
             substr($string, $offset);

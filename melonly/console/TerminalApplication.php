@@ -3,6 +3,8 @@
 namespace Melonly\Console;
 
 use Melonly\Bootstrap\Application;
+use Melonly\Filesystem\File;
+use Melonly\Support\Helpers\Str;
 
 class TerminalApplication {
     use DisplaysOutput;
@@ -25,7 +27,7 @@ class TerminalApplication {
         /**
          * Call the corresponding command function.
          */
-        if (file_exists($file = __DIR__ . '/commands/' . ucfirst($this->arguments[1]) . 'Command.php')) {
+        if (File::exists($file = __DIR__ . '/commands/' . Str::uppercaseFirst($this->arguments[1]) . 'Command.php')) {
             $command = require_once $file;
 
             (new $command())->handle();
@@ -45,7 +47,7 @@ class TerminalApplication {
         /**
          * If command was not supplied, list all commands.
          */
-        if (empty($this->arguments) || !isset($this->arguments[1]) || empty($this->arguments[1])) {
+        if ($this->isArgumentListEmpty()) {
             $command = require_once __DIR__ . '/commands/InfoCommand.php';
 
             (new $command())->handle();
@@ -54,14 +56,18 @@ class TerminalApplication {
         }
     }
 
+    protected function isArgumentListEmpty(): bool {
+        return empty($this->arguments) || !isset($this->arguments[1]) || empty($this->arguments[1]);
+    }
+
     protected function registerFileCreationCommands(): void {
         /**
          * Handle commands with 'new:'.
          */
         if (preg_match('/new:(.*)/', $this->arguments[1], $matches)) {
-            $name = 'New' . ucfirst($matches[1]);
+            $name = 'New' . Str::uppercaseFirst($matches[1]);
 
-            if (file_exists($file = __DIR__ . '/commands/' . $name . 'Command.php')) {
+            if (File::exists($file = __DIR__ . '/commands/' . $name . 'Command.php')) {
                 $command = require_once $file;
 
                 (new $command())->handle();
