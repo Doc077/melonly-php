@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '3e3b5980c08c7330e86c2d932299d8ce94308e23',
+    'reference' => '6d2186cdf8441b71629955af7f00643bf4c45fd4',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '3e3b5980c08c7330e86c2d932299d8ce94308e23',
+      'reference' => '6d2186cdf8441b71629955af7f00643bf4c45fd4',
     ),
     'ably/ably-php' => 
     array (
@@ -227,15 +227,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'a12f7e301eb7258bb68acd89d4aefa05c2906cae',
-    ),
-    'phplucidframe/console-table' => 
-    array (
-      'pretty_version' => 'v1.2.4',
-      'version' => '1.2.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a973d911af96f3db42fca92cbeb1f473c9ad505e',
     ),
     'phpoption/phpoption' => 
     array (

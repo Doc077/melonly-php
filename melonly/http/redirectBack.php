@@ -12,6 +12,6 @@ if (!function_exists('redirectBack')) {
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
 
-        exit;
+        exit();
     }
 }

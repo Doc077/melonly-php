@@ -28,4 +28,10 @@ trait DisplaysOutput {
             <div class="text-green-400 w-full my-1">' . $data . '</div>
         ');
     }
+
+    protected function table(string $data): void {
+        render('
+            <table>' . $data . '</table>
+        ');
+    }
 }

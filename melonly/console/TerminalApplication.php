@@ -50,7 +50,7 @@ class TerminalApplication {
 
             (new $command())->handle();
 
-            exit;
+            exit();
         }
     }
 
@@ -69,7 +69,7 @@ class TerminalApplication {
                 $this->errorLine("Unknown command '{$this->arguments[1]}' or cannot create new instance of '{$matches[1]}'");
             }
 
-            exit;
+            exit();
         }
     }
 

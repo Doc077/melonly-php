@@ -179,7 +179,7 @@ class Router implements RouterInterface {
         if ($extension === 'php' || $uri === '.htaccess') {
             Container::get(Response::class)->abort(404);
 
-            exit;
+            exit();
         }
 
         if (array_key_exists(pathinfo($uri)['extension'], $extensionMimeTypes)) {

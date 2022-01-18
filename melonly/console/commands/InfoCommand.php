@@ -2,8 +2,6 @@
 
 namespace Melonly\Console;
 
-use LucidFrame\Console\ConsoleTable;
-
 return new class extends Command {
     use DisplaysOutput;
 
@@ -14,30 +12,46 @@ return new class extends Command {
     public function handle(): void {
         $this->infoLine('Available Melon CLI commands:');
 
-        $table = new ConsoleTable();
+        $this->table('
+            <thead>
+                <tr>
+                    <th>Generating files</th>
+                    <th>Other commands</th>
+                </tr>
+            </thead>
 
-        $table->addHeader('Generating files')
-            ->addHeader('Other commands')
-            ->addRow()
-            ->addColumn('new:component')
-            ->addColumn('test')
-            ->addRow()
-            ->addColumn('new:controller')
-            ->addColumn('cache')
-            ->addRow()
-            ->addColumn('new:model')
-            ->addColumn('clear')
-            ->addRow()
-            ->addColumn('new:page')
-            ->addColumn('migrate')
-            ->addRow()
-            ->addColumn('new:table')
-            ->addColumn('server')
-            ->addRow()
-            ->addColumn('new:view')
-            ->addColumn('version')
-            ->display();
+            <tr>
+                <td>new:component</td>
+                <td>test</td>
+            </tr>
+
+            <tr>
+                <td>new:controller</td>
+                <td>cache</td>
+            </tr>
+
+            <tr>
+                <td>new:model</td>
+                <td>clear</td>
+            </tr>
+
+            <tr>
+                <td>new:page</td>
+                <td>migrate</td>
+            </tr>
+
+            <tr>
+                <td>new:table</td>
+                <td>server</td>
+            </tr>
+
+            <tr>
+                <td>new:view</td>
+                <td>version</td>
+            </tr>
+        ');
 
         $this->infoLine('Enter your command to execute [php melon ...]:');
+        $this->infoLine('CLI Documentation: <a class="underline" href="https://melonly.dev/docs/console" target="_blank">Click here</a>');
     }
 };

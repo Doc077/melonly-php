@@ -168,7 +168,7 @@ class Response {
             include __DIR__ . '/utils/status-page.php';
         }
 
-        exit;
+        exit();
     }
 
     public function getData(): mixed {
@@ -214,7 +214,7 @@ class Response {
 
         redirect($uri);
 
-        exit;
+        exit();
     }
 
     public function redirectBack(array $data = []): never {
@@ -228,7 +228,7 @@ class Response {
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
 
-        exit;
+        exit();
     }
 
     public function view(string $name, array $variables = []): void {

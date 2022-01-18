@@ -25,7 +25,7 @@ class Handler {
         if (php_sapi_name() === 'cli') {
             echo Color::LIGHT_RED, 'Exception: ' . $exception->getMessage() . ' [File: ' . $exception->getFile() . ':' . $exception->getLine() . ']', PHP_EOL, Color::RESET;
 
-            exit;
+            exit();
         }
 
         View::clearBuffer();
@@ -63,6 +63,6 @@ class Handler {
             }
         }
 
-        exit;
+        exit();
     }
 }

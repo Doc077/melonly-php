@@ -6,6 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'LucidFrame\\' => array($vendorDir . '/phplucidframe/console-table/src'),
-    'LucidFrameTest\\' => array($vendorDir . '/phplucidframe/console-table/tests'),
 );

@@ -2,7 +2,6 @@
     "require": {
         "php": "^8.1",
         "vlucas/phpdotenv": "^5.4",
-        "phplucidframe/console-table": "^1.2",
         "nesbot/carbon": "^2.55",
         "guzzlehttp/guzzle": "^7.4",
         "pusher/pusher-php-server": "^7.0",

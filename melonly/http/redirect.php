@@ -8,6 +8,6 @@ if (!function_exists('redirect')) {
 
         header('Location: ' . $url);
 
-        exit;
+        exit();
     }
 }

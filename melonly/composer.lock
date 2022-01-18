@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0b3ba4d5fbf1d4117583681dfb07383",
+    "content-hash": "e840f3d290229fc88a68ea9e8173cffb",
     "packages": [
         {
             "name": "ably/ably-php",
@@ -1009,50 +1009,6 @@
                 "source": "https://github.com/paragonie/sodium_compat/tree/v1.17.0"
             },
             "time": "2021-08-10T02:43:50+00:00"
-        },
-        {
-            "name": "phplucidframe/console-table",
-            "version": "v1.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phplucidframe/console-table.git",
-                "reference": "a973d911af96f3db42fca92cbeb1f473c9ad505e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phplucidframe/console-table/zipball/a973d911af96f3db42fca92cbeb1f473c9ad505e",
-                "reference": "a973d911af96f3db42fca92cbeb1f473c9ad505e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "LucidFrame\\": "src/",
-                    "LucidFrameTest\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sithu K.",
-                    "email": "cithukyaw@gmail.com"
-                }
-            ],
-            "description": "Console Table",
-            "support": {
-                "issues": "https://github.com/phplucidframe/console-table/issues",
-                "source": "https://github.com/phplucidframe/console-table/tree/v1.2.4"
-            },
-            "time": "2019-03-03T12:17:32+00:00"
         },
         {
             "name": "phpoption/phpoption",

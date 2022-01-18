@@ -288,20 +288,6 @@ class ComposerStaticInit3324818b28a366ce4e895052d8940072
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'L' => 
-        array (
-            'LucidFrame\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phplucidframe/console-table/src',
-            ),
-            'LucidFrameTest\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phplucidframe/console-table/tests',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -942,7 +928,6 @@ class ComposerStaticInit3324818b28a366ce4e895052d8940072
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit3324818b28a366ce4e895052d8940072::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit3324818b28a366ce4e895052d8940072::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit3324818b28a366ce4e895052d8940072::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit3324818b28a366ce4e895052d8940072::$classMap;
 
         }, null, ClassLoader::class);
