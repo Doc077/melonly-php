@@ -20,27 +20,29 @@ class DBConnection implements DBConnectionInterface {
         $this->credentials['password'] = env('DB_PASSWORD');
         $this->credentials['database'] = env('DB_DATABASE');
 
-        switch ($this->system) {
-            case 'mysql':
-                $dsn = "mysql:host={$this->credentials['host']};dbname={$this->credentials['database']};charset=utf8";
+        if (php_sapi_name() !== 'cli') {
+            switch ($this->system) {
+                case 'mysql':
+                    $dsn = "mysql:host={$this->credentials['host']};dbname={$this->credentials['database']};charset=utf8";
 
-                break;
-            case 'sqlite':
-                $dbFile = $this->credentials['database'];
+                    break;
+                case 'sqlite':
+                    $dbFile = $this->credentials['database'];
 
-                $dsn = "sqlite:$dbFile";
+                    $dsn = "sqlite:$dbFile";
 
-                break;
-            default:
-                throw new Exception("Unsupported database driver '$this->system'");
+                    break;
+                default:
+                    throw new Exception("Unsupported database driver '$this->system'");
+            }
+
+            $this->pdo = new PDO(
+                $dsn, $this->credentials['user'], $this->credentials['password'], [
+                    PDO::ATTR_EMULATE_PREPARES => false,
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                ]
+            );
         }
-
-        $this->pdo = new PDO(
-            $dsn, $this->credentials['user'], $this->credentials['password'], [
-                PDO::ATTR_EMULATE_PREPARES => false,
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-            ]
-        );
     }
 
     public function __destruct() {
