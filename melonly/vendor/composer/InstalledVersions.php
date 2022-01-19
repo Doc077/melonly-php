@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '6d2186cdf8441b71629955af7f00643bf4c45fd4',
+    'reference' => 'f20c8be822578aecb52a5d5b91deeb19827f7cdb',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '6d2186cdf8441b71629955af7f00643bf4c45fd4',
+      'reference' => 'f20c8be822578aecb52a5d5b91deeb19827f7cdb',
     ),
     'ably/ably-php' => 
     array (
