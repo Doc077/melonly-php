@@ -8,7 +8,7 @@ use Melonly\Support\Containers\Vector;
 use Melonly\Exceptions\Handler;
 
 class DB implements DBInterface {
-    public static function query(string $sql, array $boundParams = []): Vector | Record | array {
+    public static function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object | array {
         try {
             $pdo = Container::get(DBConnection::class)->getConnection();
 
@@ -41,7 +41,7 @@ class DB implements DBInterface {
             $records = new Vector();
 
             foreach ($result as $record) {
-                $created = new Record();
+                $created = new $modelClass();
 
                 foreach ($record as $column => $value) {
                     $created->{$column} = $value;

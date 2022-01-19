@@ -2,7 +2,6 @@
 
 namespace Melonly\Database;
 
-use Exception;
 use Melonly\Support\Containers\Vector;
 
 abstract class Model {
@@ -10,23 +9,33 @@ abstract class Model {
 
     public static array $fieldTypes = [];
 
-    protected static function getTable(): string {
-        $tableName = explode('\\', static::class);
-        $tableName = strtolower(end($tableName)) . 's';
+    /**
+     * Save record to database.
+     */
+    public function save(): void {
+        $fields = [];
+        $values = [];
 
-        $instance = new static();
-
-        if (isset($instance->table)) {
-            $tableName = $instance->table;
+        foreach (get_object_vars($this) as $field => $value) {
+            $fields[] = $field;
+            $values[] = $value;
         }
 
-        return $tableName;
+        DB::query(
+            'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $fields) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
+        );
     }
 
+    /**
+     * Fetch all records from the table.
+     */
     public static function all(): Vector | Record | array {
         return DB::query('SELECT * FROM ' . self::getTable());
     }
 
+    /**
+     * Create and save record.
+     */
     public static function create(array $data): void {
         $fields = [];
         $values = [];
@@ -43,6 +52,9 @@ abstract class Model {
         );
     }
 
+    /**
+     * Update and save record.
+     */
     public static function update(array $data): void {
         $sets = '';
 
@@ -53,6 +65,34 @@ abstract class Model {
         }
 
         DB::query('UPDATE ' . self::getTable() . ' SET ' . $sets);
+    }
+
+    /**
+     * Get model table name.
+     */
+    protected static function getTable(): string {
+        $tableName = explode('\\', static::class);
+        $tableName = strtolower(end($tableName)) . 's';
+
+        $instance = new static();
+
+        /**
+         * Override default table name if provided.
+         */
+        if (isset($instance->table)) {
+            $tableName = $instance->table;
+        }
+
+        return $tableName;
+    }
+
+    /**
+     * Get model class name.
+     */
+    protected static function getClass(): string {
+        $instance = new static();
+
+        return get_class($instance);
     }
 
     protected static function validateFieldType(string $field, mixed $value): void {
