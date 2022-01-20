@@ -3,6 +3,7 @@
 namespace Melonly\Http;
 
 use Exception;
+use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Views\View;
 
@@ -156,7 +157,7 @@ class Response {
         $text = '';
 
         if (!in_array($status, [401, 403, 404, 419, 429, 500, 503])) {
-            throw new AbortStatusException("Aborted with code {$status}");
+            throw new AbortStatusException("Aborted with code $status");
         }
 
         if (array_key_exists($status, self::$statusDescriptions)) {
@@ -166,7 +167,7 @@ class Response {
         /**
          * Include custom view or predefined one.
          */
-        if (file_exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . '.html')) {
+        if (File::exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . '.html')) {
             View::renderView($view);
         } else {
             include __DIR__ . '/utils/status-page.php';
