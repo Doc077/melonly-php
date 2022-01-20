@@ -82,16 +82,20 @@ As you can see, you can supply a simple callback with injected request & respons
 Enter the ```localhost:5000/my-path``` route and look for the result.
 
 
-## Displaying a View
+## Views
 
 Modern applications deal with user interfaces. Therefore Melonly handles special HTML templates which help You building applications in pleasant way.
 View files / templates are located in ```frontend/views``` directory. You can display a view returning it from the response, using the "dot" syntax.
+
+### Displaying a View
 
 ```php
 Route::get('/login', function (Request $request, Response $response): void {
     $response->view('pages.login'); // Refers to views/pages/login.html file
 });
 ```
+
+---
 
 
 ## License
