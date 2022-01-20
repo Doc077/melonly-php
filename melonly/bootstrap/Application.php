@@ -42,6 +42,7 @@ class Application {
         ],
         'app' => [
             'controllers',
+            'exceptions',
             'models',
             'routes',
             'tests'
