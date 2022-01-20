@@ -144,7 +144,11 @@ class Response {
 
     protected int $status = self::OK;
 
-    public function abort(int $status, string | bool $text = false): never {
+    public function abort(int | Status $status, string | bool $text = false): never {
+        if ($status instanceof Status) {
+            $status = $status->value;
+        }
+
         http_response_code($status);
 
         View::clearBuffer();
@@ -152,7 +156,7 @@ class Response {
         $text = '';
 
         if (!in_array($status, [401, 403, 404, 419, 429, 500, 503])) {
-            throw new Exception("Aborted with code {$status}");
+            throw new AbortStatusException("Aborted with code {$status}");
         }
 
         if (array_key_exists($status, self::$statusDescriptions)) {
@@ -203,7 +207,11 @@ class Response {
         }
     }
 
-    public function status(int $code): void {
+    public function status(int | Status $code): void {
+        if ($code instanceof Status) {
+            $code = $code->value;
+        }
+
         $this->status = $code;
     }
 
