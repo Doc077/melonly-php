@@ -23,7 +23,7 @@ To start a basic project, You can clone the repository:
 > npm install
 ```
 
-Then remove .git folder from the main directory and start your app.
+Then remove ```.git``` folder from the main directory and start your app.
 
 
 ## Run Application & Development
@@ -36,7 +36,7 @@ To run your application on local environment, use the command line:
 > php melon server
 ```
 
-Your application will be available on [localhost:5000](http://localhost:5000).
+Your application will be available on ```localhost:5000```.
 
 
 ## Useful Melonly CLI Commands
@@ -70,7 +70,7 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 
 ## Basic Routing
 
-To register application routes, edit routes/web.php file.
+To register application routes, edit ```routes/web.php``` file.
 
 ```php
 Route::get('/my-path', function (Request $request, Response $response): void {
@@ -79,7 +79,7 @@ Route::get('/my-path', function (Request $request, Response $response): void {
 ```
 
 As you can see, you can supply a simple callback with injected request & response objects to return some response.
-Enter the localhost:5000/my-path route and look for the result.
+Enter the ```localhost:5000/my-path``` route and look for the result.
 
 
 ## Displaying a View
@@ -89,8 +89,7 @@ View files / templates are located in ```frontend/views``` directory. You can di
 
 ```php
 Route::get('/login', function (Request $request, Response $response): void {
-    // Refers to views/pages/login.html file
-    $response->view('pages.login');
+    $response->view('pages.login'); // Refers to views/pages/login.html file
 });
 ```
 
@@ -98,4 +97,5 @@ Route::get('/login', function (Request $request, Response $response): void {
 ## License
 
 Melonly is licensed under the [MIT license](LICENSE).
+
 Author: Doc077
