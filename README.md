@@ -87,12 +87,35 @@ Enter the ```localhost:5000/my-path``` route and look for the result.
 Modern applications deal with user interfaces. Therefore Melonly handles special HTML templates which help You building applications in pleasant way.
 View files / templates are located in ```frontend/views``` directory. You can display a view returning it from the response, using the "dot" syntax.
 
+
 ### Displaying a View
 
 ```php
 Route::get('/login', function (Request $request, Response $response): void {
-    $response->view('pages.login'); // Refers to views/pages/login.html file
+    $response->view('pages.login'); // Refers to pages/login.html file
 });
+```
+
+To display variable in a view, you can pass an array with supplied variable names and values.
+
+```php
+Route::get('/dashboard', function (Request $request, Response $response): void {
+    $response->view('pages.dashboard', [
+        'username' => Auth::user()->name
+    ]);
+});
+```
+
+Then you may use it in the template:
+
+```html
+<h1>Welcome, {{ $username }}</h1>
+```
+
+Melonly templates allow to write simple PHP expressions directly in HTML.
+
+```html
+<div>Price: {{ 2 + 2 * 6 }} USD</div>
 ```
 
 ---
