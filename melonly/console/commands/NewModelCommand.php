@@ -41,6 +41,9 @@ class ' . $this->arguments[2] . ' extends Model {
 
     #[Column(type: \'string\')]
     public $name;
+
+    #[Column(type: \'datetime\', nullable: true)]
+    public $created_at;
 }
 ');
 

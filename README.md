@@ -39,7 +39,9 @@ To run your application on local environment, use the command line:
 Your application will be available on ```localhost:5000```.
 
 
-## Useful Melonly CLI Commands
+## Console Interface
+
+### Useful Melonly CLI Commands
 
 Melonly ships with Melon CLI - Terminal mode client for development. It has many useful commands. Below You can test some of them:
 
@@ -96,6 +98,9 @@ Route::get('/login', function (Request $request, Response $response): void {
 });
 ```
 
+
+### Passing variables
+
 To display variable in a view, you can pass an array with supplied variable names and values.
 
 ```php
@@ -112,14 +117,75 @@ Then you may use it in the template:
 <h1>Welcome, {{ $username }}</h1>
 ```
 
-Melonly templates allow to write simple PHP expressions directly in HTML.
+Melonly templates allow us to write simple PHP expressions directly in HTML.
 
 ```html
 <div>Price: {{ 2 + 2 * 6 }} USD</div>
 ```
 
----
 
+## Database Queries
+
+Handling databases in web applications cannot be easier than with Melonly. To execute raw SQL query, use ```DB``` interface.
+
+```php
+use Melonly\Database\DB;
+
+$name = DB::query('SELECT `name` FROM `users` WHERE `id` = 1');
+```
+
+Due fact that Melonly is a MVC framework, it includes Models pattern. Each table in your database can have corresponding 'Model'.
+
+To create a model, use CLI command:
+
+```
+> php melon new:model ModelName
+```
+
+For example:
+
+```
+> php melon new:model Post
+```
+
+It will create ```models/Post.php``` model file with this structure:
+
+```php
+<?php
+
+namespace App\Models;
+
+use Melonly\Database\Model;
+use Melonly\Database\Attributes\Column;
+use Melonly\Database\Attributes\PrimaryKey;
+
+class Post extends Model {
+    #[PrimaryKey]
+    public $id;
+
+    #[Column(type: 'string')]
+    public $name;
+
+    #[Column(type: 'datetime', nullable: true)]
+    public $created_at;
+}
+```
+
+Column data typing is done using ```Column``` attribute.
+
+If your database contains ```posts``` table, you can retrieve data from that table with model class.
+
+```php
+use App\Models\Post;
+
+$post = Post::where('id', '=', 1)->orWhere('title', 'like', '%PHP%')->fetch();
+
+$title = $post->title;
+```
+
+As you can see, dealing with DB data is super easy with Melonly.
+
+---
 
 ## License
 
