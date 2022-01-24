@@ -120,7 +120,7 @@ Then you may use it in the template:
 Melonly templates allow us to write simple PHP expressions directly in HTML.
 
 ```html
-<div>Price: {{ 2 + 2 * 6 }} USD</div>
+<div>Price: {{ $price * 4.2 }} USD</div>
 ```
 
 
@@ -175,7 +175,7 @@ Column data typing is done using ```Column``` attribute.
 
 If your database contains ```posts``` table, you can retrieve data from that table with model class.
 
-By chaining methods it is possible to create ```where``` clauses. Some of available methods are: ```where```, ```orWhere```, ```orderBy```. Data returned by the ```fetch()``` method is type of ```vector``` (in case of single result it is an instance of Record).
+By chaining methods it is possible to create complex ```where``` clauses. Some of available methods are: ```where```, ```orWhere```, ```orderBy```. Data returned by the ```fetch()``` method is type of ```vector``` (in case of single result it is an instance of ```Melonly\Database\Record```).
 
 ```php
 use App\Models\Post;
