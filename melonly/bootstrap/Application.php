@@ -7,7 +7,6 @@ use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\Handler;
 use Melonly\Filesystem\File;
-use Melonly\GraphQL\GraphQL;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
@@ -124,13 +123,6 @@ class Application {
          */
         if (Auth::logged()) {
             Auth::$userData = Session::get('MELONLY_AUTH_USER_DATA');
-        }
-
-        /**
-         * Initialize GraphQl if enabled.
-         */
-        if (env('USE_GRAPHQL') === true) {
-            GraphQL::initialize();
         }
     }
 
