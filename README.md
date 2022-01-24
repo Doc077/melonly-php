@@ -155,9 +155,9 @@ It will create ```models/Post.php``` model file with this structure:
 
 namespace App\Models;
 
-use Melonly\Database\Model;
 use Melonly\Database\Attributes\Column;
 use Melonly\Database\Attributes\PrimaryKey;
+use Melonly\Database\Model;
 
 class Post extends Model {
     #[PrimaryKey]
@@ -174,6 +174,8 @@ class Post extends Model {
 Column data typing is done using ```Column``` attribute.
 
 If your database contains ```posts``` table, you can retrieve data from that table with model class.
+
+By chaining methods it is possible to create ```where``` clauses. Some of available methods are: ```where```, ```orWhere```, ```orderBy```. Data returned by the ```fetch()``` method is type of ```vector``` (in case of single result it is an instance of Record).
 
 ```php
 use App\Models\Post;
