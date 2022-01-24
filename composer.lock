@@ -4,60 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "58cfd3c097f7a9ddba4262c7bad78910",
+    "content-hash": "4c92ec419a813e2a9b74505146376205",
     "packages": [
-        {
-            "name": "ably/ably-php",
-            "version": "1.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ably/ably-php.git",
-                "reference": "db4ca828378922ef85224d891dd09f9f40194120"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ably/ably-php/zipball/db4ca828378922ef85224d891dd09f9f40194120",
-                "reference": "db4ca828378922ef85224d891dd09f9f40194120",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-openssl": "*",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5 || ^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ably\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Ably",
-                    "email": "support@ably.io"
-                }
-            ],
-            "description": "Ably REST client library for PHP.",
-            "homepage": "https://www.ably.io/",
-            "keywords": [
-                "ably",
-                "messages",
-                "messaging"
-            ],
-            "support": {
-                "issues": "https://github.com/ably/ably-php/issues",
-                "source": "https://github.com/ably/ably-php/tree/1.1.4"
-            },
-            "time": "2021-03-10T14:30:30+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.9.3",

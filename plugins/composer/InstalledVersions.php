@@ -25,33 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '3.x-dev',
-    'version' => '3.9999999.9999999.9999999-dev',
+    'pretty_version' => '4.x-dev',
+    'version' => '4.9999999.9999999.9999999-dev',
     'aliases' => 
     array (
     ),
-    'reference' => '8eefd7e0f0b122473729e088805fc51690e7f6f5',
+    'reference' => '8554d4fcd4df8c52887e2e3f80c467c8f975e351',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '3.x-dev',
-      'version' => '3.9999999.9999999.9999999-dev',
+      'pretty_version' => '4.x-dev',
+      'version' => '4.9999999.9999999.9999999-dev',
       'aliases' => 
       array (
       ),
-      'reference' => '8eefd7e0f0b122473729e088805fc51690e7f6f5',
-    ),
-    'ably/ably-php' => 
-    array (
-      'pretty_version' => '1.1.4',
-      'version' => '1.1.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'db4ca828378922ef85224d891dd09f9f40194120',
+      'reference' => '8554d4fcd4df8c52887e2e3f80c467c8f975e351',
     ),
     'brick/math' => 
     array (
