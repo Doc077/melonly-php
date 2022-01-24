@@ -23,6 +23,6 @@ class Notice {
         protected int $code,
         protected string $message,
         protected string $file,
-        protected int $line
+        protected int $line,
     ) {}
 }

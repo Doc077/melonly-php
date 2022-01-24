@@ -38,14 +38,14 @@ class Application {
             'validation',
             'vectors',
             'views',
-            'websocket'
+            'websocket',
         ],
         'app' => [
             'controllers',
             'exceptions',
             'models',
             'routes',
-            'tests'
+            'tests',
         ]
     ];
 
@@ -139,7 +139,7 @@ class Application {
             $patterns = [
                 '/\>[^\S ]+/s',
                 '/[^\S ]+\</s',
-                '/(\s)+/s'
+                '/(\s)+/s',
             ];
 
             $replacements = ['>', '<', '\\1'];
