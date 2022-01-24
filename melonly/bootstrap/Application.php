@@ -71,7 +71,7 @@ class Application {
     }
 
     protected function initializeAndAutoload(): void {
-        require __DIR__ . '/../vendor/autoload.php';
+        require __DIR__ . '/../../plugins/autoload.php';
         require __DIR__ . '/../autoloading/Autoloader.php';
         require __DIR__ . '/ClassRegistrar.php';
         require __DIR__ . '/UnsupportedPHPException.php';
@@ -98,14 +98,6 @@ class Application {
         foreach (self::AUTOLOAD_FOLDERS['app'] as $folder) {
             Autoloader::loadFiles(__DIR__ . '/../../' . $folder);
         }
-
-        /**
-         * Include composer packages in main directory.
-         */
-        if (File::exists($file = __DIR__ . '/../../vendor/autoload.php'))
-            require_once $file;
-        elseif (File::exists($file = __DIR__ . '/../../plugins/autoload.php'))
-            require_once $file;
 
         /**
          * Check (if exists) or generate security CSRF token.
