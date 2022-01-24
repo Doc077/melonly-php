@@ -15,8 +15,10 @@ use Melonly\Support\Helpers\Url;
 
 class Handler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
-        if (env('APP_DEBUG') === false) {
+        if (env('APP_DEVELOPMENT') === false) {
             Container::get(Response::class)->abort(500);
+
+            exit();
         }
 
         /**

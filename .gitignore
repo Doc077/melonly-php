@@ -1,7 +1,7 @@
 node_modules/
 jspm_packages/
 /vendor
-/public/data
+/public/storage
 logs
 *.log
 npm-debug.log*
