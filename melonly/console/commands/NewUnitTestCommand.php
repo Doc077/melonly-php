@@ -5,8 +5,6 @@ namespace Melonly\Console;
 use Melonly\Filesystem\File;
 
 return new class extends Command {
-    use DisplaysOutput;
-
     public function __construct() {
         parent::__construct();
     }

@@ -5,8 +5,6 @@ namespace Melonly\Console;
 use Melonly\Database\DB;
 
 return new class extends Command {
-    use DisplaysOutput;
-
     public function __construct() {
         parent::__construct();
     }

@@ -6,8 +6,6 @@ use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Str;
 
 return new class extends Command {
-    use DisplaysOutput;
-
     public function __construct() {
         parent::__construct();
     }
