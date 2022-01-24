@@ -2,12 +2,10 @@
 
 namespace Melonly\Broadcasting;
 
-use Exception;
-use Ably\AblyRest as AblyDriver;
 use Pusher\Pusher as PusherDriver;
 
 class WebSocketConnection implements WebSocketConnectionInterface {
-    protected PusherDriver | AblyDriver | null $broadcaster = null;
+    protected mixed $broadcaster = null;
 
     public function __construct() {
         /**
@@ -29,18 +27,20 @@ class WebSocketConnection implements WebSocketConnectionInterface {
                     'key' => env('ABLY_KEY')
                 ];
 
-                $this->broadcaster = new AblyDriver($settings);
+                if (class_exists('Ably\AblyRest')) {
+                    $this->broadcaster = new ('\Ably\AblyRest')($settings);
+                }
 
                 break;
 
             default:
-                throw new Exception('Unsupported broadcast driver');
+                throw new WebSocketDriverException('Unsupported broadcast driver');
         }
     }
 
     public function broadcast(string $channel, string $event, mixed $data): void {
         if ($this->broadcaster === null) {
-            throw new Exception('Provide your broadcast driver credentials in .env file');
+            throw new WebSocketDriverException('.env broadcasting credentials not supplied or driver package is not installed');
         }
 
         switch (env('WEBSOCKET_DRIVER')) {
