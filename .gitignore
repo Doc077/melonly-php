@@ -1,6 +1,5 @@
 node_modules/
 jspm_packages/
-/plugins
 /vendor
 /public/data
 logs
