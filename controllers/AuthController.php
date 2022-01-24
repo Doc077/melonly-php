@@ -8,20 +8,20 @@ use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Routing\Attributes\Route;
 
-class ExampleAuthController {
+class AuthController {
     /**
      * Show user login page.
      */
     #[Route(path: '/login')]
-    public function index(Request $request, Response $response) {
-        $response->send('Login route');
+    public function index(Request $request, Response $response): void {
+        $response->send('Login page');
     }
 
     /**
      * Authentiate user by provided credentials.
      */
     #[Route(path: '/login', method: HttpMethod::Post)]
-    public function login(Request $request, Response $response) {
+    public function login(Request $request, Response $response): void {
         $email = $request->getField('email');
         $password = $request->getField('password');
 

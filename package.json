@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "melon": "webpack --watch",
-        "melon-build": "webpack",
+        "build": "webpack",
         "start": "webpack --watch"
     },
     "devDependencies": {
