@@ -14,7 +14,7 @@ If you want to dig deeper and learn some advanced Melonly features, you may visi
 
 To create a fresh Melonly project use the ```composer``` installer:
 
-```
+```shell
 > cd <path-to-your-environment>
 
 > composer create-project melonly/melonly <your-app-name>
@@ -24,13 +24,13 @@ To create a fresh Melonly project use the ```composer``` installer:
 
 Once your application has been created you can run it.
 
-```
+```shell
 > php melon server
 ```
 
 Optionally if you'll be using Node.js or React/Sass frontend scaffolding, run ```npm install``` command:
 
-```
+```shell
 > npm install
 ```
 
@@ -39,13 +39,13 @@ Optionally if you'll be using Node.js or React/Sass frontend scaffolding, run ``
 
 To run your application on local environment, use the command line:
 
-```
+```shell
 > php melon server
 ```
 
-Your application will be available on ```localhost:5000```. If some other application uses this port, you can supply your own:
+Your application will be available on ```localhost:5000``` by default. If some other program uses this port, you can change it to your own:
 
-```
+```shell
 # Run server on :8000 port
 
 > php melon server 8000
@@ -58,25 +58,25 @@ Your application will be available on ```localhost:5000```. If some other applic
 
 Melonly ships with Melon CLI - Terminal mode client for development. It has many useful commands. Below You can test some of them:
 
-```
+```shell
 # Display information about framework version
 
 > php melon version
 ```
 
-```
+```shell
 # Create new controller file
 
 > php melon new:controller PostController
 ```
 
-```
+```shell
 # Create new ORM model
 
 > php melon new:model Post
 ```
 
-```
+```shell
 # Run unit tests
 
 > php melon test
