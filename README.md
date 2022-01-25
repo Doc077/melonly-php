@@ -19,14 +19,19 @@ To create a fresh Melonly project use ```composer``` installer:
 
 > composer create-project melonly/melonly <your-app-name>
 
-> cd melonly
-> npm install
+> cd <your-app-name>
 ```
 
 Once your application has been created you can run it.
 
+Optionally if you'll be using Node.js or React/Sass frontend scaffolding, run ```npm install``` command:
 
-## Run Application & Development
+```
+> npm install
+```
+
+
+## Running Application & Development
 
 To run your application on local environment, use the command line:
 
