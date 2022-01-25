@@ -4,14 +4,15 @@ namespace Melonly\Exceptions;
 
 use Error;
 use Exception;
-use TypeError;
-use PDOException;
-use Codedungeon\PHPCliColors\Color;
-use Melonly\Services\Container;
 use Melonly\Filesystem\File;
 use Melonly\Http\Response;
 use Melonly\Views\View;
+use Melonly\Services\Container;
 use Melonly\Support\Helpers\Url;
+use PDOException;
+use TypeError;
+
+use function Termwind\{render};
 
 class Handler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
@@ -25,7 +26,9 @@ class Handler {
          * If CLI mode is enabled, show exception line.
          */
         if (php_sapi_name() === 'cli') {
-            echo Color::LIGHT_RED, 'Exception: ' . $exception->getMessage() . ' [File: ' . $exception->getFile() . ':' . $exception->getLine() . ']', PHP_EOL, Color::RESET;
+            render('
+                <div class="text-red-400 w-full my-1">Exception: ' . $exception->getMessage() . ' [File: ' . $exception->getFile() . ':' . $exception->getLine() . ']</div>
+            ');
 
             exit();
         }

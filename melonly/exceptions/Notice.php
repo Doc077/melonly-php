@@ -3,7 +3,7 @@
 namespace Melonly\Exceptions;
 
 class Notice {
-    public function getCode(): int {
+    public function getCode(): int | string {
         return $this->code;
     }
 
@@ -20,7 +20,7 @@ class Notice {
     }
 
     public function __construct(
-        protected int $code,
+        protected int | string $code,
         protected string $message,
         protected string $file,
         protected int $line,
