@@ -27,5 +27,10 @@
         "vendor-dir": "plugins/",
         "preferred-install": "dist",
         "sort-packages": true
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('melonly/config/.env', '.env');\""
+        ]
     }
 }
