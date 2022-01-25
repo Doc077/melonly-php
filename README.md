@@ -163,21 +163,19 @@ Due fact that Melonly is a MVC framework, it includes Models pattern. Each table
 
 To create a model, use CLI command:
 
-```
+```shell
 > php melon new:model ModelName
 ```
 
 For example:
 
-```
+```shell
 > php melon new:model Post
 ```
 
 It will create ```models/Post.php``` model file with the following structure:
 
 ```php
-<?php
-
 namespace App\Models;
 
 use Melonly\Database\Attributes\Column;
