@@ -1,5 +1,15 @@
 {
+    "name": "doc077/melonly",
+    "type": "project",
+    "description": "Melonly PHP Framework",
+    "keywords": ["melonly", "mvc", "framework"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Dominik Rajkowski",
+            "email": "dom.rajkowski@gmail.com"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "vlucas/phpdotenv": "^5.4",
