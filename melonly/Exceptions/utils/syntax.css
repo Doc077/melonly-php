@@ -1,0 +1,44 @@
+code .str {
+    color: #7dd3fc;
+} /* string */
+
+code .kwd {
+    color: #f472b6;
+} /* keyword */
+
+code .com {
+    color: #9899a1;
+    font-style: italic;
+} /* comment */
+
+code .typ {
+    color: #cbd5e1;
+} /* type */
+
+code .lit {
+    color: #cc9633;
+} /* literal */
+
+code .pun {
+    color: #cbd5e1;
+} /* punctuation */
+
+code .pln {
+    color: #dadce2;
+} /* plaintext */
+
+code .tag {
+    color: #75a9ec;
+} /* html tag */
+
+code .atn {
+    color: #e7d469;
+} /* html attribute name */
+
+code .atv {
+    color: #80d15a;
+} /* html attribute value */
+
+code .dec {
+    color: #3387cc;
+} /* decimal */
