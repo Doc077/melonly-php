@@ -132,6 +132,23 @@ Melonly templates allow us to write simple PHP expressions directly in HTML.
 ```
 
 
+### Templates
+
+Melonly ships with a convinient templating engine called Fruity. To see how it works look at this example:
+
+```html
+<div>
+    [foreach $posts as $post]
+        <h2>{{ $post->title }}</h2>
+
+        <p>{{ $post->content }}</p>
+    [endforeach]
+</div>
+```
+
+As you can see this is a very simple yet powerful engine. It's also a lot more clean compared to plain PHP templates.
+
+
 ## Database Queries
 
 Handling databases in web applications cannot be easier than with Melonly. To execute raw SQL query, use ```DB``` interface.
@@ -156,7 +173,7 @@ For example:
 > php melon new:model Post
 ```
 
-It will create ```models/Post.php``` model file with this structure:
+It will create ```models/Post.php``` model file with the following structure:
 
 ```php
 <?php
@@ -179,9 +196,9 @@ class Post extends Model {
 }
 ```
 
-Column data typing is done using ```Column``` attribute.
+Column data typing here is done using ```Column``` attribute. It is not required but it's considered a good practice.
 
-If your database contains ```posts``` table, you can retrieve data from that table with model class.
+THen if your database contains ```posts``` table, you can retrieve data from that table with model class.
 
 By chaining methods it is possible to create complex ```where``` clauses. Some of available methods are: ```where```, ```orWhere```, ```orderBy```. Data returned by the ```fetch()``` method is type of ```vector``` (in case of single result it is an instance of ```Melonly\Database\Record```).
 
