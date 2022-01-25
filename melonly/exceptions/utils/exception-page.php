@@ -18,7 +18,13 @@
 
     <body>
         <main class="container">
-            <h1 class="header"><?= $exceptionType ?>: <?= $exception->getMessage() ?? 'Error' ?></h1>
+            <div class="topbar">
+                <div class="topbar__type"><?= $fullExceptionType ?></div>
+
+                <div class="topbar__version">Melonly <?= MELONLY_VERSION ?></div>
+            </div>
+
+            <h1 class="header"><?= $exceptionType ?>: <?= $exception->getMessage() . (substr($exception->getMessage(), -1) !== '.' ? '.' : '') ?? 'Exception' ?></h1>
 
             <p class="info">
                 <span class="info__value">File:</span> <strong class="bold"><?= $exceptionFile ?? 'Unknown' ?></strong>

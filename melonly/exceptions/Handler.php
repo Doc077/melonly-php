@@ -16,7 +16,7 @@ use function Termwind\{render};
 
 class Handler {
     public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
-        if (env('APP_DEVELOPMENT') === false) {
+        if (!env('APP_DEVELOPMENT')) {
             Container::get(Response::class)->abort(500);
 
             exit();
@@ -55,7 +55,10 @@ class Handler {
 
         $fileContent = file($exceptionFile);
 
-        $exceptionType = get_class($exception);
+        $exceptionType = explode('\\', get_class($exception));
+        $exceptionType = end($exceptionType);
+
+        $fullExceptionType = get_class($exception);
 
         include __DIR__ . '/utils/exception-page.php';
 

@@ -14,7 +14,7 @@ return new class extends Command {
             $port = $this->arguments[2];
         }
 
-        $this->infoLine("Starting Melonly development server [localhost:$port]");
+        $this->infoBlock("Starting Melonly development server [localhost:$port]");
 
         shell_exec("php -S 127.0.0.1:$port public/index.php");
     }
