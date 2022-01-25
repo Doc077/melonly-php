@@ -2,7 +2,7 @@
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
-Melonly is available to download from the [official site](https://melonly.dev).
+Melonly documentation is available on the [official site](https://melonly.dev).
 
 
 ## Documentation
@@ -10,20 +10,20 @@ Melonly is available to download from the [official site](https://melonly.dev).
 If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
 
 
-## Download
+## Installation
 
-To start a basic project, You can clone the repository:
+To create a fresh Melonly project use ```composer``` installer:
 
 ```
-> cd <path-to-your-app>
+> cd <path-to-your-environment>
 
-> git clone https://github.com/Doc077/melonly.git
+> composer create-project melonly/melonly <your-app-name>
 
 > cd melonly
 > npm install
 ```
 
-Then remove ```.git``` folder from the main directory and start your app.
+Once your application has been created you can run it.
 
 
 ## Run Application & Development
@@ -31,8 +31,6 @@ Then remove ```.git``` folder from the main directory and start your app.
 To run your application on local environment, use the command line:
 
 ```
-# Run the Melonly development server
-
 > php melon server
 ```
 
