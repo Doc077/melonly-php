@@ -12,7 +12,7 @@ If you want to dig deeper and learn some advanced Melonly features, you may visi
 
 ## Installation
 
-To create a fresh Melonly project use ```composer``` installer:
+To create a fresh Melonly project use the ```composer``` installer:
 
 ```
 > cd <path-to-your-environment>
@@ -23,6 +23,10 @@ To create a fresh Melonly project use ```composer``` installer:
 ```
 
 Once your application has been created you can run it.
+
+```
+> php melon server
+```
 
 Optionally if you'll be using Node.js or React/Sass frontend scaffolding, run ```npm install``` command:
 
@@ -39,7 +43,13 @@ To run your application on local environment, use the command line:
 > php melon server
 ```
 
-Your application will be available on ```localhost:5000```.
+Your application will be available on ```localhost:5000```. If some other application uses this port, you can supply your own:
+
+```
+# Run server on :8000 port
+
+> php melon server 8000
+```
 
 
 ## Console Interface
