@@ -30,7 +30,7 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('melonly/config/.env', '.env');\""
+            "php -r \"file_exists('.env') || copy('melonly/config/.env.base', '.env');\""
         ]
     }
 }
