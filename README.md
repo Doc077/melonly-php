@@ -5,21 +5,16 @@ Melonly is a fast, modern web application development framework for PHP. It make
 Melonly documentation is available on the [official site](https://melonly.dev).
 
 
-## Documentation
-
-If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
-
-
 ## Installation
 
 To create a fresh Melonly project use the ```composer``` installer:
 
 ```shell
-> cd <path-to-your-environment>
+> cd <path-to-directory>
 
-> composer create-project melonly/melonly <your-app-name>
+> composer create-project melonly/melonly <app-name>
 
-> cd <your-app-name>
+> cd <app-name>
 ```
 
 Once your application has been created you can run it.
@@ -199,6 +194,11 @@ $title = $post->title;
 ```
 
 As you can see, dealing with DB data is super easy with Melonly.
+
+
+## Documentation
+
+If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
 
 ---
 
