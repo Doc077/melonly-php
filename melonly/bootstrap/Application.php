@@ -6,11 +6,10 @@ use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\Handler;
-use Melonly\Filesystem\File;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
-use Melonly\Services\Container;
+use Melonly\Container\Container;
 use Melonly\Routing\Router;
 use Throwable;
 
@@ -49,6 +48,9 @@ class Application {
     ];
 
     public function __construct() {
+        require_once __DIR__ . '/../utils/constants.php';
+        require_once __DIR__ . '/../utils/env.php';
+
         define('PERFORMANCE_START', microtime(true));
 
         try {
@@ -62,7 +64,7 @@ class Application {
             /**
              * Save the app bootstrap performance result in seconds.
              */
-            self::$performance = number_format((PERFORMANCE_STOP - PERFORMANCE_START), 4);
+            self::$performance = PERFORMANCE_STOP - PERFORMANCE_START;
 
             $this->respondAndTerminate();
         } catch (Throwable $exception) {
@@ -71,19 +73,7 @@ class Application {
     }
 
     protected function initializeAndAutoload(): void {
-        require __DIR__ . '/../../plugins/autoload.php';
-        require __DIR__ . '/../autoloading/Autoloader.php';
-        require __DIR__ . '/ClassRegistrar.php';
-        require __DIR__ . '/UnsupportedPHPException.php';
-
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
-
-        /**
-         * Include internal framework files.
-         */
-        foreach (self::AUTOLOAD_FOLDERS['framework'] as $folder) {
-            Autoloader::loadFiles(__DIR__ . '/../' . $folder);
-        }
 
         Session::start();
         Container::initialize();

@@ -7,7 +7,7 @@ use Exception;
 use Melonly\Filesystem\File;
 use Melonly\Http\Response;
 use Melonly\Views\View;
-use Melonly\Services\Container;
+use Melonly\Container\Container;
 use Melonly\Support\Helpers\Url;
 use PDOException;
 use TypeError;

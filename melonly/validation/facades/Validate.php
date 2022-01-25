@@ -1,8 +1,8 @@
 <?php
 
-namespace Melonly\Validation;
+namespace Melonly\Validation\Facades;
 
-use Melonly\Services\Facade;
+use Melonly\Container\Facade;
 
 class Validate extends Facade {
     protected static function getAccessor(): string {

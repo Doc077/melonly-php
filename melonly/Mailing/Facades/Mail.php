@@ -1,8 +1,8 @@
 <?php
 
-namespace Melonly\Mailing;
+namespace Melonly\Mailing\Facades;
 
-use Melonly\Services\Facade;
+use Melonly\Container\Facade;
 
 class Mail extends Facade {
     protected static function getAccessor(): string {

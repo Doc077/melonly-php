@@ -2,12 +2,12 @@
 
 use Melonly\Bootstrap\Application;
 
-// Path to framework files.
+// Path to framework & plugin files.
 // Change this path when moving to server from local environment.
 
-const INCLUDE_PATH = '/../melonly';
+const INCLUDE_PATH = '../plugins';
 
-require __DIR__ . '/' . INCLUDE_PATH . '/bootstrap/Application.php';
+require __DIR__ . '/' . INCLUDE_PATH . '/autoload.php';
 
 Application::start();
 
@@ -24,7 +24,6 @@ Application::start();
                                                         888 
                                                     Y8b d88P 
                                                     "Y88P"  
-
 
     Melonly - The Modern PHP Framework
 

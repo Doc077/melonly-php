@@ -5,7 +5,7 @@ namespace Melonly\Routing\Attributes;
 use Attribute;
 use ReflectionClass;
 use Melonly\Http\Method as HttpMethod;
-use Melonly\Routing\Route as RouteFacade;
+use Melonly\Routing\Facades\Route as RouteFacade;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route {

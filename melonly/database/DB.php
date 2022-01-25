@@ -3,7 +3,7 @@
 namespace Melonly\Database;
 
 use PDOException;
-use Melonly\Services\Container;
+use Melonly\Container\Container;
 use Melonly\Support\Containers\Vector;
 use Melonly\Exceptions\Handler;
 

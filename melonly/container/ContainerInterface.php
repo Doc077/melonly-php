@@ -1,6 +1,6 @@
 <?php
 
-namespace Melonly\Services;
+namespace Melonly\Container;
 
 interface ContainerInterface {
     public static function get(string $key): mixed;

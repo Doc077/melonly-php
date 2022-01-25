@@ -2,7 +2,7 @@
 
 namespace Melonly\Broadcasting;
 
-use Melonly\Services\Facade;
+use Melonly\Container\Facade;
 
 class WebSocket extends Facade {
     protected static function getAccessor(): string {

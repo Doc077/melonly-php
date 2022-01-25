@@ -1,6 +1,6 @@
 <?php
 
-namespace Melonly\Services;
+namespace Melonly\Container;
 
 abstract class Facade {
     protected static function handleCall(string $method, array $args, string $accessor): mixed {

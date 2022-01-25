@@ -1,8 +1,9 @@
 <?php
 
-namespace Melonly\Routing;
+namespace Melonly\Routing\Facades;
 
-use Melonly\Services\Facade;
+use Melonly\Container\Facade;
+use Melonly\Routing\Router;
 
 class Route extends Facade {
     protected static function getAccessor(): string {

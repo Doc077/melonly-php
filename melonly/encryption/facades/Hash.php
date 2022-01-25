@@ -1,8 +1,8 @@
 <?php
 
-namespace Melonly\Encryption;
+namespace Melonly\Encryption\Facades;
 
-use Melonly\Services\Facade;
+use Melonly\Container\Facade;
 
 class Hash extends Facade {
     protected static function getAccessor(): string {

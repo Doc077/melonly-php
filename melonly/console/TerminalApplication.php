@@ -37,9 +37,6 @@ class TerminalApplication {
     }
 
     protected function bootstrap(): void {
-        require_once __DIR__ . '/../bootstrap/Application.php';
-        require_once __DIR__ . '/Command.php';
-
         Application::start();
     }
 

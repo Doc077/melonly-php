@@ -10,7 +10,7 @@ use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Http\Mime;
 use Melonly\Http\Method as HttpMethod;
-use Melonly\Services\Container;
+use Melonly\Container\Container;
 use Melonly\Support\Helpers\Regex;
 use Melonly\Support\Helpers\Str;
 use Melonly\Views\View;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Melonly\Services;
+namespace Melonly\Container;
 
 use Melonly\Broadcasting\WebSocketConnection;
 use Melonly\Database\DBConnection;
