@@ -3,7 +3,6 @@
 namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
-use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\Handler;
 use Melonly\Exceptions\UnhandledError;
@@ -17,17 +16,9 @@ use Throwable;
 class Application {
     public static float $performance;
 
-    protected const AUTOLOAD_FOLDERS = [
-        'app' => [
-            'controllers',
-            'exceptions',
-            'models',
-            'routes',
-            'tests',
-        ]
-    ];
-
     public function __construct() {
+        require_once __DIR__ . '/../../routes/routes.php';
+
         define('PERFORMANCE_START', microtime(true));
 
         try {
@@ -37,7 +28,6 @@ class Application {
             ClassRegistrar::registerModels();
 
             define('PERFORMANCE_STOP', microtime(true));
-            throw new \Exception('greg');
 
             self::$performance = PERFORMANCE_STOP - PERFORMANCE_START;
 
@@ -81,13 +71,6 @@ class Application {
 
         if (PHP_VERSION_ID < MELONLY_PHP_MIN_VERSION_ID) {
             throw new UnsupportedPHPException('Melonly requires minimum PHP version ' . MELONLY_PHP_MIN_VERSION . ' or greater');
-        }
-
-        /**
-         * Include application files.
-         */
-        foreach (self::AUTOLOAD_FOLDERS['app'] as $folder) {
-            Autoloader::loadFiles(__DIR__ . '/../../' . $folder);
         }
 
         /**

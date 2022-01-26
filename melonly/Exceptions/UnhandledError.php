@@ -2,7 +2,9 @@
 
 namespace Melonly\Exceptions;
 
-class UnhandledError {
+use Stringable;
+
+class UnhandledError implements Stringable {
     public function getCode(): int | string {
         return $this->code;
     }
@@ -25,4 +27,8 @@ class UnhandledError {
         protected string $file,
         protected int $line,
     ) {}
+
+    public function __toString(): string {
+        return $this->message;
+    }
 }
