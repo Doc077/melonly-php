@@ -134,7 +134,7 @@ class Response {
         507 => 'Insufficient Storage',
         508 => 'Loop Detected',
         510 => 'Not Extended',
-        511 => 'Network Authentication Required'
+        511 => 'Network Authentication Required',
     ];
 
     protected mixed $data = '';
@@ -168,9 +168,9 @@ class Response {
          * Include custom view or predefined one.
          */
         if (File::exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . '.html')) {
-            View::renderView($view, ['text' => $text], true);
+            View::renderView($view, ['text' => $text], true, __DIR__ . '/Assets');
         } else {
-            View::renderView(__DIR__ . '/Assets/status.html', ['text' => $text], true);
+            View::renderView(__DIR__ . '/Assets/status.html', ['text' => $text], true, __DIR__ . '/Assets');
         }
 
         exit();

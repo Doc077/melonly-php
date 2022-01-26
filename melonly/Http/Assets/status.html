@@ -6,10 +6,10 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{ ($text ? ' '.$text : '') }}</title>
+        <title>{{ $text ? ' ' . $text : '' }}</title>
 
         <style>
-            [include __DIR__ . '/styles.css']
+            [include 'styles.css']
         </style>
     </head>
 
@@ -18,7 +18,7 @@
             <h1 class="header">
                 <span class="code">{{ $status }}</span>
 
-                {{ ($text ? ' '.$text : '') }}
+                {{ $text ? ' ' . $text : '' }}
             </h1>
         </main>
     </body>

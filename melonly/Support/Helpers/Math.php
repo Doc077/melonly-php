@@ -17,7 +17,7 @@ class Math {
         return bindec($number);
     }
 
-    public static function binToHex(string $number): int | float {
+    public static function binToHex(string $number): string {
         return bin2hex($number);
     }
 

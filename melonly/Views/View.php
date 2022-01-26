@@ -55,10 +55,10 @@ class View implements ViewInterface {
         '/\\[ ?continue ?\\]/' => '<?php continue; ?>',
 
         '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">',
-        '/\\[include ?(:?.*?) ?\\]/' => '<?php include $1 ?>',
+        '/\\[include ?(:?.*?) ?\\]/' => '<?php include "[rootPath]" . "/" . $1 ?>',
     ];
 
-    public static function compile(string $file, array $variables = []): string {
+    public static function compile(string $file, array $variables = [], ?string $includePathRoot = null): string {
         $content = File::content($file);
 
         /**
@@ -69,6 +69,14 @@ class View implements ViewInterface {
         }
 
         foreach (self::$regexExpressions as $key => $value) {
+            if ($includePathRoot !== null) {
+                $root = str_replace('\\', '\\\\', $includePathRoot);
+
+                $content = Regex::replace($key, str_replace('[rootPath]', $root, $value), $content);
+
+                continue;
+            }
+
             $content = Regex::replace($key, $value, $content);
         }
 
@@ -130,7 +138,7 @@ class View implements ViewInterface {
         return $filename;
     }
 
-    public static function renderView(string $file, array $variables = [], bool $absolutePath = false): void {
+    public static function renderView(string $file, array $variables = [], bool $absolutePath = false, ?string $includePathRoot = null): void {
         if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html')) {
             //throw new ViewNotFoundException("View '$file' does not exist");
         }
@@ -141,7 +149,7 @@ class View implements ViewInterface {
 
         self::$currentView = $file;
 
-        $compiled = self::compile($file, $variables);
+        $compiled = self::compile($file, $variables, $includePathRoot);
 
         /**
          * Get passed variables and include compiled view.
