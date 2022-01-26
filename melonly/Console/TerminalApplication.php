@@ -27,7 +27,7 @@ class TerminalApplication {
         /**
          * Call the corresponding command function.
          */
-        if (File::exists($file = __DIR__ . '/commands/' . Str::uppercaseFirst($this->arguments[1]) . 'Command.php')) {
+        if (File::exists($file = __DIR__ . '/Commands/' . Str::uppercaseFirst($this->arguments[1]) . 'Command.php')) {
             $command = require_once $file;
 
             (new $command())->handle();
@@ -45,7 +45,7 @@ class TerminalApplication {
          * If command was not supplied, list all commands.
          */
         if ($this->isArgumentListEmpty()) {
-            $command = require_once __DIR__ . '/commands/InfoCommand.php';
+            $command = require_once __DIR__ . '/Commands/InfoCommand.php';
 
             (new $command())->handle();
 
@@ -64,7 +64,7 @@ class TerminalApplication {
         if (preg_match('/new:(.*)/', $this->arguments[1], $matches)) {
             $name = 'New' . Str::uppercaseFirst($matches[1]);
 
-            if (File::exists($file = __DIR__ . '/commands/' . Str::pascalCase($name) . 'Command.php')) {
+            if (File::exists($file = __DIR__ . '/Commands/' . Str::pascalCase($name) . 'Command.php')) {
                 $command = require_once $file;
 
                 (new $command())->handle();

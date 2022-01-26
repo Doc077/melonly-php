@@ -4,10 +4,7 @@ namespace Melonly\Autoloading;
 
 class Autoloader {
     protected const PATTERNS = [
-        '/*Interface.php',
         '/*.php',
-        '/attributes/*.php',
-        '/facades/*.php'
     ];
 
     public static function loadFiles(string $path): void {

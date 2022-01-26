@@ -27,7 +27,10 @@ class Handler {
          */
         if (php_sapi_name() === 'cli') {
             render('
-                <div class="text-red-400 w-full my-1">Exception: ' . $exception->getMessage() . ' [File: ' . $exception->getFile() . ':' . $exception->getLine() . ']</div>
+                <div class="bg-red-400 text-gray-900 px-3 py-1 my-2">
+                    <div class="w-full mb-1"><span class="font-bold">Exception:</span> ' . $exception->getMessage() . '</div>
+                    <div class="w-full"><span class="font-bold">File:</span> ' . $exception->getFile() . ':' . $exception->getLine() . '</div>
+                </div>
             ');
 
             exit();

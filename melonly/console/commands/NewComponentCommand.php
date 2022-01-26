@@ -1,7 +1,8 @@
 <?php
 
-namespace Melonly\Console;
+namespace Melonly\Console\Commands;
 
+use Melonly\Console\Command;
 use Melonly\Filesystem\File;
 
 return new class extends Command {
