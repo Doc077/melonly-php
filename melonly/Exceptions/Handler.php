@@ -36,7 +36,7 @@ class Handler {
             exit();
         }
 
-        //View::clearBuffer();
+        View::clearBuffer();
 
         $url = rtrim(Url::full(), '/');
 
@@ -63,7 +63,14 @@ class Handler {
 
         $fullExceptionType = get_class($exception);
 
-        include __DIR__ . '/utils/exception-page.php';
+        View::renderView(__DIR__ . '/Assets/exception.html', compact(
+            'url',
+            'linesCount',
+            'exceptionFile',
+            'fileContent',
+            'exceptionType',
+            'fullExceptionType',
+        ), true, __DIR__ . '/Assets');
 
         /**
          * Delete all compiled temporary templates.

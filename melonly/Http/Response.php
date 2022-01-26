@@ -168,9 +168,15 @@ class Response {
          * Include custom view or predefined one.
          */
         if (File::exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . '.html')) {
-            View::renderView($view, ['text' => $text], true, __DIR__ . '/Assets');
+            View::renderView($view, [
+                'text' => $text,
+                'status' => $status,
+            ], true, __DIR__ . '/Assets');
         } else {
-            View::renderView(__DIR__ . '/Assets/status.html', ['text' => $text], true, __DIR__ . '/Assets');
+            View::renderView(__DIR__ . '/Assets/status.html', [
+                'text' => $text,
+                'status' => $status,
+            ], true, __DIR__ . '/Assets');
         }
 
         exit();

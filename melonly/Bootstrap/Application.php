@@ -33,26 +33,12 @@ class Application {
         try {
             $this->initialize();
 
-            set_error_handler(function (int | string $code, string $message = 'Uncaught error', string $file = 'index.php', int $line = 0) {
-                $notice = new Notice($code, $message, $file, $line);
-            
-                Handler::handle($notice);
-            });
-
-            set_exception_handler(function (int | string $code, string $message = 'Uncaught exception', string $file = 'index.php', int $line = 0) {
-                $notice = new Notice($code, $message, $file, $line);
-            
-                Handler::handle($notice);
-            });
-
             ClassRegistrar::registerControllers();
             ClassRegistrar::registerModels();
 
             define('PERFORMANCE_STOP', microtime(true));
+            throw new \Exception('greg');
 
-            /**
-             * Save the app bootstrap performance result in seconds.
-             */
             self::$performance = PERFORMANCE_STOP - PERFORMANCE_START;
 
             $this->respondAndTerminate();
@@ -61,8 +47,24 @@ class Application {
         }
     }
 
+    protected function registerHandlers(): void {
+        set_error_handler(function (int | string $code, string $message = 'Uncaught error', string $file = 'index.php', int $line = 0) {
+            $notice = new Notice($code, $message, $file, $line);
+        
+            Handler::handle($notice);
+        });
+
+        set_exception_handler(function (int | string $code, string $message = 'Uncaught exception', string $file = 'index.php', int $line = 0) {
+            $notice = new Notice($code, $message, $file, $line);
+        
+            Handler::handle($notice);
+        });
+    }
+
     protected function initialize(): void {
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
+
+        $this->registerHandlers();
 
         Session::start();
         Container::initialize();

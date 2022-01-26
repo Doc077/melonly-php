@@ -3,7 +3,6 @@
 namespace Melonly\Database;
 
 use PDO;
-use Exception;
 
 class DBConnection implements DBConnectionInterface {
     protected readonly string $system;
@@ -33,7 +32,7 @@ class DBConnection implements DBConnectionInterface {
 
                     break;
                 default:
-                    throw new Exception("Unsupported database driver '$this->system'");
+                    throw new UnsupportedDBDriverException("Unsupported database driver '$this->system'");
             }
 
             $this->pdo = new PDO(

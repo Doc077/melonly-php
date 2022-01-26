@@ -70,7 +70,10 @@ class View implements ViewInterface {
 
         foreach (self::$regexExpressions as $key => $value) {
             if ($includePathRoot !== null) {
-                $root = str_replace('\\', '\\\\', $includePathRoot);
+                /**
+                 * Escape slashes provided by __DIR__.
+                 */
+                $root = str_replace('\\', '\\\\\\', $includePathRoot);
 
                 $content = Regex::replace($key, str_replace('[rootPath]', $root, $value), $content);
 
@@ -93,6 +96,12 @@ class View implements ViewInterface {
         $variablesAsString = '';
 
         foreach ($variables as $variable => $value) {
+            if (is_array($value)) {
+                $variablesAsString .= '"' . $variable . '" => [' . implode(',', $value) . '],';
+
+                continue;
+            }
+
             $variablesAsString .= '"' . $variable . '" => "' . $value . '",';
         }
 
