@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\Handler;
+use Melonly\Exceptions\Notice;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
@@ -31,6 +32,18 @@ class Application {
 
         try {
             $this->initialize();
+
+            set_error_handler(function (int | string $code, string $message = 'Uncaught error', string $file = 'index.php', int $line = 0) {
+                $notice = new Notice($code, $message, $file, $line);
+            
+                Handler::handle($notice);
+            });
+
+            set_exception_handler(function (int | string $code, string $message = 'Uncaught exception', string $file = 'index.php', int $line = 0) {
+                $notice = new Notice($code, $message, $file, $line);
+            
+                Handler::handle($notice);
+            });
 
             ClassRegistrar::registerControllers();
             ClassRegistrar::registerModels();
