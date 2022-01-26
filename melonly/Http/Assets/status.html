@@ -6,19 +6,19 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title><?= ($text ? ' '.$text : '') ?></title>
+        <title>{{ ($text ? ' '.$text : '') }}</title>
 
         <style>
-            <?php include __DIR__ . '/styles.css' ?>
+            [include __DIR__ . '/styles.css']
         </style>
     </head>
 
     <body>
         <main>
             <h1 class="header">
-                <span class="code"><?= $status ?></span>
+                <span class="code">{{ $status }}</span>
 
-                <?= ($text ? ' '.$text : '') ?>
+                {{ ($text ? ' '.$text : '') }}
             </h1>
         </main>
     </body>

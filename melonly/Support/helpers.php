@@ -1,5 +1,6 @@
 <?php
 
+use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
 use Melonly\Translation\Lang;
 use Melonly\Views\HtmlNodeString;
@@ -7,6 +8,16 @@ use Melonly\Views\HtmlNodeString;
 if (!function_exists('__')) {
     function __(string $key): string {
         return trans($key);
+    }
+}
+
+if (!function_exists('csrfToken')) {
+    function csrfToken(): string {
+        if (!Session::isSet('MELONLY_CSRF_TOKEN')) {
+            throw new Exception('CSRF token is not set');
+        }
+
+        return Session::get('MELONLY_CSRF_TOKEN');
     }
 }
 
@@ -189,6 +200,34 @@ if (!function_exists('printData')) {
         }
 
         print(htmlspecialchars($data));
+    }
+}
+
+if (!function_exists('redirect')) {
+    function redirect(string $url, array $data = []): never {
+        foreach ($data as $key => $value) {
+            Session::set('MELONLY_FLASH_' . $key, $value);
+        }
+
+        header('Location: ' . $url);
+
+        exit();
+    }
+}
+
+if (!function_exists('redirectBack')) {
+    function redirectBack(array $data = []): never {
+        foreach ($data as $key => $value) {
+            Session::set('MELONLY_FLASH_' . $key, $value);
+        }
+
+        if (!isset($_SERVER['HTTP_REFERER'])) {
+            throw new Exception('Cannot redirect to previous location');
+        }
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+        exit();
     }
 }
 

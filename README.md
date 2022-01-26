@@ -159,7 +159,7 @@ use Melonly\Database\DB;
 $name = DB::query('SELECT `name` FROM `users` WHERE `id` = 1');
 ```
 
-Due fact that Melonly is a MVC framework, it follow the Models pattern. Each table in your database can have corresponding 'Model'.
+Due the fact Melonly is a MVC framework, it follows the Model pattern. Each table in your database can have corresponding 'Model'.
 
 To create a model, use CLI command:
 

@@ -36,7 +36,7 @@ class Handler {
             exit();
         }
 
-        View::clearBuffer();
+        //View::clearBuffer();
 
         $url = rtrim(Url::full(), '/');
 

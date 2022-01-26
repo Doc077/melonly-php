@@ -17,6 +17,10 @@ class Math {
         return bindec($number);
     }
 
+    public static function binToHex(string $number): int | float {
+        return bin2hex($number);
+    }
+
     public static function ceil(int | float $number, int $precision): int | float {
         return round($number, $precision, PHP_ROUND_HALF_UP);
     }

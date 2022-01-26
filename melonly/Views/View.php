@@ -2,8 +2,8 @@
 
 namespace Melonly\Views;
 
-use Exception;
 use Melonly\Filesystem\File;
+use Melonly\Support\Helpers\Math;
 use Melonly\Support\Helpers\Str;
 use Melonly\Support\Helpers\Regex;
 
@@ -16,10 +16,14 @@ class View implements ViewInterface {
         'DB' => \Melonly\Database\DB::class,
         'File' => \Melonly\Filesystem\File::class,
         'HtmlNodeString' => \Melonly\Views\HtmlNodeString::class,
+        'Http' => \Melonly\Http\Http::class,
+        'Math' => \Melonly\Support\Helpers\Math::class,
+        'Regex' => \Melonly\Support\Helpers\Regex::class,
         'Str' => \Melonly\Support\Helpers\Str::class,
         'Time' => \Melonly\Support\Helpers\Time::class,
         'Url' => \Melonly\Support\Helpers\Url::class,
-        'Vector' => \Melonly\Support\Containers\Vector::class
+        'Uuid' => \Melonly\Support\Helpers\Uuid::class,
+        'Vector' => \Melonly\Support\Containers\Vector::class,
     ];
 
     protected static array $stringExpressions = [
@@ -28,7 +32,7 @@ class View implements ViewInterface {
         '{{' => '<?= printData(',
         '}}' => ') ?>',
         '[[' => '<?= trans(',
-        ']]' => ') ?>'
+        ']]' => ') ?>',
     ];
 
     protected static array $regexExpressions = [
@@ -38,8 +42,8 @@ class View implements ViewInterface {
         '/\\[ ?if ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php if ($1): ?>',
         '/\\[ ?endif ?\\]/' => '<?php endif; ?>',
 
-        '/\\[ ?elseif ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php elseif ($1): ?>',
         '/\\[ ?else ?\\]/' => '<?php else: ?>',
+        '/\\[ ?elseif ?(:?.*?(\\(.*?\\)*)?) ?\\]/' => '<?php elseif ($1): ?>',
 
         '/\\[ ?for ?(.*?) ?\\]/' => '<?php for ($1): ?>',
         '/\\[ ?endfor ?\\]/' => '<?php endfor; ?>',
@@ -50,7 +54,8 @@ class View implements ViewInterface {
         '/\\[ ?break ?\\]/' => '<?php break; ?>',
         '/\\[ ?continue ?\\]/' => '<?php continue; ?>',
 
-        '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">'
+        '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">',
+        '/\\[include ?(:?.*?) ?\\]/' => '<?php include $1 ?>',
     ];
 
     public static function compile(string $file, array $variables = []): string {
@@ -99,7 +104,7 @@ class View implements ViewInterface {
                     '/<' . $name . '( (.*)="(.*)")* ?\/>/',
                     '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [' . $variablesAsString . '\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
 
-                    $content
+                    $content,
                 );
 
                 /**
@@ -109,7 +114,7 @@ class View implements ViewInterface {
                     '/<' . $name . '( (.*)="(.*)")* ?>(?<slot>.*?)<\/' . $name . '>/',
                     '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [' . $variablesAsString . '\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
 
-                    $content
+                    $content,
                 );
             }
         }
@@ -118,19 +123,21 @@ class View implements ViewInterface {
          * Generate random file name and save compiled view.
          */
         $filename = random_bytes(16);
-        $filename = __DIR__ . '/../storage/views/' . bin2hex($filename) . '.html';
+        $filename = __DIR__ . '/../storage/views/' . Math::binToHex($filename) . '.html';
 
         File::put($filename, $content);
 
         return $filename;
     }
 
-    public static function renderView(string $file, array $variables = []): void {
+    public static function renderView(string $file, array $variables = [], bool $absolutePath = false): void {
         if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html')) {
-            throw new ViewNotFoundException("View '$file' does not exist");
+            //throw new ViewNotFoundException("View '$file' does not exist");
         }
 
-        $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
+        if (!$absolutePath) {
+            $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
+        }
 
         self::$currentView = $file;
 

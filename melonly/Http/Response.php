@@ -168,9 +168,9 @@ class Response {
          * Include custom view or predefined one.
          */
         if (File::exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . '.html')) {
-            View::renderView($view);
+            View::renderView($view, ['text' => $text], true);
         } else {
-            include __DIR__ . '/utils/status-page.php';
+            View::renderView(__DIR__ . '/Assets/status.html', ['text' => $text], true);
         }
 
         exit();
