@@ -7,7 +7,7 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'public', 'js'),
-        filename: 'index.js'
+        filename: 'index.js',
     },
 
     module: {
@@ -20,7 +20,7 @@ module.exports = {
                     options: {
                         presets: [
                             '@babel/preset-env',
-                            '@babel/preset-react'
+                            '@babel/preset-react',
                         ],
                     },
                 },
@@ -29,7 +29,7 @@ module.exports = {
                 test: /\.s[ac]ss$/,
                 exclude: /node_modules/,
                 use: [
-                    'sass-loader'
+                    'sass-loader',
                 ],
             },
         ],

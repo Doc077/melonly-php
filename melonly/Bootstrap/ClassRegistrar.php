@@ -2,6 +2,7 @@
 
 namespace Melonly\Bootstrap;
 
+use App\Controllers;
 use Melonly\Routing\Attributes\Route;
 use ReflectionClass;
 use ReflectionMethod;
@@ -14,7 +15,14 @@ class ClassRegistrar {
          * Here application will register HTTP routes.
          */
         foreach (getNamespaceClasses('App\Controllers') as $class) {
-            $controllerReflection = new ReflectionClass('\App\Controllers\\' . $class);
+            $controllerClass = '\App\Controllers\\' . $class;
+
+            $controllerReflection = new ReflectionClass($controllerClass);
+
+            /**
+             * Create instance of each controller for attribute route registering method.
+             */
+            new $controllerClass();
 
             /**
              * Get all controller public methods.

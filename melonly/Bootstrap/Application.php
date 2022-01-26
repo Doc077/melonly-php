@@ -17,8 +17,6 @@ class Application {
     public static float $performance;
 
     public function __construct() {
-        require_once __DIR__ . '/../../routes/routes.php';
-
         define('PERFORMANCE_START', microtime(true));
 
         try {
@@ -26,6 +24,8 @@ class Application {
 
             ClassRegistrar::registerControllers();
             ClassRegistrar::registerModels();
+
+            require_once __DIR__ . '/../../routes/routes.php';
 
             define('PERFORMANCE_STOP', microtime(true));
 

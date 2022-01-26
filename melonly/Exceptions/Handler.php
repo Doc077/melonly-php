@@ -74,7 +74,7 @@ class Handler {
         /**
          * Delete all compiled temporary templates.
          */
-        foreach (glob(__DIR__ . '/../storage/views/*.php', GLOB_BRACE) as $file) {
+        foreach (glob(__DIR__ . '/../../storage/views/*.php', GLOB_BRACE) as $file) {
             if (is_file($file)) {
                 File::delete($file);
             }

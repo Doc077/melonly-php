@@ -140,7 +140,7 @@ class View implements ViewInterface {
          * Generate random file name and save compiled view.
          */
         $filename = random_bytes(16);
-        $filename = __DIR__ . '/../storage/views/' . Math::binToHex($filename) . '.html';
+        $filename = __DIR__ . '/../../storage/views/' . Math::binToHex($filename) . '.html';
 
         File::put($filename, $content);
 
