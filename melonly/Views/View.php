@@ -8,7 +8,7 @@ use Melonly\Support\Helpers\Str;
 use Melonly\Support\Helpers\Regex;
 
 class View implements ViewInterface {
-    public static ?string $currentView = null;
+    protected static ?string $currentView = null;
 
     protected static array $namespaces = [
         'Arr' => \Melonly\Support\Helpers\Arr::class,
@@ -199,6 +199,10 @@ class View implements ViewInterface {
          * Remove temporary file.
          */
         File::delete($compiled);
+    }
+
+    public static function getCurrentView(): string {
+        return self::$currentView;
     }
 
     public static function clearBuffer(): void {

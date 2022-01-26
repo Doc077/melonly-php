@@ -51,7 +51,7 @@
             [if !empty($fileContent)]
                 <pre class="pre prettyprint"><code class="code">
                     [foreach $fileContent as $index => $line]
-                        <div class="line{{ $index + 1 === $exception->getLine() ? ' line--error' : '' ?>">{{ htmlspecialchars($line) }}</div>
+                        <div class="line{{ $index + 1 === $exception->getLine() ? ' line--error' : '' }}">{{ htmlspecialchars($line) }}</div>
                     [endforeach]
                 </code></pre>
             [endif]

@@ -25,12 +25,16 @@ class File {
     }
 
     public static function lines(string $path): int {
+        $lines = 0;
+
         $path = new SplFileObject($path, 'r');
 
         $path->setFlags(SplFileObject::READ_AHEAD);
         $path->seek(PHP_INT_MAX);
 
-        return $path->key() + 1;
+        $lines = $path->key() + 1;
+
+        return $lines;
     }
 
     public static function hash(string $path): string | false {

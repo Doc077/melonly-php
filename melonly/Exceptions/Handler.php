@@ -15,7 +15,7 @@ use TypeError;
 use function Termwind\{render};
 
 class Handler {
-    public static function handle(Exception | Error | TypeError | PDOException | Notice $exception): never {
+    public static function handle(Exception | Error | TypeError | PDOException | UnhandledError $exception): never {
         if (!env('APP_DEVELOPMENT')) {
             Container::get(Response::class)->abort(500);
 
@@ -43,8 +43,6 @@ class Handler {
         /**
          * Get exception file lines count and content.
          */
-        $linesCount = 0;
-
         $linesCount = File::lines($exception->getFile());
 
         $exceptionFile = $exception->getFile();
@@ -53,7 +51,7 @@ class Handler {
          * If exception occured in a view, replace the file with uncompiled template.
          */
         if (str_contains($exceptionFile, 'storage\views')) {
-            $exceptionFile = View::$currentView;
+            $exceptionFile = View::getCurrentView();
         }
 
         $fileContent = File::read($exceptionFile);
@@ -64,12 +62,13 @@ class Handler {
         $fullExceptionType = get_class($exception);
 
         View::renderView(__DIR__ . '/Assets/exception.html', compact(
-            'url',
-            'linesCount',
+            'exception',
             'exceptionFile',
-            'fileContent',
             'exceptionType',
+            'fileContent',
             'fullExceptionType',
+            'linesCount',
+            'url',
         ), true, __DIR__ . '/Assets');
 
         /**

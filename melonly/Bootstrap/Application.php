@@ -6,7 +6,7 @@ use Dotenv\Dotenv;
 use Melonly\Autoloading\Autoloader;
 use Melonly\Authentication\Auth;
 use Melonly\Exceptions\Handler;
-use Melonly\Exceptions\Notice;
+use Melonly\Exceptions\UnhandledError;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
@@ -48,16 +48,26 @@ class Application {
     }
 
     protected function registerHandlers(): void {
-        set_error_handler(function (int | string $code, string $message = 'Uncaught error', string $file = 'index.php', int $line = 0) {
-            $notice = new Notice($code, $message, $file, $line);
+        set_error_handler(function (
+            int | string $code,
+            string $message = 'Uncaught error',
+            string $file = __DIR__ . '/../../public/index.php',
+            int $line = 0,
+        ) {
+            $error = new UnhandledError($code, $message, $file, $line);
         
-            Handler::handle($notice);
+            Handler::handle($error);
         });
 
-        set_exception_handler(function (int | string $code, string $message = 'Uncaught exception', string $file = 'index.php', int $line = 0) {
-            $notice = new Notice($code, $message, $file, $line);
+        set_exception_handler(function (
+            int | string $code,
+            string $message = 'Uncaught exception',
+            string $file = __DIR__ . '/../../public/index.php',
+            int $line = 0,
+        ) {
+            $error = new UnhandledError($code, $message, $file, $line);
         
-            Handler::handle($notice);
+            Handler::handle($error);
         });
     }
 

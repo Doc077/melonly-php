@@ -2,7 +2,7 @@
 
 namespace Melonly\Exceptions;
 
-class Notice {
+class UnhandledError {
     public function getCode(): int | string {
         return $this->code;
     }
