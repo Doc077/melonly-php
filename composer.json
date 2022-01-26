@@ -31,7 +31,11 @@
     "autoload": {
         "psr-4": {
             "Melonly\\": "melonly/"
-        }
+        },
+        "files": [
+            "melonly/Support/constants.php",
+            "melonly/Support/helpers.php"
+        ]
     },
     "scripts": {
         "post-root-package-install": [

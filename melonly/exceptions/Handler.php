@@ -56,7 +56,7 @@ class Handler {
             $exceptionFile = View::$currentView;
         }
 
-        $fileContent = file($exceptionFile);
+        $fileContent = File::read($exceptionFile);
 
         $exceptionType = explode('\\', get_class($exception));
         $exceptionType = end($exceptionType);

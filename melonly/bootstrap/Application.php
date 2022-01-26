@@ -27,9 +27,6 @@ class Application {
     ];
 
     public function __construct() {
-        require_once __DIR__ . '/../utils/constants.php';
-        require_once __DIR__ . '/../utils/env.php';
-
         define('PERFORMANCE_START', microtime(true));
 
         try {

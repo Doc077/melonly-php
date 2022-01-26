@@ -77,6 +77,10 @@ class File {
         return pathinfo($path, PATHINFO_EXTENSION);
     }
 
+    public static function read(string $path): array | false {
+        return file($path);
+    }
+
     public static function size(string $path): int | false {
         return filesize($path);
     }
