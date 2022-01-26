@@ -2,6 +2,7 @@
 
 use Melonly\Support\Containers\Vector;
 use Melonly\Translation\Lang;
+use Melonly\Views\HtmlNodeString;
 
 if (!function_exists('__')) {
     function __(string $key): string {
@@ -176,6 +177,18 @@ if (!function_exists('getNamespaceClasses')) {
         }
 
         return $classes;
+    }
+}
+
+if (!function_exists('printData')) {
+    function printData(mixed $data): void {
+        if ($data instanceof HtmlNodeString) {
+            print($data);
+
+            return;
+        }
+
+        print(htmlspecialchars($data));
     }
 }
 

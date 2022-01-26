@@ -3,6 +3,7 @@
 namespace Melonly\Http;
 
 use Melonly\Support\Helpers\Str;
+use Melonly\Validation\Facades\Validate;
 
 class Request {
     protected ?string $parameter = null;
@@ -89,7 +90,7 @@ class Request {
         return $_SERVER['REQUEST_URI'];
     }
 
-    public static function make(string $uri, array $headers): bool {
-        return true;
+    public function validate(array $rules): bool {
+        return Validate::check($rules);
     }
 }

@@ -3,6 +3,7 @@ jspm_packages/
 /vendor
 /plugins
 /public/storage
+.DS_Store
 logs
 *.log
 .env

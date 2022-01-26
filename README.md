@@ -159,7 +159,7 @@ use Melonly\Database\DB;
 $name = DB::query('SELECT `name` FROM `users` WHERE `id` = 1');
 ```
 
-Due fact that Melonly is a MVC framework, it includes Models pattern. Each table in your database can have corresponding 'Model'.
+Due fact that Melonly is a MVC framework, it follow the Models pattern. Each table in your database can have corresponding 'Model'.
 
 To create a model, use CLI command:
 
@@ -194,9 +194,9 @@ class Post extends Model {
 }
 ```
 
-Column data typing here is done using ```Column``` attribute. It is not required but it's considered a good practice.
+Column data typing is done using the ```Column``` attribute. It is not required but considered a good practice.
 
-THen if your database contains ```posts``` table, you can retrieve data from that table with model class.
+Then if your database contains ```posts``` table, you can retrieve data from that table with model class. Melonly uses plural '-s' suffix by default to retrieve tables but it can be overwritten by setting ```protected $table``` property in a model.
 
 By chaining methods it is possible to create complex ```where``` clauses. Some of available methods are: ```where```, ```orWhere```, ```orderBy```. Data returned by the ```fetch()``` method is type of ```vector``` (in case of single result it is an instance of ```Melonly\Database\Record```).
 

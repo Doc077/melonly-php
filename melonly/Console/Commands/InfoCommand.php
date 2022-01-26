@@ -107,7 +107,6 @@ return new class extends Command {
             </tr>
         ');
 
-        $this->infoLine('CLI Documentation: <a class="underline" href="https://melonly.dev/docs/console" target="_blank">Click here</a>');
         $this->infoLine('(c) ' . MELONLY_AUTHOR);
         $this->infoLine('Enter your command to execute [php melon ...]:');
     }
