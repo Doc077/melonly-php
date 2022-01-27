@@ -14,7 +14,19 @@ class Table {
     }
 
     public function int(string $name, bool $nullable = false): void {
-        $this->fields[$name] = 'bigint(20) UNSIGNED' . ($nullable ? '' : ' NOT NULL');
+        $this->fields[$name] = 'bigint(20)' . ($nullable ? '' : ' NOT NULL');
+    }
+
+    public function float(string $name, bool $nullable = false): void {
+        $this->fields[$name] = 'float(28)' . ($nullable ? '' : ' NOT NULL');
+    }
+
+    public function bool(string $name, bool $nullable = false): void {
+        $this->fields[$name] = 'bool' . ($nullable ? '' : ' NOT NULL');
+    }
+
+    public function enum(string $name, array $values, bool $nullable = false): void {
+        $this->fields[$name] = 'enum(' . implode(',', $values) . ')' . ($nullable ? '' : ' NOT NULL');
     }
 
     public function timestamp(string $name, bool $nullable = true): void {
