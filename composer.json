@@ -31,7 +31,8 @@
     "autoload": {
         "psr-4": {
             "Melonly\\": "melonly/",
-            "App\\": "src"
+            "App\\": "src/",
+            "Database\\": "database/"
         },
         "files": [
             "melonly/Support/constants.php",
