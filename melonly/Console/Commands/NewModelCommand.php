@@ -11,7 +11,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../models/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../src/Models/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
             $this->errorLine("Model '{$this->arguments[2]}' already exists");
@@ -22,8 +22,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../models')) {
-            mkdir(__DIR__ . '/../../../models', 0777, true);
+        if (!File::exists(__DIR__ . '/../../../src/Models')) {
+            mkdir(__DIR__ . '/../../../src/Models', 0777, true);
         }
 
         File::put($fileName, '<?php

@@ -11,7 +11,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../controllers/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../src/Controllers/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
             $this->errorLine("Controller '{$this->arguments[2]}' already exists");
@@ -22,8 +22,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../controllers')) {
-            mkdir(__DIR__ . '/../../../controllers', 0777, true);
+        if (!File::exists(__DIR__ . '/../../../src/Controllers')) {
+            mkdir(__DIR__ . '/../../../src/Controllers', 0777, true);
         }
 
         File::put($fileName, '<?php
@@ -35,7 +35,7 @@ use Melonly\Routing\Attributes\Route;
 class ' . $this->arguments[2] . ' {
     #[Route(path: \'/\')]
     public function index() {
-        
+        // 
     }
 }
 ');
