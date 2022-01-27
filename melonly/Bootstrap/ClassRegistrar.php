@@ -3,7 +3,6 @@
 namespace Melonly\Bootstrap;
 
 use App\Controllers;
-use Melonly\Routing\Attributes\Route;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -33,11 +32,11 @@ class ClassRegistrar {
                 $methodReflection = new ReflectionMethod($method->class, $method->name);
 
                 foreach ($methodReflection->getAttributes() as $attribute) {
-                    if ($attribute->getName() === Route::class) {
+                    if ($attribute->getName() === \Melonly\Routing\Attributes\Route::class) {
                         /**
                          * Create new attribute instance & pass class name to it.
                          */
-                        new Route(...$attribute->getArguments(), class: $method->class);
+                        new \Melonly\Routing\Attributes\Route(...$attribute->getArguments(), class: $method->class);
                     }
                 }
             }

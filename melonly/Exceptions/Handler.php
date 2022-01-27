@@ -50,7 +50,7 @@ class Handler {
         /**
          * If exception occured in a view, replace the file with uncompiled template.
          */
-        if (str_contains($exceptionFile, 'storage\views')) {
+        if (str_contains($exceptionFile, 'storage\temp')) {
             $exceptionFile = View::getCurrentView();
         }
 
@@ -74,7 +74,7 @@ class Handler {
         /**
          * Delete all compiled temporary templates.
          */
-        foreach (glob(__DIR__ . '/../../storage/views/*.php', GLOB_BRACE) as $file) {
+        foreach (glob(__DIR__ . '/../../storage/temp/*.php', GLOB_BRACE) as $file) {
             if (is_file($file)) {
                 File::delete($file);
             }

@@ -33,6 +33,10 @@ abstract class Model {
         return DB::query('SELECT * FROM ' . self::getTable());
     }
 
+    public static function find(): self {
+        return DB::query('SELECT * FROM ' . self::getTable());
+    }
+
     /**
      * Create and save record.
      */
@@ -121,6 +125,7 @@ abstract class Model {
         switch ($method) {
             case 'all':
             case 'create':
+            case 'find':
             case 'getTable':
             case 'update':
                 return self::{$method}(...$args);
