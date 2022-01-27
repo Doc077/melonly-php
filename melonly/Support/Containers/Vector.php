@@ -184,6 +184,10 @@ class Vector implements ArrayAccess, Countable {
         return $some;
     }
 
+    public function toJson(): string | false {
+        return json_encode($this->items);
+    }
+
     public function unshift(...$values): static {
         foreach ($values as $value) {
             array_unshift($value, $this->items);

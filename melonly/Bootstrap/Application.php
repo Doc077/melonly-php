@@ -4,12 +4,14 @@ namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
 use Melonly\Authentication\Auth;
+use Melonly\Container\Container;
+use Melonly\Encryption\Facades\Hash;
 use Melonly\Exceptions\Handler;
 use Melonly\Exceptions\UnhandledError;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
-use Melonly\Container\Container;
+use Melonly\Support\Helpers\Math;
 use Melonly\Routing\Router;
 use Throwable;
 
@@ -25,11 +27,9 @@ class Application {
             ClassRegistrar::registerControllers();
             ClassRegistrar::registerModels();
 
-            require_once __DIR__ . '/../../routes/routes.php';
+            require_once __DIR__ . '/../../routing/routes.php';
 
-            define('PERFORMANCE_STOP', microtime(true));
-
-            self::$performance = PERFORMANCE_STOP - PERFORMANCE_START;
+            self::$performance = microtime(true) - PERFORMANCE_START;
 
             $this->respondAndTerminate();
         } catch (Throwable $exception) {
@@ -39,7 +39,7 @@ class Application {
 
     protected function registerHandlers(): void {
         set_error_handler(function (
-            int | string $code,
+            int $code,
             string $message = 'Uncaught error',
             string $file = __DIR__ . '/../../public/index.php',
             int $line = 0,
@@ -50,7 +50,7 @@ class Application {
         });
 
         set_exception_handler(function (
-            int | string $code,
+            int $code,
             string $message = 'Uncaught exception',
             string $file = __DIR__ . '/../../public/index.php',
             int $line = 0,
@@ -77,11 +77,11 @@ class Application {
          * Check (if exists) or generate security CSRF token.
          */
         if (Session::isSet('MELONLY_CSRF_TOKEN')) {
-            if ($_SERVER['REQUEST_METHOD'] === HttpMethod::Post->value && !hash_equals(Session::get('MELONLY_CSRF_TOKEN'), $_POST['csrf_token'])) {
+            if ($_SERVER['REQUEST_METHOD'] === HttpMethod::Post->value && !Hash::equals(Session::get('MELONLY_CSRF_TOKEN'), $_POST['csrf_token'])) {
                 Container::get(Response::class)->abort(419);
             }
         } else {
-            Session::set('MELONLY_CSRF_TOKEN', bin2hex(random_bytes(32)));
+            Session::set('MELONLY_CSRF_TOKEN', Math::binToHex(random_bytes(32)));
         }
 
         /**

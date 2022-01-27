@@ -20,4 +20,8 @@ class Hasher {
     public function check(string $input, string $output): bool {
         return password_verify($input, $output);
     }
+
+    public function equals(string $input, string $output): bool {
+        return hash_equals($input, $output);
+    }
 }
