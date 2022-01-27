@@ -2,15 +2,18 @@
 
 namespace Melonly\Container;
 
+use Exception;
 use Melonly\Broadcasting\WebSocketConnection;
 use Melonly\Database\DBConnection;
 use Melonly\Encryption\Encrypter;
 use Melonly\Encryption\Hasher;
-use Melonly\Http\Request as HttpRequest;
-use Melonly\Http\Response as HttpResponse;
+use Melonly\Http\Request;
+use Melonly\Http\Response;
 use Melonly\Mailing\Mailer;
 use Melonly\Routing\Router;
 use Melonly\Validation\Validator;
+use ReflectionException;
+use ReflectionFunction;
 
 class Container implements ContainerInterface {
     protected static array $instances = [];
@@ -29,19 +32,37 @@ class Container implements ContainerInterface {
 
     public static function initialize(): void {
         $services = [
-            HttpRequest::class,
-            HttpResponse::class,
-            Router::class,
+            DBConnection::class,
             Encrypter::class,
             Hasher::class,
             Mailer::class,
-            DBConnection::class,
-            WebSocketConnection::class,
+            Request::class,
+            Response::class,
+            Router::class,
             Validator::class,
+            WebSocketConnection::class,
         ];
 
         foreach ($services as $service) {
             self::$instances[$service] = new $service();
         }
+    }
+
+    public static function resolve(callable $callable): array {
+        try {
+            $reflector = new ReflectionFunction($callable);
+        } catch (ReflectionException) {
+            throw new Exception('Cannot create instance of a service');
+        }
+
+        $services = [];
+
+        foreach ($reflector->getParameters() as $param) {
+            $class = (string) $param->getType();
+
+            $services[] = self::has($class) ? self::get($class) : new $class();
+        }
+
+        return $services;
     }
 }

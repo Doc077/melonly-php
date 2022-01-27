@@ -17,6 +17,7 @@ class View implements ViewInterface {
         'File' => \Melonly\Filesystem\File::class,
         'HtmlNodeString' => \Melonly\Views\HtmlNodeString::class,
         'Http' => \Melonly\Http\Http::class,
+        'Json' => \Melonly\Support\Helpers\Json::class,
         'Math' => \Melonly\Support\Helpers\Math::class,
         'Regex' => \Melonly\Support\Helpers\Regex::class,
         'Str' => \Melonly\Support\Helpers\Str::class,

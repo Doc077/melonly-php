@@ -5,6 +5,7 @@ namespace Melonly\Support\Containers;
 use ArrayAccess;
 use Countable;
 use Exception;
+use Melonly\Support\Helpers\Json;
 
 class Vector implements ArrayAccess, Countable {
     protected array $items = [];
@@ -185,7 +186,7 @@ class Vector implements ArrayAccess, Countable {
     }
 
     public function toJson(): string | false {
-        return json_encode($this->items);
+        return Json::encode($this->items);
     }
 
     public function unshift(...$values): static {

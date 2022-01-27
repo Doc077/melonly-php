@@ -8,4 +8,6 @@ interface ContainerInterface {
     public static function has(string $key): bool;
 
     public static function initialize(): void;
+
+    public static function resolve(callable $callable): array;
 }

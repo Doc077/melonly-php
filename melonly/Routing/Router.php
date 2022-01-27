@@ -2,15 +2,13 @@
 
 namespace Melonly\Routing;
 
-use Exception;
-use ReflectionFunction;
-use ReflectionException;
 use Melonly\Filesystem\File;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Http\Mime;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Container\Container;
+use Melonly\Support\Helpers\Json;
 use Melonly\Support\Helpers\Regex;
 use Melonly\Support\Helpers\Str;
 use Melonly\Views\View;
@@ -200,26 +198,8 @@ class Router implements RouterInterface {
             Container::get(Request::class)->setParameter(explode('?', $parameters[1])[0]);
         }
 
-        /**
-         * Inject services to callable.
-         */
-        try {
-            $reflector = new ReflectionFunction($this->actions[$pattern]);
-        } catch (ReflectionException) {
-            throw new Exception('Cannot create instance of a service');
-        }
+        $services = Container::resolve($this->actions[$pattern]);
 
-        $services = [];
-
-        foreach ($reflector->getParameters() as $param) {
-            $class = $param->getType();
-
-            $services[] = Container::get($class);
-        }
-
-        /**
-         * Execute callable from controller.
-         */
         $this->actions[$pattern](...$services);
 
         /**
@@ -228,7 +208,7 @@ class Router implements RouterInterface {
         $view = Container::get(Response::class)->getView()[0];
         $viewVariables = Container::get(Response::class)->getView()[1];
 
-        if ($view !== null) {
+        if ($view) {
             $view = Str::replace('.', '/', $view);
 
             View::renderView($view, $viewVariables);
@@ -250,7 +230,7 @@ class Router implements RouterInterface {
         if (is_array(Container::get(Response::class)->getData())) {
             header('Content-Type: application/json');
 
-            print(json_encode($responseData));
+            print(Json::encode($responseData));
         } else {
             print($responseData);
         }
