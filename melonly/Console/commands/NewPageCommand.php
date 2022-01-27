@@ -12,7 +12,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../frontend/views/pages/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../frontend/views/pages/' . $this->arguments[2] . '.html';
 
         if (File::exists($fileName)) {
             $this->errorLine("Page '{$this->arguments[2]}' already exists");
@@ -24,25 +24,12 @@ return new class extends Command {
          * Create folder if doesn't exist.
          */
         if (!File::exists(__DIR__ . '/../../../frontend/views/pages')) {
-            mkdir(__DIR__ . '/../../../frontend/views/pages', 0777, true);
+            File::makeDirectory(__DIR__ . '/../../../frontend/views/pages');
         }
 
-        File::put($fileName, '<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>' . Str::uppercaseFirst($this->arguments[2]) . '</title>
-    </head>
-
-    <body>
-        <main></main>
-    </body>
-</html>
-');
+        $this->publishFileFromTemplate($fileName, 'page', [
+            'title' => Str::uppercaseFirst($this->arguments[2]),
+        ]);
 
         $this->infoLine("Created page '{$this->arguments[2]}'");
     }

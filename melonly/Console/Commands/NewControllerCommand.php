@@ -23,22 +23,12 @@ return new class extends Command {
          * Create folder if doesn't exist.
          */
         if (!File::exists(__DIR__ . '/../../../src/Controllers')) {
-            mkdir(__DIR__ . '/../../../src/Controllers', 0777, true);
+            File::makeDirectory(__DIR__ . '/../../../src/Controllers');
         }
 
-        File::put($fileName, '<?php
-
-namespace App\Controllers;
-
-use Melonly\Routing\Attributes\Route;
-
-class ' . $this->arguments[2] . ' {
-    #[Route(path: \'/\')]
-    public function index() {
-        // 
-    }
-}
-');
+        $this->publishFileFromTemplate($fileName, 'controller', [
+            'class' => $this->arguments[2],
+        ]);
 
         $this->infoLine("Created controller '{$this->arguments[2]}'");
     }

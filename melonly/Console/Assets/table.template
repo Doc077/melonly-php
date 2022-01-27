@@ -1,0 +1,3 @@
+COLUMN id TYPE id
+COLUMN name TYPE text
+COLUMN created_at TYPE datetime

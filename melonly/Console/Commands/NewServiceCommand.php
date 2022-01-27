@@ -11,10 +11,10 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../tests/unit/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../src/Services/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
-            $this->errorLine("Unit test '{$this->arguments[2]}' already exists");
+            $this->errorLine("Service '{$this->arguments[2]}' already exists");
 
             return;
         }
@@ -22,14 +22,14 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../tests/unit')) {
-            File::makeDirectory(__DIR__ . '/../../../tests/unit');
+        if (!File::exists(__DIR__ . '/../../../src/Services')) {
+            File::makeDirectory(__DIR__ . '/../../../src/Services');
         }
 
-        $this->publishFileFromTemplate($fileName, 'unit-test', [
+        $this->publishFileFromTemplate($fileName, 'service', [
             'class' => $this->arguments[2],
         ]);
 
-        $this->infoLine("Created unit test '{$this->arguments[2]}'");
+        $this->infoLine("Created service '{$this->arguments[2]}'");
     }
 };

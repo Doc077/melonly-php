@@ -23,13 +23,10 @@ return new class extends Command {
          * Create folder if doesn't exist.
          */
         if (!File::exists(__DIR__ . '/../../../database')) {
-            mkdir(__DIR__ . '/../../../database', 0777, true);
+            File::makeDirectory(__DIR__ . '/../../../database');
         }
 
-        File::put($fileName, 'COLUMN id TYPE id
-COLUMN name TYPE text
-COLUMN created_at TYPE datetime
-');
+        $this->publishFileFromTemplate($fileName, 'table');
 
         $this->infoLine("Created table migration '{$this->arguments[2]}'");
     }

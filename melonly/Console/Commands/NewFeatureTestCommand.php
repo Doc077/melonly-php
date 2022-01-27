@@ -23,26 +23,12 @@ return new class extends Command {
          * Create folder if doesn't exist.
          */
         if (!File::exists(__DIR__ . '/../../../tests/feature')) {
-            mkdir(__DIR__ . '/../../../tests/feature', 0777, true);
+            File::makeDirectory(__DIR__ . '/../../../tests/feature');
         }
 
-        File::put($fileName, '<?php
-
-namespace Tests\Feature;
-
-use Melonly\Testing\TestCase;
-
-class ' . $this->arguments[2] . ' extends TestCase {
-    /**
-     * Feature test example.
-     */
-    public function some_feature_test() {
-        $variable = true;
-
-        $this->assertTrue($variable);
-    }
-}
-');
+        $this->publishFileFromTemplate($fileName, 'feature-test', [
+            'class' => $this->arguments[2],
+        ]);
 
         $this->infoLine("Created feature test '{$this->arguments[2]}'");
     }

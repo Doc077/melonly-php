@@ -69,6 +69,10 @@ class File {
         return pathinfo($path, PATHINFO_FILENAME);
     }
 
+    public static function makeDirectory(string $path): void {
+        mkdir($path, 0777, true);
+    }
+
     public static function basename(string $path): array | string {
         return pathinfo($path, PATHINFO_BASENAME);
     }

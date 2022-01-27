@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Controllers;
+
+use Melonly\Routing\Attributes\Route;
+
+class {{ class }} {
+    #[Route(path: '/path')]
+    public function index() {
+        // 
+    }
+}

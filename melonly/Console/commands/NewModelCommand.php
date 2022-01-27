@@ -23,28 +23,12 @@ return new class extends Command {
          * Create folder if doesn't exist.
          */
         if (!File::exists(__DIR__ . '/../../../src/Models')) {
-            mkdir(__DIR__ . '/../../../src/Models', 0777, true);
+            File::makeDirectory(__DIR__ . '/../../../src/Models');
         }
 
-        File::put($fileName, '<?php
-
-namespace App\Models;
-
-use Melonly\Database\Model;
-use Melonly\Database\Attributes\Column;
-use Melonly\Database\Attributes\PrimaryKey;
-
-class ' . $this->arguments[2] . ' extends Model {
-    #[PrimaryKey]
-    public $id;
-
-    #[Column(type: \'string\')]
-    public $name;
-
-    #[Column(type: \'datetime\', nullable: true)]
-    public $created_at;
-}
-');
+        $this->publishFileFromTemplate($fileName, 'model', [
+            'class' => $this->arguments[2],
+        ]);
 
         $this->infoLine("Created model '{$this->arguments[2]}'");
     }

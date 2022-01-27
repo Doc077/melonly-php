@@ -29,13 +29,20 @@ class Str {
 
     public static function pascalCase(string $string, bool $replaceDashes = true): string {
         if ($replaceDashes) {
-            $string = str_replace('-', ' ', $string);
-            $string = str_replace('_', ' ', $string);
+            $string = self::replace('-', ' ', $string);
+            $string = self::replace('_', ' ', $string);
         }
 
         $string = ucwords(strtolower($string));
 
-        return str_replace(' ', '', $string);
+        return self::replace(' ', '', $string);
+    }
+
+    public static function kebabCase(string $string): string {
+        $string = Regex::replace('/\s+/u', '', ucwords($string));
+        $string = Regex::replace('/(.)(?=[A-Z])/u', '$1-', $string);
+
+        return self::lowercase($string);
     }
 
     public static function contains(string $search, string $string): bool {

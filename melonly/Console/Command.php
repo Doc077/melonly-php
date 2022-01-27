@@ -2,6 +2,9 @@
 
 namespace Melonly\Console;
 
+use Melonly\Filesystem\File;
+use Melonly\Support\Helpers\Regex;
+
 abstract class Command {
     use DisplaysOutput;
 
@@ -13,5 +16,15 @@ abstract class Command {
         foreach ($argv as $argument) {
             $this->arguments[] = $argument;
         }
+    }
+
+    protected function publishFileFromTemplate(string $path, string $template, array $arguments = []): void {
+        $content = File::content(__DIR__ . '/Assets/' . $template . '.template');
+
+        foreach ($arguments as $variable => $value) {
+            $content = Regex::replace('/\{\{ ' . $variable . ' \}\}/', $value, $content);
+        }
+
+        File::put($path, $content);
     }
 }
