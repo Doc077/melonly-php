@@ -4,6 +4,13 @@ Melonly is a fast, modern web application development framework for PHP. It make
 
 Melonly documentation is available on the [official site](https://melonly.dev).
 
+### Requirements
+
+- PHP 8.1+
+- [Composer](https://getcomposer.org) installed
+- PDO PHP Extension
+- GD or Imagick PHP Extension
+
 
 ## Installation
 
@@ -17,13 +24,13 @@ To create a fresh Melonly project use the ```composer``` installer:
 > cd <app-name>
 ```
 
-Once your application has been created you can run it.
+Once your application has been created you can run it locally:
 
 ```shell
 > php melon server
 ```
 
-Optionally if you'll be using Node.js or React/Sass frontend scaffolding, run ```npm install``` command:
+Optionally if you'll be using Node.js or React/Sass frontend libraries, run ```npm install``` command:
 
 ```shell
 > npm install
@@ -41,7 +48,7 @@ To run your application on local environment, use the command line:
 Your application will be available on ```localhost:5000``` by default. If some other program uses this port, you can change it to your own:
 
 ```shell
-# Run server on :8000 port
+# Run server on port 8000
 
 > php melon server 8000
 ```
@@ -72,24 +79,30 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 ```
 
 ```shell
-# Run unit tests
+# Create custom CLI command
 
-> php melon test
+> php melon new:command YourCustomCommand
+```
+
+```shell
+# Get list of all available commands
+
+> php melon info
 ```
 
 
 ## Basic Routing
 
-To register application routes, edit ```routes/web.php``` file.
+To register application routes, edit ```routing/routes.php``` file.
 
 ```php
-Route::get('/my-path', function (Request $request, Response $response): void {
+Route::get('/my-route', function (Request $request, Response $response): void {
     $response->send('My first route');
 });
 ```
 
 As you can see, you can supply a simple callback with injected request & response objects to return some response.
-Enter the ```localhost:5000/my-path``` route and look for the result.
+Enter the ```localhost:5000/my-route``` route and look for the result.
 
 
 ## Views

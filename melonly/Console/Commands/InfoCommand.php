@@ -21,6 +21,11 @@ return new class extends Command {
             </thead>
 
             <tr>
+                <td>new:command</td>
+                <td align="right">Create custom CLI command</td>
+            </tr>
+
+            <tr>
                 <td>new:component</td>
                 <td align="right">Create new Fruity component</td>
             </tr>
