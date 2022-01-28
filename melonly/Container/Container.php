@@ -3,15 +3,6 @@
 namespace Melonly\Container;
 
 use Exception;
-use Melonly\Broadcasting\WebSocketConnection;
-use Melonly\Database\DBConnection;
-use Melonly\Encryption\Encrypter;
-use Melonly\Encryption\Hasher;
-use Melonly\Http\Request;
-use Melonly\Http\Response;
-use Melonly\Mailing\Mailer;
-use Melonly\Routing\Router;
-use Melonly\Validation\Validator;
 use ReflectionException;
 use ReflectionFunction;
 
@@ -32,15 +23,16 @@ class Container implements ContainerInterface {
 
     public static function initialize(): void {
         $defaultFrameworkServices = [
-            DBConnection::class,
-            Encrypter::class,
-            Hasher::class,
-            Mailer::class,
-            Request::class,
-            Response::class,
-            Router::class,
-            Validator::class,
-            WebSocketConnection::class,
+            \Melonly\Database\DBConnection::class,
+            \Melonly\Encryption\Encrypter::class,
+            \Melonly\Encryption\Hasher::class,
+            \Melonly\Logging\Logger::class,
+            \Melonly\Mailing\Mailer::class,
+            \Melonly\Http\Request::class,
+            \Melonly\Http\Response::class,
+            \Melonly\Routing\Router::class,
+            \Melonly\Validation\Validator::class,
+            \Melonly\Broadcasting\WebSocketConnection::class,
         ];
 
         foreach ($defaultFrameworkServices as $service) {

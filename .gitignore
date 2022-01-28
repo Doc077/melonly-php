@@ -4,7 +4,6 @@ jspm_packages/
 /plugins
 /public/storage
 .DS_Store
-logs
 *.log
 .env
 npm-debug.log*
