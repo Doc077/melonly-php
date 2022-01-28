@@ -5,10 +5,7 @@ namespace Tests\Feature;
 use Melonly\Testing\TestCase;
 
 class {{ class }} extends TestCase {
-    /**
-     * Feature test example.
-     */
-    public function some_feature_test() {
+    public function feature_test_example() {
         $variable = true;
 
         $this->assertTrue($variable);
