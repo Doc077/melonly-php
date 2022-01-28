@@ -22,8 +22,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../src/Exceptions')) {
-            File::makeDirectory(__DIR__ . '/../../../src/Exceptions');
+        if (!File::exists($folder = __DIR__ . '/../../../src/Exceptions')) {
+            File::makeDirectory($folder);
         }
 
         $this->publishFileFromTemplate($fileName, 'exception', [

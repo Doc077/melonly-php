@@ -17,8 +17,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../database/migrations')) {
-            File::makeDirectory(__DIR__ . '/../../../database/migrations');
+        if (!File::exists($folder = __DIR__ . '/../../../database/migrations')) {
+            File::makeDirectory($folder);
         }
 
         $this->publishFileFromTemplate($fileName, 'migration');

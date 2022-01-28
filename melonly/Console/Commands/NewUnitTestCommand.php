@@ -22,8 +22,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../tests/unit')) {
-            File::makeDirectory(__DIR__ . '/../../../tests/unit');
+        if (!File::exists($folder = __DIR__ . '/../../../tests/unit')) {
+            File::makeDirectory($folder);
         }
 
         $this->publishFileFromTemplate($fileName, 'unit-test', [

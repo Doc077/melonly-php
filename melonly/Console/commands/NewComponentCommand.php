@@ -23,8 +23,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../frontend/views/components')) {
-            File::makeDirectory(__DIR__ . '/../../../frontend/views/components');
+        if (!File::exists($folder = __DIR__ . '/../../../frontend/views/components')) {
+            File::makeDirectory($folder);
         }
 
         $this->publishFileFromTemplate($fileName, 'component', [

@@ -42,6 +42,7 @@
     "scripts": {
         "post-root-package-install": [
             "php -r \"file_exists('.env') || copy('melonly/Support/Assets/.env.base', '.env');\"",
+            "php -r \"file_put_contents('.env', str_replace('ENCRYPT_KEY=', 'ENCRYPT_KEY=' . bin2hex(random_bytes(16)), file_get_contents('.env')));\"",
             "php -r \"copy('melonly/Database/Assets/migration-list.php', 'storage/migrations/list.php');\""
         ]
     }

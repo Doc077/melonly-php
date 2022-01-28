@@ -23,8 +23,8 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists(__DIR__ . '/../../../views')) {
-            File::makeDirectory(__DIR__ . '/../../../views');
+        if (!File::exists($folder = __DIR__ . '/../../../views')) {
+            File::makeDirectory($folder);
         }
 
         $this->publishFileFromTemplate($fileName, 'view', [
