@@ -4,13 +4,14 @@ namespace Melonly\Exceptions;
 
 use Error;
 use Exception;
+use Melonly\Container\Container;
 use Melonly\Filesystem\File;
 use Melonly\Http\Response;
-use Melonly\Views\View;
-use Melonly\Container\Container;
-use Melonly\Support\Helpers\Url;
 use PDOException;
+use Melonly\Support\Helpers\Str;
+use Melonly\Support\Helpers\Url;
 use TypeError;
+use Melonly\Views\View;
 
 use function Termwind\{render};
 
@@ -23,7 +24,7 @@ class Handler {
         }
 
         /**
-         * If CLI mode is enabled, show exception line.
+         * If entered in CLI mode show the exception line.
          */
         if (php_sapi_name() === 'cli') {
             render('
@@ -50,7 +51,7 @@ class Handler {
         /**
          * If exception occured in a view, replace the file with uncompiled template.
          */
-        if (str_contains($exceptionFile, 'storage\temp')) {
+        if (Str::contains($exceptionFile, 'storage\temp')) {
             $exceptionFile = View::getCurrentView();
         }
 
