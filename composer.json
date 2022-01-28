@@ -41,7 +41,8 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('melonly/Support/Assets/.env.base', '.env');\""
+            "php -r \"file_exists('.env') || copy('melonly/Support/Assets/.env.base', '.env');\"",
+            "php -r \"copy('melonly/Database/Assets/migration-list.php', 'storage/migrations/list.php');\""
         ]
     }
 }

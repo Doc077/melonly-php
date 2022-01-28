@@ -12,6 +12,7 @@ return new class implements Migration {
             $table->id();
             $table->string('name');
             $table->string('email');
+            $table->string('password');
             $table->timestamp('created_at');
         });
     }

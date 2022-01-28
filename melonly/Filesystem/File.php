@@ -49,6 +49,10 @@ class File {
         return file_put_contents($path, $content, FILE_APPEND);
     }
 
+    public static function overwrite(string $path, mixed $content): int | false {
+        return file_put_contents($path, $content);
+    }
+
     public static function delete(...$paths): bool {
         foreach ($paths as $path) {
             try {
