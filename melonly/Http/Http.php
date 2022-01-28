@@ -2,55 +2,84 @@
 
 namespace Melonly\Http;
 
-use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
-
 class Http {
-    protected ?Client $client = null;
+    public function get(string $uri, array | string $data = []): mixed {
+        $curl = curl_init($uri);
 
-    public function __construct() {
-        $this->client = new Client();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        $response = curl_exec($curl);
+        $data = json_decode($response);
+
+        curl_close($curl);
+
+        return $data;
     }
 
-    public function get($uri): ResponseInterface {
-        $response = $this->client->get($uri);
+    public function post(string $uri, array | string $data = []): mixed {
+        $curl = curl_init($uri);
 
-        return $response;
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+
+        $response = curl_exec($curl);
+        $data = json_decode($response);
+
+        curl_close($curl);
+
+        return $data;
     }
 
-    public function post($uri): ResponseInterface {
-        $response = $this->client->post($uri);
+    public function put(string $uri, array | string $data = []): mixed {
+        $curl = curl_init($uri);
 
-        return $response;
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+
+        $response = curl_exec($curl);
+        $data = json_decode($response);
+
+        curl_close($curl);
+
+        return $data;
     }
 
-    public function put($uri): ResponseInterface {
-        $response = $this->client->put($uri);
+    public function patch(string $uri, array | string $data = []): mixed {
+        $curl = curl_init($uri);
 
-        return $response;
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
+
+        $response = curl_exec($curl);
+        $data = json_decode($response);
+
+        curl_close($curl);
+
+        return $data;
     }
 
-    public function patch($uri): ResponseInterface {
-        $response = $this->client->patch($uri);
+    public function delete(string $uri, array | string $data = []): mixed {
+        $curl = curl_init($uri);
 
-        return $response;
-    }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-    public function delete($uri): ResponseInterface {
-        $response = $this->client->delete($uri);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
 
-        return $response;
-    }
+        $response = curl_exec($curl);
+        $data = json_decode($response);
 
-    public function head($uri): ResponseInterface {
-        $response = $this->client->head($uri);
+        curl_close($curl);
 
-        return $response;
-    }
-
-    public function options($uri): ResponseInterface {
-        $response = $this->client->options($uri);
-
-        return $response;
+        return $data;
     }
 }

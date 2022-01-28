@@ -14,7 +14,6 @@
         "php": "^8.1",
         "vlucas/phpdotenv": "^5.4",
         "nesbot/carbon": "^2.55",
-        "guzzlehttp/guzzle": "^7.4",
         "pusher/pusher-php-server": "^7.0",
         "ramsey/uuid": "^4.2",
         "intervention/image": "^2.7"
