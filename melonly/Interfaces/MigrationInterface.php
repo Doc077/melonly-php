@@ -4,6 +4,6 @@ namespace Melonly\Interfaces;
 
 use Melonly\Database\Schema;
 
-interface Migration {
+interface MigrationInterface {
     public function setup(): Schema;
 }

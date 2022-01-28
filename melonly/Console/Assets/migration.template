@@ -4,9 +4,9 @@ namespace Database\Migrations;
 
 use Melonly\Database\Schema;
 use Melonly\Database\Table;
-use Melonly\Interfaces\Migration;
+use Melonly\Interfaces\MigrationInterface;
 
-return new class implements Migration {
+return new class implements MigrationInterface {
     public function setup(): Schema {
         return Schema::createTable('table_name', function (Table $table) {
             $table->id('id');

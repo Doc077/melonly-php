@@ -3,7 +3,7 @@
 namespace App\Commands;
 
 use Melonly\Console\Command;
-use Melonly\Interfaces\Command as CommandInterface;
+use Melonly\Interfaces\CommandInterface;
 
 class {{ class }} extends Command implements CommandInterface {
     public function __construct() {
