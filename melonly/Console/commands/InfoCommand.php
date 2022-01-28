@@ -27,12 +27,22 @@ return new class extends Command {
 
             <tr>
                 <td>new:controller</td>
-                <td align="right">Create new HTTP controller class</td>
+                <td align="right">Create new HTTP controller</td>
+            </tr>
+
+            <tr>
+                <td>new:exception</td>
+                <td align="right">Create new exception class</td>
             </tr>
 
             <tr>
                 <td>new:feature-test</td>
                 <td align="right">Create new feature test file</td>
+            </tr>
+
+            <tr>
+                <td>new:migration</td>
+                <td align="right">Create new database migration</td>
             </tr>
 
             <tr>
@@ -46,8 +56,8 @@ return new class extends Command {
             </tr>
 
             <tr>
-                <td>new:table</td>
-                <td align="right">Create new database table migration</td>
+                <td>new:service</td>
+                <td align="right">Create new service class</td>
             </tr>
 
             <tr>

@@ -31,7 +31,7 @@ class Container implements ContainerInterface {
     }
 
     public static function initialize(): void {
-        $services = [
+        $defaultFrameworkServices = [
             DBConnection::class,
             Encrypter::class,
             Hasher::class,
@@ -43,7 +43,7 @@ class Container implements ContainerInterface {
             WebSocketConnection::class,
         ];
 
-        foreach ($services as $service) {
+        foreach ($defaultFrameworkServices as $service) {
             self::$instances[$service] = new $service();
         }
     }
