@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Commands;
+
+use Melonly\Console\Command;
+use Melonly\Interfaces\Command as CommandInterface;
+
+class {{ class }} extends Command implements CommandInterface {
+    public function __construct() {
+        parent::__construct();
+    }
+
+    public function handle(): void {
+        // 
+    }
+}
