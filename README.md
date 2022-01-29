@@ -100,6 +100,8 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 To register application routes, edit ```routing/routes.php``` file.
 
 ```php
+use Melonly\Routing\Facades\Route;
+
 Route::get('/my-route', function (Request $request, Response $response): void {
     $response->send('My first route');
 });
@@ -265,13 +267,78 @@ Many times your application need to make some kind of request, for example for r
 ```php
 use Melonly\Http\Http;
 
-# GET Request
+// GET Request
 $data = Http::get('https://my-api');
 
-# POST Request
+// POST Request
 Http::post('https://my-api', [
     'id' => $userId,
 ]);
+```
+
+
+## Helpers
+
+Melonly offers many useful global functions (helpers) used by Melonly itself. Feel free to use them in your code if you find them convinient.
+
+### String Helpers
+
+```php
+use Melonly\Support\Helpers\Str;
+
+$string = 'Melonly helpers';
+
+// Uppercase string
+$string = Str::uppercase($string);
+
+// Replace occurences
+$string = Str::replace(' ', '_', $string); // Output: 'Melonly_helpers'
+
+// PascalCase string
+$string = Str::pascalCase($string); // Output: 'MelonlyHelpers'
+```
+
+
+### Time Manipulation Helpers
+
+```php
+use Melonly\Support\Helpers\Time;
+
+$date = Time::now()->isoFormat('Y_MM_D'); // Output: 2022_01_27
+```
+
+
+### UUID Generation
+
+```php
+use Melonly\Support\Helpers\Uuid;
+
+// Generate unique ID (UUID v4)
+$id = Uuid::v4();
+```
+
+
+### JSON Helpers
+
+```php
+use Melonly\Support\Helpers\Json;
+
+$data = ['id' => 145];
+
+$json = Json::encode($data); // Return JSON object
+```
+
+
+### Other Helpers
+
+```php
+dd('Some data'); // Get information about variable or some value and exit
+
+throwIf($condition, new Exception); // Throw an exception if condition is true
+
+$vector = vector(1, 2, 3); // Create a vector with provided values
+
+$message trans('app.welcome'); // Get language translation
 ```
 
 
@@ -283,6 +350,9 @@ On backend you'll often need to encrypt or hash some data, e.g. user password in
 use Melonly\Encryption\Facades\Hash;
 
 $passwordHash = Hash::hash($request->getField('password'));
+
+// Compare supplied password with database hash
+$isPasswordCorrect = Hash::equals($request->getField('password'), $user->password);
 ```
 
 
