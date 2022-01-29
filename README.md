@@ -1,7 +1,6 @@
-<div style="display: flex; align-items: center; margin-bottom: 18px;">
-    <img src="public/logo.png" width="68">
-    <span style="font-size: 32px; margin-left: 12px;">Melonly</span>
-</div>
+<img src="public/logo.png" width="68">
+
+# Melonly
 
 ## Melonly PHP Framework
 
