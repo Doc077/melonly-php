@@ -190,7 +190,7 @@ For example:
 > php melon new:model Post
 ```
 
-It will create ```models/Post.php``` model file with the following structure:
+It will create ```src/Models/Post.php``` model file with the following structure:
 
 ```php
 namespace App\Models;
@@ -228,14 +228,71 @@ $title = $post->title;
 As you can see, dealing with DB data is super easy with Melonly.
 
 
+## Validation
+
+Request data validation with Melonly is super easy. Look how it works:
+
+```php
+use Melonly\Validation\Facades\Validate;
+
+Validate::check([
+    'username' => ['required', 'min:3', 'max:30', 'alphanumeric'],
+    'email' => ['email', 'max:30'],
+]);
+```
+
+Available validation rules are listed here:
+
+- min:{length}
+- max:{length}
+- required
+- alphanumeric
+- email
+- file
+- number
+- int
+- float
+- bool
+- domain
+- ip
+- url
+
+
+## Making HTTP Requests
+
+Many times your application need to make some kind of request, for example for retrieving API data.
+
+```php
+use Melonly\Http\Http;
+
+# GET Request
+$data = Http::get('https://my-api');
+
+# POST Request
+Http::post('https://my-api', [
+    'id' => $userId,
+]);
+```
+
+
+## Encryption & Hashing
+
+On backend you'll often need to encrypt or hash some data, e.g. user password in database. Look how it works:
+
+```php
+use Melonly\Encryption\Facades\Hash;
+
+$passwordHash = Hash::hash($request->getField('password'));
+```
+
+
 ## Documentation
 
 If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
 
----
 
 ## License
 
 Melonly is licensed under the [MIT license](LICENSE).
 
-Author: Doc077
+Author: Doc077 (dom.rajkowski@gmail.com)

@@ -2,8 +2,8 @@
 
 namespace Melonly\Validation;
 
-use Melonly\Http\Response;
 use Melonly\Container\Container;
+use Melonly\Http\Response;
 
 class Validator implements ValidatorInterface {
     protected function fulfillsRule(mixed $value, string $rule, string $field): bool {
