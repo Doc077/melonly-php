@@ -16,7 +16,7 @@ use Melonly\Views\View;
 use function Termwind\{render};
 
 class Handler {
-    public static function handle(Exception | Error | TypeError | PDOException | UnhandledError $exception): never {
+    public static function handle(Exception|Error|TypeError|PDOException|UnhandledError $exception): never {
         if (!env('APP_DEVELOPMENT')) {
             Container::get(Response::class)->abort(500);
 

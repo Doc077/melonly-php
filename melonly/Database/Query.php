@@ -16,7 +16,7 @@ class Query {
         return $this;
     }
 
-    public function where(string $column, string $sign, string | int | float $value): self {
+    public function where(string $column, string $sign, string|int|float $value): self {
         if (is_string($value)) {
             $value = '"' . $value . '"';
         }
@@ -26,7 +26,7 @@ class Query {
         return $this;
     }
 
-    public function orWhere(string $column, string $sign, string | int | float $value): self {
+    public function orWhere(string $column, string $sign, string|int|float $value): self {
         if (is_string($value)) {
             $value = '"' . $value . '"';
         }
@@ -36,7 +36,7 @@ class Query {
         return $this;
     }
 
-    public function fetch(array $columns = []): Vector | Record | array {
+    public function fetch(array $columns = []): Vector|Record|array {
         $this->sql .= ' ' . (count($columns) > 0 ? implode(', ', $columns) : '*') . ' FROM ' . $this->table;
         $this->sql .= ' WHERE ' . implode('', $this->wheres);
 

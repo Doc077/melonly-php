@@ -7,7 +7,7 @@ class Json {
         return json_decode($data);
     }
 
-    public static function encode(mixed $data): string | false {
+    public static function encode(mixed $data): string|false {
         return json_encode($data);
     }
 }

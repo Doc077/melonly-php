@@ -29,7 +29,7 @@ abstract class Model {
     /**
      * Fetch all records from the table.
      */
-    public static function all(): Vector | Record | array {
+    public static function all(): Vector|Record|array {
         return DB::query('SELECT * FROM ' . self::getTable());
     }
 

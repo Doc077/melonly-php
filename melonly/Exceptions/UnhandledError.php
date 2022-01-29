@@ -5,7 +5,7 @@ namespace Melonly\Exceptions;
 use Stringable;
 
 class UnhandledError implements Stringable {
-    public function getCode(): int | string {
+    public function getCode(): int|string {
         return $this->code;
     }
 
@@ -22,7 +22,7 @@ class UnhandledError implements Stringable {
     }
 
     public function __construct(
-        protected int | string $code,
+        protected int|string $code,
         protected string $message,
         protected string $file,
         protected int $line,

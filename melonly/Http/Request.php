@@ -30,7 +30,7 @@ class Request {
         return getallheaders()[$key];
     }
 
-    public function headers(): false | array {
+    public function headers(): false|array {
         return getallheaders();
     }
 

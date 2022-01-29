@@ -16,7 +16,7 @@ class File {
         return file_exists($path);
     }
 
-    public static function content(string $path): string | false {
+    public static function content(string $path): string|false {
         return file_get_contents($path);
     }
 
@@ -37,19 +37,19 @@ class File {
         return $lines;
     }
 
-    public static function hash(string $path): string | false {
+    public static function hash(string $path): string|false {
         return md5_file($path);
     }
 
-    public static function put(string $path, mixed $content, bool $lock = false): int | false {
+    public static function put(string $path, mixed $content, bool $lock = false): int|false {
         return file_put_contents($path, $content, $lock ? LOCK_EX : 0);
     }
 
-    public static function append(string $path, mixed $content): int | false {
+    public static function append(string $path, mixed $content): int|false {
         return file_put_contents($path, $content, FILE_APPEND);
     }
 
-    public static function overwrite(string $path, mixed $content): int | false {
+    public static function overwrite(string $path, mixed $content): int|false {
         return file_put_contents($path, $content);
     }
 
@@ -69,7 +69,7 @@ class File {
         return copy($path, $target);
     }
 
-    public static function name(string $path): array | string {
+    public static function name(string $path): array|string {
         return pathinfo($path, PATHINFO_FILENAME);
     }
 
@@ -77,23 +77,23 @@ class File {
         mkdir($path, 0777, true);
     }
 
-    public static function basename(string $path): array | string {
+    public static function basename(string $path): array|string {
         return pathinfo($path, PATHINFO_BASENAME);
     }
 
-    public static function dirname(string $path): array | string {
+    public static function dirname(string $path): array|string {
         return pathinfo($path, PATHINFO_DIRNAME);
     }
 
-    public static function extension(string $path): array | string {
+    public static function extension(string $path): array|string {
         return pathinfo($path, PATHINFO_EXTENSION);
     }
 
-    public static function read(string $path): array | false {
+    public static function read(string $path): array|false {
         return file($path);
     }
 
-    public static function size(string $path): int | false {
+    public static function size(string $path): int|false {
         return filesize($path);
     }
 

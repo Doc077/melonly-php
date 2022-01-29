@@ -9,11 +9,11 @@ class Math {
 
     public const EULER = M_EULER;
 
-    public static function absolute(int | float $number): int | float {
+    public static function absolute(int|float $number): int|float {
         return abs($number);
     }
 
-    public static function binToDec(string $number): int | float {
+    public static function binToDec(string $number): int|float {
         return bindec($number);
     }
 
@@ -21,7 +21,7 @@ class Math {
         return bin2hex($number);
     }
 
-    public static function ceil(int | float $number, int $precision): int | float {
+    public static function ceil(int|float $number, int $precision): int|float {
         return round($number, $precision, PHP_ROUND_HALF_UP);
     }
 
@@ -41,15 +41,15 @@ class Math {
         return decoct($number);
     }
 
-    public static function floor(int | float $number, int $precision): int | float {
+    public static function floor(int|float $number, int $precision): int|float {
         return round($number, $precision, PHP_ROUND_HALF_DOWN);
     }
 
-    public static function hexToDec(string $number): int | float {
+    public static function hexToDec(string $number): int|float {
         return hexdec($number);
     }
 
-    public static function log(int | float $number, float $base = self::E): int | float {
+    public static function log(int|float $number, float $base = self::E): int|float {
         return log($number, $base);
     }
 
@@ -61,15 +61,15 @@ class Math {
         return min($number, $values);
     }
 
-    public static function logBase10(int | float $number): int | float {
+    public static function logBase10(int|float $number): int|float {
         return log10($number);
     }
 
-    public static function octToDec(string $number): int | float {
+    public static function octToDec(string $number): int|float {
         return octdec($number);
     }
 
-    public static function pow(int | float $number, mixed $exponent): int | float {
+    public static function pow(int|float $number, mixed $exponent): int|float {
         return $number ** $exponent;
     }
 
@@ -77,7 +77,7 @@ class Math {
         return sin($number);
     }
 
-    public static function squareRoot(int | float $number): int | float {
+    public static function squareRoot(int|float $number): int|float {
         return sqrt($number);
     }
 

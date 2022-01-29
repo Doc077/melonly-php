@@ -8,7 +8,7 @@ use Melonly\Support\Containers\Vector;
 use Melonly\Exceptions\Handler;
 
 class DB implements DBInterface {
-    public static function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object | array {
+    public static function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array {
         try {
             $pdo = Container::get(DBConnection::class)->getConnection();
 

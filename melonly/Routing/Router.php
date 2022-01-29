@@ -24,7 +24,7 @@ class Router implements RouterInterface {
 
     protected array $redirects = [];
 
-    public function add(HttpMethod | string $method, string | array $uri, callable $action, array $data = []): void {
+    public function add(HttpMethod|string $method, string|array $uri, callable $action, array $data = []): void {
         /**
          * Register multiple routes in case of array argument.
          */
@@ -66,27 +66,27 @@ class Router implements RouterInterface {
         $this->actions[$pattern] = $action;
     }
 
-    public function get(string | array $uri, callable $action, array $data = []): void {
+    public function get(string|array $uri, callable $action, array $data = []): void {
         $this->add(HttpMethod::Get, $uri, $action, $data);
     }
 
-    public function post(string | array $uri, callable $action, array $data = []): void {
+    public function post(string|array $uri, callable $action, array $data = []): void {
         $this->add(HttpMethod::Post, $uri, $action, $data);
     }
 
-    public function put(string | array $uri, callable $action, array $data = []): void {
+    public function put(string|array $uri, callable $action, array $data = []): void {
         $this->add(HttpMethod::Put, $uri, $action, $data);
     }
 
-    public function patch(string | array $uri, callable $action, array $data = []): void {
+    public function patch(string|array $uri, callable $action, array $data = []): void {
         $this->add(HttpMethod::Patch, $uri, $action, $data);
     }
 
-    public function delete(string | array $uri, callable $action, array $data = []): void {
+    public function delete(string|array $uri, callable $action, array $data = []): void {
         $this->add(HttpMethod::Delete, $uri, $action, $data);
     }
 
-    public function options(string | array $uri, callable $action, array $data = []): void {
+    public function options(string|array $uri, callable $action, array $data = []): void {
         $this->add(HttpMethod::Options, $uri, $action, $data);
     }
 

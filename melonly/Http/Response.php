@@ -139,13 +139,13 @@ class Response {
 
     protected mixed $data = '';
 
-    protected null | string $view = null;
+    protected null|string $view = null;
 
     protected array $viewVariables = [];
 
     protected int $status = self::OK;
 
-    public function abort(int | Status $status, string | bool $text = false): never {
+    public function abort(int|Status $status, string|bool $text = false): never {
         if ($status instanceof Status) {
             $status = $status->value;
         }
@@ -186,7 +186,7 @@ class Response {
         return $this->data;
     }
 
-    public function getView(): string | array {
+    public function getView(): string|array {
         return [$this->view, $this->viewVariables];
     }
 
@@ -214,7 +214,7 @@ class Response {
         }
     }
 
-    public function status(int | Status $code): void {
+    public function status(int|Status $code): void {
         if ($code instanceof Status) {
             $code = $code->value;
         }

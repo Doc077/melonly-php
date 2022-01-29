@@ -185,7 +185,7 @@ class Vector implements ArrayAccess, Countable {
         return $some;
     }
 
-    public function toJson(): string | false {
+    public function toJson(): string|false {
         return Json::encode($this->items);
     }
 
