@@ -1,8 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "melon": "webpack --watch",
         "build": "webpack",
+        "melon": "webpack --watch",
         "start": "webpack --watch"
     },
     "devDependencies": {
