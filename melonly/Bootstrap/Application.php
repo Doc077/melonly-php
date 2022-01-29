@@ -3,7 +3,7 @@
 namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
-use Melonly\Authentication\Auth;
+use Melonly\Authentication\Facades\Auth;
 use Melonly\Container\Container;
 use Melonly\Encryption\Facades\Hash;
 use Melonly\Exceptions\Handler;
@@ -88,7 +88,7 @@ class Application {
          * If user is authenticated, save data to Auth.
          */
         if (Auth::logged()) {
-            Auth::$userData = Session::get('MELONLY_AUTH_USER_DATA');
+            Auth::setUserData(Session::get('MELONLY_AUTH_USER_DATA'));
         }
     }
 

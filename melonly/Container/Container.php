@@ -10,6 +10,7 @@ class Container implements ContainerInterface {
     protected static array $instances = [];
 
     protected static array $defaultFrameworkServices = [
+        \Melonly\Authentication\Authenticator::class,
         \Melonly\Database\DBConnection::class,
         \Melonly\Encryption\Encrypter::class,
         \Melonly\Encryption\Hasher::class,
