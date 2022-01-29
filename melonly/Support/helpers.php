@@ -1,13 +1,35 @@
 <?php
 
+use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
+use Melonly\Support\Helpers\Json;
 use Melonly\Translation\Lang;
 use Melonly\Views\HtmlNodeString;
 
 if (!function_exists('__')) {
     function __(string $key): string {
         return trans($key);
+    }
+}
+
+if (!function_exists('config')) {
+    function config(string $key): mixed {
+        $parts = explode('.', $key);
+
+        $file = __DIR__ . '/../../config/' . $parts[0] . '.php';
+
+        if (!File::exists($file)) {
+            throw new Exception("Configuration file '{$parts[0]}' does not exist");
+        }
+
+        $data = require $file;
+
+        if (!array_key_exists($parts[1], $data)) {
+            throw new Exception("Configuration key '$key' is not set");
+        }
+
+        return $data[$parts[1]];
     }
 }
 
@@ -245,11 +267,11 @@ if (!function_exists('trans')) {
 
         $file = __DIR__ . '/../../frontend/lang/' . Lang::getCurrent() . '/' . $parts[0] . '.json';
 
-        if (!file_exists($file)) {
+        if (!File::exists($file)) {
             throw new Exception("Translation file '{$parts[0]}' does not exist");
         }
 
-        $json = json_decode(file_get_contents($file), true);
+        $json = Json::decode(File::content($file), true);
 
         if (!array_key_exists($parts[1], $json)) {
             return $key;

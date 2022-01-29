@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace App\Tests\Unit;
 
 use Melonly\Testing\TestCase;
 
 class {{ class }} extends TestCase {
-    public function unit_test_example() {
+    public function unit_test_example(): void {
         $variable = true;
 
         $this->assertTrue($variable);

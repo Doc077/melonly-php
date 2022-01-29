@@ -17,7 +17,7 @@ use function Termwind\{render};
 
 class Handler {
     public static function handle(Exception|Error|TypeError|PDOException|UnhandledError $exception): never {
-        if (!env('APP_DEVELOPMENT')) {
+        if (!config('app.development')) {
             Container::get(Response::class)->abort(500);
 
             exit();

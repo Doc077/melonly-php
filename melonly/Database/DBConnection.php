@@ -15,12 +15,12 @@ class DBConnection implements DBConnectionInterface {
     protected ?PDO $pdo = null;
 
     public function __construct() {
-        $this->system = env('DB_SYSTEM');
+        $this->system = config('database.system');
 
-        $this->credentials['host'] = env('DB_HOST');
-        $this->credentials['user'] = env('DB_USERNAME');
-        $this->credentials['password'] = env('DB_PASSWORD');
-        $this->credentials['database'] = env('DB_DATABASE');
+        $this->credentials['host'] = config('database.host');
+        $this->credentials['user'] = config('database.username');
+        $this->credentials['password'] = config('database.password');
+        $this->credentials['database'] = config('database.database');
 
         if (php_sapi_name() !== 'cli') {
             switch ($this->system) {
@@ -87,6 +87,9 @@ class DBConnection implements DBConnectionInterface {
                 $records[] = $created;
             }
 
+            /**
+             * Return single column value if the result contains only that.
+             */
             if ($records->length() === 1 && count(get_object_vars($records[0])) === 1) {
                 return get_object_vars($records[0])[array_key_first(get_object_vars($records[0]))];
             }

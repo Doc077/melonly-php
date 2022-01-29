@@ -117,7 +117,7 @@ class Application {
              */
             $uri = $_SERVER['REQUEST_URI'];
 
-            if (!array_key_exists('extension', pathinfo($uri)) && env('OUTPUT_COMPRESS') === true) {
+            if (!array_key_exists('extension', pathinfo($uri)) && config('app.compress')) {
                 $this->compressOutput();
             }
 
