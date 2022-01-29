@@ -163,7 +163,7 @@ class Router implements RouterInterface {
         /**
          * If file doesn't exist, return 404 error
          */
-        if (!File::exists(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri)) {
+        if (!File::exists(__DIR__ . '/../../' . config('app.public') . '/' . $uri)) {
             Container::get(Response::class)->abort(404);
 
             return;
@@ -190,7 +190,7 @@ class Router implements RouterInterface {
 
         header('Content-Type: ' . $mimeType);
 
-        print(readfile(__DIR__ . '/../../' . env('APP_PUBLIC') . '/' . $uri));
+        print(readfile(__DIR__ . '/../../' . config('app.public') . '/' . $uri));
     }
 
     protected function handleClosure(string $pattern): void {

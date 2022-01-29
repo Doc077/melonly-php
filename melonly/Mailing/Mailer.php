@@ -8,7 +8,7 @@ class Mailer implements MailerInterface {
             $message = wordwrap($message, 72);
         }
 
-        $headers = 'From: ' . config('mail.address') . "\r\n" . 'Reply-To: ' . config('mail.address') . "\r\n";
+        $headers = 'From: ' . config('mail.address') . PHP_EOL . 'Reply-To: ' . config('mail.address') . "\r\n";
 
         mail($to, $subject, $message, $headers);
     }

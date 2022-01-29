@@ -26,6 +26,10 @@ class Container implements ContainerInterface {
         foreach (self::$defaultFrameworkServices as $service) {
             self::$instances[$service] = new $service();
         }
+
+        foreach (config('services.bindings') as $userDefinedService) {
+            self::$instances[$userDefinedService] = new $userDefinedService();
+        }
     }
 
     public static function get(string $key): mixed {

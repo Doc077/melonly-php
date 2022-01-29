@@ -1,6 +1,9 @@
 <?php
 
 return [
+    /**
+     * Database system credentials.
+     */
     'database' => env('DB_DATABASE'),
     'host' => env('DB_HOST'),
     'password' => env('DB_PASSWORD'),
