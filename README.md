@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center; margin-bottom: 18px;">
-    <img src="https://vcode.pl/melonly/logo.png" width="68">
+    <img src="public/logo.png" width="68">
     <span style="font-size: 32px; margin-left: 12px;">Melonly</span>
 </div>
 
