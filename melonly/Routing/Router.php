@@ -2,12 +2,12 @@
 
 namespace Melonly\Routing;
 
+use Melonly\Container\Container;
 use Melonly\Filesystem\File;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
-use Melonly\Http\Mime;
 use Melonly\Http\Method as HttpMethod;
-use Melonly\Container\Container;
+use Melonly\Http\Mime;
 use Melonly\Support\Helpers\Json;
 use Melonly\Support\Helpers\Regex;
 use Melonly\Support\Helpers\Str;
@@ -158,6 +158,7 @@ class Router implements RouterInterface {
 
     protected function handleFileRequest(string $uri): void {
         $extension = pathinfo($uri)['extension'];
+
         $mimeType = 'text/plain';
 
         /**

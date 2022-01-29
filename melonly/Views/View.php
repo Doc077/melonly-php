@@ -10,14 +10,17 @@ use Melonly\Support\Helpers\Regex;
 class View implements ViewInterface {
     protected static ?string $currentView = null;
 
-    protected static array $namespaces = [
+    protected static array $namespaceAliases = [
         'Arr' => \Melonly\Support\Helpers\Arr::class,
-        'Auth' => \Melonly\Authentication\Auth::class,
-        'DB' => \Melonly\Database\DB::class,
+        'Auth' => \Melonly\Authentication\Facades\Auth::class,
+        'Crypt' => \Melonly\Encryption\Facades\Crypt::class,
+        'DB' => \Melonly\Database\Facades\DB::class,
         'File' => \Melonly\Filesystem\File::class,
+        'Hash' => \Melonly\Encryption\Facades\Hash::class,
         'HtmlNodeString' => \Melonly\Views\HtmlNodeString::class,
         'Http' => \Melonly\Http\Http::class,
         'Json' => \Melonly\Support\Helpers\Json::class,
+        'Log' => \Melonly\Logging\Facades\Log::class,
         'Math' => \Melonly\Support\Helpers\Math::class,
         'Regex' => \Melonly\Support\Helpers\Regex::class,
         'Str' => \Melonly\Support\Helpers\Str::class,
@@ -87,7 +90,7 @@ class View implements ViewInterface {
         /**
          * Add necessary namespaces.
          */
-        foreach (self::$namespaces as $key => $value) {
+        foreach (self::$namespaceAliases as $key => $value) {
             $content = Str::replace($key . '::', $value . '::', $content);
         }
 
