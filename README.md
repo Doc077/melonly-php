@@ -173,7 +173,7 @@ As you can see this is a very simple yet powerful engine. It's also a lot more c
 Handling databases in web applications cannot be easier than with Melonly. To execute raw SQL query, use ```DB``` interface.
 
 ```php
-use Melonly\Database\DB;
+use Melonly\Database\Facades\DB;
 
 $name = DB::query('SELECT `name` FROM `users` WHERE `id` = 1');
 ```
@@ -279,7 +279,7 @@ Http::post('https://my-api', [
 
 ## Helpers
 
-Melonly offers many useful global functions (helpers) used by Melonly itself. Feel free to use them in your code if you find them convinient.
+Melonly offers many useful global functions (helpers) used by Melonly itself. Feel free to use them in your code if you find it convinient.
 
 ### String Helpers
 
@@ -336,9 +336,13 @@ dd('Some data'); // Get information about variable or some value and exit
 
 throwIf($condition, new Exception); // Throw an exception if condition is true
 
-$vector = vector(1, 2, 3); // Create a vector with provided values
+redirect('/login'); // Redirect user to given URL
 
-$message trans('app.welcome'); // Get language translation
+redirectBack(); // Redirect user to previous location
+
+$vector = vector(1, 2, 3); // Create a new vector with provided values
+
+$message = trans('app.welcome'); // Get language translation
 ```
 
 

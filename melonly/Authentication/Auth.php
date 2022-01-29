@@ -3,7 +3,7 @@
 namespace Melonly\Authentication;
 
 use App\Models\User;
-use Melonly\Database\DB;
+use Melonly\Database\Facades\DB;
 use Melonly\Encryption\Hash;
 use Melonly\Http\Session;
 

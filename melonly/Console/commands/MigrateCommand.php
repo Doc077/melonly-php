@@ -3,7 +3,7 @@
 namespace Melonly\Console\Commands;
 
 use Melonly\Console\Command;
-use Melonly\Database\DB;
+use Melonly\Database\Facades\DB;
 use Melonly\Filesystem\File;
 
 return new class extends Command {
