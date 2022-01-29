@@ -6,7 +6,7 @@ class Encrypter {
     protected string $key;
 
     public function __construct() {
-        $this->key = config('encrypt.key');
+        $this->key = config('encryption.key');
     }
 
     public function encrypt(string $data, string $algorithm = 'aes-256-ctr', bool $encode = false) {

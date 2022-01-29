@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Emails;
+
+use Melonly\Interfaces\MailInterface;
+
+class MailInterface {
+    public function send(): string {
+        return 'Email example.';
+    }
+}
