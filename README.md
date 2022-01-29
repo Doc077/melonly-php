@@ -1,4 +1,9 @@
-# Melonly PHP Framework
+<div style="display: flex; align-items: center; margin-bottom: 18px;">
+    <img src="https://vcode.pl/melonly/logo.png" width="68">
+    <span style="font-size: 32px; margin-left: 12px;">Melonly</span>
+</div>
+
+## Melonly PHP Framework
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
