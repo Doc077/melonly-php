@@ -32,7 +32,7 @@ class TerminalApplication {
 
             (new $command())->handle();
 
-            exit;
+            exit();
         }
 
         /**
