@@ -25,6 +25,17 @@ class TerminalApplication {
         $this->registerFileGeneratorCommands();
 
         /**
+         * Handle -v argument.
+         */
+        if ($this->arguments[1] === '-v') {
+            $command = require_once __DIR__ . '/Commands/VersionCommand.php';
+
+            (new $command())->handle();
+
+            exit;
+        }
+
+        /**
          * Call the corresponding command function.
          */
         if (

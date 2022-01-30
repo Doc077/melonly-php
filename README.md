@@ -67,7 +67,7 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 ```shell
 # Display information about framework version
 
-> php melon version
+> php melon -v
 ```
 
 ```shell

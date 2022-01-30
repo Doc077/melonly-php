@@ -38,6 +38,8 @@ class Application {
     }
 
     protected function registerHandlers(): void {
+        error_reporting(-1);
+
         set_error_handler(function (
             int $code,
             string $message = 'Uncaught error',
