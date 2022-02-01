@@ -13,6 +13,7 @@ Melonly documentation is available on the [official site](https://melonly.dev).
 - PHP 8.1+
 - [Composer](https://getcomposer.org) installed
 - PDO PHP Extension
+- cURL PHP Extension
 - GD or Imagick PHP Extension
 
 
