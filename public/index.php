@@ -2,12 +2,12 @@
 
 use Melonly\Bootstrap\Application;
 
-// Path to framework & plugin files.
+// Path to framework files & plugins.
 // Change this path when moving to server from local environment.
 
-const INCLUDE_PATH = '../plugins';
+const INCLUDE_PATH = '../';
 
-require __DIR__ . '/' . INCLUDE_PATH . '/autoload.php';
+require __DIR__ . '/plugins' . INCLUDE_PATH . '/autoload.php';
 
 Application::start();
 
@@ -27,7 +27,7 @@ Application::start();
 
     Melonly - The Modern PHP Framework
 
-    (c) 2022 Dominik Rajkowski
+    (c) 2021 - 2022 Dominik Rajkowski
 
     Documentation: melonly.dev/docs
     Repository: https://github.com/Doc077/melonly
