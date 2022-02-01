@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom'
 
 const MelonlyComponent = () => {
     return (
@@ -9,6 +9,6 @@ const MelonlyComponent = () => {
     )
 }
 
-const root = ReactDOM.createRoot(document.querySelector('#root'))
+const root = createRoot(document.querySelector('#root'))
 
 root.render(<MelonlyComponent />)
