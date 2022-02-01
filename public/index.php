@@ -7,12 +7,11 @@ use Melonly\Bootstrap\Application;
 
 const INCLUDE_PATH = '../';
 
-require __DIR__ . '/plugins' . INCLUDE_PATH . '/autoload.php';
+require __DIR__ . '/' . INCLUDE_PATH . '/plugins/autoload.php';
 
 Application::start();
 
-/*
-
+/**
     888b     d888          888                   888          
     8888b   d8888          888                   888          
     88888b.d88888          888                   888          
@@ -31,5 +30,4 @@ Application::start();
 
     Documentation: melonly.dev/docs
     Repository: https://github.com/Doc077/melonly
-
 */
