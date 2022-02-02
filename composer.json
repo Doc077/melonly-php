@@ -4,7 +4,6 @@
     "description": "Melonly PHP Framework",
     "keywords": ["melonly", "mvc", "framework"],
     "license": "MIT",
-    "version": "v6.6.2",
     "authors": [
         {
             "name": "Dominik Rajkowski",
