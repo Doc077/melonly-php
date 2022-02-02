@@ -3,6 +3,7 @@
 namespace Melonly\Encryption\Facades;
 
 use Melonly\Container\Facade;
+use Melonly\Encryption\Hasher;
 
 /**
  * @method static string hash(string $data, int $cost = 10)

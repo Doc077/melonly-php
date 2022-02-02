@@ -3,6 +3,7 @@
 namespace Melonly\Encryption\Facades;
 
 use Melonly\Container\Facade;
+use Melonly\Encryption\Encrypter;
 
 /**
  * @method static string encrypt(string $data, string $algorithm = 'aes-256-ctr', bool $encode = false)

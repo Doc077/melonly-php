@@ -20,6 +20,7 @@ class Container implements ContainerInterface {
         \Melonly\Http\Response::class,
         \Melonly\Routing\Router::class,
         \Melonly\Validation\Validator::class,
+        \Melonly\Translation\Translator::class,
         \Melonly\Broadcasting\WebSocketConnection::class,
     ];
 

@@ -4,7 +4,7 @@ use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
 use Melonly\Support\Helpers\Json;
-use Melonly\Translation\Lang;
+use Melonly\Translation\Facades\Lang;
 use Melonly\Views\HtmlNodeString;
 
 if (!function_exists('__')) {
@@ -263,21 +263,7 @@ if (!function_exists('throwIf')) {
 
 if (!function_exists('trans')) {
     function trans(string $key): string {
-        $parts = explode('.', $key);
-
-        $file = __DIR__ . '/../../frontend/lang/' . Lang::getCurrent() . '/' . $parts[0] . '.json';
-
-        if (!File::exists($file)) {
-            throw new Exception("Translation file '{$parts[0]}' does not exist");
-        }
-
-        $json = Json::decode(File::content($file), true);
-
-        if (!array_key_exists($parts[1], $json)) {
-            return $key;
-        }
-
-        return $json[$parts[1]];
+        return Lang::getTranslation($key);
     }
 }
 
