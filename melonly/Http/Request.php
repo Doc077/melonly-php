@@ -58,12 +58,8 @@ class Request {
         return $_SERVER['HTTP_X-Requested-With'] === 'XMLHttpRequest';
     }
 
-    public function getField(string $key): mixed {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            return $_GET[$key];
-        } else {
-            return $_POST[$key];
-        }
+    public function get(string $key): mixed {
+        return $_SERVER['REQUEST_METHOD'] === 'GET' ? $_GET[$key] : $_POST[$key];
     }
 
     public function setParameter(mixed $value): void {

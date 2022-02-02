@@ -134,7 +134,7 @@ To display variable in a view, you can pass an array with supplied variable name
 ```php
 Route::get('/dashboard', function (Request $request, Response $response): void {
     $response->view('pages.dashboard', [
-        'username' => Auth::user()->name
+        'username' => Auth::user()->name,
     ]);
 });
 ```
@@ -354,10 +354,10 @@ On backend you'll often need to encrypt or hash some data, e.g. user password in
 ```php
 use Melonly\Encryption\Facades\Hash;
 
-$passwordHash = Hash::hash($request->getField('password'));
+$passwordHash = Hash::hash($request->get('password'));
 
 // Compare supplied password with database hash
-$isPasswordCorrect = Hash::equals($request->getField('password'), $user->password);
+$isPasswordCorrect = Hash::equals($request->get('password'), $user->password);
 ```
 
 
