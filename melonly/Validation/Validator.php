@@ -20,8 +20,10 @@ class Validator implements ValidatorInterface {
         '/^(max):(\\d+)$/' => Rules\MaxRule::class,
         '/^(min):(\\d+)$/' => Rules\MinRule::class,
         '/^(number)$/' => Rules\NumberRule::class,
+        '/^(regex):(\\d+)$/' => Rules\RegexRule::class,
         '/^(required)$/' => Rules\RequiredRule::class,
         '/^(string)$/' => Rules\StringRule::class,
+        '/^(unique):(\\d+)$/' => Rules\UniqueRule::class,
         '/^(url)$/' => Rules\UrlRule::class,
     ];
 
@@ -40,7 +42,7 @@ class Validator implements ValidatorInterface {
             throw new InvalidValidatorRuleException("Invalid validator rule '$rule'");
         }
 
-        return false;
+        return true;
     }
 
     public function check(array $array): bool {

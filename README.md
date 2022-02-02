@@ -267,8 +267,10 @@ Available validation rules are listed here:
 - max:{length}
 - min:{length}
 - number
+- regex:{pattern}
 - required
 - string
+- unique:{table}
 - url
 
 
