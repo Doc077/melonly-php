@@ -24,12 +24,16 @@ class View implements ViewInterface {
                 }
 
                 $loader = new ArrayLoader([
-                    'index' => File::content($file),
+                    'view' => File::content($file),
                 ]);
 
-                $twig = new Environment($loader);
+                $twig = new Environment($loader, [
+                    'cache' => __DIR__ . '/../../storage/cache',
+                ]);
+
+                self::clearBuffer();
                 
-                print($twig->render('index', $variables));
+                print($twig->render('view', $variables));
 
                 break;
             case Engine::Fruity:

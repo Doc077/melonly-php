@@ -45,7 +45,7 @@ class Application {
         set_error_handler(function (
             int $code,
             string $message = 'Uncaught error',
-            string $file = __DIR__ . '/../../public/index.php',
+            string $file = __DIR__ . '/Bootstrap/Application.php',
             int $line = 0,
         ) {
             $error = new UnhandledError($code, $message, $file, $line);
@@ -56,7 +56,7 @@ class Application {
         set_exception_handler(function (
             int $code,
             string $message = 'Uncaught exception',
-            string $file = __DIR__ . '/../../public/index.php',
+            string $file = __DIR__ . '/Bootstrap/Application.php',
             int $line = 0,
         ) {
             $error = new UnhandledError($code, $message, $file, $line);

@@ -6,5 +6,5 @@ return [
     /**
      * View template engine settings.
      */
-    'engine' => Engine::Twig,
+    'engine' => Engine::Fruity,
 ];
