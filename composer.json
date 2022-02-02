@@ -4,6 +4,7 @@
     "description": "Melonly PHP Framework",
     "keywords": ["melonly", "mvc", "framework"],
     "license": "MIT",
+    "version": "v6.6.2",
     "authors": [
         {
             "name": "Dominik Rajkowski",
@@ -34,7 +35,8 @@
         "psr-4": {
             "Melonly\\": "melonly/",
             "App\\": "src/",
-            "Database\\": "database/"
+            "Database\\": "database/",
+            "Tests\\": "tests/"
         },
         "files": [
             "melonly/Support/constants.php",
