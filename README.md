@@ -157,7 +157,7 @@ Melonly templates allow us to write simple PHP expressions directly in HTML.
 Melonly ships with a convinient templating engine called Fruity. To see how it works look at this example:
 
 ```html
-<div>
+<div class="content">
     [foreach $posts as $post]
         <h2>{{ $post->title }}</h2>
 
@@ -166,7 +166,17 @@ Melonly ships with a convinient templating engine called Fruity. To see how it w
 </div>
 ```
 
-As you can see this is a very simple yet powerful engine. It's also a lot more clean compared to plain PHP templates.
+As you can see Fruity is very simple yet powerful engine. It's also a lot more clean compared to plain PHP templates.
+
+However if you don't like these templates, Melonly supports [Twig](https://twig.symfony.com) engine for handling views. After setting the ```engine``` option in ```config/view.php``` file to ```Twig```, you can use Twig templates in your app (note that view file extensions would be ```.html.twig``` then).
+
+```html
+Example Twig template
+
+{% for item in array %}
+    <li>{{ item }}</li>
+{% endfor %}
+```
 
 
 ## Database Queries
@@ -176,7 +186,7 @@ Handling databases in web applications cannot be easier than with Melonly. To ex
 ```php
 use Melonly\Database\Facades\DB;
 
-$name = DB::query('SELECT `name` FROM `users` WHERE `id` = 1');
+$name = DB::query('select `name` from `users` where `id` = 1');
 ```
 
 Due the fact Melonly is a MVC framework, it follows the Model pattern. Each table in your database can have corresponding 'Model'.
@@ -356,8 +366,36 @@ use Melonly\Encryption\Facades\Hash;
 
 $passwordHash = Hash::hash($request->get('password'));
 
-// Compare supplied password with database hash
+// Compare provided password with database hash
 $isPasswordCorrect = Hash::equals($request->get('password'), $user->password);
+```
+
+
+## WebSockets & Broadcasting
+
+Modern web applications often need WebSocket connection. Melonly supports two popular broadcasting drivers out of the box: [Pusher](https://pusher.com) and [Ably](https://ably.com). You can configure the driver in ```.env``` file:
+
+```
+WEBSOCKET_DRIVER=pusher|ably
+```
+
+Then provide your Pusher/Ably account credentials:
+
+```
+PUSHER_KEY=
+PUSHER_SECRET_KEY=
+PUSHER_APP_ID=
+PUSHER_CLUSTER=mt1
+
+ABLY_KEY=
+```
+
+After configuration you may create your first broadcasts. Look how it works:
+
+```php
+use Melonly\Broadcasting\Facades\WebSocket;
+
+WebSocket::broadcast('channel-name', 'Event', $data);
 ```
 
 
