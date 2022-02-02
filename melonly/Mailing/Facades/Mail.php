@@ -4,6 +4,9 @@ namespace Melonly\Mailing\Facades;
 
 use Melonly\Container\Facade;
 
+/**
+ * @method static bool send(string $to, string $subject, string|MailInterface $message, bool $wrap = false, int $wrapAfter = 72)
+ */
 class Mail extends Facade {
     protected static function getAccessor(): string {
         return Mailer::class;

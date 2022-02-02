@@ -5,7 +5,7 @@ namespace Melonly\Encryption;
 use Exception;
 
 class Hasher {
-    public function hash(string $data, int $cost = 10) {
+    public function hash(string $data, int $cost = 10): string {
         $hash = password_hash($data, PASSWORD_BCRYPT, [
             'cost' => $cost
         ]);
