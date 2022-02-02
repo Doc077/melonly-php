@@ -27,7 +27,9 @@ class Application {
             ClassRegistrar::registerControllers();
             ClassRegistrar::registerModels();
 
-            require_once __DIR__ . '/../../routing/routes.php';
+            foreach (config('routing.files') as $file) {
+                require_once __DIR__ . '/../../routing/' . $file . '.php';
+            }
 
             self::$performance = microtime(true) - PERFORMANCE_START;
 
