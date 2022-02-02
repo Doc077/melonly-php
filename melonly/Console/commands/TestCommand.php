@@ -12,6 +12,6 @@ return new class extends Command {
     public function handle(): void {
         $this->infoLine('Running tests');
 
-        shell_exec('../../vendor/bin/phpunit tests');
+        shell_exec('phpunit tests');
     }
 };

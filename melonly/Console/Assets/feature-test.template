@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Tests\Feature;
+namespace Tests\Feature;
 
 use Melonly\Testing\TestCase;
 
 class {{ class }} extends TestCase {
-    public function feature_test_example(): void {
-        $variable = true;
-
-        $this->assertTrue($variable);
+    public function assertThatTrueIsTrue(): void {
+        $this->assertTrue(true);
     }
 }

@@ -11,7 +11,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../src/Tests/Feature/' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../tests/Feature/' . $this->arguments[2] . '.php';
 
         if (File::exists($fileName)) {
             $this->errorLine("Feature test '{$this->arguments[2]}' already exists");
@@ -22,7 +22,7 @@ return new class extends Command {
         /**
          * Create folder if doesn't exist.
          */
-        if (!File::exists($folder = __DIR__ . '/../../../src/Tests/Feature')) {
+        if (!File::exists($folder = __DIR__ . '/../../../tests/Feature')) {
             File::makeDirectory($folder);
         }
 
