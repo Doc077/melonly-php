@@ -56,8 +56,10 @@ class Compiler {
         '/\\[ ?break ?\\]/' => '<?php break; ?>',
         '/\\[ ?continue ?\\]/' => '<?php continue; ?>',
 
-        '/\\[csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">',
-        '/\\[include ?(:?.*?) ?\\]/' => '<?php include "[rootPath]" . "/" . $1 ?>',
+        '/\\[ ?csrf\\]/' => '<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">',
+        '/\\[ ?include ?(:?.*?) ?\\]/' => '<?php include "[rootPath]" . "/" . $1 ?>',
+
+        '/\\[ ?# ?(:?.*?) #?\\]/' => '',
     ];
 
     public static function compile(string $file, array $variables = [], ?string $includePathRoot = null): string {

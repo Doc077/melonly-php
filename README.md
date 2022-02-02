@@ -256,18 +256,19 @@ Validate::check([
 
 Available validation rules are listed here:
 
-- min:{length}
-- max:{length}
-- required
 - alphanumeric
-- email
-- file
-- number
-- int
-- float
 - bool
 - domain
+- email
+- file
+- float
+- int
 - ip
+- max:{length}
+- min:{length}
+- number
+- required
+- string
 - url
 
 
@@ -395,7 +396,7 @@ After configuration you may create your first broadcasts. Look how it works:
 ```php
 use Melonly\Broadcasting\Facades\WebSocket;
 
-WebSocket::broadcast('channel-name', 'Event', $data);
+WebSocket::broadcast('channel-name', 'EventName', $data);
 ```
 
 
