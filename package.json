@@ -8,11 +8,8 @@
     "devDependencies": {
         "@babel/core": "^7.16.1",
         "@babel/preset-env": "^7.16.8",
-        "@babel/preset-react": "^7.16.7",
         "babel-loader": "^8.2.3",
         "postcss": "^8.4.5",
-        "react": "^18.0.0-rc.0",
-        "react-dom": "^18.0.0-rc.0",
         "sass": "^1.49.0",
         "sass-loader": "^12.4.0",
         "webpack": "^5.67.0",

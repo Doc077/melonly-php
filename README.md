@@ -251,6 +251,7 @@ use Melonly\Validation\Facades\Validate;
 Validate::check([
     'username' => ['required', 'min:3', 'max:30', 'alphanumeric'],
     'email' => ['email', 'max:30'],
+    'age' => ['int'],
 ]);
 ```
 
