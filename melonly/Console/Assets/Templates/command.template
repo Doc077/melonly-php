@@ -11,6 +11,6 @@ class {{ class }} extends Command implements CommandInterface {
     }
 
     public function handle(): void {
-        // 
+        $this->infoLine('Custom command called');
     }
 }

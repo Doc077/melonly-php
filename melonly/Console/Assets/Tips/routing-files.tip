@@ -1,0 +1,5 @@
+/* File config/routing.php */
+'files' => [
+    'routes',
+    'your-own-file',
+],

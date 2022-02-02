@@ -1,0 +1,4 @@
+use Melonly\Support\Helpers\Str;
+
+/* Returns 'MelonlyFramework' */
+Str::pascalCase('Melonly framework');

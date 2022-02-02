@@ -7,8 +7,7 @@ use function Termwind\{render};
 trait DisplaysOutput {
     protected function codeSnippet(string $data): void {
         render('
-            <code start-line="0">&lt;?php
-            ' . $data . '</code>
+            <code start-line="0">' . $data . '</code>
         ');
     }
 

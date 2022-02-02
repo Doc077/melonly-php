@@ -19,7 +19,7 @@ abstract class Command {
     }
 
     protected function publishFileFromTemplate(string $path, string $template, array $arguments = []): void {
-        $content = File::content(__DIR__ . '/Assets/' . $template . '.template');
+        $content = File::content(__DIR__ . '/Assets/Templates/' . $template . '.template');
 
         foreach ($arguments as $variable => $value) {
             $content = Regex::replace('/\{\{ ' . $variable . ' \}\}/', $value, $content);
