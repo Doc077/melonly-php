@@ -6,7 +6,7 @@
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
-Melonly documentation is available on the [official site](https://melonly.dev).
+COMING SOON: Melonly documentation is available on the [official site](https://melonly.dev).
 
 ### Requirements
 

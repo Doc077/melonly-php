@@ -3,36 +3,62 @@
 namespace Melonly\Views;
 
 use Melonly\Filesystem\File;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 class View implements ViewInterface {
     protected static ?string $currentView = null;
 
     public static function renderView(string $file, array $variables = [], bool $absolutePath = false, ?string $includePathRoot = null): void {
-        if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html') && !File::exists($file)) {
+        if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html') &&
+            !File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html.twig') &&
+            !File::exists($file)
+        ) {
             throw new ViewNotFoundException("View '$file' does not exist");
         }
 
-        if (!$absolutePath) {
-            $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
+        switch (config('view.engine')) {
+            case Engine::Twig:
+                if (!$absolutePath) {
+                    $file = __DIR__ . '/../../frontend/views/' . $file . '.html.twig';
+                }
+
+                $loader = new ArrayLoader([
+                    'index' => File::content($file),
+                ]);
+
+                $twig = new Environment($loader);
+                
+                print($twig->render('index', $variables));
+
+                break;
+            case Engine::Fruity:
+                if (!$absolutePath) {
+                    $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
+                }
+        
+                self::$currentView = $file;
+        
+                $compiled = Compiler::compile($file, $variables, $includePathRoot);
+        
+                /**
+                 * Get passed variables and include compiled view.
+                 */
+                extract($variables);
+        
+                ob_start();
+        
+                include $compiled;
+        
+                /**
+                 * Remove temporary file.
+                 */
+                File::delete($compiled);
+
+                break;
+            default:
+                throw new ViewEngineNotSupportedException('Provided view engine is not supported');
         }
-
-        self::$currentView = $file;
-
-        $compiled = Compiler::compile($file, $variables, $includePathRoot);
-
-        /**
-         * Get passed variables and include compiled view.
-         */
-        extract($variables);
-
-        ob_start();
-
-        include $compiled;
-
-        /**
-         * Remove temporary file.
-         */
-        File::delete($compiled);
     }
 
     public static function renderComponent(string $file, array $attributes = []): void {
