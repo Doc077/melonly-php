@@ -22,8 +22,6 @@ class TerminalApplication {
 
         $this->registerDefaultCommand();
 
-        $this->registerFileGeneratorCommands();
-
         /**
          * Handle version variants command.
          */
@@ -39,8 +37,8 @@ class TerminalApplication {
          * Call the corresponding command function.
          */
         if (
-            File::exists($file = __DIR__ . '/Commands/' . Str::uppercaseFirst($this->arguments[1]) . 'Command.php') ||
-            File::exists($file = __DIR__ . '/../../src/Commands/' . Str::uppercaseFirst($this->arguments[1]) . 'Command.php')
+            File::exists($file = __DIR__ . '/Commands/' . Str::pascalCase(Str::replace(':', '_', $this->arguments[1])) . 'Command.php') ||
+            File::exists($file = __DIR__ . '/../../src/Commands/' . Str::pascalCase(Str::replace(':', '_', $this->arguments[1])) . 'Command.php')
         ) {
             $command = require_once $file;
 
@@ -66,22 +64,6 @@ class TerminalApplication {
 
     protected function isArgumentListEmpty(): bool {
         return empty($this->arguments) || !isset($this->arguments[1]) || empty($this->arguments[1]);
-    }
-
-    protected function registerFileGeneratorCommands(): void {
-        if (preg_match('/new:(.*)/', $this->arguments[1], $matches)) {
-            $name = 'New' . Str::uppercaseFirst($matches[1]);
-
-            if (File::exists($file = __DIR__ . '/Commands/' . Str::pascalCase($name) . 'Command.php') || File::exists($file = __DIR__ . '/../../src/Commands/' . Str::pascalCase($name) . 'Command.php')) {
-                $command = require_once $file;
-
-                (new $command())->handle();
-            } else {
-                $this->errorLine("Unknown command '{$this->arguments[1]}' or cannot create new instance of '{$matches[1]}'");
-            }
-
-            exit();
-        }
     }
 
     public static function start(): static {

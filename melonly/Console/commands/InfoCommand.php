@@ -92,7 +92,7 @@ return new class extends Command {
             </tr>
 
             <tr>
-                <td>clear</td>
+                <td>cache:clear</td>
                 <td align="right">Clear cache</td>
             </tr>
 
@@ -108,7 +108,12 @@ return new class extends Command {
 
             <tr>
                 <td>test</td>
-                <td align="right">Run unit tests</td>
+                <td align="right">Run tests</td>
+            </tr>
+
+            <tr>
+                <td>test:template</td>
+                <td align="right">Create PHPUnit testing structure</td>
             </tr>
 
             <tr>

@@ -20,6 +20,13 @@ class File {
         return file_get_contents($path);
     }
 
+    public static function create(string $path, string $content): void {
+        $file = fopen($path, 'w');
+
+        fwrite($file, $content);
+        fclose($file);
+    }
+
     public static function include(string $path): void {
         require_once $path;
     }

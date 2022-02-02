@@ -27,4 +27,8 @@ abstract class Command {
 
         File::put($path, $content);
     }
+
+    protected function executeCommand(string $command, array $args = []): void {
+        shell_exec("php melon $command " . implode(' ', $args));
+    }
 }
