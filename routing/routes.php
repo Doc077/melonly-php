@@ -9,3 +9,7 @@ Route::get('/', function (Request $request, Response $response): void {
         'ip' => $request->ip(),
     ]);
 });
+
+Route::get('/users/{id}', function (Request $request, Response $response): void {
+    $response->send('User id: ', $request->parameter('id'));
+});

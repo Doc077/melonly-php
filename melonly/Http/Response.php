@@ -194,14 +194,16 @@ class Response {
         return $this->status;
     }
 
-    public function send(mixed $data): void {
-        if (is_array($data)) {
+    public function send(...$data): void {
+        if (is_array($data[0])) {
             $this->data = $data;
 
             return;
         }
 
-        $this->data .= $data;
+        foreach ($data as $entry) {
+            $this->data .= $entry;
+        }
     }
 
     public function json(array $data): void {

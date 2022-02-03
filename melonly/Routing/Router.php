@@ -24,7 +24,7 @@ class Router implements RouterInterface {
 
     protected array $redirects = [];
 
-    public function add(HttpMethod|string $method, string|array $uri, callable $action, array $data = []): void {
+    public function add(string|HttpMethod $method, string|array $uri, callable $action, array $data = []): void {
         /**
          * Register multiple routes in case of array argument.
          */
@@ -55,7 +55,7 @@ class Router implements RouterInterface {
         /**
          * Create pattern for dynamic parameters and route URI.
          */
-        $pattern = Regex::replace('/:(.*)/', '(.*)', $uri) . '(\\?.*?)?';
+        $pattern = Regex::replace('/\{(.*?)\}/', '(?P<$1>(.*))', $uri) . '(\\?.*?)?';
 
         $pattern = '/^' . $method . Str::replace('/', '\/', $pattern) . '$/';
 
@@ -137,6 +137,21 @@ class Router implements RouterInterface {
                     header('Location: ' . $this->redirects[$pattern]);
                 }
 
+                $parameterList = [];
+
+                /**
+                 * Get only non-numeric matches & remove query strings.
+                 */
+                foreach ($parameters as $key => $value) {
+                    if (!is_numeric($key)) {
+                        $parameterList[$key] = explode('?', $value)[0];
+                    }
+                }
+
+                //var_dump($parameterList);exit;
+
+                Container::get(Request::class)->setParameters($parameterList);
+
                 /**
                  * Call route action in case of callable argument.
                  */
@@ -159,7 +174,7 @@ class Router implements RouterInterface {
     protected function handleFileRequest(string $uri): void {
         $extension = pathinfo($uri)['extension'];
 
-        $mimeType = 'text/plain';
+        $mime = 'text/plain';
 
         /**
          * If file doesn't exist, return 404 error
@@ -182,23 +197,19 @@ class Router implements RouterInterface {
         }
 
         if (array_key_exists(pathinfo($uri)['extension'], $extensionMimeTypes)) {
-            $mimeType = $extensionMimeTypes[$extension];
+            $mime = $extensionMimeTypes[$extension];
         }
 
         if (pathinfo($uri)['extension'] === 'css') {
-            $mimeType = 'text/css';
+            $mime = 'text/css';
         }
 
-        header('Content-Type: ' . $mimeType);
+        header('Content-Type: ' . $mime);
 
         print(readfile(__DIR__ . '/../../' . config('app.public') . '/' . $uri));
     }
 
     protected function handleClosure(string $pattern): void {
-        if (isset($parameters) && isset($parameters[1])) {
-            Container::get(Request::class)->setParameter(explode('?', $parameters[1])[0]);
-        }
-
         $services = Container::resolve($this->actions[$pattern]);
 
         $this->actions[$pattern](...$services);

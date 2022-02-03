@@ -2,11 +2,12 @@
 
 namespace Melonly\Http;
 
+use Exception;
 use Melonly\Support\Helpers\Str;
 use Melonly\Validation\Facades\Validate;
 
 class Request {
-    protected ?string $parameter = null;
+    protected array $parameters = [];
 
     public function preferredLanguage(): string {
         $lang = Str::substring($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -22,7 +23,7 @@ class Request {
         return $_SERVER['SERVER_PROTOCOL'];
     }
 
-    public function phpVersion(): false| string {
+    public function phpVersion(): false|string {
         return phpversion();
     }
 
@@ -62,12 +63,16 @@ class Request {
         return $_SERVER['REQUEST_METHOD'] === 'GET' ? $_GET[$key] : $_POST[$key];
     }
 
-    public function setParameter(mixed $value): void {
-        $this->parameter = $value;
+    public function setParameters(array $values): void {
+        $this->parameters = $values;
     }
 
-    public function parameter(): string {
-        return $this->parameter;
+    public function parameter(string $key): string {
+        if (!isset($this->parameters[$key])) {
+            throw new Exception("Parameter '$key' is not defined");
+        }
+
+        return $this->parameters[$key];
     }
 
     public function redirectData(string $name): mixed {

@@ -11,18 +11,20 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Installation](#installation)
 - [Running Application & Development](#running-application--development)
 - [Directory Structure](#directory-structure)
-  - [config](#config)
-  - [database](#database)
-  - [frontend](#frontend)
-  - [melonly](#melonly)
-  - [plugins](#plugins)
-  - [public](#public)
-  - [src](#src)
+  - [Root directory](#root-directory)
+    - [config](#config)
+    - [database](#database)
+    - [frontend](#frontend)
+    - [melonly](#melonly)
+    - [plugins](#plugins)
+    - [public](#public)
+    - [src](#src)
+    - [storage](#storage)
+  - [src Directory](#src-directory)
     - [Controllers](#controllers)
     - [Exceptions](#exceptions)
     - [Models](#models)
     - [Services](#services)
-  - [storage](#storage)
 - [Console Interface](#console-interface)
   - [Useful Melonly CLI Commands](#useful-melonly-cli-commands)
 - [Routing](#routing)
@@ -106,43 +108,52 @@ Your application will be available on ```localhost:5000``` by default. If some o
 
 ## Directory Structure
 
-Default Melonly application structure consists of several main folders:
+Default Melonly application structure consists of several main folders.
 
 
-### config
+### Root directory
+
+#### config
 
 This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using ```config(string $file, string $key)``` helper.
 
 
-### database
+#### database
 
 In this directory are created database migrations. You can also store ```sqlite``` database here.
 
 
-### frontend
+#### frontend
 
 There are placed all files related to frontend side like views or uncompiled styles/scripts.
 
 
-### melonly
+#### melonly
 
 This folder contains Melonly framework files. You don't need to edit anything there.
 
 
-### plugins
+#### plugins
 
 In ```plugins``` directory are stored installed ```Composer``` packages.
 
 
-### public
+#### public
 
 This is the only directory visible to users. It should contain client side things like compiled styles, JS scripts and images.
 
 
-### src
+#### src
 
 The ```src``` directory contains your application code. Feel free to add another folders there. All files inside this folder should be in ```App``` namespace since they are autoloaded.
 
+
+#### storage
+
+There are placed cache and temporary files.
+
+
+### src Directory
 
 #### Controllers
 
@@ -162,11 +173,6 @@ Default MVC Model directory.
 #### Services
 
 Additional directory containing service pattern classes. It is not directly related to Melonly but it's rather a convention. If you don't use services you can delete this directory.
-
-
-### storage
-
-There are placed cache and temporary files.
 
 
 ## Console Interface
@@ -223,18 +229,24 @@ Route::get('/my-route', function (Request $request, Response $response): void {
 As you can see, you can supply a simple callback with injected request & response objects to return some response.
 Enter the ```localhost:5000/my-route``` route and look for the result.
 
+You can also register multiple routes using array:
+
+```php
+Route::get(['/home', '/login', 'register'], ...);
+```
+
 
 ### Routing Parameters
 
-Melonly supports dynamic routes with parameters. Mark the path segment with ```:(parameterName)``` to make route dynamic. Note that parameter names must be unique.
+Melonly supports dynamic routes with parameters. Mark the path segment with ```{parameterName}``` to make route dynamic. Note that parameter names must be unique.
 
 Retrieving parameters is done using ```parameter()``` method from ```Request``` object.
 
 ```php
 use Melonly\Routing\Facades\Route;
 
-Route::get('/users/:(userId)', function (Request $request, Response $response): void {
-    $response->send('User id: ' . $request->parameter('userId'));
+Route::get('/users/{userId}', function (Request $request, Response $response): void {
+    $response->send('User id: ', $request->parameter('userId'));
 });
 ```
 
