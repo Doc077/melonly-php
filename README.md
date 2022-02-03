@@ -4,19 +4,21 @@
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
-COMING SOON: Melonly documentation is available on the [official site](https://melonly.dev).
+COMING SOON: Melonly documentation will be available on the [official site](https://melonly.dev).
 
 - [Melonly PHP Framework](#melonly-php-framework)
-  - [Requirements](#requirements)
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Application & Development](#running-application--development)
 - [Console Interface](#console-interface)
   - [Useful Melonly CLI Commands](#useful-melonly-cli-commands)
-- [Basic Routing](#basic-routing)
+- [Routing](#routing)
+  - [Routing Parameters](#routing-parameters)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
-  - [Passing variables](#passing-variables)
+  - [Passing Variables](#passing-variables)
   - [Templates](#templates)
+  - [Twig Templates](#twig-templates)
 - [Database Queries](#database-queries)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
@@ -28,10 +30,11 @@ COMING SOON: Melonly documentation is available on the [official site](https://m
   - [Other Helpers](#other-helpers)
 - [Encryption & Hashing](#encryption--hashing)
 - [WebSockets & Broadcasting](#websockets--broadcasting)
+- [Deployment](#deployment)
 - [Documentation](#documentation)
 - [License](#license)
 
-### Requirements
+## Requirements
 
 - PHP 8.1+
 - [Composer](https://getcomposer.org) installed
@@ -119,7 +122,7 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 ```
 
 
-## Basic Routing
+## Routing
 
 To register application routes, edit ```routing/routes.php``` file.
 
@@ -135,6 +138,23 @@ As you can see, you can supply a simple callback with injected request & respons
 Enter the ```localhost:5000/my-route``` route and look for the result.
 
 
+### Routing Parameters
+
+Melonly supports dynamic routes with parameters. Mark the path segment with ```:(parameterName)``` to make route dynamic. Note that parameter names must be unique.
+
+Retrieving parameters is done using ```parameter()``` method from ```Request``` object.
+
+```php
+use Melonly\Routing\Facades\Route;
+
+Route::get('/users/:(userId)', function (Request $request, Response $response): void {
+    $response->send('User id: ' . $request->parameter('userId'));
+});
+```
+
+After entering to ```/users/356``` path you will see "User id: 356".
+
+
 ## Views
 
 Modern applications deal with user interfaces. Therefore Melonly handles special HTML templates which help You building applications in pleasant way.
@@ -145,12 +165,12 @@ View files / templates are located in ```frontend/views``` directory. You can di
 
 ```php
 Route::get('/login', function (Request $request, Response $response): void {
-    $response->view('pages.login'); // Refers to pages/login.html file
+    $response->view('pages.login');
 });
 ```
 
 
-### Passing variables
+### Passing Variables
 
 To display variable in a view, you can pass an array with supplied variable names and values.
 
@@ -190,6 +210,9 @@ Melonly ships with a convinient templating engine called Fruity. To see how it w
 ```
 
 As you can see Fruity is very simple yet powerful engine. It's also a lot more clean compared to plain PHP templates.
+
+
+### Twig Templates
 
 However if you don't like these templates, Melonly supports [Twig](https://twig.symfony.com) engine for handling views. After setting the ```engine``` option in ```config/view.php``` file to ```Twig```, you can use Twig templates in your app (note that view file extensions would be ```.html.twig``` then).
 
@@ -422,13 +445,22 @@ After configuration you may create your first broadcasts. Look how it works:
 ```php
 use Melonly\Broadcasting\Facades\WebSocket;
 
-WebSocket::broadcast('channel-name', 'EventName', $data);
+WebSocket::broadcast('channel-name', 'EventName', $someData);
 ```
+
+Then on the client side you can listen for broadcasted events using your driver.
+
+
+## Deployment
+
+When moving to server from local environment you'll need to adjust some settings. Firstly, change the ```APP_DEVELOPMENT``` entry to ```false``` in ```.env``` file. It will prevent from leaking some code visible on exception page.
+
+Then if your server supports "pointing" root path to choosen directory, set the pointer to ```public``` folder. If not, upload all files except these inside ```public``` to a directory **above** your server root. Then set the ```APP_PUBLIC``` option to ```public_html``` / ```private_html``` or whatever you have and upload there files from project ```public``` directory.
 
 
 ## Documentation
 
-If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
+COMING SOON: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
 
 
 ## License
