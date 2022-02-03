@@ -5,7 +5,7 @@ namespace App\Commands;
 use Melonly\Console\Command;
 use Melonly\Interfaces\CommandInterface;
 
-class {{ class }} extends Command implements CommandInterface {
+return new class extends Command implements CommandInterface {
     public function __construct() {
         parent::__construct();
     }
@@ -13,4 +13,4 @@ class {{ class }} extends Command implements CommandInterface {
     public function handle(): void {
         $this->infoLine('Custom command called');
     }
-}
+};

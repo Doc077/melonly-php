@@ -10,12 +10,25 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Application & Development](#running-application--development)
+- [Directory Structure](#directory-structure)
+  - [config](#config)
+  - [database](#database)
+  - [frontend](#frontend)
+  - [melonly](#melonly)
+  - [plugins](#plugins)
+  - [public](#public)
+  - [src](#src)
+    - [Controllers](#controllers)
+    - [Exceptions](#exceptions)
+    - [Models](#models)
+    - [Services](#services)
+  - [storage](#storage)
 - [Console Interface](#console-interface)
   - [Useful Melonly CLI Commands](#useful-melonly-cli-commands)
 - [Routing](#routing)
   - [Basic Closure Routing](#basic-closure-routing)
   - [Routing Parameters](#routing-parameters)
-  - [Controllers](#controllers)
+  - [Controllers](#controllers-1)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
   - [Passing Variables](#passing-variables)
@@ -23,7 +36,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
   - [Twig Templates](#twig-templates)
 - [Database Queries](#database-queries)
   - [Raw SQL Queries](#raw-sql-queries)
-  - [Models](#models)
+  - [Models](#models-1)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
 - [Helpers](#helpers)
@@ -37,6 +50,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [WebSockets & Broadcasting](#websockets--broadcasting)
 - [Deployment](#deployment)
 - [Documentation](#documentation)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Requirements
@@ -88,6 +102,71 @@ Your application will be available on ```localhost:5000``` by default. If some o
 
 > php melon server 8000
 ```
+
+
+## Directory Structure
+
+Default Melonly application structure consists of several main folders:
+
+
+### config
+
+This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using ```config(string $file, string $key)``` helper.
+
+
+### database
+
+In this directory are created database migrations. You can also store ```sqlite``` database here.
+
+
+### frontend
+
+There are placed all files related to frontend side like views or uncompiled styles/scripts.
+
+
+### melonly
+
+This folder contains Melonly framework files. You don't need to edit anything there.
+
+
+### plugins
+
+In ```plugins``` directory are stored installed ```Composer``` packages.
+
+
+### public
+
+This is the only directory visible to users. It should contain client side things like compiled styles, JS scripts and images.
+
+
+### src
+
+The ```src``` directory contains your application code. Feel free to add another folders there. All files inside this folder should be in ```App``` namespace since they are autoloaded.
+
+
+#### Controllers
+
+Default HTTP controllers directory.
+
+
+#### Exceptions
+
+Application exceptions folder.
+
+
+#### Models
+
+Default MVC Model directory.
+
+
+#### Services
+
+Additional directory containing service pattern classes. It is not directly related to Melonly but it's rather a convention. If you don't use services you can delete this directory.
+
+
+### storage
+
+There are placed cache and temporary files.
 
 
 ## Console Interface
@@ -527,6 +606,13 @@ Then if your server supports "pointing" root path to choosen directory, set the 
 ## Documentation
 
 *COMING SOON*: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
+
+
+## Contributing
+
+Melonly is an Open Source framework. If You want to make Melonly even better, we appreciate it. You can clone the repository and commit changes on created branch. Then open a new [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) and we'll merge them if it would be something valuable and error-free without any security vulnerabilities.
+
+We also encourage you to opening Issues and discussions on the repository.
 
 
 ## License
