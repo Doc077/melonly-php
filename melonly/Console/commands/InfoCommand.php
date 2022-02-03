@@ -41,6 +41,11 @@ return new class extends Command {
             </tr>
 
             <tr>
+                <td>new:email</td>
+                <td align="right">Create new email class</td>
+            </tr>
+
+            <tr>
                 <td>new:feature-test</td>
                 <td align="right">Create new feature test file</td>
             </tr>
