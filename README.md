@@ -4,7 +4,7 @@
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
-COMING SOON: Melonly documentation will be available on the [official site](https://melonly.dev).
+*COMING SOON*: Melonly documentation will be available on the [official site](https://melonly.dev).
 
 - [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
@@ -13,13 +13,17 @@ COMING SOON: Melonly documentation will be available on the [official site](http
 - [Console Interface](#console-interface)
   - [Useful Melonly CLI Commands](#useful-melonly-cli-commands)
 - [Routing](#routing)
+  - [Basic Closure Routing](#basic-closure-routing)
   - [Routing Parameters](#routing-parameters)
+  - [Controllers](#controllers)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
   - [Passing Variables](#passing-variables)
   - [Templates](#templates)
   - [Twig Templates](#twig-templates)
 - [Database Queries](#database-queries)
+  - [Raw SQL Queries](#raw-sql-queries)
+  - [Models](#models)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
 - [Helpers](#helpers)
@@ -29,6 +33,7 @@ COMING SOON: Melonly documentation will be available on the [official site](http
   - [JSON Helpers](#json-helpers)
   - [Other Helpers](#other-helpers)
 - [Encryption & Hashing](#encryption--hashing)
+- [Sending Emails](#sending-emails)
 - [WebSockets & Broadcasting](#websockets--broadcasting)
 - [Deployment](#deployment)
 - [Documentation](#documentation)
@@ -124,6 +129,8 @@ Melonly ships with Melon CLI - Terminal mode client for development. It has many
 
 ## Routing
 
+### Basic Closure Routing
+
 To register application routes, edit ```routing/routes.php``` file.
 
 ```php
@@ -153,6 +160,40 @@ Route::get('/users/:(userId)', function (Request $request, Response $response): 
 ```
 
 After entering to ```/users/356``` path you will see "User id: 356".
+
+
+### Controllers
+
+Rather than passing closures to route definitions there is more common to use ```controller``` classes. Melonly utilizes MVC structure so controllers are supported out of the box. To create basic controller run command:
+
+```shell
+php melon new:controller ControllerName
+```
+
+It will create a new file: ```src/Controllers/ControllerName.php``` with the following structure:
+
+```php
+namespace App\Controllers;
+
+use Melonly\Http\Request;
+use Melonly\Http\Response;
+
+class ControllerName {
+    public function index(Request $request, Response $response): void {
+        // 
+    }
+}
+```
+
+To assign controller method to route use the array syntax:
+
+```php
+use App\Controllers\ControllerName;
+
+Route::get('/users', [ControllerName::class, 'index']);
+```
+
+Now on specified ```/users``` route Melonly will invoke ```index``` method from ```ControllerName```.
 
 
 ## Views
@@ -227,6 +268,8 @@ Example Twig template
 
 ## Database Queries
 
+### Raw SQL Queries
+
 Handling databases in web applications cannot be easier than with Melonly. To execute raw SQL query, use ```DB``` interface.
 
 ```php
@@ -234,6 +277,9 @@ use Melonly\Database\Facades\DB;
 
 $name = DB::query('select `name` from `users` where `id` = 1');
 ```
+
+
+### Models
 
 Due the fact Melonly is a MVC framework, it follows the Model pattern. Each table in your database can have corresponding 'Model'.
 
@@ -294,12 +340,15 @@ Request data validation with Melonly is super easy. Look how it works:
 ```php
 use Melonly\Validation\Facades\Validate;
 
+// In some route definition
 Validate::check([
     'username' => ['required', 'min:3', 'max:30', 'alphanumeric'],
     'email' => ['email', 'max:30'],
     'age' => ['int'],
 ]);
 ```
+
+Melonly will check provided data against specified rules. If validation fails the 422 status is returned.
 
 Available validation rules are listed here:
 
@@ -362,10 +411,12 @@ $string = Str::pascalCase($string); // Output: 'MelonlyHelpers'
 
 ### Time Manipulation Helpers
 
+Melonly uses [Carbon](https://carbon.nesbot.com/docs/) to manipulate date and time under the hood.
+
 ```php
 use Melonly\Support\Helpers\Time;
 
-$date = Time::now()->isoFormat('Y_MM_D'); // Output: 2022_01_27
+$date = Time::now()->isoFormat('Y_MM_D'); // Output: 2022_02_02
 ```
 
 
@@ -421,6 +472,21 @@ $isPasswordCorrect = Hash::equals($request->get('password'), $user->password);
 ```
 
 
+## Sending Emails
+
+Melonly has an built in interface for sending e-mails:
+
+```php
+use Melonly\Mailing\Facades\Mail;
+
+Mail::send('recipient@address', 'Subject', 'My message');
+```
+
+Note that you have to setup PHP config on your server to send emails.
+
+Address from which messages are sent is specified in ```MAIL_ADDRESS``` in ```.env``` file.
+
+
 ## WebSockets & Broadcasting
 
 Modern web applications often need WebSocket connection. Melonly supports two popular broadcasting drivers out of the box: [Pusher](https://pusher.com) and [Ably](https://ably.com). You can configure the driver in ```.env``` file:
@@ -460,7 +526,7 @@ Then if your server supports "pointing" root path to choosen directory, set the 
 
 ## Documentation
 
-COMING SOON: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
+*COMING SOON*: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
 
 
 ## License

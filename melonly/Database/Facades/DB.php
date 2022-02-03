@@ -3,7 +3,7 @@
 namespace Melonly\Database\Facades;
 
 use Melonly\Container\Facade;
-use Melonly\Database\DBConnection;
+use Melonly\Database\Connection;
 
 /**
  * @method static object|array query(string $sql, string $modelClass = Record::class, array $boundParams = [])
@@ -11,7 +11,7 @@ use Melonly\Database\DBConnection;
  */
 class DB extends Facade {
     protected static function getAccessor(): string {
-        return DBConnection::class;
+        return Connection::class;
     }
 
     public static function __callStatic(string $method, array $args): mixed {

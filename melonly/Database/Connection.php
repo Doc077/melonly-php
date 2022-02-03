@@ -7,7 +7,7 @@ use Melonly\Support\Containers\Vector;
 use PDO;
 use PDOException;
 
-class DBConnection implements DBConnectionInterface {
+class Connection implements ConnectionInterface {
     protected readonly string $system;
 
     protected array $credentials = [];
