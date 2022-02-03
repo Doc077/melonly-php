@@ -12,6 +12,7 @@ use Melonly\Support\Helpers\Json;
 use Melonly\Support\Helpers\Regex;
 use Melonly\Support\Helpers\Str;
 use Melonly\Views\View;
+use ReflectionClass;
 
 class Router implements RouterInterface {
     protected array $patterns = [];
@@ -24,7 +25,7 @@ class Router implements RouterInterface {
 
     protected array $redirects = [];
 
-    public function add(string|HttpMethod $method, string|array $uri, callable $action, array $data = []): void {
+    public function add(string|HttpMethod $method, string|array $uri, callable|array $action, array $data = []): void {
         /**
          * Register multiple routes in case of array argument.
          */
@@ -66,31 +67,31 @@ class Router implements RouterInterface {
         $this->actions[$pattern] = $action;
     }
 
-    public function get(string|array $uri, callable $action, array $data = []): void {
+    public function get(string|array $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Get, $uri, $action, $data);
     }
 
-    public function post(string|array $uri, callable $action, array $data = []): void {
+    public function post(string|array $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Post, $uri, $action, $data);
     }
 
-    public function put(string|array $uri, callable $action, array $data = []): void {
+    public function put(string|array $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Put, $uri, $action, $data);
     }
 
-    public function patch(string|array $uri, callable $action, array $data = []): void {
+    public function patch(string|array $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Patch, $uri, $action, $data);
     }
 
-    public function delete(string|array $uri, callable $action, array $data = []): void {
+    public function delete(string|array $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Delete, $uri, $action, $data);
     }
 
-    public function options(string|array $uri, callable $action, array $data = []): void {
+    public function options(string|array $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Options, $uri, $action, $data);
     }
 
-    public function any(string $uri, callable $action, array $data = []): void {
+    public function any(string $uri, callable|array $action, array $data = []): void {
         $this->add(HttpMethod::Get, $uri, $action, $data);
         $this->add(HttpMethod::Post, $uri, $action, $data);
         $this->add(HttpMethod::Put, $uri, $action, $data);
@@ -152,12 +153,23 @@ class Router implements RouterInterface {
 
                 Container::get(Request::class)->setParameters($parameterList);
 
+                $action = $this->actions[$pattern];
+
                 /**
-                 * Call route action in case of callable argument.
+                 * Call controller method in case of array argument.
                  */
-                if (is_callable($this->actions[$pattern])) {
+                if (is_array($action)) {
+                    $this->handleController($action[0], $action[1]);
+                }
+
+                /**
+                 * Call route callback in case of callable argument.
+                 */
+                if (is_callable($action)) {
                     $this->handleClosure($pattern);
                 }
+
+                $this->returnResponse();
 
                 break;
             }
@@ -169,6 +181,23 @@ class Router implements RouterInterface {
         if (!$matchesOneRoute) {
             Container::get(Response::class)->abort(404);
         }
+    }
+
+    protected function handleClosure(string $pattern): void {
+        $services = Container::resolve($this->actions[$pattern]);
+
+        $this->actions[$pattern](...$services);
+    }
+
+    protected function handleController(string $class, string $method): void {
+        $classReflection = new ReflectionClass($class);
+        $controller = new $class();
+
+        $closure = $classReflection->getMethod($method)->getClosure($controller);
+
+        $services = Container::resolve($closure);
+
+        $controller->{$method}(...$services);
     }
 
     protected function handleFileRequest(string $uri): void {
@@ -209,11 +238,7 @@ class Router implements RouterInterface {
         print(readfile(__DIR__ . '/../../' . config('app.public') . '/' . $uri));
     }
 
-    protected function handleClosure(string $pattern): void {
-        $services = Container::resolve($this->actions[$pattern]);
-
-        $this->actions[$pattern](...$services);
-
+    protected function returnResponse(): void {
         /**
          * Render view or show raw response data.
          */

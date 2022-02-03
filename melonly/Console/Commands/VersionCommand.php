@@ -10,6 +10,6 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $this->infoBlock(MELONLY_VERSION . ' | Released ' . MELONLY_VERSION_RELEASE_DATE);
+        $this->infoBlock(MELONLY_VERSION . ' ' . MELONLY_VERSION_STAGE . ' | Released ' . MELONLY_VERSION_RELEASE_DATE);
     }
 };
