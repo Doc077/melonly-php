@@ -43,7 +43,7 @@
                 background: #1d3747;
             }
 
-            .nav {
+            .menu {
                 position: fixed;
                 left: 0;
                 top: 0;
@@ -57,25 +57,25 @@
                 gap: 12px;
             }
 
-            .nav__section {
+            .menu__section {
                 display: flex;
                 align-items: center;
             }
 
-            .nav__logo {
+            .menu__logo {
                 display: flex;
                 align-items: center;
                 font-size: 20px;
                 font-weight: 600;
             }
 
-            .nav__image {
+            .menu__image {
                 width: 34px;
                 height: auto;
                 margin-right: 10px;
             }
 
-            .nav__version {
+            .menu__version {
                 display: inline-block;
                 background: #003441;
                 padding: 5px 10px;
@@ -120,14 +120,31 @@
 
     <body>
         <!--
-            Example Melonly HTML components.
+            Example Melonly HTML templates with components.
             Source: (frontend/views/components).
 
             Note: Components are not available when using Twig engine.
             Edit the config/view.php file to set template engine.
         -->
 
-        <MenuNav />
+        <header>
+            <nav class="menu">
+                <MenuLogo />
+        
+                <div class="menu__section">
+                    [if Auth::logged()]
+                        <a class="link" href="/logout">Log out</a>
+        
+                        [else]
+                            <a class="link" href="/login">Log in</a>
+                    [endif]
+        
+                    <a class="link" href="https://github.com/Doc077/melonly" target="_blank">GitHub</a>
+        
+                    <a class="link" href="https://github.com/Doc077/melonly/blob/7.x/README.md" target="_blank">Documentation</a>
+                </div>
+            </n>
+        </header>
 
         <MainContent />
     </body>

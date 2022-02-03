@@ -1,12 +1,35 @@
 <img src="public/logo.png" width="68">
 
-# Melonly
-
 ## Melonly PHP Framework
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
 COMING SOON: Melonly documentation is available on the [official site](https://melonly.dev).
+
+- [Melonly PHP Framework](#melonly-php-framework)
+  - [Requirements](#requirements)
+- [Installation](#installation)
+- [Running Application & Development](#running-application--development)
+- [Console Interface](#console-interface)
+  - [Useful Melonly CLI Commands](#useful-melonly-cli-commands)
+- [Basic Routing](#basic-routing)
+- [Views](#views)
+  - [Displaying a View](#displaying-a-view)
+  - [Passing variables](#passing-variables)
+  - [Templates](#templates)
+- [Database Queries](#database-queries)
+- [Validation](#validation)
+- [Making HTTP Requests](#making-http-requests)
+- [Helpers](#helpers)
+  - [String Helpers](#string-helpers)
+  - [Time Manipulation Helpers](#time-manipulation-helpers)
+  - [UUID Generation](#uuid-generation)
+  - [JSON Helpers](#json-helpers)
+  - [Other Helpers](#other-helpers)
+- [Encryption & Hashing](#encryption--hashing)
+- [WebSockets & Broadcasting](#websockets--broadcasting)
+- [Documentation](#documentation)
+- [License](#license)
 
 ### Requirements
 
