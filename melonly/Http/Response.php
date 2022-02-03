@@ -224,28 +224,12 @@ class Response {
         $this->status = $code;
     }
 
-    public function redirect(string $uri, array $data = []): void {
-        foreach ($data as $key => $value) {
-            Session::set('MELONLY_FLASH_' . $key, $value);
-        }
-
-        redirect($uri);
-
-        exit();
+    public function redirect(string $uri, array $data = []): never {
+        redirect($uri, $data);
     }
 
     public function redirectBack(array $data = []): never {
-        foreach ($data as $key => $value) {
-            Session::set('MELONLY_FLASH_' . $key, $value);
-        }
-
-        if (!isset($_SERVER['HTTP_REFERER'])) {
-            throw new Exception('Cannot redirect to previous location');
-        }
-
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
-
-        exit();
+        redirectBack($data);
     }
 
     public function view(string $name, array $variables = []): void {

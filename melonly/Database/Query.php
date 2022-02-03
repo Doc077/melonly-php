@@ -2,6 +2,7 @@
 
 namespace Melonly\Database;
 
+use Melonly\Database\Facades\DB;
 use Melonly\Support\Containers\Vector;
 
 class Query {

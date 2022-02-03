@@ -20,7 +20,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
     - [public](#public)
     - [src](#src)
     - [storage](#storage)
-  - [src Directory](#src-directory)
+  - [```src/``` Directory](#src-directory)
     - [Controllers](#controllers)
     - [Exceptions](#exceptions)
     - [Models](#models)
@@ -36,9 +36,10 @@ Melonly is a fast, modern web application development framework for PHP. It make
   - [Passing Variables](#passing-variables)
   - [Templates](#templates)
   - [Twig Templates](#twig-templates)
-- [Database Queries](#database-queries)
+- [Database](#database-1)
   - [Raw SQL Queries](#raw-sql-queries)
   - [Models](#models-1)
+  - [Migrations](#migrations)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
 - [Helpers](#helpers)
@@ -153,7 +154,7 @@ The ```src``` directory contains your application code. Feel free to add another
 There are placed cache and temporary files.
 
 
-### src Directory
+### ```src/``` Directory
 
 #### Controllers
 
@@ -357,7 +358,7 @@ Example Twig template
 ```
 
 
-## Database Queries
+## Database
 
 ### Raw SQL Queries
 
@@ -422,6 +423,25 @@ $title = $post->title;
 ```
 
 As you can see, dealing with DB data is super easy with Melonly.
+
+
+### Migrations
+
+Melonly comes with basic built in table migration system. It currently supports only creating tables but we'll improve it in future releases.
+
+To create new migration run ```melon``` command:
+
+```shell
+> php melon new:migration create_posts_table
+```
+
+Migrations are stored in ```database/migrations``` directory. To run migrations you have to specify database credentials in ```.env``` file. Then run:
+
+```shell
+> php melon migrate
+```
+
+Open your database and look for changes.
 
 
 ## Validation

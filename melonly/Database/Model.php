@@ -2,6 +2,7 @@
 
 namespace Melonly\Database;
 
+use Melonly\Database\Facades\DB;
 use Melonly\Support\Containers\Vector;
 
 abstract class Model {
@@ -22,7 +23,7 @@ abstract class Model {
         }
 
         DB::query(
-            'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $fields) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
+            'insert into `' . self::getTable() . '` (id, ' . implode(',', $fields) . ') values (NULL, \'' . implode('\',\'', $values) . '\')'
         );
     }
 
@@ -52,7 +53,7 @@ abstract class Model {
         }
 
         DB::query(
-            'INSERT INTO ' . self::getTable() . ' (id, ' . implode(',', $fields) . ') VALUES (NULL, \'' . implode('\',\'', $values) . '\')'
+            'insert into `' . self::getTable() . '` (id, ' . implode(',', $fields) . ') values (NULL, \'' . implode('\',\'', $values) . '\')'
         );
     }
 
@@ -68,7 +69,7 @@ abstract class Model {
             $sets .= $field . ' = ' . $value;
         }
 
-        DB::query('UPDATE ' . self::getTable() . ' SET ' . $sets);
+        DB::query('update `' . self::getTable() . '` set ' . $sets);
     }
 
     /**
