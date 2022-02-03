@@ -192,7 +192,7 @@ This directory doesn't exist by default as well. It contains application e-mail 
 
 ### Useful Melonly Console Commands
 
-Melonly ships with Melon CLI - terminal mode client for developers. It includes many commands useful during development. Below You can test some of them:
+Melonly ships with Melon CLI - terminal mode client for developers. It includes many useful commands during development. Using them you can quickly generate controllers, models or even custom commands. You can test some of them:
 
 ```shell
 # Display information about framework version
@@ -207,7 +207,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 ```
 
 ```shell
-# Create new ORM model
+# Create new database model
 
 > php melon new:model Post
 ```
@@ -215,11 +215,11 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 ```shell
 # Create custom CLI command
 
-> php melon new:command YourCustomCommand
+> php melon new:command SayHelloCommand
 ```
 
 ```shell
-# Get list of all available commands
+# Get list of all built-in commands
 
 > php melon info
 ```

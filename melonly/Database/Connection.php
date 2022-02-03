@@ -2,6 +2,7 @@
 
 namespace Melonly\Database;
 
+use Exception;
 use Melonly\Exceptions\Handler;
 use Melonly\Support\Containers\Vector;
 use PDO;
@@ -10,44 +11,55 @@ use PDOException;
 class Connection implements ConnectionInterface {
     protected readonly string $system;
 
-    protected array $credentials = [];
+    protected readonly string $host;
+
+    protected readonly string $user;
+
+    protected readonly string $password;
+
+    protected readonly string $database;
 
     protected ?PDO $pdo = null;
 
     public function __construct() {
         $this->system = config('database.system');
 
-        $this->credentials['host'] = config('database.host');
-        $this->credentials['user'] = config('database.username');
-        $this->credentials['password'] = config('database.password');
-        $this->credentials['database'] = config('database.database');
+        $this->host = config('database.host');
 
-        if (php_sapi_name() !== 'cli') {
-            switch ($this->system) {
-                case 'mysql':
-                    $dsn = "mysql:host={$this->credentials['host']};dbname={$this->credentials['database']};charset=utf8";
+        $this->user = config('database.username');
 
-                    break;
-                case 'sqlite':
-                    $dbFile = $this->credentials['database'];
+        $this->password = config('database.password');
 
-                    $dsn = "sqlite:$dbFile";
+        $this->database = config('database.database');
 
-                    break;
-                default:
-                    throw new UnsupportedDBDriverException("Unsupported database driver '$this->system'");
-            }
+        switch ($this->system) {
+            case 'mysql':
+                $dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8";
 
-            $this->pdo = new PDO(
-                $dsn, $this->credentials['user'], $this->credentials['password'], [
-                    PDO::ATTR_EMULATE_PREPARES => false,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                ]
-            );
+                break;
+            case 'sqlite':
+                $dbFile = $this->database;
+
+                $dsn = "sqlite:$dbFile";
+
+                break;
+            default:
+                throw new UnsupportedDBDriverException("Unsupported database driver '$this->system'");
         }
+
+        $this->pdo = new PDO(
+            $dsn, $this->user, $this->password, [
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]
+        );
     }
 
     public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array {
+        if (!$this->pdo) {
+            throw new Exception('Database connection failed');
+        }
+
         try {
             $this->pdo->query('SET NAMES UTF8');
             $this->pdo->query('SET CHARACTER SET UTF8');
