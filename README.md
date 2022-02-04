@@ -44,6 +44,8 @@ Melonly is a fast, modern web application development framework for PHP. It make
   - [Migrations](#migrations)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
+- [Files](#files)
+  - [Image files](#image-files)
 - [Helpers](#helpers)
   - [String Helpers](#string-helpers)
   - [Time Manipulation Helpers](#time-manipulation-helpers)
@@ -510,6 +512,41 @@ Http::post('https://my-api', [
 ```
 
 
+## Files
+
+Melonly provides a simple file manipulation system with many useful functions:
+
+```php
+use Melonly\Filesystem\File;
+
+$path = 'path/to/file.jpg';
+
+// Check if file exists
+File::exists($path);
+
+// Create / delete a file
+File::create($path, 'Some content');
+File::delete($path);
+
+// Copy file
+File::copy($path, 'new/file/path.jpg');
+```
+
+
+### Image files
+
+Melonly utilizes [Intervention Image](https://image.intervention.io/v2) library for image manipulation. You can use ```ImageFile``` helper to manage ```jpg```, ```png``` and ```gif``` image files.
+
+```php
+use Melonly\Filesystem\Image;
+
+$image = Image::make('image1.jpg');
+
+$image->resize(560, 320);
+$image->save('image.jpg');
+```
+
+
 ## Helpers
 
 Melonly offers many useful global functions (helpers) used by Melonly itself. Feel free to use them in your code if you find it convinient.
@@ -519,16 +556,16 @@ Melonly offers many useful global functions (helpers) used by Melonly itself. Fe
 ```php
 use Melonly\Support\Helpers\Str;
 
-$string = 'Melonly helpers';
+$string = 'lorem ipsum';
 
 // Uppercase string
 $string = Str::uppercase($string);
 
 // Replace occurences
-$string = Str::replace(' ', '_', $string); // Output: 'Melonly_helpers'
+$string = Str::replace(' ', '_', $string); // Output: 'lorem_ipsum'
 
 // PascalCase string
-$string = Str::pascalCase($string); // Output: 'MelonlyHelpers'
+$string = Str::pascalCase($string); // Output: 'LoremIpsum'
 ```
 
 
