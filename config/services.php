@@ -3,10 +3,10 @@
 return [
     /**
      * Custom service container services.
-     * After registering your services will be injected
-     * into routing callbacks / controller methods.
+     * After registering services will be injected
+     * into routing callbacks and controllers.
      */
     'bindings' => [
-        // \App\Container\MyService::class,
+        // \App\Container\SomeService::class,
     ],
 ];
