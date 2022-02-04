@@ -5,7 +5,9 @@ namespace Tests\Feature;
 use Melonly\Testing\TestCase;
 
 class {{ class }} extends TestCase {
-    public function assertThatTrueIsTrue(): void {
-        $this->assertTrue(true);
+    public function assertThatRouteReturnsSuccesfulStatus(): void {
+        $response = $this->get('/');
+
+        $this->assertEquals(200, $response->status());
     }
 }
