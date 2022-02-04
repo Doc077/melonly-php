@@ -20,6 +20,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
     - [public](#public)
     - [src](#src)
     - [storage](#storage)
+    - [tests](#tests)
   - [```src/``` Directory](#src-directory)
     - [Controllers](#controllers)
     - [Exceptions](#exceptions)
@@ -145,7 +146,7 @@ In ```plugins``` directory are stored installed ```Composer``` packages.
 
 #### public
 
-This is the only directory visible to users. It should contain client side things like compiled styles, JS scripts and images.
+This is the only directory visible to users. It prevents from direct access to source code. ```public``` folder contains ```.htaccess``` and ```index.php``` files. This is where you should put client side things like compiled styles, JS scripts and images.
 
 
 #### src
@@ -156,6 +157,17 @@ The ```src``` directory contains your application code. Feel free to add another
 #### storage
 
 There are placed cache and temporary files.
+
+
+#### tests
+
+This testing directory does not exist by default. It can be created by running command:
+
+```shell
+> php melon test:template
+```
+
+After this command the ```tests``` directory will be created along with ```phpunit.xml``` file.
 
 
 ### ```src/``` Directory

@@ -46,11 +46,6 @@ return new class extends Command {
             </tr>
 
             <tr>
-                <td>new:feature-test</td>
-                <td align="right">Create new feature test file</td>
-            </tr>
-
-            <tr>
                 <td>new:migration</td>
                 <td align="right">Create new database migration</td>
             </tr>
@@ -71,7 +66,12 @@ return new class extends Command {
             </tr>
 
             <tr>
-                <td>new:unit-test</td>
+                <td>new:test:feature</td>
+                <td align="right">Create new feature test file</td>
+            </tr>
+
+            <tr>
+                <td>new:test:unit</td>
                 <td align="right">Create new unit test file</td>
             </tr>
 
@@ -90,11 +90,6 @@ return new class extends Command {
                     <th align="right">Description</th>
                 </tr>
             </thead>
-
-            <tr>
-                <td>cache</td>
-                <td align="right">Generate cache for performance optimization</td>
-            </tr>
 
             <tr>
                 <td>cache:clear</td>
