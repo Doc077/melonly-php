@@ -20,11 +20,13 @@ return new class extends Command {
             $migrations[substr(preg_split('~/(?=[^/]*$)~', $file)[1], 0, -4)] = new $class();
         }
 
-        $previousMigratedList = require_once __DIR__ . '/../../../storage/migrations/list.php';
+        $previousMigratedList = glob(__DIR__ . '/../../../storage/migrations/*', GLOB_BRACE);
         $nothingToMigrate = true;
 
         foreach ($migrations as $migrationFile => $migration) {
-            if (in_array($migrationFile, $previousMigratedList)) {
+            $tempFile = __DIR__ . '/../../../storage/migrations/' . $migrationFile;
+
+            if (in_array($tempFile, $previousMigratedList)) {
                 continue;
             }
 
@@ -35,16 +37,16 @@ return new class extends Command {
             $tableName = $schema->getTableName();
             $columns = $schema->getTableFields();
 
-            $sql = "CREATE TABLE IF NOT EXIST `$tableName` (";
+            $sql = "CREATE TABLE IF NOT EXISTS `$tableName` (";
 
             /**
              * Build SQL query with columns and their types.
              */
             foreach ($columns as $column => $type) {
-                $sql .= "$column $type,";
+                $sql .= "`$column` $type," . PHP_EOL;
             }
 
-            $sql .= 'PRIMARY KEY (id)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
+            $sql .= 'PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
 
             DB::query($sql);
 
@@ -53,7 +55,9 @@ return new class extends Command {
                 MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
             ');
 
-            $previousMigratedList[] = $migrationFile;
+            $previousMigratedList[] = $tempFile;
+
+            File::create($tempFile);
 
             $this->infoLine("Migrated: $migrationFile");
         }
@@ -61,7 +65,5 @@ return new class extends Command {
         if ($nothingToMigrate) {
             $this->infoLine('All migrations are already up to date');
         }
-
-        File::overwrite(__DIR__ . '/../../../storage/migrations/list.php', '<?php return ["' . implode('", "', $previousMigratedList) . '"];' . PHP_EOL);
     }
 };

@@ -42,27 +42,27 @@ class Application {
     protected function registerHandlers(): void {
         error_reporting(-1);
 
-        // set_error_handler(function (
-        //     int $code,
-        //     string $message = 'Uncaught error',
-        //     string $file = __DIR__ . '/Bootstrap/Application.php',
-        //     int $line = 0,
-        // ) {
-        //     $error = new UnhandledError($code, $message, $file, $line);
+        set_error_handler(function (
+            int $code,
+            string $message = 'Uncaught error',
+            string $file = __DIR__ . '/Bootstrap/Application.php',
+            int $line = 0,
+        ) {
+            $error = new UnhandledError($code, $message, $file, $line);
         
-        //     Handler::handle($error);
-        // });
+            Handler::handle($error);
+        });
 
-        // set_exception_handler(function (
-        //     int $code,
-        //     string $message = 'Uncaught exception',
-        //     string $file = __DIR__ . '/Bootstrap/Application.php',
-        //     int $line = 0,
-        // ) {
-        //     $error = new UnhandledError($code, $message, $file, $line);
+        set_exception_handler(function (
+            int $code,
+            string $message = 'Uncaught exception',
+            string $file = __DIR__ . '/Bootstrap/Application.php',
+            int $line = 0,
+        ) {
+            $error = new UnhandledError($code, $message, $file, $line);
         
-        //     Handler::handle($error);
-        // });
+            Handler::handle($error);
+        });
     }
 
     protected function initialize(): void {

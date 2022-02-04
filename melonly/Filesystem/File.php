@@ -20,7 +20,7 @@ class File {
         return file_get_contents($path);
     }
 
-    public static function create(string $path, string $content): void {
+    public static function create(string $path, string $content = ''): void {
         $file = fopen($path, 'w');
 
         fwrite($file, $content);

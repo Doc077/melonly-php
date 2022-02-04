@@ -57,7 +57,7 @@ class Connection implements ConnectionInterface {
 
     public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array {
         if (!$this->pdo) {
-            throw new Exception('Database connection failed');
+            throw new Exception('Database connection failed. Provide config credentials or check your database');
         }
 
         try {
@@ -80,7 +80,7 @@ class Connection implements ConnectionInterface {
             /**
              * Return element if SELECT query fetched only one element.
              */
-            if (is_array($result[0] && count($result[0]) === 1)) {
+            if (!empty($result) && is_array($result[0] && count($result[0]) === 1)) {
                 return $result[0];
             }
 

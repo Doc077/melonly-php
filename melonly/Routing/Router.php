@@ -149,8 +149,6 @@ class Router implements RouterInterface {
                     }
                 }
 
-                //var_dump($parameterList);exit;
-
                 Container::get(Request::class)->setParameters($parameterList);
 
                 $action = $this->actions[$pattern];
