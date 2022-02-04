@@ -5,6 +5,7 @@ namespace Melonly\Http;
 use Exception;
 use Melonly\Filesystem\File;
 use Melonly\Http\Session;
+use Melonly\Views\Engine as ViewEngine;
 use Melonly\Views\View;
 
 class Response {
@@ -167,7 +168,7 @@ class Response {
         /**
          * Include custom status page or the predefined one.
          */
-        if (File::exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . '.html')) {
+        if (File::exists($view = __DIR__ . '/../../frontend/views/errors/' . $status . (config('view.engine') === ViewEngine::Fruity ? '.html' : '.html.twig'))) {
             View::renderView($view, compact(
                 'status',
                 'text',
