@@ -477,6 +477,7 @@ Melonly will check provided data against specified rules. If validation fails th
 
 Available validation rules are listed here:
 
+- accepted
 - alphanumeric
 - bool
 - domain

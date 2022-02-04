@@ -9,6 +9,7 @@ use Melonly\Validation\Rules;
 
 class Validator implements ValidatorInterface {
     protected array $rulePatterns = [
+        '/^(accepted)$/' => Rules\AcceptedRule::class,
         '/^(alphanumeric)$/' => Rules\AlphanumericRule::class,
         '/^(bool)$/' => Rules\BoolRule::class,
         '/^(domain)$/' => Rules\DomainRule::class,
