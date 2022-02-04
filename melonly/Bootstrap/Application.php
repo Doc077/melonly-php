@@ -3,6 +3,8 @@
 namespace Melonly\Bootstrap;
 
 use Dotenv\Dotenv;
+use Error;
+use Exception;
 use Melonly\Authentication\Facades\Auth;
 use Melonly\Container\Container;
 use Melonly\Encryption\Facades\Hash;
@@ -43,23 +45,31 @@ class Application {
         error_reporting(-1);
 
         set_error_handler(function (
-            int $code,
+            int|Error|Exception $level,
             string $message = 'Uncaught error',
-            string $file = __DIR__ . '/Bootstrap/Application.php',
+            string $file = '',
             int $line = 0,
         ) {
-            $error = new UnhandledError($code, $message, $file, $line);
+            if ($level instanceof Error || $level instanceof Exception) {
+                throw new Exception($level);
+            }
+
+            $error = new UnhandledError($level, $message, $file, $line);
         
             Handler::handle($error);
         });
 
         set_exception_handler(function (
-            int $code,
+            int|Error|Exception $level,
             string $message = 'Uncaught exception',
-            string $file = __DIR__ . '/Bootstrap/Application.php',
+            string $file = '',
             int $line = 0,
         ) {
-            $error = new UnhandledError($code, $message, $file, $line);
+            if ($level instanceof Error || $level instanceof Exception) {
+                throw new Exception($level);
+            }
+
+            $error = new UnhandledError($level, $message, $file, $line);
         
             Handler::handle($error);
         });

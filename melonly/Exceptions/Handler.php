@@ -70,7 +70,7 @@ class Handler {
             'fullExceptionType',
             'linesCount',
             'url',
-        ), true, __DIR__ . '/Assets');
+        ), true, __DIR__ . '/Assets', true);
 
         /**
          * Delete all compiled temporary templates.

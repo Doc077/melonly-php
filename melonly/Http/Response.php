@@ -171,12 +171,12 @@ class Response {
             View::renderView($view, compact(
                 'status',
                 'text',
-            ), true, __DIR__ . '/Assets');
+            ), true, __DIR__ . '/Assets', true);
         } else {
             View::renderView(__DIR__ . '/Assets/status.html', compact(
                 'status',
                 'text',
-            ), true, __DIR__ . '/Assets');
+            ), true, __DIR__ . '/Assets', true);
         }
 
         exit();
