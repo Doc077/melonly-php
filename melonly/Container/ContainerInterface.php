@@ -11,5 +11,5 @@ interface ContainerInterface {
 
     public static function has(string $key): bool;
 
-    public static function resolve(callable $callable): array;
+    public static function resolveDependencies(callable $callable): array;
 }

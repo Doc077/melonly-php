@@ -26,7 +26,7 @@ return new class extends Command {
             File::makeDirectory($folder);
         }
 
-        $this->publishFileFromTemplate($fileName, 'feature-test', [
+        $this->publishFileFromTemplate($fileName, 'test.feature', [
             'class' => $this->arguments[2],
         ]);
 

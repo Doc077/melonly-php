@@ -173,29 +173,31 @@ class Router implements RouterInterface {
             }
         }
 
-        /**
-         * If route has not been found, throw 404 error.
-         */
         if (!$matchesOneRoute) {
             Container::get(Response::class)->abort(404);
         }
     }
 
     protected function handleClosure(string $pattern): void {
-        $services = Container::resolve($this->actions[$pattern]);
+        $services = Container::resolveDependencies($this->actions[$pattern]);
 
         $this->actions[$pattern](...$services);
     }
 
     protected function handleController(string $class, string $method): void {
         $classReflection = new ReflectionClass($class);
-        $controller = new $class();
+
+        $constructor = $classReflection->getConstructor();
+
+        $constructorServices = $constructor ? Container::resolveDependencies($constructor) : [];
+
+        $controller = new $class(...$constructorServices);
 
         $closure = $classReflection->getMethod($method)->getClosure($controller);
 
-        $services = Container::resolve($closure);
+        $methodServices = Container::resolveDependencies($closure);
 
-        $controller->{$method}(...$services);
+        $controller->{$method}(...$methodServices);
     }
 
     protected function handleFileRequest(string $uri): void {
@@ -204,7 +206,7 @@ class Router implements RouterInterface {
         $mime = 'text/plain';
 
         /**
-         * If file doesn't exist, return 404 error
+         * Abort with 404 status if file not found.
          */
         if (!File::exists(__DIR__ . '/../../' . config('app.public') . '/' . $uri)) {
             Container::get(Response::class)->abort(404);
@@ -214,9 +216,6 @@ class Router implements RouterInterface {
 
         $extensionMimeTypes = Mime::TYPES;
 
-        /**
-         * Secure vulnerable files.
-         */
         if ($extension === 'php' || $uri === '.htaccess') {
             Container::get(Response::class)->abort(404);
 
