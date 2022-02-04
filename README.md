@@ -66,7 +66,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Composer](https://getcomposer.org) installed
 - PDO PHP Extension
 - cURL PHP Extension
-- GD or Imagick PHP Extension
+- PHP Image Processing Extension
 
 
 ## Installation
@@ -484,6 +484,7 @@ Available validation rules are listed here:
 - email
 - file
 - float
+- image
 - int
 - ip
 - max:{length}

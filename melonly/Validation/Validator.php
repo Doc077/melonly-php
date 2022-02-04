@@ -16,6 +16,7 @@ class Validator implements ValidatorInterface {
         '/^(email)$/' => Rules\EmailRule::class,
         '/^(file)$/' => Rules\FileRule::class,
         '/^(float)$/' => Rules\FloatRule::class,
+        '/^(image)$/' => Rules\ImageRule::class,
         '/^(int)$/' => Rules\IntRule::class,
         '/^(ip)$/' => Rules\IpRule::class,
         '/^(max):(\\d+)$/' => Rules\MaxRule::class,
