@@ -13,6 +13,7 @@ use Melonly\Exceptions\UnhandledError;
 use Melonly\Http\Method as HttpMethod;
 use Melonly\Http\Response;
 use Melonly\Http\Session;
+use Melonly\Support\Debug\Timer;
 use Melonly\Support\Helpers\Math;
 use Melonly\Routing\Router;
 use Throwable;
@@ -21,7 +22,7 @@ class Application {
     public static float $performance;
 
     public function __construct() {
-        define('PERFORMANCE_START', microtime(true));
+        $timer = new Timer();
 
         try {
             $this->initialize();
@@ -33,7 +34,7 @@ class Application {
                 require_once __DIR__ . '/../../routing/' . $file . '.php';
             }
 
-            self::$performance = microtime(true) - PERFORMANCE_START;
+            self::$performance = $timer->stop();
 
             $this->respondAndTerminate();
         } catch (Throwable $exception) {
