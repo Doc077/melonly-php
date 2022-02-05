@@ -96,8 +96,8 @@ class File {
         return pathinfo($path, PATHINFO_EXTENSION);
     }
 
-    public static function read(string $path): array|false {
-        return file($path);
+    public static function read(string $path, int $flags = 0): array|false {
+        return file($path, $flags);
     }
 
     public static function size(string $path): int|false {

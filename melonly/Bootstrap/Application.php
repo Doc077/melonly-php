@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Error;
 use Exception;
 use Melonly\Authentication\Facades\Auth;
+use Melonly\Config\EnvLoader;
 use Melonly\Container\Container;
 use Melonly\Encryption\Facades\Hash;
 use Melonly\Exceptions\Handler;
@@ -22,9 +23,9 @@ class Application {
     public static float $performance;
 
     public function __construct() {
-        $timer = new Timer();
-
         try {
+            $timer = new Timer();
+
             $this->initialize();
 
             ClassRegistrar::registerControllers();
@@ -77,9 +78,9 @@ class Application {
     }
 
     protected function initialize(): void {
-        Dotenv::createImmutable(__DIR__ . '/../..')->load();
-
         $this->registerHandlers();
+
+        Dotenv::createImmutable(__DIR__ . '/../..')->load();
 
         Session::start();
         Container::initialize();

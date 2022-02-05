@@ -680,6 +680,16 @@ PUSHER_CLUSTER=mt1
 ABLY_KEY=
 ```
 
+Install the choosen driver package:
+
+```shell
+> composer require pusher/pusher-php-server
+
+# or
+
+> composer require ably/ably-php
+```
+
 After configuration you may create your first broadcasts. Look how it works:
 
 ```php

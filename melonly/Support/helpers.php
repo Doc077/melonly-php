@@ -1,5 +1,6 @@
 <?php
 
+use Melonly\Config\Facades\Env;
 use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
@@ -59,15 +60,15 @@ if (!function_exists('dd')) {
 
 if (!function_exists('env')) {
     function env(string $key, mixed $default = null): mixed {
-        $value = $_ENV[$key];
-
-        if (!isset($value)) {
+        if (!array_key_exists($key, $_ENV)) {
             if ($default === null) {
-                throw new Exception("Env option '$key' is not set");
+                throw new Exception(".env option '$key' is not set");
             } else {
                 return $default;
             }
         }
+
+        $value = $_ENV[$key];
 
         if ($value === false) {
             throw new Exception("Env option '$key' is invalid");
