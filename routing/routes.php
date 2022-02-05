@@ -5,7 +5,7 @@ use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Routing\Facades\Route;
 
-Route::get('/', function (Request $request, Response $response): void {
+Route::get('/', function (Request $request, Response $response): void {dd('Some string', 456);
     $response->view('pages.home', [
         'ip' => $request->ip(),
     ]);

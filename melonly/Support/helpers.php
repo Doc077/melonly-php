@@ -3,7 +3,7 @@
 use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
-use Melonly\Support\Helpers\Json;
+use Melonly\Support\Debug\Dumper;
 use Melonly\Translation\Facades\Lang;
 use Melonly\Views\HtmlNodeString;
 
@@ -45,105 +45,7 @@ if (!function_exists('csrfToken')) {
 
 if (!function_exists('dump')) {
     function dump(...$variables): void {
-        print('<div style="padding: 14px 16px; background: #0d1c29; color: #ddd; font-family: Cascadia Mono, Consolas, monospace; font-size: 14px; border-radius: 10px; line-height: 1.6;">');
-        print('<div style="color: #b8bcc9; margin-bottom: 8px;">Dumped variables (' . count($variables) . '):</div>');
-
-        foreach ($variables as $variable) {
-            $type = gettype($variable);
-
-            $value = $variable;
-
-            switch ($type) {
-                case 'array':
-                    $value = '[' . implode(', ', $value) . ']' . '<span style="color: #e491fd;"> / ' . count($value) . ' item(s)</span>';
-
-                    break;
-
-                case 'string':
-                    $value = "'{$value}'" . '<span style="color: #e491fd;"> / ' . strlen($value) . ' character(s)</span>';
-
-                    break;
-
-                case 'boolean':
-                    $value = $value ? 'true' : 'false';
-
-                    break;
-
-                case 'object':
-                    $type = get_class($variable);
-
-                    $value = 'new ' . get_class($variable) . '()';
-
-                    break;
-
-                case 'NULL':
-                    $value = 'null';
-                    $type = 'null';
-
-                    break;
-            }
-
-            $arrayTypes = [];
-
-            if (is_array($variable)) {
-                $types = [];
-
-                foreach ($variable as $element) {
-                    if (gettype($element) === 'object') {
-                        $types[] = get_class($element);
-
-                        continue;
-                    }
-
-                    $types[] = strtolower(gettype($element));
-                }
-
-                $types = array_unique($types);
-
-                $arrayTypes = implode(', ', $types);
-            }
-
-            print('<div><span style="color: #e491fd;">' . $type . '</span>' . (is_array($variable) ? "&lt;<span style=\"color: #8ec6ff;\">{$arrayTypes}</span>&gt;" : '') . ': <span style="color: #a1cf7f;">' . (is_array($variable) ? '[' : $value) . '</span></div>');
-
-            if (is_array($variable)) {
-                foreach ($variable as $element) {
-                    print('<div style="width: 10px; margin-left: 20px;">');
-
-                    switch (gettype($element)) {
-                        case 'array':
-                            print('array');
-            
-                            break;
-            
-                        case 'string':
-                            print($element);
-            
-                            break;
-            
-                        case 'boolean':
-                            print($value ? 'true' : 'false');
-            
-                            break;
-            
-                        case 'object':
-                            $type = get_class($element);
-            
-                            print('new ' . get_class($element) . '()');
-            
-                            break;
-            
-                        case 'NULL':
-                            print('null');
-            
-                            break;
-                    }
-
-                    print('</div>');
-                }
-            }
-        }
-
-        print('</div>');
+        Dumper::dump(...$variables);
     }
 }
 
@@ -193,6 +95,22 @@ if (!function_exists('env')) {
     }
 }
 
+if (!function_exists('esc')) {
+    function esc(mixed $data): void {
+        if ($data instanceof HtmlNodeString) {
+            print($data);
+
+            return;
+        }
+
+        if ($data === null) {
+            return;
+        }
+
+        print(htmlspecialchars($data));
+    }
+}
+
 if (!function_exists('getNamespaceClasses')) {
     function getNamespaceClasses(string $namespace): array {
         $namespace .= '\\';
@@ -210,18 +128,6 @@ if (!function_exists('getNamespaceClasses')) {
         }
 
         return $classes;
-    }
-}
-
-if (!function_exists('printData')) {
-    function printData(mixed $data): void {
-        if ($data instanceof HtmlNodeString) {
-            print($data);
-
-            return;
-        }
-
-        print(htmlspecialchars($data));
     }
 }
 

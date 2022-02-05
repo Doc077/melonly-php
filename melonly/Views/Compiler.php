@@ -31,7 +31,7 @@ class Compiler {
     protected static array $stringExpressions = [
         '{{!' => '<?=',
         '!}}' => '?>',
-        '{{' => '<?= printData(',
+        '{{' => '<?= esc(',
         '}}' => ') ?>',
         '[[' => '<?= trans(',
         ']]' => ') ?>',
