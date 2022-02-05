@@ -37,12 +37,7 @@ class Router implements RouterInterface {
             return;
         }
 
-        /**
-         * Trim leading slash.
-         */
-        if ($uri[0] === '/') {
-            $uri = Str::substring($uri, 1);
-        }
+        $uri = $this->cleanPath($uri);
 
         /**
          * Convert HTTP method enum to string.
@@ -103,12 +98,7 @@ class Router implements RouterInterface {
     public function evaluate(): void {
         $uri = Container::get(Request::class)->uri();
 
-        /**
-         * Trim leading slash.
-         */
-        if ($uri[0] === '/') {
-            $uri = Str::substring($uri, 1);
-        }
+        $uri = $this->cleanPath($uri);
 
         /**
          * If URI requests a file, send it and return
@@ -123,6 +113,18 @@ class Router implements RouterInterface {
          * Check if URI matches with one of registered routes.
          */
         $this->checkMatchedRoute($uri);
+    }
+
+    protected function cleanPath(string $uri): string {
+        /**
+         * Trim leading slash.
+         */
+
+        if ($uri[0] === '/') {
+            $uri = Str::substring($uri, 1);
+        }
+
+        return $uri;
     }
 
     protected function checkMatchedRoute(string $uri): void {
@@ -157,7 +159,7 @@ class Router implements RouterInterface {
                  * Call controller method in case of array argument.
                  */
                 if (is_array($action)) {
-                    $this->handleController($action[0], $action[1]);
+                    $this->handleController($action[0], $action[1] ?? 'index');
                 }
 
                 /**
