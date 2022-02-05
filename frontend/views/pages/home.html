@@ -132,16 +132,18 @@
                 <MenuLogo />
         
                 <div class="menu__section">
+                    <a class="link" href="/">Home</a>
+
                     [if Auth::logged()]
                         <a class="link" href="/logout">Log out</a>
         
-                        [else]
-                            <a class="link" href="/login">Log in</a>
+                    [else]
+                        <a class="link" href="/login">Log in</a>
                     [endif]
         
                     <a class="link" href="https://github.com/Doc077/melonly" target="_blank">GitHub</a>
         
-                    <a class="link" href="https://github.com/Doc077/melonly/blob/7.x/README.md" target="_blank">Documentation</a>
+                    <a class="link" href="https://github.com/Doc077/melonly/blob/7.x/README.md" target="_blank">Docs</a>
                 </div>
             </nav>
         </header>
