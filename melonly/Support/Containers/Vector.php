@@ -5,6 +5,7 @@ namespace Melonly\Support\Containers;
 use ArrayAccess;
 use Countable;
 use Exception;
+use InvalidArgumentException;
 use Melonly\Support\Helpers\Json;
 
 class Vector implements ArrayAccess, Countable {
@@ -23,7 +24,7 @@ class Vector implements ArrayAccess, Countable {
 
             foreach ($array as $item) {
                 if ($type !== gettype($item)) {
-                    throw new Exception("Vector must store items of the same type");
+                    throw new InvalidArgumentException("Vector must store items of the same type");
                 }
             }
 
@@ -39,7 +40,7 @@ class Vector implements ArrayAccess, Countable {
 
             $this->firstTimeEmpty = false;
         } elseif (gettype($value) !== $this->type) {
-            throw new Exception("This vector can only store values of type {$this->type}");
+            throw new InvalidArgumentException("This vector can only store values of type {$this->type}");
         }
 
         $this->items[] = $value;
@@ -47,7 +48,7 @@ class Vector implements ArrayAccess, Countable {
 
     public function offsetSet(mixed $offset, mixed $value): void {
         if (is_string($offset)) {
-            throw new Exception("Vector offset must be type of int");
+            throw new InvalidArgumentException("Vector offset must be type of int");
         }
 
         $this->add($value);
@@ -63,7 +64,7 @@ class Vector implements ArrayAccess, Countable {
 
     public function offsetGet(mixed $offset): mixed {
         if (!is_int($offset)) {
-            throw new Exception("Vector offset must be type of int");
+            throw new InvalidArgumentException("Vector offset must be type of int");
         }
 
         return $this->items[$offset];

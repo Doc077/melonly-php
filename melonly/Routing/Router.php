@@ -119,7 +119,6 @@ class Router implements RouterInterface {
         /**
          * Trim leading slash.
          */
-
         if ($uri[0] === '/') {
             $uri = Str::substring($uri, 1);
         }
