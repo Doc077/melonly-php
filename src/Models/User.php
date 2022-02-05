@@ -16,6 +16,9 @@ class User extends Model {
     #[Column(type: 'string', nullable: true)]
     public $email;
 
+    #[Column(type: 'string')]
+    public $password;
+
     #[Column(type: 'datetime', nullable: true)]
     public $created_at;
 }

@@ -28,7 +28,6 @@ class Application {
             $this->initialize();
 
             ClassRegistrar::registerControllers();
-            ClassRegistrar::registerModels();
 
             foreach (config('routing.files') as $file) {
                 require_once __DIR__ . '/../../routing/' . $file . '.php';

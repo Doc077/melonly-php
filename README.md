@@ -42,7 +42,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Database](#database-1)
   - [Raw SQL Queries](#raw-sql-queries)
   - [Models](#models-1)
-    - [Retrieving data](#retrieving-data)
+    - [Retrieving Data](#retrieving-data)
     - [Creating Records](#creating-records)
   - [Migrations](#migrations)
 - [Validation](#validation)
@@ -401,7 +401,7 @@ $name = DB::query('select `name` from `users` where `id` = 1');
 
 ### Models
 
-#### Retrieving data
+#### Retrieving Data
 
 Due the fact Melonly is a MVC framework, it follows the Model pattern. Each table in your database can have corresponding 'Model'.
 
@@ -475,7 +475,7 @@ User::create([
 
 ### Migrations
 
-Melonly comes with basic built in table migration system. It currently supports only creating tables but we'll improve it in future releases.
+Melonly comes with basic built-in table migration system. It currently supports only creating tables but we'll improve it in future releases.
 
 To create new migration run ```melon``` command:
 
