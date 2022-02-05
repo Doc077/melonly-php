@@ -42,6 +42,8 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Database](#database-1)
   - [Raw SQL Queries](#raw-sql-queries)
   - [Models](#models-1)
+    - [Retrieving data](#retrieving-data)
+    - [Creating Records](#creating-records)
   - [Migrations](#migrations)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
@@ -388,7 +390,7 @@ Example Twig template
 
 ### Raw SQL Queries
 
-Handling databases in web applications cannot be easier than with Melonly. To execute raw SQL query, use ```DB``` interface.
+Handling databases in web applications is very important. Melonly provides a simple interface for querying data from database. To execute a raw SQL query, use ```DB``` facade:
 
 ```php
 use Melonly\Database\Facades\DB;
@@ -398,6 +400,8 @@ $name = DB::query('select `name` from `users` where `id` = 1');
 
 
 ### Models
+
+#### Retrieving data
 
 Due the fact Melonly is a MVC framework, it follows the Model pattern. Each table in your database can have corresponding 'Model'.
 
@@ -445,10 +449,28 @@ use App\Models\Post;
 
 $post = Post::where('id', '=', 1)->orWhere('title', 'like', '%PHP%')->fetch();
 
+$postsOrdered = Post::orderBy('created_at', 'desc')->limit(10)->fetch();
+
 $title = $post->title;
 ```
 
-As you can see, dealing with DB data is super easy with Melonly.
+As you can see, dealing with database is super easy with Melonly.
+
+
+#### Creating Records
+
+You can also create new records using models. Use the ```create``` method with passed array with column values to create data in your table:
+
+```php
+use App\Models\User;
+use Melonly\Encryption\Facades\Hash;
+
+User::create([
+    'name' => $username,
+    'email' => $email,
+    'password' => Hash::hash($password),
+]);
+```
 
 
 ### Migrations

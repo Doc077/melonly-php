@@ -7,7 +7,6 @@ use Melonly\Routing\Facades\Route;
 use App\Models\User;
 
 Route::get('/', function (Request $request, Response $response): void {
-    die(User::where('id', '=', 1)->fetch()->name);
     $response->view('pages.home', [
         'ip' => $request->ip(),
     ]);

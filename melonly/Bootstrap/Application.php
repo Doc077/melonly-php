@@ -6,7 +6,6 @@ use Dotenv\Dotenv;
 use Error;
 use Exception;
 use Melonly\Authentication\Facades\Auth;
-use Melonly\Config\EnvLoader;
 use Melonly\Container\Container;
 use Melonly\Encryption\Facades\Hash;
 use Melonly\Exceptions\Handler;
