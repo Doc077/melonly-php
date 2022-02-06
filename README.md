@@ -45,6 +45,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
     - [Retrieving Data](#retrieving-data)
     - [Creating Records](#creating-records)
   - [Migrations](#migrations)
+- [Authentication](#authentication)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
 - [Files](#files)
@@ -507,6 +508,74 @@ Migrations are stored in ```database/migrations``` directory. To run migrations 
 ```
 
 Open your database and look for changes.
+
+
+## Authentication
+
+Authentication (user login system) is very needed on modern web applications. Melonly ships with a simple auth system.
+
+All you need is to have users table in your database with e-mails and hashed passwords (see: [Hashing](#encryption--hashing)). You can create user record using DB model:
+
+```php
+use App\Models\User;
+use Melonly\Encryption\Facades\Hash;
+
+// Example user registration
+User::create([
+    'name' => $username,
+    'email' => $email,
+    'password' => Hash::hash($password),
+]);
+```
+
+Now let's create user HTML login form in your view:
+
+```html
+<form action="/login" method="post">
+    [csrf]
+
+    <input type="email" name="email" placeholder="email">
+    <input type="password" name="password" placeholder="password">
+
+    <button>Log in</button>
+</form>
+```
+
+Note that you have to include ```[csrf]``` field in the form to secure users from [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks. If you're using Twig template engine instead of the built-in one, just add this hidden input:
+
+```html
+<input type="hidden" name="csrf_token" value="{{ csrfToken() }}">
+```
+
+Now we can set up the POST ```/login``` route with authentication logic:
+
+```php
+use Melonly\Authentication\Facades\Auth;
+
+Route::post('/login', function (Request $request, Response $response): void {
+    $email = $request->get('email');
+    $password = $request->get('password');
+
+    // Redirect to home route if case of success
+    if (Auth::login($email, $password)) {
+        $response->redirect('/');
+
+        return;
+    }
+
+    // Redirect back to login form on failure
+    $response->redirect('/login');
+});
+```
+
+Now you can test the login system. When provided e-mail and password matches the database data, user will be authenticated. To log the user out, use the ```logout()``` method.
+
+```php
+Route::get('/logout', function (): void {
+    // Log out user and redirect to /login route
+    Auth::logout();
+});
+```
 
 
 ## Validation

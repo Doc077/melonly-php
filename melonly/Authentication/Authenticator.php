@@ -15,12 +15,12 @@ class Authenticator {
             return false;
         }
 
-        $user = DB::query("SELECT * FROM `users` WHERE `email` = '$email'");
+        $user = DB::query("select * from `users` where `email` = '$email'");
 
         /**
          * Validate password hash.
          */
-        if (count($user) > 0 && Hash::check($password, $user->password)) {
+        if (Hash::check($password, $user->password)) {
             Session::set('MELONLY_AUTHENTICATED', true);
             Session::set('MELONLY_AUTH_USER_DATA', get_object_vars($user));
 
@@ -32,8 +32,6 @@ class Authenticator {
         }
 
         Session::set('MELONLY_AUTHENTICATED', false);
-
-        redirect('/login');
 
         return false;
     }
