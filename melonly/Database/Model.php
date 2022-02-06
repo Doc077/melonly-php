@@ -22,12 +22,23 @@ abstract class Model {
         $values = [];
 
         foreach (get_object_vars($this) as $field => $value) {
-            $fields[] = $field;
-            $values[] = $value;
+            if ($field !== 'id' && $field !== 'created_at') {
+                self::validateFieldType($field, $value);
+
+                $fields[] = $field;
+                $values[] = $value;
+            }
+        }
+
+        /**
+         * Add id field if not provided.
+         */
+        if (!array_key_exists('id', $fields)) {
+            array_unshift($fields, 'id');
         }
 
         DB::query(
-            'insert into `' . self::getTable() . '` (id, ' . implode(',', $fields) . ') values (NULL, \'' . implode('\',\'', $values) . '\')'
+            'insert into `' . self::getTable() . '` (' . implode(',', $fields) . ') values (NULL, \'' . implode('\',\'', $values) . '\')'
         );
     }
 
@@ -117,7 +128,7 @@ abstract class Model {
          * 
          * Types are provided in model attributes.
          */
-        if (self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== ['datetime']) {
+        if (array_key_exists($field, self::$fieldTypes) && self::$fieldTypes[$field] !== 'id' && self::$fieldTypes[$field] !== ['datetime']) {
             foreach (self::$fieldTypes[$field] as $type) {
                 /**
                  * Allow nullable fields to be null.

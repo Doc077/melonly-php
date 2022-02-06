@@ -438,7 +438,7 @@ class Post extends Model {
 }
 ```
 
-Column data typing is done using the ```Column``` attribute. It is not required but considered a good practice.
+Column data typing is done using the ```Column``` attribute.
 
 Then if your database contains ```posts``` table, you can retrieve data from that table with model class. Melonly uses plural '-s' suffix by default to retrieve tables but it can be overwritten by setting ```protected $table``` property in a model.
 
@@ -470,6 +470,20 @@ User::create([
     'email' => $email,
     'password' => Hash::hash($password),
 ]);
+```
+
+Alternative way to create a record is to make a model instance with specified fields and ```save()``` method:
+
+```php
+use App\Models\User;
+
+$user = new User();
+
+$user->name = $username;
+$user->email = $email;
+$user->password = Hash::hash($password);
+
+$user->save();
 ```
 
 
