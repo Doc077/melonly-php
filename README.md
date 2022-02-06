@@ -2,9 +2,14 @@
 
 ## Melonly PHP Framework
 
+<a href="https://packagist.org/packages/melonly/melonly"><img src="https://img.shields.io/packagist/dt/melonly/melonly" alt="Downloads"></a>
+<a href="https://packagist.org/packages/melonly/melonly"><img src="https://img.shields.io/packagist/l/melonly/melonly" alt="License"></a>
+
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
 *COMING SOON*: Melonly documentation will be available on the [official site](https://melonly.dev).
+
+**Documentation | Table of Contents**
 
 - [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
@@ -31,7 +36,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Console Interface](#console-interface)
   - [Useful Melonly Console Commands](#useful-melonly-console-commands)
 - [Routing](#routing)
-  - [Basic Closure Routing](#basic-closure-routing)
+  - [Basic Routing with Callbacks](#basic-routing-with-callbacks)
   - [Routing Parameters](#routing-parameters)
   - [Controllers](#controllers-1)
 - [Views](#views)
@@ -118,14 +123,14 @@ Your application will be available on ```localhost:5000``` by default. If some o
 
 ## Directory Structure
 
-Default Melonly application structure consists of several main folders.
+Default Melonly application structure consists of several main folders:
 
 
 ### Root directory
 
 #### config
 
-This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using ```config(string $file, string $key)``` helper.
+This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using ```config($file, $key)``` helper.
 
 
 #### database
@@ -245,7 +250,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 
 ## Routing
 
-### Basic Closure Routing
+### Basic Routing with Callbacks
 
 To register application routes, edit ```routing/routes.php``` file.
 
@@ -260,10 +265,10 @@ Route::get('/my-route', function (Request $request, Response $response): void {
 As you can see, you can supply a simple callback with injected request & response objects to return some response.
 Enter the ```localhost:5000/my-route``` route and look for the result.
 
-You can also register multiple routes using array:
+You can also register multiple routes to the same action using array:
 
 ```php
-Route::get(['/home', '/login', 'register'], ...);
+Route::get(['/home', '/login', 'register'], function () ...);
 ```
 
 
@@ -866,4 +871,4 @@ We also encourage you to opening Issues and discussions on the repository.
 
 Melonly is licensed under the [MIT license](LICENSE).
 
-Author: Doc077 (dom.rajkowski@gmail.com)
+Author: [Doc077](https://github.com/Doc077) (dom.rajkowski@gmail.com)
