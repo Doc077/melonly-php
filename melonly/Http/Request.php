@@ -60,7 +60,11 @@ class Request {
     }
 
     public function get(string $key): mixed {
-        return $_SERVER['REQUEST_METHOD'] === 'GET' ? $_GET[$key] : $_POST[$key];
+        return $this->method() === 'GET' ? $_GET[$key] : $_POST[$key];
+    }
+
+    public function method(): string {
+        return $_SERVER['REQUEST_METHOD'];
     }
 
     public function setParameters(array $values): void {
