@@ -46,6 +46,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
     - [Creating Records](#creating-records)
   - [Migrations](#migrations)
 - [Authentication](#authentication)
+- [Session](#session)
 - [Validation](#validation)
 - [Making HTTP Requests](#making-http-requests)
 - [Files](#files)
@@ -537,8 +538,19 @@ Now let's create user HTML login form in your view:
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
 
+    <div>{{ $message }}</div>
+
     <button>Log in</button>
 </form>
+```
+
+```php
+Route::get('/login', function (Request $request, Response $response): void {
+    $response->view('pages.login', [
+        // Get message if authentication failed
+        'message' => $request->redirectData('message'),
+    ]);
+});
 ```
 
 Note that you have to include ```[csrf]``` field in the form to secure users from [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks. If you're using Twig template engine instead of the built-in one, just add this hidden input:
@@ -564,7 +576,8 @@ Route::post('/login', function (Request $request, Response $response): void {
     }
 
     // Redirect back to login form on failure
-    $response->redirect('/login');
+    // Pass error message
+    $response->redirect('/login', ['message' => 'Invalid e-mail or password.']);
 });
 ```
 
@@ -575,6 +588,27 @@ Route::get('/logout', function (): void {
     // Log out user and redirect to /login route
     Auth::logout();
 });
+```
+
+
+## Session
+
+HTTP session is a useful mechanism. You can store there some user data or other things. To manipulate HTTP session, use the ```Session``` class.
+
+```php
+use Melonly\Http\Session;
+
+// Set session variable
+Session::set('invalid_data', 'Password is invalid.');
+
+// Retrieve data
+$message = Session::get('invalid_data');
+
+// Check whether data is set or not
+$isset = Session::isSet('invalid_data');
+
+// Delete session data
+Session::unset('invalid_data');
 ```
 
 
