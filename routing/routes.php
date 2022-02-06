@@ -13,4 +13,4 @@ Route::get('/', function (Request $request, Response $response): void {
 });
 
 /** Controller route example */
-Route::get('/example/{id}', [Controllers\ExampleController::class, 'index']);
+Route::get('/example/{slug}', [Controllers\ExampleController::class, 'index']);
