@@ -56,11 +56,6 @@ return new class extends Command {
             </tr>
 
             <tr>
-                <td>new:page</td>
-                <td align="right">Create new HTML page template</td>
-            </tr>
-
-            <tr>
                 <td>new:service</td>
                 <td align="right">Create new service class</td>
             </tr>
@@ -77,7 +72,7 @@ return new class extends Command {
 
             <tr>
                 <td>new:view</td>
-                <td align="right">Create new view file</td>
+                <td align="right">Create new HTML view template</td>
             </tr>
         ');
 
