@@ -11,8 +11,5 @@ Route::get('/', function (Request $request, Response $response): void {
     ]);
 });
 
-Route::get('/users/{id}', function (Request $request, Response $response): void {
-    $response->send('User id: ', $request->parameter('id'));
-});
-
-Route::get('/example', [Controllers\ExampleController::class, 'index']);
+/** Controller route example. */
+Route::get('/example/{id}', [Controllers\ExampleController::class, 'index']);
