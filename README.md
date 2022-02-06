@@ -198,7 +198,7 @@ Default database models directory.
 
 #### Services
 
-Additional directory containing service pattern classes. It is not directly related to Melonly but it's rather a convention. If you don't use services you can delete this directory.
+Additional directory containing service pattern classes. It is not directly related to Melonly but it's rather a convention. To create this directory run ```php melon new:service``` command.
 
 
 #### Commands
