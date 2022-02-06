@@ -5,7 +5,16 @@
 </main>
 
 <footer class="footer">
-    <span>PHP {{ PHP_VERSION }} • Request IP: {{ $ip }}</span>
+    <div class="footer__tile">
+        <p class="footer__header">Information</p>
 
-    <a class="link" href="https://github.com/Doc077/melonly/blob/7.x/README.md" target="_blank">Documentation</a>
+        <span>Request IP: {{ $ip }}</span>
+        <span>PHP {{ PHP_VERSION }}</span>
+    </div>
+
+    <div class="footer__tile">
+        <p class="footer__header">Documentation</p>
+
+        <a class="link" href="https://github.com/Doc077/melonly/blob/7.x/README.md" target="_blank">Melonly Documentation</a>
+    </div>
 </footer>

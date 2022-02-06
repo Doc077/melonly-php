@@ -339,6 +339,7 @@ To display variable in a view, you can pass an array with supplied variable name
 Route::get('/dashboard', function (Request $request, Response $response): void {
     $response->view('pages.dashboard', [
         'username' => Auth::user()->name,
+        'array' => [1, 2, 3],
     ]);
 });
 ```
@@ -348,6 +349,8 @@ Then you may use it in the template:
 ```html
 <h1>Welcome, {{ $username }}</h1>
 ```
+
+Note that you cannot pass objects as a view variable when using the default engine.
 
 Melonly templates allow us to write simple PHP expressions directly in HTML.
 
