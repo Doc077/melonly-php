@@ -586,7 +586,15 @@ Route::post('/login', function (Request $request, Response $response): void {
 });
 ```
 
-Now you can test the login system. When provided e-mail and password matches the database data, user will be authenticated. To log the user out, use the ```logout()``` method.
+Now you can test the login system. When provided e-mail and password matches the database data, user will be authenticated.
+
+Retrieving authenticated user data is done using ```Auth::user()``` method which returns ```App\Models\User``` model.
+
+```php
+$username = Auth::user()->name;
+```
+
+To log the user out, use the ```logout()``` method.
 
 ```php
 Route::get('/logout', function (): void {
