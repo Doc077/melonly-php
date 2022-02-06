@@ -20,11 +20,14 @@ body {
     font-weight: 400;
     font-size: 24px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
 }
 
 .code {
     color: #10b981;
-    margin-right: 6px;
+    margin-right: 18px;
+    font-size: 52px;
 }
 
 @media (prefers-color-scheme: dark) {
