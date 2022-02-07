@@ -6,5 +6,6 @@ return [
      */
     'middleware' => [
         'auth' => \App\Middleware\Authenticated::class,
+        'guest' => \App\Middleware\Guest::class,
     ],
 ];

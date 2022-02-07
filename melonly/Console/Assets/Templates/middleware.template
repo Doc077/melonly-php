@@ -2,11 +2,12 @@
 
 namespace App\Middleware;
 
+use Melonly\Http\Request;
 use Melonly\Http\Response;
 
 class {{ class }}
 {
-    public function handle(Response $response): void
+    public function handle(Request $request, Response $response): void
     {
         // 
     }
