@@ -10,8 +10,8 @@ class ExampleController extends Controller
 {
     public function index(Request $request, Response $response): void
     {
-        $id = $request->parameter('slug');
+        $parameter = $request->parameter('slug');
 
-        $response->send('Example route. Slug parameter: ', $id);
+        $response->send('Example route | URI slug parameter: ', $parameter);
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Melonly\Http;
 
-use Exception;
 use Melonly\Filesystem\File;
-use Melonly\Http\Session;
 use Melonly\Views\Engine as ViewEngine;
 use Melonly\Views\View;
 
