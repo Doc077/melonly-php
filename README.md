@@ -9,7 +9,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
 
 *COMING SOON*: Melonly documentation will be available on the [official site](https://melonly.dev).
 
-**Documentation | Table of Contents**
+**Table of Contents | Documentation**
 
 - [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
@@ -33,8 +33,8 @@ Melonly is a fast, modern web application development framework for PHP. It make
     - [Services](#services)
     - [Commands](#commands)
     - [Emails](#emails)
-- [Console Interface](#console-interface)
-  - [Useful Melonly Console Commands](#useful-melonly-console-commands)
+- [Command Line Interface](#command-line-interface)
+  - [Useful Console Commands](#useful-console-commands)
 - [Routing](#routing)
   - [Basic Routing with Callbacks](#basic-routing-with-callbacks)
   - [Routing Parameters](#routing-parameters)
@@ -212,9 +212,9 @@ This directory doesn't exist by default. It contains your custom console command
 This directory doesn't exist by default as well. It contains application e-mail classes.
 
 
-## Console Interface
+## Command Line Interface
 
-### Useful Melonly Console Commands
+### Useful Console Commands
 
 Melonly ships with Melon CLI - terminal mode client for developers. It includes many useful commands during development. Using them you can quickly generate controllers, models or even custom commands. You can test some of them:
 
@@ -811,15 +811,15 @@ $json = Json::encode($data); // Return JSON object
 ```php
 dd('Some data'); // Get information about variable or some value and exit
 
-throwIf($condition, new Exception); // Throw an exception if condition is true
+throwIf($condition, new Exception()); // Throw an exception if condition is true
 
 redirect('/login'); // Redirect user to given URL
-
-redirectBack(); // Redirect user to previous location
 
 $vector = vector(1, 2, 3); // Create a new vector with provided values
 
 $message = trans('app.welcome'); // Get language translation
+
+$option = config('file.option'); // Retrieve config from file (config/...)
 ```
 
 
@@ -876,7 +876,7 @@ Install the choosen driver package:
 ```shell
 > composer require pusher/pusher-php-server
 
-# or
+# or:
 
 > composer require ably/ably-php
 ```
@@ -908,7 +908,9 @@ Then if your server supports "pointing" root path to choosen directory, set the 
 
 Melonly is an Open Source framework. If You want to make Melonly even better, we appreciate it. You can clone the repository and commit changes on created branch. Then open a new [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) and we'll merge them if it would be something valuable and error-free without any security vulnerabilities.
 
-We also encourage you to opening Issues and discussions on the repository.
+We also encourage you to opening issues and discussions on the repository.
+
+If you discovered a bug or security vulnerability please open issue / pull request or email: dom.rajkowski@gmail.com.
 
 
 ## License

@@ -1,6 +1,5 @@
 <?php
 
-use Melonly\Config\Facades\Env;
 use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
