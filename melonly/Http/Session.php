@@ -29,6 +29,22 @@ class Session {
         return isset($_SESSION[$key]);
     }
 
+    public static function flash(string $key, mixed $value): void {
+        self::set("FLASH_$key", $value);
+    }
+
+    public static function getFlash(string $key): mixed {
+        return self::get("FLASH_$key");
+    }
+
+    public static function hasFlash(string $key): bool {
+        return self::isSet("FLASH_$key");
+    }
+
+    public static function unsetFlash(string $key): void {
+        self::unset("FLASH_$key");
+    }
+
     public static function clear(): void {
         session_unset();
         session_destroy();

@@ -135,7 +135,7 @@ if (!function_exists('getNamespaceClasses')) {
 if (!function_exists('redirect')) {
     function redirect(string $url, array $data = []): never {
         foreach ($data as $key => $value) {
-            Session::set('MELONLY_FLASH_' . $key, $value);
+            Session::flash($key, $value);
         }
 
         header('Location: ' . $url);
@@ -147,7 +147,7 @@ if (!function_exists('redirect')) {
 if (!function_exists('redirectBack')) {
     function redirectBack(array $data = []): never {
         foreach ($data as $key => $value) {
-            Session::set('MELONLY_FLASH_' . $key, $value);
+            Session::flash($key, $value);
         }
 
         if (!isset($_SERVER['HTTP_REFERER'])) {

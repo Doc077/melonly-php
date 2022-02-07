@@ -80,10 +80,10 @@ class Request {
     }
 
     public function redirectData(string $name): mixed {
-        if (Session::isSet('MELONLY_FLASH_' . $name)) {
-            $value = Session::get('MELONLY_FLASH_' . $name);
+        if (Session::hasFlash($name)) {
+            $value = Session::getFlash($name);
 
-            Session::unset('MELONLY_FLASH_' . $name);
+            Session::unsetFlash($name);
 
             return $value;
         }
