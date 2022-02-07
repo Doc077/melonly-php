@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Melonly\Exceptions\Exception;
 
-class {{ class }} extends Exception
+class ExampleException extends Exception
 {
     // 
 }
