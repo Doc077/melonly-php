@@ -295,19 +295,22 @@ After entering to ```/users/356``` path you will see "User id: 356".
 Rather than passing closures to route definitions there is more common to use ```controller``` classes. Melonly utilizes MVC structure so controllers are supported out of the box. To create basic controller run command:
 
 ```shell
-php melon new:controller ControllerName
+php melon new:controller SomeController
 ```
 
-It will create a new file: ```src/Controllers/ControllerName.php``` with the following structure:
+It will create a new file: ```src/Controllers/SomeController.php``` with the following structure:
 
 ```php
 namespace App\Controllers;
 
+use Melonly\Http\Controller;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 
-class ControllerName {
-    public function index(Request $request, Response $response): void {
+class SomeController extends Controller
+{
+    public function index(Request $request, Response $response): void
+    {
         // 
     }
 }
@@ -468,7 +471,8 @@ use Melonly\Database\Attributes\Column;
 use Melonly\Database\Attributes\PrimaryKey;
 use Melonly\Database\Model;
 
-class Post extends Model {
+class Post extends Model
+{
     #[PrimaryKey]
     public $id;
 
