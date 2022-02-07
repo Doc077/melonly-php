@@ -10,7 +10,7 @@ return new class implements MigrationInterface
 {
     public function setup(): Schema
     {
-        return Schema::createTable('table_name', function (Table $table) {
+        return Schema::createTable('{{ table }}', function (Table $table): void {
             $table->id('id');
             $table->string('field');
             $table->timestamp('created_at');

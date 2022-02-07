@@ -10,7 +10,7 @@ return new class implements MigrationInterface
 {
     public function setup(): Schema
     {
-        return Schema::createTable('users', function (Table $table) {
+        return Schema::createTable('users', function (Table $table): void {
             $table->id();
             $table->string('name');
             $table->string('email');
