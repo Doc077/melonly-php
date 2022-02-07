@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
+use Melonly\Http\Controller;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 
-class ExampleController
+class ExampleController extends Controller
 {
     public function index(Request $request, Response $response): void
     {
