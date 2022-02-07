@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Middleware;
+
+use Melonly\Http\Response;
+
+class {{ class }} {
+    public function handle(Response $response): void {
+        // 
+    }
+}

@@ -39,6 +39,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
   - [Basic Routing with Callbacks](#basic-routing-with-callbacks)
   - [Routing Parameters](#routing-parameters)
   - [Controllers](#controllers-1)
+  - [Middleware](#middleware)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
   - [Passing Variables](#passing-variables)
@@ -321,6 +322,37 @@ Route::get('/users', [ControllerName::class, 'index']);
 ```
 
 Now on specified ```/users``` route Melonly will invoke ```index``` method from ```ControllerName```.
+
+
+### Middleware
+
+Middleware can be used for filtering incoming requests or performing some actions on route enter. You can assign middleware to routes passing array argument to route definition.
+
+Melonly provides built-in middleware ```auth``` which checks if user is logged in. If not, the user will be redirected to ```/login``` route.
+
+```php
+Route::get('/profile', [UserController::class, 'show'], ['middleware' => 'auth']);
+```
+
+To create custom middleware you can run Melon command:
+
+```shell
+> php melon new:middleware MiddlewareName
+```
+
+Then register middleware alias in ```config/http.php```:
+
+```php
+'middleware' => [
+    'middleware_alias' => \App\Middleware\MiddlewareName::class,
+],
+```
+
+Middleware is stored in ```src/Middleware``` directory. Edit created file and you'll be able to use new middleware:
+
+```php
+Route::get('/users', [ControllerName::class, 'index'], ['middleware' => 'middleware_alias']);
+```
 
 
 ## Views

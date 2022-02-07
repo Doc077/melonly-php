@@ -56,10 +56,19 @@ class Router implements RouterInterface {
         $pattern = '/^' . $method . Str::replace('/', '\/', $pattern) . '$/';
 
         /**
-         * Add route data to static arrays.
+         * Register route data.
          */
         $this->patterns[$pattern] = $pattern;
         $this->actions[$pattern] = $action;
+
+        /**
+         * Assign middleware to route.
+         */
+        foreach ($data as $key => $value) {
+            if ($key === 'middleware') {
+                $this->middleware[$pattern] = $value;
+            }
+        }
     }
 
     public function get(string|array $uri, callable|array $action, array $data = []): void {
@@ -168,7 +177,7 @@ class Router implements RouterInterface {
                     $this->handleClosure($pattern);
                 }
 
-                $this->returnResponse();
+                $this->returnResponse($pattern);
 
                 break;
             }
@@ -236,7 +245,26 @@ class Router implements RouterInterface {
         print(readfile(__DIR__ . '/../../' . config('app.public') . '/' . $uri));
     }
 
-    protected function returnResponse(): void {
+    protected function handleMiddleware(string $pattern): void {
+        $class = config('http.middleware')[$this->middleware[$pattern]];
+
+        $classReflection = new ReflectionClass($class);
+
+        $closure = $classReflection->getMethod('handle')->getClosure(new $class());
+
+        $services = Container::resolveDependencies($closure);
+
+        (new $class())->handle(...$services);
+    }
+
+    protected function returnResponse(string $pattern): void {
+        /**
+         * Handle route middleware if defined.
+         */
+        if (array_key_exists($pattern, $this->middleware)) {
+            $this->handleMiddleware($pattern);
+        }
+
         /**
          * Render view or show raw response data.
          */
