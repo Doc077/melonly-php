@@ -118,7 +118,7 @@ Your application will be available on ```localhost:5000``` by default. If some o
 ```shell
 # Run server on port 8000
 
-> php melon server 8000
+> php melon server --port=8000
 ```
 
 

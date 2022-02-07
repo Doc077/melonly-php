@@ -46,15 +46,15 @@ class Str {
     }
 
     public static function contains(string $search, string $string): bool {
-        return (bool) str_contains($search, $string);
+        return str_contains($search, $string);
     }
 
     public static function startsWith(string $search, string $string): bool {
-        return (bool) str_starts_with($search, $string);
+        return str_starts_with($search, $string);
     }
 
     public static function endsWith(string $search, string $string): bool {
-        return (bool) str_ends_with($search, $string);
+        return str_ends_with($search, $string);
     }
 
     public static function replace(string $from, string $to, string $string): string {

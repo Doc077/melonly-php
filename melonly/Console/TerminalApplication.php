@@ -11,27 +11,37 @@ class TerminalApplication {
 
     protected array $arguments = [];
 
+    protected array $flags = [];
+
     public function __construct() {
         global $argv;
 
         foreach ($argv as $argument) {
+            if ($argument[0] === '-') {
+                $flag = explode('=', ltrim($argument, '-'));
+
+                $this->flags[$flag[0]] = $flag[1] ?? null;
+
+                continue;
+            }
+
             $this->arguments[] = $argument;
         }
 
         $this->bootstrap();
 
-        $this->registerDefaultCommand();
-
         /**
          * Handle version variants command.
          */
-        if ($this->arguments[1] === '-v' || $this->arguments[1] === '--version') {
+        if (array_key_exists('v', $this->flags) || array_key_exists('version', $this->flags)) {
             $command = require_once __DIR__ . '/Commands/VersionCommand.php';
 
             (new $command())->handle();
 
             exit();
         }
+
+        $this->registerDefaultCommand();
 
         /**
          * Call the corresponding command function.

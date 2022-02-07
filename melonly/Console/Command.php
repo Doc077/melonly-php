@@ -10,10 +10,20 @@ abstract class Command {
 
     protected array $arguments = [];
 
+    protected array $flags = [];
+
     public function __construct() {
         global $argv;
 
         foreach ($argv as $argument) {
+            if ($argument[0] === '-') {
+                $flag = explode('=', ltrim($argument, '-'));
+
+                $this->flags[$flag[0]] = $flag[1] ?? null;
+
+                continue;
+            }
+
             $this->arguments[] = $argument;
         }
     }

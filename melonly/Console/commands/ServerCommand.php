@@ -12,8 +12,8 @@ return new class extends Command {
     public function handle(): void {
         $port = 5000;
 
-        if (isset($this->arguments[2]) && (int) $this->arguments[2] !== $port) {
-            $port = $this->arguments[2];
+        if (isset($this->flags['port']) && (int) $this->flags['port'] !== $port) {
+            $port = $this->flags['port'];
         }
 
         $this->infoBlock("Starting Melonly development server [localhost:$port]");

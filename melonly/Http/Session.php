@@ -4,7 +4,9 @@ namespace Melonly\Http;
 
 class Session {
     public static function start(): void {
-        session_start();
+        if (php_sapi_name() !== 'cli') {
+            session_start();
+        }
     }
 
     public static function get(string $key): mixed {
