@@ -13,7 +13,7 @@ class Schema {
         return $this->table->getFields();
     }
 
-    public static function createTable(string $name, callable $callback): self {
+    public static function table(string $name, callable $callback): self {
         $table = new Table();
 
         $callback($table);

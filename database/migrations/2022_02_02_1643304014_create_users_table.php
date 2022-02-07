@@ -1,7 +1,5 @@
 <?php
 
-namespace Database\Migrations;
-
 use Melonly\Database\Schema;
 use Melonly\Database\Table;
 use Melonly\Interfaces\MigrationInterface;
@@ -10,7 +8,7 @@ return new class implements MigrationInterface
 {
     public function setup(): Schema
     {
-        return Schema::createTable('users', function (Table $table): void {
+        return Schema::table('users', function (Table $table): void {
             $table->id();
             $table->string('name');
             $table->string('email');
