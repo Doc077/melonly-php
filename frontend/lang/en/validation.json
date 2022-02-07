@@ -1,10 +1,12 @@
 {
+    "accepted": "Field {field} must be accepted",
     "alphanumeric": "Field {field} must consist of alphanumeric characters",
     "bool": "Field {field} must be a boolean",
     "domain": "Field {field} must be a valid domain name",
     "email": "Field {field} must be a valid e-mail address",
     "file": "Field {field} must be a file",
     "float": "Field {field} must be a float number",
+    "image": "Field {field} must be an image file",
     "int": "Field {field} must be an integer",
     "ip": "Field {field} must be a valid IP address",
     "max_number": "Field {field} must be less than {value}",
