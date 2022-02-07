@@ -22,4 +22,4 @@ Application::start();
 
     Documentation: melonly.dev/docs
     Repository: https://github.com/Doc077/melonly
-*/
+ */

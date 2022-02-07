@@ -6,7 +6,8 @@ use Melonly\Database\Attributes\Column;
 use Melonly\Database\Attributes\PrimaryKey;
 use Melonly\Database\Model;
 
-class User extends Model {
+class User extends Model
+{
     #[PrimaryKey]
     public $id;
 

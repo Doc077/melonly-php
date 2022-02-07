@@ -4,12 +4,14 @@ namespace App\Emails;
 
 use Melonly\Interfaces\MailInterface;
 
-class {{ class }} implements MailInterface {
+class {{ class }} implements MailInterface
+{
     protected string $content = '
         Custom e-mail
     ';
 
-    public function send(): string {
+    public function send(): string
+    {
         return $this->content;
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
-class {{ class }} {
-    public function index() {
+class {{ class }}
+{
+    public function index()
+    {
         // 
     }
 }

@@ -4,8 +4,10 @@ namespace Tests\Unit;
 
 use Melonly\Testing\TestCase;
 
-class {{ class }} extends TestCase {
-    public function assertThatTrueIsTrue(): void {
+class {{ class }} extends TestCase
+{
+    public function assertThatTrueIsTrue(): void
+    {
         $this->assertTrue(true);
     }
 }

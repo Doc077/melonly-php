@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use Melonly\Testing\TestCase;
 
-class {{ class }} extends TestCase {
-    public function assertThatRouteReturnsSuccessfulStatus(): void {
+class {{ class }} extends TestCase
+{
+    public function assertThatRouteReturnsSuccessfulStatus(): void
+    {
         $response = $this->get('/');
 
         $this->assertEquals(200, $response->status());
