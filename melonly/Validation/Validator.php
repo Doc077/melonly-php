@@ -52,6 +52,7 @@ class Validator implements ValidatorInterface {
             foreach ($rules as $rule) {
                 if (!empty($_POST[$field]) && !$this->isValidForRule($_POST[$field], $rule, $field)) {
                     Container::get(Response::class)->status(Status::UnprocessableEntity);
+                    Container::get(Response::class)->redirectBack();
 
                     return false;
                 }
