@@ -9,5 +9,5 @@ Route::get('/', function (Request $request, Response $response): void {
     $response->view('pages.home', ['ip' => $request->ip()]);
 });
 
-/** Controller route example */
+# Controller route example
 Route::get('/example/{slug}', [Controllers\ExampleController::class, 'index']);
