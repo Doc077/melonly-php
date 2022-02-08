@@ -29,6 +29,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
   - [```src/``` Directory](#src-directory)
     - [Controllers](#controllers)
     - [Exceptions](#exceptions)
+    - [Middleware](#middleware)
     - [Models](#models)
     - [Services](#services)
     - [Commands](#commands)
@@ -39,7 +40,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
   - [Basic Routing with Callbacks](#basic-routing-with-callbacks)
   - [Routing Parameters](#routing-parameters)
   - [Controllers](#controllers-1)
-  - [Middleware](#middleware)
+  - [Middleware](#middleware-1)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
   - [Passing Variables](#passing-variables)
@@ -189,7 +190,12 @@ Default HTTP controllers directory.
 
 #### Exceptions
 
-Application exceptions folder.
+Application exceptions are stored there. To create new exception run ```php melon new:exception SomeException``` command.
+
+
+#### Middleware
+
+All generated and built-in middleware is stored in this directory.
 
 
 #### Models
