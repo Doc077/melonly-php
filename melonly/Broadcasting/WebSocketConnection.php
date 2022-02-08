@@ -8,11 +8,11 @@ class WebSocketConnection implements WebSocketConnectionInterface {
     protected mixed $broadcaster = null;
 
     public function __construct() {
-        switch (config('websockets.driver')) {
+        switch (config('websocket.driver')) {
             case 'pusher':
-                if (config('websockets.pusher_key') && config('websockets.pusher_secret') && config('websockets.pusher_app_id')) {
-                    $this->broadcaster = new PusherDriver(config('websockets.pusher_key'), config('websockets.pusher_secret'), config('websockets.pusher_app_id'), [
-                        'cluster' => config('websockets.pusher_cluster') ?? 'eu',
+                if (config('websocket.pusher_key') && config('websocket.pusher_secret') && config('websocket.pusher_id')) {
+                    $this->broadcaster = new PusherDriver(config('websocket.pusher_key'), config('websocket.pusher_secret'), config('websocket.pusher_id'), [
+                        'cluster' => config('websocket.pusher_cluster') ?? 'eu',
                         'useTLS' => true,
                     ]);
                 }
@@ -21,7 +21,7 @@ class WebSocketConnection implements WebSocketConnectionInterface {
 
             case 'ably':
                 $settings = [
-                    'key' => config('websockets.ably_key'),
+                    'key' => config('websocket.ably_key'),
                 ];
 
                 if (class_exists('Ably\AblyRest')) {

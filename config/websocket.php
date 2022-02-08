@@ -16,7 +16,7 @@ return [
     /**
      * Pusher driver credentials.
      */
-    'pusher_app_id' => env('PUSHER_APP_ID'),
+    'pusher_id' => env('PUSHER_APP_ID'),
     'pusher_cluster' => env('PUSHER_CLUSTER'),
     'pusher_key' => env('PUSHER_KEY'),
     'pusher_secret' => env('PUSHER_SECRET_KEY'),
