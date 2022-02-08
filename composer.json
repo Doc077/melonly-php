@@ -35,7 +35,6 @@
         "psr-4": {
             "Melonly\\": "melonly/",
             "App\\": "src/",
-            "Database\\": "database/",
             "Tests\\": "tests/"
         },
         "files": [
