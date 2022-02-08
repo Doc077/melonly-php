@@ -46,6 +46,11 @@ return new class extends Command {
             </tr>
 
             <tr>
+                <td>new:middleware</td>
+                <td align="right">Create new middleware</td>
+            </tr>
+
+            <tr>
                 <td>new:migration</td>
                 <td align="right">Create new database migration</td>
             </tr>
@@ -89,6 +94,11 @@ return new class extends Command {
             <tr>
                 <td>cache:clear</td>
                 <td align="right">Clear cache</td>
+            </tr>
+
+            <tr>
+                <td>command:list</td>
+                <td align="right">Get built-in command list</td>
             </tr>
 
             <tr>

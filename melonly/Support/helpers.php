@@ -47,6 +47,12 @@ if (!function_exists('csrfToken')) {
     }
 }
 
+if (!function_exists('directoryUp')) {
+    function directoryUp(string $directory): string {
+        return dirname($directory, 1);
+    }
+}
+
 if (!function_exists('dump')) {
     function dump(...$variables): void {
         Dumper::dump(...$variables);

@@ -7,6 +7,11 @@ return [
     'compress' => env('OUTPUT_COMPRESS'),
 
     /**
+     * Filesystem base directory.
+     */
+    'base_path' => directoryUp(__DIR__),
+
+    /**
      * Show exception page or HTTP 500 error.
      */
     'development' => env('APP_DEVELOPMENT'),
