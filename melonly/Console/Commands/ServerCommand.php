@@ -10,7 +10,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $port = 5000;
+        $port = config('console.server_port', 5000);
 
         if (isset($this->flags['port']) && (int) $this->flags['port'] !== $port) {
             $port = $this->flags['port'];

@@ -1,5 +1,6 @@
 <?php
 
+use Melonly\Config\Entry;
 use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
@@ -14,7 +15,7 @@ if (!function_exists('__')) {
 }
 
 if (!function_exists('config')) {
-    function config(string $key): mixed {
+    function config(string $key, mixed $default = Entry::Unset): mixed {
         $parts = explode('.', $key);
 
         $file = __DIR__ . '/../../config/' . $parts[0] . '.php';
@@ -26,7 +27,10 @@ if (!function_exists('config')) {
         $data = require $file;
 
         if (!array_key_exists($parts[1], $data)) {
-            throw new Exception("Configuration key '$key' is not set");
+            if ($default === Entry::Unset)
+                throw new Exception("Configuration key '$key' is not set");
+            else
+                return $default;
         }
 
         return $data[$parts[1]];

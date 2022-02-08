@@ -225,7 +225,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 ```
 
 ```shell
-# Create new controller file
+# Create new controller
 
 > php melon new:controller PostController
 ```
@@ -282,8 +282,8 @@ Retrieving parameters is done using ```parameter()``` method from ```Request``` 
 ```php
 use Melonly\Routing\Facades\Route;
 
-Route::get('/users/{userId}', function (Request $request, Response $response): void {
-    $response->send('User id: ', $request->parameter('userId'));
+Route::get('/users/{id}', function (Request $request, Response $response): void {
+    $response->send('User id: ', $request->parameter('id'));
 });
 ```
 
