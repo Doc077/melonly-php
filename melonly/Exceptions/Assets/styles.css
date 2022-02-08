@@ -33,7 +33,7 @@
 
 body {
     margin: 0;
-    background: #0d1c29;
+    background: #0a141c;
     color: #fff;
     font-family: 'DM Sans', 'Segoe UI Variable Text', 'Segoe UI', sans-serif;
     line-height: 1.8;
@@ -43,7 +43,7 @@ body {
 }
 
 .container {
-    background: #142531;
+    background: #142028;
     border-radius: 6px;
     padding: 36px 50px;
     width: calc(100vw - 500px);
@@ -59,7 +59,7 @@ body {
 }
 
 .topbar__type {
-    background: #0d1c29;
+    background: #0a141c;
     display: inline-block;
     padding: 7px 14px;
     border-radius: 5px;
