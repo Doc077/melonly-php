@@ -64,7 +64,7 @@ class TerminalApplication {
 
     protected function registerDefaultCommand(): void {
         if ($this->isArgumentListEmpty()) {
-            $command = require_once __DIR__ . '/Commands/InfoCommand.php';
+            $command = require_once __DIR__ . '/Commands/CommandListCommand.php';
 
             (new $command())->handle();
 

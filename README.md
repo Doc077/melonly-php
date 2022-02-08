@@ -245,7 +245,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 ```shell
 # Get list of all built-in commands
 
-> php melon info
+> php melon command:list
 ```
 
 

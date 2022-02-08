@@ -2,7 +2,7 @@
 
 return [
     /**
-     * Database system credentials.
+     * Database credentials.
      */
     'database' => env('DB_DATABASE'),
     'host' => env('DB_HOST'),
