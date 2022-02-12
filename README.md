@@ -17,7 +17,7 @@ Melonly is a fast and modern web application development framework for PHP. It m
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Application & Development](#running-application--development)
-- [Directory Structure](#directory-structure)
+- [App Directory Structure](#app-directory-structure)
   - [Root directory](#root-directory)
     - [`/config`](#config)
     - [`/database`](#database)
@@ -61,12 +61,12 @@ Melonly is a fast and modern web application development framework for PHP. It m
 - [Files](#files)
   - [Image files](#image-files)
 - [Helpers](#helpers)
-  - [String Helpers](#string-helpers)
-  - [Time Manipulation Helpers](#time-manipulation-helpers)
+  - [String Manipulation](#string-manipulation)
+  - [Date and Time Manipulation](#date-and-time-manipulation)
   - [UUID Generation](#uuid-generation)
-  - [JSON Helpers](#json-helpers)
+  - [JSON](#json)
   - [Other Helpers](#other-helpers)
-- [Encryption & Hashing](#encryption--hashing)
+- [Encryption and Hashing](#encryption-and-hashing)
 - [Sending Emails](#sending-emails)
 - [WebSockets & Broadcasting](#websockets--broadcasting)
 - [Deployment](#deployment)
@@ -91,44 +91,28 @@ Melonly is a fast and modern web application development framework for PHP. It m
 To create a fresh Melonly project use the `composer` installer:
 
 ```shell
-> cd <path-to-directory>
-
 > composer create-project melonly/melonly <app-name>
 
 > cd <app-name>
 ```
 
-Once your application has been created you can run it locally:
-
-```shell
-> php melon server
-```
-
-Optionally if you'll be using Node.js or React/Sass frontend libraries, run `npm install` command:
-
-```shell
-> npm install
-```
-
 
 ## Running Application & Development
 
-To run your application on local environment, use the command line:
+Once your application project has been created you can run it on the local server:
 
 ```shell
 > php melon server
 ```
 
-Your application will be available on `localhost:5000` by default. If some other program uses this port, you can change it to your own:
+Your application will be available on `localhost:5000` by default. If this port is already used by some application, you can change it to another, like `3000` or `8000`:
 
 ```shell
-# Run server on port 8000
-
 > php melon server --port=8000
 ```
 
 
-## Directory Structure
+## App Directory Structure
 
 Default Melonly application structure consists of several main folders:
 
@@ -157,7 +141,7 @@ This folder contains Melonly framework files. You don't need to edit anything th
 
 #### `/plugins`
 
-In this directory are stored installed `Composer` packages.
+`Composer` packages are installed there.
 
 
 #### `/public`
@@ -264,7 +248,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 
 ### Basic Routing with Callbacks
 
-To register application routes, edit `routing/routes.php` file.
+To register application routes, edit the `routing/routes.php` file.
 
 ```php
 use Melonly\Routing\Facades\Route;
@@ -358,14 +342,14 @@ Then register middleware alias in `config/http.php`:
 
 ```php
 'middleware' => [
-    'middleware_alias' => \App\Middleware\MiddlewareName::class,
+    'your_alias' => \App\Middleware\MiddlewareName::class,
 ],
 ```
 
 Middleware is stored in `src/Middleware` directory. Edit created file and you'll be able to use new middleware:
 
 ```php
-Route::get('/users', [ControllerName::class, 'index'], ['middleware' => 'middleware_alias']);
+Route::get('/users', [ControllerName::class, 'index'], ['middleware' => 'your_alias']);
 ```
 
 
@@ -499,7 +483,7 @@ Column data typing is done using the `Column` attribute.
 
 Then if your database contains `posts` table, you can retrieve data from that table with model class. Melonly uses plural '-s' suffix by default to retrieve tables but it can be overwritten by setting `protected $table` property in a model.
 
-By chaining methods it is possible to create complex `where` clauses. Some of available methods are: `where`, `orWhere`, `orderBy`. Data returned by the `fetch()` method is type of `vector` (in case of single result it is an instance of `Melonly\Database\Record`).
+By chaining methods it is possible to create complex `where` clauses. Some of available methods are: `where`, `orWhere`, `orderBy`. Data returned by the `fetch()` method is type of `Vector` (in case of single result it is an instance of `Record` or your model).
 
 ```php
 use App\Models\Post;
@@ -510,8 +494,6 @@ $postsOrdered = Post::orderBy('created_at', 'desc')->limit(10)->fetch();
 
 $title = $post->title;
 ```
-
-As you can see, dealing with database is super easy with Melonly.
 
 
 #### Creating Records
@@ -543,10 +525,12 @@ $user->password = Hash::hash($password);
 $user->save();
 ```
 
+As you can see, dealing with database is super easy with Melonly.
+
 
 ### Migrations
 
-Melonly comes with basic built-in table migration system. It currently supports only creating tables but we'll improve it in future releases.
+Melonly comes with basic built-in table migration system. It currently supports only creating tables but it will be improved in future releases.
 
 To create new migration run `melon` command:
 
@@ -679,7 +663,7 @@ Request data validation with Melonly is super easy. Look how it works:
 ```php
 use Melonly\Validation\Facades\Validate;
 
-// In some route definition
+// In some route definition or controller
 Validate::check([
     'username' => ['required', 'min:3', 'max:30', 'alphanumeric'],
     'email' => ['email', 'max:30'],
@@ -751,7 +735,7 @@ File::copy($path, 'new/file/path.jpg');
 
 ### Image files
 
-Melonly utilizes [Intervention Image](https://image.intervention.io/v2) library for image manipulation. You can use `ImageFile` helper to manage `jpg`, `png` and `gif` image files.
+Melonly utilizes [Intervention/Image](https://image.intervention.io/v2) library for image manipulation. You can use `Image` helper to manage `.jpg`, `.png` and `.gif` image files.
 
 ```php
 use Melonly\Filesystem\Image;
@@ -767,7 +751,7 @@ $image->save('image.jpg');
 
 Melonly includes many useful global functions / helpers used by Melonly internally. But you can use them in your code if you find it convinient.
 
-### String Helpers
+### String Manipulation
 
 ```php
 use Melonly\Support\Helpers\Str;
@@ -785,7 +769,7 @@ $string = Str::pascalCase($string); // Output: 'LoremIpsum'
 ```
 
 
-### Time Manipulation Helpers
+### Date and Time Manipulation
 
 Melonly uses [Carbon](https://carbon.nesbot.com/docs/) to manipulate date and time under the hood.
 
@@ -806,7 +790,7 @@ $id = Uuid::v4();
 ```
 
 
-### JSON Helpers
+### JSON
 
 ```php
 use Melonly\Support\Helpers\Json;
@@ -834,7 +818,7 @@ $option = config('file.option_name'); // Retrieve option from config file
 ```
 
 
-## Encryption & Hashing
+## Encryption and Hashing
 
 On backend you'll often need to encrypt or hash some data, e.g. user password in database. Look how it works:
 
@@ -905,9 +889,9 @@ Then on the client side you can listen for broadcasted events using your driver.
 
 ## Deployment
 
-When moving to server from local environment you'll need to adjust some settings. Firstly, change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking some code visible on exception page.
+When you're moving to server from the local environment, you will need to change serveral settings. Firstly let's change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking code snippets visible on dev exception page.
 
-Then if your server supports "pointing" root path to choosen directory, set the pointer to `public` folder. If not, upload all files except these inside `public` to a directory **above** your server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory.
+Then if your server supports "pointing" root path to choosen folders, set the pointer to `public` directory. If it's not available, you have to upload all files (except these inside `public`) to a directory **above** your public server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory.
 
 
 ## Documentation
@@ -930,6 +914,8 @@ Melonly is licensed under the [MIT license](melonly/LICENSE).
 
 Author: [Doc077](https://github.com/Doc077) (dom.rajkowski@gmail.com)
 
+<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40"></a>
+&nbsp;&nbsp;&nbsp;
 <a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" width="48"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" width="44"></a>
