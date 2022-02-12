@@ -16,9 +16,9 @@ Melonly is a fast and modern web application development framework for PHP. It m
 - [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Running Application & Development](#running-application--development)
+- [Running Application](#running-application)
 - [App Directory Structure](#app-directory-structure)
-  - [Root directory](#root-directory)
+  - [Root Directory](#root-directory)
     - [`/config`](#config)
     - [`/database`](#database)
     - [`/frontend`](#frontend)
@@ -97,7 +97,7 @@ To create a fresh Melonly project use the `composer` installer:
 ```
 
 
-## Running Application & Development
+## Running Application
 
 Once your application project has been created you can run it on the local server:
 
@@ -117,7 +117,7 @@ Your application will be available on `localhost:5000` by default. If this port 
 Default Melonly application structure consists of several main folders:
 
 
-### Root directory
+### Root Directory
 
 #### `/config`
 
@@ -126,7 +126,7 @@ This directory contains configuration files for your application. You can create
 
 #### `/database`
 
-In this directory are created database migrations. You can also store `sqlite` database here.
+In this directory are created database migrations. You can store `sqlite` database here.
 
 
 #### `/frontend`
@@ -136,12 +136,12 @@ There are placed all files related to frontend side like views or uncompiled sty
 
 #### `/melonly`
 
-This folder contains Melonly framework files. You don't need to edit anything there.
+This folder contains framework files. You don't need to change anything there.
 
 
 #### `/plugins`
 
-`Composer` packages are installed there.
+Composer packages are installed there.
 
 
 #### `/public`
@@ -161,7 +161,7 @@ There are placed cache and temporary files.
 
 #### `/tests`
 
-This testing directory does not exist by default. It can be created by running command:
+This directory should contain test files. It does not exist by default but can be created by running command:
 
 ```shell
 > php melon test:template
@@ -217,6 +217,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 # Display information about framework version
 
 > php melon -v
+> php melon --version
 ```
 
 ```shell
@@ -270,9 +271,7 @@ Route::get(['/home', '/login', 'register'], function () ...);
 
 ### Routing Parameters
 
-Melonly supports dynamic routes with parameters. Mark the path segment with `{parameterName}` to make route dynamic. Note that parameter names must be unique.
-
-Retrieving parameters is done using `parameter()` method from `Request` object.
+You can create dynamic routes by adding parameters. To make parameters in URL, use square brackets and provide param name.
 
 ```php
 use Melonly\Routing\Facades\Route;
@@ -281,6 +280,8 @@ Route::get('/users/{id}', function (Request $request, Response $response): void 
     $response->send('User id: ', $request->parameter('id'));
 });
 ```
+
+Retrieving parameters is done using `parameter()` method from `Request` object.
 
 After entering to `/users/356` path you will see "User id: 356".
 
@@ -361,10 +362,10 @@ View files / templates are located in `frontend/views` directory. You can displa
 
 ### Displaying a View
 
+Rendering views can be done with `view` method on `Response` object:
+
 ```php
-Route::get('/login', function (Request $request, Response $response): void {
-    $response->view('pages.login');
-});
+$response->view('pages.login');
 ```
 
 
@@ -373,12 +374,10 @@ Route::get('/login', function (Request $request, Response $response): void {
 To display variable in a view, you can pass an array with supplied variable names and values.
 
 ```php
-Route::get('/dashboard', function (Request $request, Response $response): void {
-    $response->view('pages.dashboard', [
-        'username' => Auth::user()->name,
-        'array' => [1, 2, 3],
-    ]);
-});
+$response->view('pages.dashboard', [
+    'username' => Auth::user()->name,
+    'array' => [1, 2, 3],
+]);
 ```
 
 Then you may use it in the template:
@@ -806,7 +805,7 @@ $json = Json::encode($data); // Return JSON object
 ```php
 dd('Some data'); // Dump information about variable or some data and finish script
 
-throwIf($condition, new Exception()); // Throw new exception if condition is true
+throwIf($condition, new Exception); // Throw new exception if condition is true
 
 redirect('/login'); // Redirect user to given URL
 
@@ -891,7 +890,7 @@ Then on the client side you can listen for broadcasted events using your driver.
 
 When you're moving to server from the local environment, you will need to change serveral settings. Firstly let's change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking code snippets visible on dev exception page.
 
-Then if your server supports "pointing" root path to choosen folders, set the pointer to `public` directory. If it's not available, you have to upload all files (except these inside `public`) to a directory **above** your public server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory.
+Then if your server supports setting root web directory, set it to `public` directory. If it's not available, you have to upload all files (except these inside `public`) to a directory **above** your public server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory.
 
 
 ## Documentation
@@ -901,20 +900,20 @@ Then if your server supports "pointing" root path to choosen folders, set the po
 
 ## Contributing
 
-Melonly is an Open Source framework. If You want to make Melonly even better, we appreciate it. You can clone the repository and commit changes on created branch. Then open a new [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) and we'll merge them if it would be something valuable and error-free without any security vulnerabilities.
-
-We also encourage you to opening issues and discussions on the repository.
+Melonly is an open-source framework. Thank you if you considered contributing. We encourage you to opening [issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) and  [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) on the repository.
 
 If you discovered a bug or security vulnerability please open issue / pull request or email me: dom.rajkowski@gmail.com.
 
 
 ## License
 
-Melonly is licensed under the [MIT license](melonly/LICENSE).
+Melonly is open-source framework licensed under the [MIT license](melonly/LICENSE).
 
-Author: [Doc077](https://github.com/Doc077) (dom.rajkowski@gmail.com)
+Author: [Doc077](https://github.com/Doc077)
 
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40"></a>
+Contact: dom.rajkowski@gmail.com
+
+<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="30"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" width="48"></a>
 &nbsp;&nbsp;&nbsp;
