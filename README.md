@@ -2,12 +2,14 @@
 
 ## Melonly PHP Framework
 
-<a href="https://packagist.org/packages/melonly/melonly"><img src="https://img.shields.io/packagist/dt/melonly/melonly" alt="Downloads"></a>
-<a href="https://packagist.org/packages/melonly/melonly"><img src="https://img.shields.io/packagist/l/melonly/melonly" alt="License"></a>
+[![PHP Version Require](https://poser.pugx.org/melonly/melonly/require/php)](https://packagist.org/packages/melonly/melonly)
+[![Latest Stable Version](https://poser.pugx.org/melonly/melonly/v)](https://packagist.org/packages/melonly/melonly)
+[![Total Downloads](https://poser.pugx.org/melonly/melonly/downloads)](https://packagist.org/packages/melonly/melonly)
+[![License](https://poser.pugx.org/melonly/melonly/license)](https://packagist.org/packages/melonly/melonly)
 
 Melonly is a fast, modern web application development framework for PHP. It makes easy to create secure and fast web applications with nice developer experience.
 
-*COMING SOON*: Melonly documentation will be available on the [official site](https://melonly.dev).
+*COMING SOON*: Melonly documentation will be available on the [official site](website).
 
 **Table of Contents | Documentation**
 
@@ -26,7 +28,7 @@ Melonly is a fast, modern web application development framework for PHP. It make
     - [src](#src)
     - [storage](#storage)
     - [tests](#tests)
-  - [```src/``` Directory](#src-directory)
+  - [`src/` Directory](#src-directory)
     - [Controllers](#controllers)
     - [Exceptions](#exceptions)
     - [Middleware](#middleware)
@@ -78,12 +80,14 @@ Melonly is a fast, modern web application development framework for PHP. It make
 - [Composer](https://getcomposer.org) installed
 - PDO PHP Extension
 - cURL PHP Extension
-- PHP Image Processing Extension
+- Fileinfo PHP Extension
+- Image Processing PHP Extension
+- OpenSSL PHP Extension
 
 
 ## Installation
 
-To create a fresh Melonly project use the ```composer``` installer:
+To create a fresh Melonly project use the `composer` installer:
 
 ```shell
 > cd <path-to-directory>
@@ -99,7 +103,7 @@ Once your application has been created you can run it locally:
 > php melon server
 ```
 
-Optionally if you'll be using Node.js or React/Sass frontend libraries, run ```npm install``` command:
+Optionally if you'll be using Node.js or React/Sass frontend libraries, run `npm install` command:
 
 ```shell
 > npm install
@@ -114,7 +118,7 @@ To run your application on local environment, use the command line:
 > php melon server
 ```
 
-Your application will be available on ```localhost:5000``` by default. If some other program uses this port, you can change it to your own:
+Your application will be available on `localhost:5000` by default. If some other program uses this port, you can change it to your own:
 
 ```shell
 # Run server on port 8000
@@ -132,12 +136,12 @@ Default Melonly application structure consists of several main folders:
 
 #### config
 
-This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using ```config($file, $key)``` helper.
+This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using `config($file, $key)` helper.
 
 
 #### database
 
-In this directory are created database migrations. You can also store ```sqlite``` database here.
+In this directory are created database migrations. You can also store `sqlite` database here.
 
 
 #### frontend
@@ -152,17 +156,17 @@ This folder contains Melonly framework files. You don't need to edit anything th
 
 #### plugins
 
-In ```plugins``` directory are stored installed ```Composer``` packages.
+In `plugins` directory are stored installed `Composer` packages.
 
 
 #### public
 
-This is the only directory visible to users. It prevents from direct access to source code. ```public``` folder contains ```.htaccess``` and ```index.php``` files. This is where you should put client side things like compiled styles, JS scripts and images.
+This is the only directory visible to users. It prevents from direct access to source code. `public` folder contains `.htaccess` and `index.php` files. This is where you should put client side things like compiled styles, JS scripts and images.
 
 
 #### src
 
-The ```src``` directory contains your application code. Feel free to add another folders there. All files inside this folder should be in ```App``` namespace since they are autoloaded.
+The `src` directory contains your application code. Feel free to add another folders there. All files inside this folder should be in `App` namespace since they are autoloaded.
 
 
 #### storage
@@ -178,10 +182,10 @@ This testing directory does not exist by default. It can be created by running c
 > php melon test:template
 ```
 
-After this command the ```tests``` directory will be created along with ```phpunit.xml``` file.
+After this command the `tests` directory will be created along with `phpunit.xml` file.
 
 
-### ```src/``` Directory
+### `src/` Directory
 
 #### Controllers
 
@@ -190,7 +194,7 @@ Default HTTP controllers directory.
 
 #### Exceptions
 
-Application exceptions are stored there. To create new exception run ```php melon new:exception SomeException``` command.
+Application exceptions are stored there. To create new exception run `php melon new:exception SomeException` command.
 
 
 #### Middleware
@@ -205,12 +209,12 @@ Default database models directory.
 
 #### Services
 
-Additional directory containing service pattern classes. It is not directly related to Melonly but it's rather a convention. To create this directory run ```php melon new:service``` command.
+Additional directory containing service pattern classes. It is not directly related to Melonly but it's rather a convention. To create this directory run `php melon new:service` command.
 
 
 #### Commands
 
-This directory doesn't exist by default. It contains your custom console commands generated by ```new:command``` command.
+This directory doesn't exist by default. It contains your custom console commands generated by `new:command` command.
 
 
 #### Emails
@@ -259,7 +263,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 
 ### Basic Routing with Callbacks
 
-To register application routes, edit ```routing/routes.php``` file.
+To register application routes, edit `routing/routes.php` file.
 
 ```php
 use Melonly\Routing\Facades\Route;
@@ -270,7 +274,7 @@ Route::get('/my-route', function (Request $request, Response $response): void {
 ```
 
 As you can see, you can supply a simple callback with injected request & response objects to return some response.
-Enter the ```localhost:5000/my-route``` route and look for the result.
+Enter the `localhost:5000/my-route` route and look for the result.
 
 You can also register multiple routes to the same action using array:
 
@@ -281,9 +285,9 @@ Route::get(['/home', '/login', 'register'], function () ...);
 
 ### Routing Parameters
 
-Melonly supports dynamic routes with parameters. Mark the path segment with ```{parameterName}``` to make route dynamic. Note that parameter names must be unique.
+Melonly supports dynamic routes with parameters. Mark the path segment with `{parameterName}` to make route dynamic. Note that parameter names must be unique.
 
-Retrieving parameters is done using ```parameter()``` method from ```Request``` object.
+Retrieving parameters is done using `parameter()` method from `Request` object.
 
 ```php
 use Melonly\Routing\Facades\Route;
@@ -293,18 +297,18 @@ Route::get('/users/{id}', function (Request $request, Response $response): void 
 });
 ```
 
-After entering to ```/users/356``` path you will see "User id: 356".
+After entering to `/users/356` path you will see "User id: 356".
 
 
 ### Controllers
 
-Rather than passing closures to route definitions there is more common to use ```controller``` classes. Melonly utilizes MVC structure so controllers are supported out of the box. To create basic controller run command:
+Rather than passing closures to route definitions there is more common to use `controller` classes. Melonly utilizes MVC structure so controllers are supported out of the box. To create basic controller run command:
 
 ```shell
 php melon new:controller SomeController
 ```
 
-It will create a new file: ```src/Controllers/SomeController.php``` with the following structure:
+It will create a new file: `src/Controllers/SomeController.php` with the following structure:
 
 ```php
 namespace App\Controllers;
@@ -330,14 +334,14 @@ use App\Controllers\ControllerName;
 Route::get('/users', [ControllerName::class, 'index']);
 ```
 
-Now on specified ```/users``` route Melonly will invoke ```index``` method from ```ControllerName```.
+Now on specified `/users` route Melonly will invoke `index` method from `ControllerName`.
 
 
 ### Middleware
 
 Middleware can be used for filtering incoming requests or performing some actions on route enter. You can assign middleware to routes passing array argument to route definition.
 
-Melonly provides built-in middleware ```auth``` which checks if user is logged in. If not, the user will be redirected to ```/login``` route.
+Melonly provides built-in middleware `auth` which checks if user is logged in. If not, the user will be redirected to `/login` route.
 
 ```php
 Route::get('/profile', [UserController::class, 'show'], ['middleware' => 'auth']);
@@ -349,7 +353,7 @@ To create custom middleware you can run Melon command:
 > php melon new:middleware MiddlewareName
 ```
 
-Then register middleware alias in ```config/http.php```:
+Then register middleware alias in `config/http.php`:
 
 ```php
 'middleware' => [
@@ -357,7 +361,7 @@ Then register middleware alias in ```config/http.php```:
 ],
 ```
 
-Middleware is stored in ```src/Middleware``` directory. Edit created file and you'll be able to use new middleware:
+Middleware is stored in `src/Middleware` directory. Edit created file and you'll be able to use new middleware:
 
 ```php
 Route::get('/users', [ControllerName::class, 'index'], ['middleware' => 'middleware_alias']);
@@ -367,7 +371,7 @@ Route::get('/users', [ControllerName::class, 'index'], ['middleware' => 'middlew
 ## Views
 
 Modern applications deal with user interfaces. Therefore Melonly handles special HTML templates which help You building applications in pleasant way.
-View files / templates are located in ```frontend/views``` directory. You can display a view returning it from the response, using the "dot" syntax.
+View files / templates are located in `frontend/views` directory. You can display a view returning it from the response, using the "dot" syntax.
 
 
 ### Displaying a View
@@ -426,7 +430,7 @@ As you can see Fruity is very simple yet powerful engine. It's also a lot more c
 
 ### Twig Templates
 
-However if you don't like these templates, Melonly supports [Twig](https://twig.symfony.com) engine for handling views. After setting the ```engine``` option in ```config/view.php``` file to ```Twig```, you can use Twig templates in your app (note that view file extensions would be ```.html.twig``` then).
+However if you don't like these templates, Melonly supports [Twig](https://twig.symfony.com) engine for handling views. After setting the `engine` option in `config/view.php` file to `Twig`, you can use Twig templates in your app (note that view file extensions would be `.html.twig` then).
 
 ```html
 Example Twig template
@@ -441,7 +445,7 @@ Example Twig template
 
 ### Raw SQL Queries
 
-Handling databases in web applications is very important. Melonly provides a simple interface for querying data from database. To execute a raw SQL query, use ```DB``` facade:
+Handling databases in web applications is very important. Melonly provides a simple interface for querying data from database. To execute a raw SQL query, use `DB` facade:
 
 ```php
 use Melonly\Database\Facades\DB;
@@ -468,7 +472,7 @@ For example:
 > php melon new:model Post
 ```
 
-It will create ```src/Models/Post.php``` model file with the following structure:
+It will create `src/Models/Post.php` model file with the following structure:
 
 ```php
 namespace App\Models;
@@ -490,11 +494,11 @@ class Post extends Model
 }
 ```
 
-Column data typing is done using the ```Column``` attribute.
+Column data typing is done using the `Column` attribute.
 
-Then if your database contains ```posts``` table, you can retrieve data from that table with model class. Melonly uses plural '-s' suffix by default to retrieve tables but it can be overwritten by setting ```protected $table``` property in a model.
+Then if your database contains `posts` table, you can retrieve data from that table with model class. Melonly uses plural '-s' suffix by default to retrieve tables but it can be overwritten by setting `protected $table` property in a model.
 
-By chaining methods it is possible to create complex ```where``` clauses. Some of available methods are: ```where```, ```orWhere```, ```orderBy```. Data returned by the ```fetch()``` method is type of ```vector``` (in case of single result it is an instance of ```Melonly\Database\Record```).
+By chaining methods it is possible to create complex `where` clauses. Some of available methods are: `where`, `orWhere`, `orderBy`. Data returned by the `fetch()` method is type of `vector` (in case of single result it is an instance of `Melonly\Database\Record`).
 
 ```php
 use App\Models\Post;
@@ -511,7 +515,7 @@ As you can see, dealing with database is super easy with Melonly.
 
 #### Creating Records
 
-You can also create new records using models. Use the ```create``` method with passed array with column values to create data in your table:
+You can also create new records using models. Use the `create` method with passed array with column values to create data in your table:
 
 ```php
 use App\Models\User;
@@ -524,7 +528,7 @@ User::create([
 ]);
 ```
 
-Alternative way to create a record is to make a model instance with specified fields and ```save()``` method:
+Alternative way to create a record is to make a model instance with specified fields and `save()` method:
 
 ```php
 use App\Models\User;
@@ -543,13 +547,13 @@ $user->save();
 
 Melonly comes with basic built-in table migration system. It currently supports only creating tables but we'll improve it in future releases.
 
-To create new migration run ```melon``` command:
+To create new migration run `melon` command:
 
 ```shell
 > php melon new:migration create_posts_table
 ```
 
-Migrations are stored in ```database/migrations``` directory. To run migrations you have to specify database credentials in ```.env``` file. Then run:
+Migrations are stored in `database/migrations` directory. To run migrations you have to specify database credentials in `.env` file. Then run:
 
 ```shell
 > php melon migrate
@@ -600,13 +604,13 @@ Route::get('/login', function (Request $request, Response $response): void {
 });
 ```
 
-Note that you have to include ```[csrf]``` field in the form to secure users from [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks. If you're using Twig template engine instead of the built-in one, just add this hidden input:
+Note that you have to include `[csrf]` field in the form to secure users from [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks. If you're using Twig template engine instead of the built-in one, just add this hidden input:
 
 ```html
 <input type="hidden" name="csrf_token" value="{{ csrfToken() }}">
 ```
 
-Now we can set up the POST ```/login``` route with authentication logic:
+Now we can set up the POST `/login` route with authentication logic:
 
 ```php
 use Melonly\Authentication\Facades\Auth;
@@ -630,13 +634,13 @@ Route::post('/login', function (Request $request, Response $response): void {
 
 Now you can test the login system. When provided e-mail and password matches the database data, user will be authenticated.
 
-Retrieving authenticated user data is done using ```Auth::user()``` method which returns ```App\Models\User``` model.
+Retrieving authenticated user data is done using `Auth::user()` method which returns `App\Models\User` model.
 
 ```php
 $username = Auth::user()->name;
 ```
 
-To log the user out, use the ```logout()``` method.
+To log the user out, use the `logout()` method.
 
 ```php
 Route::get('/logout', function (): void {
@@ -648,7 +652,7 @@ Route::get('/logout', function (): void {
 
 ## Session
 
-HTTP session is a useful mechanism. You can store there some user data or other things. To manipulate HTTP session, use the ```Session``` class.
+HTTP session is a useful mechanism. You can store there some user data or other things. To manipulate HTTP session, use the `Session` class.
 
 ```php
 use Melonly\Http\Session;
@@ -746,7 +750,7 @@ File::copy($path, 'new/file/path.jpg');
 
 ### Image files
 
-Melonly utilizes [Intervention Image](https://image.intervention.io/v2) library for image manipulation. You can use ```ImageFile``` helper to manage ```jpg```, ```png``` and ```gif``` image files.
+Melonly utilizes [Intervention Image](https://image.intervention.io/v2) library for image manipulation. You can use `ImageFile` helper to manage `jpg`, `png` and `gif` image files.
 
 ```php
 use Melonly\Filesystem\Image;
@@ -855,12 +859,12 @@ Mail::send('recipient@address', 'Subject', 'My message');
 
 Note that you have to setup PHP config on your server to send emails.
 
-Address from which messages are sent is specified in ```MAIL_ADDRESS``` in ```.env``` file.
+Address from which messages are sent is specified in `MAIL_ADDRESS` in `.env` file.
 
 
 ## WebSockets & Broadcasting
 
-Modern web applications often need WebSocket connection. Melonly supports two popular broadcasting drivers out of the box: [Pusher](https://pusher.com) and [Ably](https://ably.com). You can configure the driver in ```.env``` file:
+Modern web applications often need WebSocket connection. Melonly supports two popular broadcasting drivers out of the box: [Pusher](https://pusher.com) and [Ably](https://ably.com). You can configure the driver in `.env` file:
 
 ```
 WEBSOCKET_DRIVER=pusher|ably
@@ -900,14 +904,14 @@ Then on the client side you can listen for broadcasted events using your driver.
 
 ## Deployment
 
-When moving to server from local environment you'll need to adjust some settings. Firstly, change the ```APP_DEVELOPMENT``` entry to ```false``` in ```.env``` file. It will prevent from leaking some code visible on exception page.
+When moving to server from local environment you'll need to adjust some settings. Firstly, change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking some code visible on exception page.
 
-Then if your server supports "pointing" root path to choosen directory, set the pointer to ```public``` folder. If not, upload all files except these inside ```public``` to a directory **above** your server root. Then set the ```APP_PUBLIC``` option to ```public_html``` / ```private_html``` or whatever you have and upload there files from project ```public``` directory.
+Then if your server supports "pointing" root path to choosen directory, set the pointer to `public` folder. If not, upload all files except these inside `public` to a directory **above** your server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory.
 
 
 ## Documentation
 
-*COMING SOON*: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](https://melonly.dev/docs).
+*COMING SOON*: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](website).
 
 
 ## Contributing
@@ -916,11 +920,18 @@ Melonly is an Open Source framework. If You want to make Melonly even better, we
 
 We also encourage you to opening issues and discussions on the repository.
 
-If you discovered a bug or security vulnerability please open issue / pull request or email: dom.rajkowski@gmail.com.
+If you discovered a bug or security vulnerability please open issue / pull request or email me: dom.rajkowski@gmail.com.
 
 
 ## License
 
-Melonly is licensed under the [MIT license](LICENSE).
+Melonly is licensed under the [MIT license](melonly/LICENSE).
 
 Author: [Doc077](https://github.com/Doc077) (dom.rajkowski@gmail.com)
+
+<img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" width="44">
+<img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-plain-wordmark.svg" width="88">
+<img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="36">
+<img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="44">
+
+[website]: https://melonly.dev
