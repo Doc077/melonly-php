@@ -930,9 +930,12 @@ Melonly is licensed under the [MIT license](melonly/LICENSE).
 
 Author: [Doc077](https://github.com/Doc077) (dom.rajkowski@gmail.com)
 
+<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" width="48"></a>
+&nbsp;&nbsp;&nbsp;
 <a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" width="44"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain-wordmark.svg" width="66"></a>
+&nbsp;&nbsp;&nbsp;
 <a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-plain-wordmark.svg" width="88"></a>
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="36"></a>
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="44"></a>
 
 [website]: https://melonly.dev
