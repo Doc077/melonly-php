@@ -6,9 +6,6 @@
         "start": "webpack --watch"
     },
     "devDependencies": {
-        "@babel/core": "^7.16.1",
-        "@babel/preset-env": "^7.16.8",
-        "babel-loader": "^8.2.3",
         "postcss": "^8.4.5",
         "sass": "^1.49.0",
         "sass-loader": "^12.4.0",
