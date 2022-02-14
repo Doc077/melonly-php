@@ -55,15 +55,15 @@ class Connection implements ConnectionInterface {
         );
     }
 
+    /**
+     * Execute raw SQL query.
+     */
     public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array {
         if (!$this->pdo) {
             throw new Exception('Database connection failed. Provide config credentials or check your database');
         }
 
         try {
-            $this->pdo->query('SET NAMES UTF8');
-            $this->pdo->query('SET CHARACTER SET UTF8');
-
             $query = $this->pdo->prepare($sql);
 
             /**
@@ -117,6 +117,10 @@ class Connection implements ConnectionInterface {
         } catch (PDOException $exception) {
             Handler::handle($exception);
         }
+    }
+
+    public function from(string $table): Query {
+        return (new Query())->setTable($table);
     }
 
     public function getConnection(): PDO {

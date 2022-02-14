@@ -7,6 +7,7 @@ use Melonly\Database\Connection;
 
 /**
  * @method static object|array query(string $sql, string $modelClass = Record::class, array $boundParams = [])
+ * @method static \Melonly\Database\Query from(string $table)
  * @method static \PDO getConnection()
  */
 class DB extends Facade {

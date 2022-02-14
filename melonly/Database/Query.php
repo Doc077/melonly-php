@@ -6,9 +6,11 @@ use Melonly\Database\Facades\DB;
 use Melonly\Support\Containers\Vector;
 
 class Query {
-    protected string $sql = 'SELECT';
+    protected string $sql = 'select';
 
     protected string $table = '';
+
+    protected array $columns = [];
 
     protected array $wheres = [];
 
@@ -51,12 +53,23 @@ class Query {
         return $this;
     }
 
+    public function select(array $columns = []): self {
+        $this->columns = array_merge($columns, $this->columns);
+
+        return $this;
+    }
+
     public function fetch(array $columns = []): Vector|Record|array {
+        $this->columns = array_merge($columns, $this->columns);
+
         /**
          * Build final SQL query.
          */
-        $this->sql .= ' ' . (count($columns) > 0 ? implode(', ', $columns) : '*') . ' from `' . $this->table . '`';
-        $this->sql .= ' where ' . implode('', $this->wheres);
+        $this->sql .= ' ' . (count($this->columns) > 0 ? implode(', ', $this->columns) : '*') . ' from `' . $this->table . '`';
+
+        if (count($this->wheres) > 0) {
+            $this->sql .= ' where ' . implode('', $this->wheres);
+        }
 
         if ($this->orderBy !== null) {
             $this->sql .= ' order by `' . $this->orderBy . '` ' . $this->orderByMode;

@@ -49,6 +49,7 @@ Melonly is a fast and modern web application development framework for PHP. It m
   - [Templates](#templates)
   - [Twig Templates](#twig-templates)
 - [Database](#database-1)
+  - [Query Builder](#query-builder)
   - [Raw SQL Queries](#raw-sql-queries)
   - [Models](#models-1)
     - [Retrieving Data](#retrieving-data)
@@ -427,20 +428,42 @@ Example Twig template
 
 ## Database
 
-### Raw SQL Queries
+### Query Builder
 
-Handling databases in web applications is very important. Melonly provides a simple interface for querying data from database. To execute a raw SQL query, use `DB` facade:
+Handling databases in web applications is very important. Melonly provides a simple query builder for retrieving data from database and creating new records.
+
+To fetch some data using the query builder interface just use imported `DB` facade:
 
 ```php
 use Melonly\Database\Facades\DB;
 
+$user = DB::from('users')->where('id', '=', 1)->fetch();
+
+echo $user->name;
+```
+
+With this query builder you can also fetch only specified columns by passing field array to `fetch()` method or using `select(...)`.
+
+```php
+// Fetch user with only name and email
+$user = DB::from('users')->fetch(['name', 'email']);
+
+// Equivalent to:
+$user = DB::from('users')->select(['name', 'email'])->fetch();
+```
+
+### Raw SQL Queries
+
+Alternatively you can execute a raw SQL query with `query()` method though we do not recommend that:
+
+```php
 $name = DB::query('select `name` from `users` where `id` = 1');
+
+DB::query('insert into `users` ...');
 ```
 
 
 ### Models
-
-#### Retrieving Data
 
 Due the fact Melonly is a MVC framework, it follows the Model pattern. Each table in your database can have corresponding 'Model'.
 
@@ -481,6 +504,9 @@ class Post extends Model
 Column data typing is done using the `Column` attribute.
 
 Then if your database contains `posts` table, you can retrieve data from that table with model class. Melonly uses plural '-s' suffix by default to retrieve tables but it can be overwritten by setting `protected $table` property in a model.
+
+
+#### Retrieving Data
 
 By chaining methods it is possible to create complex `where` clauses. Some of available methods are: `where`, `orWhere`, `orderBy`. Data returned by the `fetch()` method is type of `Vector` (in case of single result it is an instance of `Record` or your model).
 
