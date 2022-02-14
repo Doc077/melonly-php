@@ -20,11 +20,12 @@ class File {
         return file_get_contents($path);
     }
 
-    public static function create(string $path, string $content = ''): void {
-        $file = fopen($path, 'w');
+    public static function create(string $path, string $content = ''): int|false {
+        if (!self::exists(dirname($path))) {
+            mkdir(dirname($path), 0777, true);
+        }
 
-        fwrite($file, $content);
-        fclose($file);
+        return file_put_contents($path, $content);
     }
 
     public static function include(string $path): void {

@@ -69,7 +69,8 @@ Melonly is a fast and modern web application development framework for PHP. It m
   - [Other Helpers](#other-helpers)
 - [Encryption and Hashing](#encryption-and-hashing)
 - [Sending Emails](#sending-emails)
-- [WebSockets & Broadcasting](#websockets--broadcasting)
+- [Frontend Frameworks (React and Vue)](#frontend-frameworks-react-and-vue)
+- [WebSockets and Broadcasting](#websockets-and-broadcasting)
 - [Deployment](#deployment)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -872,7 +873,26 @@ Note that you have to setup PHP config on your server to send emails.
 Address from which messages are sent is specified in `MAIL_ADDRESS` in `.env` file.
 
 
-## WebSockets & Broadcasting
+## Frontend Frameworks (React and Vue)
+
+Melonly has built-in scaffolding command for installing frontend frameworks like [React](https://reactjs.org) and [Vue](https://vuejs.org). Before you start, run the following command to install `webpack` included in `package.json` by default:
+
+```shell
+> npm install
+```
+
+Then you'll be able to create starter framework template:
+
+```shell
+> php melon scaffold:react
+
+> php melon scaffold:vue
+```
+
+These commands will create corresponding `react` or `vue` directories in `frontend` location and install Node dependencies.
+
+
+## WebSockets and Broadcasting
 
 Modern web applications often need WebSocket connection. Melonly supports two popular broadcasting drivers out-of-the-box: [Pusher](https://pusher.com) and [Ably](https://ably.com). You can configure the driver in `.env` file:
 

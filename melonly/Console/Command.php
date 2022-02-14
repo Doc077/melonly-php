@@ -32,10 +32,10 @@ abstract class Command {
         $content = File::content(__DIR__ . '/Assets/Templates/' . $template . '.template');
 
         foreach ($arguments as $variable => $value) {
-            $content = Regex::replace('/\{\{ ' . $variable . ' \}\}/', $value, $content);
+            $content = Regex::replace('/\{\{ ?' . $variable . ' ?\}\}/', $value, $content);
         }
 
-        File::put($path, $content);
+        File::create($path, $content);
     }
 
     protected function executeCommand(string $command, array $args = []): void {
