@@ -15,7 +15,7 @@ return new class extends Command {
         $response = $this->ask('Created React.js frontend template. Do you want to install dependencies now? (yes / no)');
 
         if ($response === 'yes' || $response === null) {
-            exec('cd ' . __DIR__ . '/../../.. && npm install -D @babel/core @babel/preset-env babel-loader react react-dom');
+            exec('cd ' . __DIR__ . '/../../.. && npm install -D @babel/core @babel/preset-env babel-loader webpack webpack-cli react react-dom');
         }
     }
 };

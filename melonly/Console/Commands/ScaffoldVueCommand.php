@@ -16,7 +16,7 @@ return new class extends Command {
         $response = $this->ask('Created Vue.js frontend template. Do you want to install dependencies now? (yes / no)');
 
         if ($response === 'yes' || $response === null) {
-            exec('cd ' . __DIR__ . '/../../.. && npm install -D vue vue-loader');
+            exec('cd ' . __DIR__ . '/../../.. && npm install -D @babel/core @babel/preset-env babel-loader webpack webpack-cli vue-template-compiler vue vue-loader');
         }
     }
 };

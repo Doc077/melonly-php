@@ -24,13 +24,6 @@ return new class extends Command {
             return;
         }
 
-        /**
-         * Create folder if doesn't exist.
-         */
-        if (!File::exists($folder = __DIR__ . '/../../../src/Commands')) {
-            File::makeDirectory($folder);
-        }
-
         $this->publishFileFromTemplate($fileName, 'command', [
             'class' => $this->arguments[2],
         ]);

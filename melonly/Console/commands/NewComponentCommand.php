@@ -20,13 +20,6 @@ return new class extends Command {
             return;
         }
 
-        /**
-         * Create folder if doesn't exist.
-         */
-        if (!File::exists($folder = __DIR__ . '/../../../frontend/views/components')) {
-            File::makeDirectory($folder);
-        }
-
         $this->publishFileFromTemplate($fileName, 'component', [
             'name' => Str::kebabCase($this->arguments[2]),
         ]);

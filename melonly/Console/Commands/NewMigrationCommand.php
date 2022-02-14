@@ -14,13 +14,6 @@ return new class extends Command {
     public function handle(): void {
         $fileName = __DIR__ . '/../../../database/migrations/' . Time::now()->isoFormat('Y_MM_DD_') . Time::now()->timestamp . '_' . $this->arguments[2] . '.php';
 
-        /**
-         * Create folder if doesn't exist.
-         */
-        if (!File::exists($folder = __DIR__ . '/../../../database/migrations')) {
-            File::makeDirectory($folder);
-        }
-
         $table = 'table_name';
 
         if (preg_match('/create_(.*?)_table/', $this->arguments[2], $matches)) {
