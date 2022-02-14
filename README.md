@@ -891,6 +891,8 @@ Then you'll be able to create starter framework template:
 
 These commands will create corresponding `react` or `vue` directories in `frontend` location and install Node dependencies.
 
+After running `npm start` command `webpack` will compile your code in watch mode. `npm run build` will build output only once. You can set development / production mode in `webpack.config.js`. All configuration is stored in this file.
+
 
 ## WebSockets and Broadcasting
 
