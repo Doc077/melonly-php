@@ -386,7 +386,7 @@ Then you may use it in the template:
 <h1>Welcome, {{ $username }}</h1>
 ```
 
-Note that you cannot pass objects as a view variable when using the default engine.
+Note that you cannot pass objects to components when using the default view engine.
 
 Melonly templates allow us to write simple PHP expressions directly in HTML.
 

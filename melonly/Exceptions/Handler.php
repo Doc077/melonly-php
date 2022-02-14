@@ -12,6 +12,7 @@ use Melonly\Support\Helpers\Str;
 use Melonly\Support\Helpers\Url;
 use TypeError;
 use Melonly\Views\View;
+use Melonly\Views\Engine as ViewEngine;
 
 use function Termwind\{render};
 
@@ -51,7 +52,7 @@ class Handler {
         /**
          * If exception occured in a view, replace the file with uncompiled template.
          */
-        if (Str::contains($exceptionFile, 'storage\temp')) {
+        if (Str::contains($exceptionFile, 'storage\temp') && config('view.engine') === ViewEngine::Fruity) {
             $exceptionFile = View::getCurrentView();
         }
 
@@ -62,12 +63,15 @@ class Handler {
 
         $fullExceptionType = get_class($exception);
 
+        $httpStatus = Container::get(Response::class)->getStatus();
+
         View::renderView(__DIR__ . '/Assets/exception.html', compact(
             'exception',
             'exceptionFile',
             'exceptionType',
             'fileContent',
             'fullExceptionType',
+            'httpStatus',
             'linesCount',
             'url',
         ), true, __DIR__ . '/Assets', true);

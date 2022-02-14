@@ -52,26 +52,37 @@ body {
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
 
-.topbar {
+.heading {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
 }
 
-.topbar__type {
+.heading__type {
     background: #0a141c;
     display: inline-block;
     padding: 7px 14px;
     border-radius: 5px;
 }
 
-.topbar__version {
+.heading__version {
     opacity: 0.9;
 }
 
 .header {
     font-weight: 600;
     font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.status {
+    background: #82f373;
+    padding: 2px 10px;
+    border-radius: 25px;
+    color: #121212;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 6px;
 }
 
 .bold {
@@ -118,7 +129,7 @@ body {
     display: inline-flex;
     justify-content: flex-end;
     align-items: center;
-    background: #192e3d;
+    background: #1d2d38;
     margin-right: 18px;
     color: #ddd;
 }

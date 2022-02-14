@@ -18,13 +18,15 @@
 
     <body>
         <main class="container">
-            <div class="topbar">
-                <div class="topbar__type">{{ $fullExceptionType }}</div>
+            <div class="heading">
+                <div class="heading__type">{{ $fullExceptionType }}</div>
 
-                <div class="topbar__version">Melonly {{ MELONLY_VERSION }}</div>
+                <div class="heading__version">Melonly {{ MELONLY_VERSION }}</div>
             </div>
 
             <h1 class="header">{{ $exceptionType }}: {{ $exception->getMessage() . (substr($exception->getMessage(), -1) !== '.' ? '.' : '') ?? 'Exception' }}</h1>
+
+            <div class="status">HTTP {{ $httpStatus }}</div>
 
             <p class="info">
                 <span class="info__value">File:</span> <strong class="bold">{{ $exceptionFile ?? 'Unknown' }}</strong>
@@ -35,11 +37,7 @@
             </p>
 
             <p class="info">
-                <span class="info__value">URI:</span> <strong class="bold">{{ $url ?? 'Unknown' }}</strong>
-            </p>
-
-            <p class="info">
-                <span class="info__value">HTTP Method:</span> <strong class="bold">{{ $_SERVER['REQUEST_METHOD'] ?? 'Unknown' }}</strong>
+                <span class="info__value">Route:</span> {{ $_SERVER['REQUEST_METHOD'] }} | <strong class="bold">{{ $url ?? 'Unknown' }}</strong>
             </p>
 
             [if $exception->getCode() > 0]
