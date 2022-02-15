@@ -9,7 +9,6 @@ use Melonly\Filesystem\File;
 use Melonly\Http\Response;
 use PDOException;
 use Melonly\Support\Helpers\Str;
-use Melonly\Support\Helpers\Url;
 use TypeError;
 use Melonly\Views\View;
 use Melonly\Views\Engine as ViewEngine;
@@ -24,9 +23,18 @@ class Handler {
             exit();
         }
 
-        /**
-         * If entered in CLI mode show the exception line.
-         */
+        self::registerConsoleHandler($exception);
+
+        self::clearTempFiles();
+
+        Container::get(Response::class)->status(500);
+
+        self::renderError($exception);
+
+        exit();
+    }
+
+    public static function registerConsoleHandler(Exception|Error|TypeError|PDOException|UnhandledError $exception): void {
         if (php_sapi_name() === 'cli') {
             render('
                 <div class="bg-red-400 text-gray-900 px-3 py-1 my-2">
@@ -37,16 +45,9 @@ class Handler {
 
             exit();
         }
+    }
 
-        View::clearBuffer();
-
-        $url = rtrim(Url::full(), '/');
-
-        /**
-         * Get exception file lines count and content.
-         */
-        $linesCount = File::lines($exception->getFile());
-
+    public static function renderError(Exception|Error|TypeError|PDOException|UnhandledError $exception): void {
         $exceptionFile = $exception->getFile();
 
         /**
@@ -56,35 +57,26 @@ class Handler {
             $exceptionFile = View::getCurrentView();
         }
 
-        $fileContent = File::read($exceptionFile);
-
         $exceptionType = explode('\\', get_class($exception));
-        $exceptionType = end($exceptionType);
 
-        $fullExceptionType = get_class($exception);
+        View::clearBuffer();
 
-        $httpStatus = Container::get(Response::class)->getStatus();
+        View::renderView(__DIR__ . '/Assets/exception.html', [
+            'exception' => $exception,
+            'exceptionFile' => $exceptionFile,
+            'exceptionType' => end($exceptionType),
+            'fileContent' => File::read($exceptionFile),
+            'fullExceptionType' => get_class($exception),
+            'httpStatus' => 500,
+            'linesCount' => File::lines($exception->getFile()),
+        ], true, __DIR__ . '/Assets', true);
+    }
 
-        View::renderView(__DIR__ . '/Assets/exception.html', compact(
-            'exception',
-            'exceptionFile',
-            'exceptionType',
-            'fileContent',
-            'fullExceptionType',
-            'httpStatus',
-            'linesCount',
-            'url',
-        ), true, __DIR__ . '/Assets', true);
-
-        /**
-         * Delete all compiled temporary templates.
-         */
+    public static function clearTempFiles(): void {
         foreach (glob(__DIR__ . '/../../storage/temp/*.php', GLOB_BRACE) as $file) {
             if (is_file($file)) {
                 File::delete($file);
             }
         }
-
-        exit();
     }
 }

@@ -37,7 +37,7 @@
             </p>
 
             <p class="info">
-                <span class="info__value">Route:</span> {{ $_SERVER['REQUEST_METHOD'] }} | <strong class="bold">{{ $url ?? 'Unknown' }}</strong>
+                <span class="info__value">Route:</span> {{ $_SERVER['REQUEST_METHOD'] }} <strong class="bold">{{ $_SERVER['REQUEST_URI'] }}</strong>
             </p>
 
             [if $exception->getCode() > 0]
