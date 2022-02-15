@@ -2,16 +2,9 @@
 
 namespace Melonly\Console;
 
-use function Termwind\{ask};
 use function Termwind\{render};
 
 trait DisplaysOutput {
-    protected function ask(string $data): ?string {
-        return ask('
-            <span class="text-green-400 w-full my-1">' . $data . '</span>
-        ');
-    }
-
     protected function codeSnippet(string $data): void {
         render('
             <code start-line="0">' . $data . '</code>

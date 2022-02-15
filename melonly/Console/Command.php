@@ -6,7 +6,7 @@ use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Regex;
 
 abstract class Command {
-    use DisplaysOutput;
+    use DisplaysOutput, GetsInput;
 
     protected array $arguments = [];
 

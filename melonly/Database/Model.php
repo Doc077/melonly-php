@@ -197,18 +197,14 @@ abstract class Model {
      * Handle all static calls for query builder interface.
      */
     public static function __callStatic(string $method, array $args): mixed {
-        switch ($method) {
-            case 'all':
-            case 'create':
-            case 'find':
-            case 'getTable':
-            case 'update':
-                return self::{$method}(...$args);
+        return match ($method) {
+            'all',
+            'create',
+            'find',
+            'getTable',
+            'update' => self::{$method}(...$args),
 
-                break;
-
-            default:
-                return (new Query())->setTable(self::getTable())->{$method}(...$args);
-        }
+            default => (new Query())->setTable(self::getTable())->{$method}(...$args),
+        };
     }
 }
