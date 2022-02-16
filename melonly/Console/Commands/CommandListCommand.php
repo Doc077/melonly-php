@@ -107,6 +107,16 @@ return new class extends Command {
             </tr>
 
             <tr>
+                <td>scaffold:react</td>
+                <td align="right">Create React.js starter project</td>
+            </tr>
+
+            <tr>
+                <td>scaffold:vue</td>
+                <td align="right">Create Vue.js starter project</td>
+            </tr>
+
+            <tr>
                 <td>server</td>
                 <td align="right">Run development server</td>
             </tr>
