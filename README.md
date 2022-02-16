@@ -443,7 +443,7 @@ $user = DB::from('users')->where('id', '=', 1)->fetch();
 echo $user->name;
 ```
 
-With this query builder you can also fetch only specified columns by passing field array to `fetch()` method or using `select(...)`.
+With this query builder you can also fetch only specified columns by passing field array to `fetch()` method or using `select([...])`.
 
 ```php
 // Fetch user with only name and email
@@ -452,6 +452,8 @@ $user = DB::from('users')->fetch(['name', 'email']);
 // Equivalent to:
 $user = DB::from('users')->select(['name', 'email'])->fetch();
 ```
+
+Available query builder methods: `select`, `where`, `orWhere`, `limit` and `orderBy`.
 
 ### Raw SQL Queries
 
