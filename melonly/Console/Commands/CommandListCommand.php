@@ -5,12 +5,51 @@ namespace Melonly\Console\Commands;
 use Melonly\Console\Command;
 
 return new class extends Command {
+    protected array $generatorCommands = [
+        'new:command' => 'Create custom CLI command',
+        'new:component' => 'Create new Fruity component',
+        'new:controller' => 'Create new HTTP controller',
+        'new:exception' => 'Create new exception class',
+        'new:email' => 'Create new email class',
+        'new:middleware' => 'Create new middleware',
+        'new:migration' => 'Create new database migration',
+        'new:model' => 'Create new database model',
+        'new:service' => 'Create new service class',
+        'new:test:feature' => 'Create new feature test',
+        'new:test:unit' => 'Create new unit test',
+        'new:view' => 'Create new HTML view template',
+    ];
+
+    protected array $utilityCommands = [
+        'cache:clear' => 'Clear cache',
+        'command:list' => 'Get built-in command list',
+        'migrate' => 'Run database migrations',
+        'scaffold:react' => 'Create React.js starter project',
+        'scaffold:vue' => 'Create Vue.js starter project',
+        'server' => 'Run development server',
+        'test' => 'Run tests',
+        'test:template' => 'Create PHPUnit testing structure',
+        'tip' => 'Get random framework tips',
+        'version' => 'Get framework version',
+    ];
+
     public function __construct() {
         parent::__construct();
     }
 
     public function handle(): void {
         $this->infoLine('Melon CLI commands:');
+
+        $generators = '';
+
+        foreach ($this->generatorCommands as $command => $description) {
+            $generators .= '
+                <tr>
+                    <td>' . $command . '</td>
+                    <td align="right">' . $description . '</td>
+                </tr>
+            ';
+        }
 
         $this->table('
             <thead>
@@ -20,68 +59,21 @@ return new class extends Command {
                 </tr>
             </thead>
 
-            <tr>
-                <td>new:command</td>
-                <td align="right">Create custom CLI command</td>
-            </tr>
-
-            <tr>
-                <td>new:component</td>
-                <td align="right">Create new Fruity component</td>
-            </tr>
-
-            <tr>
-                <td>new:controller</td>
-                <td align="right">Create new HTTP controller</td>
-            </tr>
-
-            <tr>
-                <td>new:exception</td>
-                <td align="right">Create new exception class</td>
-            </tr>
-
-            <tr>
-                <td>new:email</td>
-                <td align="right">Create new email class</td>
-            </tr>
-
-            <tr>
-                <td>new:middleware</td>
-                <td align="right">Create new middleware</td>
-            </tr>
-
-            <tr>
-                <td>new:migration</td>
-                <td align="right">Create new database migration</td>
-            </tr>
-
-            <tr>
-                <td>new:model</td>
-                <td align="right">Create new database model</td>
-            </tr>
-
-            <tr>
-                <td>new:service</td>
-                <td align="right">Create new service class</td>
-            </tr>
-
-            <tr>
-                <td>new:test:feature</td>
-                <td align="right">Create new feature test file</td>
-            </tr>
-
-            <tr>
-                <td>new:test:unit</td>
-                <td align="right">Create new unit test file</td>
-            </tr>
-
-            <tr>
-                <td>new:view</td>
-                <td align="right">Create new HTML view template</td>
-            </tr>
+            ' . $generators . '
         ');
 
         $this->infoLine('');
+
+        $utils = '';
+
+        foreach ($this->utilityCommands as $command => $description) {
+            $utils .= '
+                <tr>
+                    <td>' . $command . '</td>
+                    <td align="right">' . $description . '</td>
+                </tr>
+            ';
+        }
 
         $this->table('
             <thead>
@@ -91,58 +83,9 @@ return new class extends Command {
                 </tr>
             </thead>
 
-            <tr>
-                <td>cache:clear</td>
-                <td align="right">Clear cache</td>
-            </tr>
-
-            <tr>
-                <td>command:list</td>
-                <td align="right">Get built-in command list</td>
-            </tr>
-
-            <tr>
-                <td>migrate</td>
-                <td align="right">Run database migrations</td>
-            </tr>
-
-            <tr>
-                <td>scaffold:react</td>
-                <td align="right">Create React.js starter project</td>
-            </tr>
-
-            <tr>
-                <td>scaffold:vue</td>
-                <td align="right">Create Vue.js starter project</td>
-            </tr>
-
-            <tr>
-                <td>server</td>
-                <td align="right">Run development server</td>
-            </tr>
-
-            <tr>
-                <td>test</td>
-                <td align="right">Run tests</td>
-            </tr>
-
-            <tr>
-                <td>test:template</td>
-                <td align="right">Create PHPUnit testing structure</td>
-            </tr>
-
-            <tr>
-                <td>tip</td>
-                <td align="right">Get random framework tips</td>
-            </tr>
-
-            <tr>
-                <td>version</td>
-                <td align="right">Get framework version</td>
-            </tr>
+            ' . $utils . '
         ');
 
-        $this->infoLine('(c) ' . MELONLY_AUTHOR);
-        $this->infoLine('Enter your command to execute [php melon ...]:');
+        $this->infoLine('Enter your command to execute');
     }
 };
