@@ -16,7 +16,7 @@ use TypeError;
 use function Termwind\{render};
 
 class Handler {
-    public static function handle(Exception|Error|TypeError|PDOException|UnhandledError $exception): never {
+    public static function handle(Error|Exception|PDOException|TypeError|UnhandledError $exception): never {
         if (!config('app.development')) {
             Container::get(Response::class)->abort(500);
 
@@ -29,25 +29,12 @@ class Handler {
 
         Container::get(Response::class)->status(500);
 
-        self::renderError($exception);
+        self::renderErrorPage($exception);
 
         exit();
     }
 
-    public static function registerConsoleHandler(Exception|Error|TypeError|PDOException|UnhandledError $exception): void {
-        if (php_sapi_name() === 'cli') {
-            render('
-                <div class="bg-red-400 text-gray-900 px-3 py-1 my-2">
-                    <div class="w-full mb-1"><span class="font-bold">Exception:</span> ' . $exception->getMessage() . '</div>
-                    <div class="w-full"><span class="font-bold">File:</span> ' . $exception->getFile() . ':' . $exception->getLine() . '</div>
-                </div>
-            ');
-
-            exit();
-        }
-    }
-
-    public static function renderError(Exception|Error|TypeError|PDOException|UnhandledError $exception): void {
+    public static function renderErrorPage(Error|Exception|PDOException|TypeError|UnhandledError $exception): void {
         $exceptionFile = $exception->getFile();
 
         /**
@@ -72,10 +59,28 @@ class Handler {
         ], true, __DIR__ . '/Assets', true);
     }
 
+    public static function registerConsoleHandler(Error|Exception|PDOException|TypeError|UnhandledError $exception): void {
+        if (php_sapi_name() === 'cli') {
+            render('
+                <div class="bg-red-400 text-gray-900 px-3 py-1 mt-2">
+                    <div><span class="font-bold">Exception:</span> ' . $exception->getMessage() . '</div>
+                </div>
+            ');
+
+            render('
+                <div class="bg-red-400 text-gray-900 px-3 py-1 mb-2">
+                    <div><span class="font-bold">File:</span> ' . $exception->getFile() . ':' . $exception->getLine() . '</div>
+                </div>
+            ');
+
+            exit();
+        }
+    }
+
     public static function clearTempFiles(): void {
         foreach (glob(__DIR__ . '/../../storage/temp/*.php', GLOB_BRACE) as $file) {
             if (is_file($file)) {
-                File::delete($file);
+                File::delete($file); 
             }
         }
     }
