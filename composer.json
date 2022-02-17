@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "nunomaduro/termwind": "^1.5",
-        "phpunit/phpunit": "^9.5"
+        "pestphp/pest": "^1.21"
     },
     "suggest": {
         "ably/ably-php": "Ably WebSocket driver",

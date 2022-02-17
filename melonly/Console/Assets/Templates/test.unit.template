@@ -1,13 +1,7 @@
 <?php
 
-namespace Tests\Unit;
+test('asserts true is true', function () {
+    $this->assertTrue(true);
 
-use Melonly\Testing\TestCase;
-
-class {{ class }} extends TestCase
-{
-    public function assertThatTrueIsTrue(): void
-    {
-        $this->assertTrue(true);
-    }
-}
+    expect(true)->toBeTrue();
+});
