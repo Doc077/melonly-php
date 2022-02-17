@@ -13,7 +13,10 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../frontend/views/' . $this->arguments[2] . (config('view.engine') === Engine::Fruity ? '.html' : '.html.twig');
+        $fileName = __DIR__ . '/../../../frontend/views/' . $this->arguments[2] . match (config('view.engine')) {
+            Engine::Twig => '.html.twig',
+            default => '.html',
+        };
 
         if (File::exists($fileName)) {
             $this->errorLine("View '{$this->arguments[2]}' already exists");

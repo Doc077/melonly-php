@@ -5,7 +5,7 @@ namespace Melonly\Console\Commands;
 use Melonly\Console\Command;
 
 return new class extends Command {
-    protected array $generatorCommands = [
+    protected const GENERATOR_COMMANDS = [
         'new:command' => 'Create custom CLI command',
         'new:component' => 'Create new Fruity component',
         'new:controller' => 'Create new HTTP controller',
@@ -20,7 +20,7 @@ return new class extends Command {
         'new:view' => 'Create new HTML view template',
     ];
 
-    protected array $utilityCommands = [
+    protected const UTILITY_COMMANDS = [
         'cache:clear' => 'Clear cache',
         'command:list' => 'Get built-in command list',
         'migrate' => 'Run database migrations',
@@ -42,7 +42,7 @@ return new class extends Command {
 
         $generators = '';
 
-        foreach ($this->generatorCommands as $command => $description) {
+        foreach (self::GENERATOR_COMMANDS as $command => $description) {
             $generators .= '
                 <tr>
                     <td>' . $command . '</td>
@@ -66,7 +66,7 @@ return new class extends Command {
 
         $utils = '';
 
-        foreach ($this->utilityCommands as $command => $description) {
+        foreach (self::UTILITY_COMMANDS as $command => $description) {
             $utils .= '
                 <tr>
                     <td>' . $command . '</td>
