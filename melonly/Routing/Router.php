@@ -42,11 +42,9 @@ class Router implements RouterInterface {
         /**
          * Convert HTTP method enum to string.
          */
-        if (!is_string($method)) {
-            $method = $method->value;
-        } else {
-            $method = Str::uppercase($method);
-        }
+        is_string($method)
+            ? $method = Str::uppercase($method)
+            : $method = $method->value;
 
         /**
          * Create pattern for dynamic parameters and route URI.
@@ -164,14 +162,21 @@ class Router implements RouterInterface {
                 $action = $this->actions[$pattern];
 
                 /**
-                 * Call controller method in case of array argument.
+                 * Call controller method in case of array.
                  */
                 if (is_array($action)) {
                     $this->handleController($action[0], $action[1] ?? 'index');
                 }
 
                 /**
-                 * Call route callback in case of callable argument.
+                 * Call default controller method in case of class string.
+                 */
+                if (is_string($action)) {
+                    $this->handleController($action, 'handle');
+                }
+
+                /**
+                 * Call route callback in case of callable.
                  */
                 if (is_callable($action)) {
                     $this->handleClosure($pattern);
