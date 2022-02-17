@@ -2,7 +2,8 @@
 
 namespace Melonly\Broadcasting;
 
-use Pusher\Pusher as PusherDriver;
+use Ably\AblyRest;
+use Pusher\Pusher;
 
 class WebSocketConnection implements WebSocketConnectionInterface {
     protected mixed $broadcaster = null;
@@ -11,7 +12,7 @@ class WebSocketConnection implements WebSocketConnectionInterface {
         switch (config('websocket.driver')) {
             case 'pusher':
                 if (config('websocket.pusher_key') && config('websocket.pusher_secret') && config('websocket.pusher_id')) {
-                    $this->broadcaster = new PusherDriver(config('websocket.pusher_key'), config('websocket.pusher_secret'), config('websocket.pusher_id'), [
+                    $this->broadcaster = new Pusher(config('websocket.pusher_key'), config('websocket.pusher_secret'), config('websocket.pusher_id'), [
                         'cluster' => config('websocket.pusher_cluster') ?? 'eu',
                         'useTLS' => true,
                     ]);
@@ -24,9 +25,7 @@ class WebSocketConnection implements WebSocketConnectionInterface {
                     'key' => config('websocket.ably_key'),
                 ];
 
-                if (class_exists('Ably\AblyRest')) {
-                    $this->broadcaster = new ('\Ably\AblyRest')($settings);
-                }
+                $this->broadcaster = new AblyRest($settings);
 
                 break;
 
