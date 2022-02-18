@@ -12,6 +12,6 @@ return new class extends Command {
     public function handle(): void {
         $this->infoLine('Running tests');
 
-        exec('cd ' . __DIR__ . '/../../.. && "./plugins/bin/pest"');
+        exec('cd ' . __DIR__ . '/../../.. && "./vendor/bin/pest"');
     }
 };
