@@ -12,7 +12,7 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $fileName = __DIR__ . '/../../../database/migrations/' . Time::now()->isoFormat('Y_MM_DD_') . Time::now()->timestamp . '_' . $this->arguments[2] . '.php';
+        $fileName = __DIR__ . '/../../../database/migrations/' . Time::now()->isoFormat('Y_MM_DD_') . Time::now()->isoFormat('HHmmss') . '_' . $this->arguments[2] . '.php';
 
         $table = 'table_name';
 
