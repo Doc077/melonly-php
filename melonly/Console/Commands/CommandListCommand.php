@@ -28,7 +28,7 @@ return new class extends Command {
         'scaffold:vue' => 'Create Vue.js starter project',
         'server' => 'Run development server',
         'test' => 'Run tests',
-        'test:template' => 'Create PHPUnit testing structure',
+        'test:template' => 'Create Pest testing structure',
         'tip' => 'Get random framework tips',
         'version' => 'Get framework version',
     ];

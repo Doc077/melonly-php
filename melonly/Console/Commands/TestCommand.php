@@ -10,8 +10,8 @@ return new class extends Command {
     }
 
     public function handle(): void {
-        $this->infoLine('Running tests');
+        $this->infoLine('Running tests...');
 
-        shell_exec('phpunit tests');
+        exec('cd ' . __DIR__ . '/../../.. && ./plugins/bin/pest');
     }
 };
