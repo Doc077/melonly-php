@@ -37,11 +37,13 @@ Melonly is a fast and modern web application development framework for PHP. It m
     - [`/Commands`](#commands)
     - [`/Emails`](#emails)
 - [Command Line Interface](#command-line-interface)
-  - [Useful Console Commands](#useful-console-commands)
+  - [Useful Built-In Commands](#useful-built-in-commands)
+  - [Custom Commands](#custom-commands)
 - [Routing](#routing)
   - [Basic Routing with Callbacks](#basic-routing-with-callbacks)
   - [Routing Parameters](#routing-parameters)
   - [Controllers](#controllers-1)
+    - [Single-Action Controllers](#single-action-controllers)
   - [Middleware](#middleware-1)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
@@ -206,7 +208,7 @@ This directory doesn't exist by default as well. It contains application e-mail 
 
 ## Command Line Interface
 
-### Useful Console Commands
+### Useful Built-In Commands
 
 Melonly ships with Melon CLI - terminal mode client for developers. It includes many useful commands during development. Using them you can quickly generate controllers, models or even custom commands. You can test some of them:
 
@@ -230,16 +232,21 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 ```
 
 ```shell
-# Create custom CLI command
-
-> php melon new:command SayHello
-```
-
-```shell
 # Get list of all built-in commands
 
 > php melon command:list
 ```
+
+
+### Custom Commands
+
+You can create your own commands using this command:
+
+```shell
+> php melon new:command SayHello
+```
+
+Then you'll be able to write custom command in generated file in `/src/Commands` directory.
 
 
 ## Routing
@@ -312,12 +319,33 @@ class SomeController extends Controller
 To assign controller method to route use the array syntax:
 
 ```php
-use App\Controllers\ControllerName;
+use App\Controllers;
 
-Route::get('/users', [ControllerName::class, 'index']);
+Route::get('/users', [Controllers\ControllerName::class, 'index']);
 ```
 
-Now on specified `/users` route Melonly will invoke `index` method from `ControllerName`.
+Now on specified `/users` route Melonly will invoke `index` method from `ControllerName`. If method name has not been provided, then `index` will be implicit.
+
+
+#### Single-Action Controllers
+
+If the controller has only one method you can pass controller class name instead of array to route definition:
+
+```php
+Route::get('/users', Controllers\ControllerName::class);
+```
+
+`ControllerName` should have a `handle` method invoked when using single-action controller:
+
+```php
+class ControllerName extends Controller
+{
+    public function handle(): void
+    {
+        // 
+    }
+}
+```
 
 
 ### Middleware
@@ -327,7 +355,7 @@ Middleware can be used for filtering incoming requests or performing some action
 Melonly provides built-in middleware `auth` which checks if user is logged in. If not, the user will be redirected to `/login` route.
 
 ```php
-Route::get('/profile', [UserController::class, 'show'], ['middleware' => 'auth']);
+Route::get('/profile', [Controllers\UserController::class, 'show'], ['middleware' => 'auth']);
 ```
 
 To create custom middleware you can run Melon command:
@@ -340,14 +368,14 @@ Then register middleware alias in `config/http.php`:
 
 ```php
 'middleware' => [
-    'your_alias' => \App\Middleware\MiddlewareName::class,
+    'alias' => \App\Middleware\MiddlewareName::class,
 ],
 ```
 
 Middleware is stored in `src/Middleware` directory. Edit created file and you'll be able to use new middleware:
 
 ```php
-Route::get('/users', [ControllerName::class, 'index'], ['middleware' => 'your_alias']);
+Route::get('/users', [Controllers\ControllerName::class, 'index'], ['middleware' => 'alias']);
 ```
 
 
