@@ -2,6 +2,6 @@
 
 use Melonly\Console\TerminalApplication;
 
-require __DIR__ . '/plugins/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 TerminalApplication::start();
