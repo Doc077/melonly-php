@@ -21,6 +21,8 @@ module.exports = {
                'sass-loader',
             ],
          },
+
+         // React.js config
          // {
          //    test: /\.?js$/,
          //    exclude: /node_modules/,
@@ -34,6 +36,8 @@ module.exports = {
          //       },
          //    },
          // },
+
+         // Vue.js config
          // {
          //    test: /\.vue$/,
          //    exclude: /node_modules/,
