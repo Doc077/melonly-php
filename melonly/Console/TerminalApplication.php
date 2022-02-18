@@ -34,7 +34,7 @@ class TerminalApplication {
          * Handle version variants command.
          */
         if (array_key_exists('v', $this->flags) || array_key_exists('version', $this->flags)) {
-            $command = require_once __DIR__ . '/Commands/VersionCommand.php';
+            $command = require_once __DIR__ . '/Commands/Version.php';
 
             (new $command())->handle();
 
@@ -47,8 +47,8 @@ class TerminalApplication {
          * Call the corresponding command function.
          */
         if (
-            File::exists($file = __DIR__ . '/Commands/' . Str::pascalCase(Str::replace(':', '_', $this->arguments[1])) . 'Command.php') ||
-            File::exists($file = __DIR__ . '/../../src/Commands/' . Str::pascalCase(Str::replace(':', '_', $this->arguments[1])) . 'Command.php')
+            File::exists($file = __DIR__ . '/Commands/' . Str::pascalCase(Str::replace(':', '_', $this->arguments[1])) . '.php') ||
+            File::exists($file = __DIR__ . '/../../src/Commands/' . Str::pascalCase(Str::replace(':', '_', $this->arguments[1])) . '.php')
         ) {
             $command = require_once $file;
 
@@ -64,7 +64,7 @@ class TerminalApplication {
 
     protected function registerDefaultCommand(): void {
         if ($this->isArgumentListEmpty()) {
-            $command = require_once __DIR__ . '/Commands/CommandListCommand.php';
+            $command = require_once __DIR__ . '/Commands/CommandList.php';
 
             (new $command())->handle();
 

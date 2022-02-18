@@ -232,7 +232,7 @@ Melonly ships with Melon CLI - terminal mode client for developers. It includes 
 ```shell
 # Create custom CLI command
 
-> php melon new:command SayHelloCommand
+> php melon new:command SayHello
 ```
 
 ```shell
