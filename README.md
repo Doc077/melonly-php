@@ -23,11 +23,11 @@ Melonly is a fast and modern web application development framework for PHP. It m
     - [`/database`](#database)
     - [`/frontend`](#frontend)
     - [`/melonly`](#melonly)
-    - [`/plugins`](#plugins)
     - [`/public`](#public)
     - [`/src`](#src)
     - [`/storage`](#storage)
     - [`/tests`](#tests)
+    - [`/vendor`](#vendor)
   - [`src/` Directory](#src-directory)
     - [`/Controllers`](#controllers)
     - [`/Exceptions`](#exceptions)
@@ -71,6 +71,7 @@ Melonly is a fast and modern web application development framework for PHP. It m
 - [Sending Emails](#sending-emails)
 - [Frontend Frameworks (React and Vue)](#frontend-frameworks-react-and-vue)
 - [WebSockets and Broadcasting](#websockets-and-broadcasting)
+- [Testing](#testing)
 - [Deployment](#deployment)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -141,11 +142,6 @@ There are placed all files related to frontend side like views or uncompiled sty
 This folder contains framework files. You don't need to change anything there.
 
 
-#### `/plugins`
-
-Composer packages are installed there.
-
-
 #### `/public`
 
 This is the only directory visible to users. It prevents from direct access to source code. `public` folder contains `.htaccess` and `index.php` files. This is where you should put client side things like compiled styles, JS scripts and images.
@@ -163,13 +159,12 @@ There are placed cache and temporary files.
 
 #### `/tests`
 
-This directory should contain test files. It does not exist by default but can be created by running command:
+This directory contain test files. Melonly uses [Pest](https://pestphp.com) framework for handling unit tests.
 
-```shell
-> php melon test:template
-```
 
-After this command the `tests` directory will be created along with `phpunit.xml` file.
+#### `/vendor`
+
+Composer packages are installed there.
 
 
 ### `src/` Directory
@@ -930,17 +925,38 @@ After configuration you may create your first broadcasts. Look how it works:
 ```php
 use Melonly\Broadcasting\Facades\WebSocket;
 
-WebSocket::broadcast('channel-name', 'EventName', $someData);
+WebSocket::broadcast('channel-name', 'EventName', $data);
 ```
 
 Then on the client side you can listen for broadcasted events using your driver.
+
+
+## Testing
+
+Melonly utilizes [Pest](https://pestphp.com) framework for handling unit tests. Test files live inside `/tests` directory. To create new test file, run `new:test` command:
+
+```shell
+> php melon new:test:unit SomeTest
+
+> php melon new:test:feature SomeTest
+```
+
+This will create new test with the following structure:
+
+```php
+test('asserts true is true', function () {
+    $this->assertTrue(true);
+
+    expect(true)->toBeTrue();
+});
+```
 
 
 ## Deployment
 
 When you're moving to server from the local environment, you will need to change serveral settings. Firstly let's change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking code snippets visible on dev exception page.
 
-Then if your server supports setting root web directory, set it to `public` directory. If it's not available, you have to upload all files (except these inside `public`) to a directory **above** your public server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory.
+Then if your server supports setting root web directory, set it to `public` directory. If it's not available, you have to upload all files (except these inside `public`) to a directory **above** your public server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory. Finally adjust the `INCLUDE_PATH` constant in `/public/index.php` to your structure.
 
 
 ## Documentation
