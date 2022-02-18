@@ -11,10 +11,10 @@ require __DIR__ . '/' . INCLUDE_PATH . '/vendor/autoload.php';
 
 Application::start();
 
-/**
-    ░█▀▄▀█ █▀▀ █── █▀▀█ █▀▀▄ █── █──█ 
-    ░█░█░█ █▀▀ █── █──█ █──█ █── █▄▄█ 
-    ░█──░█ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀──▀ ▀▀▀ ▄▄▄█
+/*
+    █▀▄▀█ █▀▀ █   █▀▀█ █▀▀▄ █   █  █
+    █ █ █ █▀▀ █   █  █ █  █ █   █▄▄█
+    █   █ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀  ▀ ▀▀▀ ▄▄▄█
 
     The Modern PHP Framework
 
@@ -22,4 +22,4 @@ Application::start();
 
     Documentation: melonly.dev/docs
     Repository: https://github.com/Doc077/melonly
- */
+*/
