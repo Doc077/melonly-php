@@ -27,14 +27,13 @@
         "pusher/pusher-php-server": "Pusher WebSocket driver"
     },
     "config": {
-        "vendor-dir": "plugins/",
         "preferred-install": "dist",
         "sort-packages": true
     },
     "autoload": {
         "psr-4": {
-            "Melonly\\": "melonly/",
             "App\\": "src/",
+            "Melonly\\": "melonly/",
             "Tests\\": "tests/"
         },
         "files": [
