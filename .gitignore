@@ -1,7 +1,5 @@
 node_modules/
-jspm_packages/
 /vendor
-/plugins
 /public/storage
 .DS_Store
 *.log
