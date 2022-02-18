@@ -2,12 +2,12 @@
 
 use Melonly\Bootstrap\Application;
 
-// Path to framework files & plugins.
+// Path to framework files and packages.
 // Change this path when moving to server from local environment.
 
 const INCLUDE_PATH = '../';
 
-require __DIR__ . '/' . INCLUDE_PATH . '/plugins/autoload.php';
+require __DIR__ . '/' . INCLUDE_PATH . '/vendor/autoload.php';
 
 Application::start();
 
