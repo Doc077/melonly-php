@@ -951,6 +951,12 @@ test('asserts true is true', function () {
 });
 ```
 
+To run tests you can use this command:
+
+```shell
+> ./vendor/bin/pest
+```
+
 
 ## Deployment
 
