@@ -9,5 +9,10 @@ Route::get('/', function (Request $request, Response $response): void {
     $response->view('pages.home');
 });
 
-# Controller route example
+/**
+ * Example route with assigned controller.
+ * 
+ * Controllers are stored in src/Controllers.
+ * Create a new controller with new:controller command.
+ */
 Route::get('/example/{slug}', [Controllers\ExampleController::class, 'index']);
