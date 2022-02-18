@@ -1,14 +1,16 @@
 const path = require('path')
 
+const framework = 'react'
+
 module.exports = {
    mode: 'development',
 
-   // entry: path.join(__dirname, 'frontend', 'react', 'index.js'),
+   entry: path.join(__dirname, 'frontend', framework, 'index.js'),
 
-   // output: {
-   //    path: path.resolve(__dirname, 'public', 'js'),
-   //    filename: 'index.js',
-   // },
+   output: {
+      path: path.resolve(__dirname, 'public', 'js'),
+      filename: 'index.js',
+   },
 
    module: {
       rules: [
@@ -34,6 +36,7 @@ module.exports = {
          // },
          // {
          //    test: /\.vue$/,
+         //    exclude: /node_modules/,
          //    loader: 'vue-loader',
          // },
       ],
