@@ -3,7 +3,6 @@
 namespace Melonly\Console\Commands;
 
 use Melonly\Console\Command;
-use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Time;
 
 return new class extends Command {
