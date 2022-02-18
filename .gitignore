@@ -2,6 +2,7 @@ node_modules/
 /vendor
 /public/storage
 .DS_Store
+*.cache
 *.log
 .env
 npm-debug.log*
