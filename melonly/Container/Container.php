@@ -7,7 +7,8 @@ use ReflectionException;
 use ReflectionFunction;
 use ReflectionMethod;
 
-class Container implements ContainerInterface {
+class Container implements ContainerInterface
+{
     protected static array $instances = [];
 
     protected static array $defaultFrameworkServices = [
@@ -25,7 +26,8 @@ class Container implements ContainerInterface {
         \Melonly\Validation\Validator::class,
     ];
 
-    public static function initialize(): void {
+    public static function initialize(): void
+    {
         foreach (self::$defaultFrameworkServices as $service) {
             self::$instances[$service] = new $service();
         }
@@ -35,7 +37,8 @@ class Container implements ContainerInterface {
         }
     }
 
-    public static function get(string $key): mixed {
+    public static function get(string $key): mixed
+    {
         if (!array_key_exists($key, self::$instances)) {
             throw new UnregisteredServiceException("Unregistered service '{$key}'");
         }
@@ -43,17 +46,20 @@ class Container implements ContainerInterface {
         return self::$instances[$key];
     }
 
-    public static function set(string $class): mixed {
+    public static function set(string $class): mixed
+    {
         self::$instances[$class] = new $class();
 
         return self::$instances[$class];
     }
 
-    public static function has(string $key): bool {
+    public static function has(string $key): bool
+    {
         return array_key_exists($key, self::$instances);
     }
 
-    public static function resolveDependencies(callable|ReflectionMethod $resolver): array {
+    public static function resolveDependencies(callable|ReflectionMethod $resolver): array
+    {
         if (!$resolver instanceof ReflectionMethod) {
             try {
                 $resolver = new ReflectionFunction($resolver);

@@ -6,14 +6,16 @@ use Melonly\Bootstrap\Application;
 use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Str;
 
-class TerminalApplication {
+class TerminalApplication
+{
     use DisplaysOutput;
 
     protected array $arguments = [];
 
     protected array $flags = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         global $argv;
 
         foreach ($argv as $argument) {
@@ -58,11 +60,13 @@ class TerminalApplication {
         }
     }
 
-    protected function bootstrap(): void {
+    protected function bootstrap(): void
+    {
         Application::start();
     }
 
-    protected function registerDefaultCommand(): void {
+    protected function registerDefaultCommand(): void
+    {
         if ($this->isArgumentListEmpty()) {
             $command = require_once __DIR__ . '/Commands/CommandList.php';
 
@@ -72,11 +76,13 @@ class TerminalApplication {
         }
     }
 
-    protected function isArgumentListEmpty(): bool {
+    protected function isArgumentListEmpty(): bool
+    {
         return empty($this->arguments) || !isset($this->arguments[1]) || empty($this->arguments[1]);
     }
 
-    public static function start(): static {
+    public static function start(): static
+    {
         return new static();
     }
 }

@@ -2,7 +2,8 @@
 
 namespace Melonly\Container;
 
-interface ContainerInterface {
+interface ContainerInterface
+{
     public static function initialize(): void;
 
     public static function get(string $key): mixed;

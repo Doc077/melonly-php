@@ -4,6 +4,7 @@ namespace Melonly\Encryption;
 
 use Exception;
 
-class EncryptionException extends Exception {
+class EncryptionException extends Exception
+{
     // 
 }

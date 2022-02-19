@@ -5,7 +5,8 @@ namespace Melonly\Database;
 use Melonly\Database\Facades\DB;
 use Melonly\Support\Containers\Vector;
 
-class Query {
+class Query
+{
     protected string $sql = 'select';
 
     protected string $table = '';
@@ -20,7 +21,8 @@ class Query {
 
     protected string $orderByMode = 'asc';
 
-    public function where(string $column, string $sign, string|int|float $value): self {
+    public function where(string $column, string $sign, string|int|float $value): self
+    {
         if (is_string($value)) {
             $value = '"' . $value . '"';
         }
@@ -30,20 +32,23 @@ class Query {
         return $this;
     }
 
-    public function limit(int $offset): self {
+    public function limit(int $offset): self
+    {
         $this->limit = $offset;
 
         return $this;
     }
 
-    public function orderBy(string $column, string $mode = 'asc'): self {
+    public function orderBy(string $column, string $mode = 'asc'): self
+    {
         $this->orderBy = $column;
         $this->mode = $mode;
 
         return $this;
     }
 
-    public function orWhere(string $column, string $sign, string|int|float $value): self {
+    public function orWhere(string $column, string $sign, string|int|float $value): self
+    {
         if (is_string($value)) {
             $value = '"' . $value . '"';
         }
@@ -53,13 +58,15 @@ class Query {
         return $this;
     }
 
-    public function select(array $columns = []): self {
+    public function select(array $columns = []): self
+    {
         $this->columns = array_merge($columns, $this->columns);
 
         return $this;
     }
 
-    public function fetch(array $columns = []): Vector|Record|array {
+    public function fetch(array $columns = []): Vector|Record|array
+    {
         $this->columns = array_merge($columns, $this->columns);
 
         /**
@@ -82,7 +89,8 @@ class Query {
         return DB::query($this->sql);
     }
 
-    public function setTable(string $tableName): self {
+    public function setTable(string $tableName): self
+    {
         $this->table = $tableName;
 
         return $this;

@@ -4,6 +4,7 @@ namespace Melonly\Container;
 
 use RuntimeException;
 
-class UnregisteredServiceException extends RuntimeException {
+class UnregisteredServiceException extends RuntimeException
+{
     // 
 }

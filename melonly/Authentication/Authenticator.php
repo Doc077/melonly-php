@@ -7,10 +7,12 @@ use Melonly\Database\Facades\DB;
 use Melonly\Encryption\Facades\Hash;
 use Melonly\Http\Session;
 
-class Authenticator {
+class Authenticator
+{
     public array $userData = [];
 
-    public function login(string $email, string $password): bool {
+    public function login(string $email, string $password): bool
+    {
         if ($this->logged()) {
             return false;
         }
@@ -36,13 +38,15 @@ class Authenticator {
         return false;
     }
 
-    public function logout(): void {
+    public function logout(): void
+    {
         Session::clear();
 
         redirect('/login');
     }
 
-    public function logged(): bool {
+    public function logged(): bool
+    {
         if (Session::isSet('MELONLY_AUTHENTICATED') && Session::get('MELONLY_AUTHENTICATED') === true) {
             return true;
         }
@@ -50,7 +54,8 @@ class Authenticator {
         return false;
     }
 
-    public function user(): User {
+    public function user(): User
+    {
         $authUser = new User();
 
         foreach ($this->userData as $field => $value) {
@@ -60,7 +65,8 @@ class Authenticator {
         return $authUser;
     }
 
-    public function setUserData(array $data): void {
+    public function setUserData(array $data): void
+    {
         $this->userData = $data;
     }
 }

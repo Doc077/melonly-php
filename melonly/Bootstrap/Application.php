@@ -18,10 +18,12 @@ use Melonly\Support\Helpers\Math;
 use Melonly\Routing\Router;
 use Throwable;
 
-class Application {
+class Application
+{
     public static float $performance;
 
-    public function __construct() {
+    public function __construct()
+    {
         try {
             $timer = new Timer();
 
@@ -41,7 +43,8 @@ class Application {
         }
     }
 
-    protected function registerHandlers(): void {
+    protected function registerHandlers(): void
+    {
         error_reporting(-1);
 
         set_error_handler(function (
@@ -55,7 +58,7 @@ class Application {
             }
 
             $error = new UnhandledError($level, $message, $file, $line);
-        
+
             Handler::handle($error);
         });
 
@@ -70,12 +73,13 @@ class Application {
             }
 
             $error = new UnhandledError($level, $message, $file, $line);
-        
+
             Handler::handle($error);
         });
     }
 
-    protected function initialize(): void {
+    protected function initialize(): void
+    {
         $this->registerHandlers();
 
         Dotenv::createImmutable(__DIR__ . '/../..')->load();
@@ -106,7 +110,8 @@ class Application {
         }
     }
 
-    protected function compressOutput(): void {
+    protected function compressOutput(): void
+    {
         ob_start(function (string $buffer): string {
             $patterns = [
                 '/\>[^\S ]+/s',
@@ -115,16 +120,17 @@ class Application {
             ];
 
             $replacements = ['>', '<', '\\1'];
-    
+
             if (preg_match('/\<html/i', $buffer) === 1 && preg_match('/\<\/html\>/i', $buffer) === 1) {
                 $buffer = preg_replace($patterns, $replacements, $buffer);
             }
-    
+
             return str_replace('	', '', $buffer);
         });
     }
 
-    protected function respondAndTerminate(): void {
+    protected function respondAndTerminate(): void
+    {
         if (php_sapi_name() !== 'cli') {
             /**
              * Minify response content if it's not a file request.
@@ -142,7 +148,8 @@ class Application {
         }
     }
 
-    public static function start(): static {
+    public static function start(): static
+    {
         return new static();
     }
 }

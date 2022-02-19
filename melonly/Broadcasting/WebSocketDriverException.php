@@ -4,6 +4,7 @@ namespace Melonly\Broadcasting;
 
 use Exception;
 
-class WebSocketDriverException extends Exception {
+class WebSocketDriverException extends Exception
+{
     // 
 }

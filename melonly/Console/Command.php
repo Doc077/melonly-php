@@ -5,14 +5,16 @@ namespace Melonly\Console;
 use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Regex;
 
-abstract class Command {
+abstract class Command
+{
     use DisplaysOutput, GetsInput;
 
     protected array $arguments = [];
 
     protected array $flags = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         global $argv;
 
         foreach ($argv as $argument) {
@@ -28,7 +30,8 @@ abstract class Command {
         }
     }
 
-    protected function publishFileFromTemplate(string $path, string $template, array $arguments = []): void {
+    protected function publishFileFromTemplate(string $path, string $template, array $arguments = []): void
+    {
         $content = File::content(__DIR__ . '/Assets/Templates/' . $template . '.template');
 
         foreach ($arguments as $variable => $value) {
@@ -38,7 +41,8 @@ abstract class Command {
         File::create($path, $content);
     }
 
-    protected function executeCommand(string $command, array $args = []): void {
+    protected function executeCommand(string $command, array $args = []): void
+    {
         shell_exec("php melon $command " . implode(' ', $args));
     }
 }

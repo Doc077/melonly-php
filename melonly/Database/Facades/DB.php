@@ -10,12 +10,15 @@ use Melonly\Database\Connection;
  * @method static \Melonly\Database\Query from(string $table)
  * @method static \PDO getConnection()
  */
-class DB extends Facade {
-    protected static function getAccessor(): string {
+class DB extends Facade
+{
+    protected static function getAccessor(): string
+    {
         return Connection::class;
     }
 
-    public static function __callStatic(string $method, array $args): mixed {
+    public static function __callStatic(string $method, array $args): mixed
+    {
         return self::handleCall($method, $args, self::getAccessor());
     }
 }

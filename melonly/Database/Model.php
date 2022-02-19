@@ -9,7 +9,8 @@ use Melonly\Support\Containers\Vector;
 use ReflectionClass;
 use ReflectionProperty;
 
-abstract class Model {
+abstract class Model
+{
     protected string $table;
 
     public static array $fieldTypes = [];
@@ -17,7 +18,8 @@ abstract class Model {
     /**
      * Save record to database.
      */
-    public function save(): void {
+    public function save(): void
+    {
         $fields = [];
         $values = [];
 
@@ -45,21 +47,24 @@ abstract class Model {
     /**
      * Fetch all records from the table.
      */
-    public static function all(): Vector|Record|array {
+    public static function all(): Vector|Record|array
+    {
         return DB::query('select * from ' . self::getTable());
     }
 
     /**
      * Find model by id.
      */
-    public static function find(int|string $id): self {
+    public static function find(int|string $id): self
+    {
         return DB::query('select * from ' . self::getTable() . ' where id = ' . $id);
     }
 
     /**
      * Create and save record.
      */
-    public static function create(array $data): void {
+    public static function create(array $data): void
+    {
         self::registerModel();
 
         $fields = [];
@@ -80,7 +85,8 @@ abstract class Model {
     /**
      * Update and save record.
      */
-    public static function update(array $data): void {
+    public static function update(array $data): void
+    {
         self::registerModel();
 
         $sets = '';
@@ -97,7 +103,8 @@ abstract class Model {
     /**
      * Get model table name.
      */
-    protected static function getTable(): string {
+    protected static function getTable(): string
+    {
         $tableName = explode('\\', static::class);
         $tableName = strtolower(end($tableName)) . 's';
 
@@ -116,13 +123,15 @@ abstract class Model {
     /**
      * Get model class name.
      */
-    protected static function getClass(): string {
+    protected static function getClass(): string
+    {
         $instance = new static();
 
         return get_class($instance);
     }
 
-    protected static function validateFieldType(string $field, mixed $value): void {
+    protected static function validateFieldType(string $field, mixed $value): void
+    {
         /**
          * Compare values with registered model data types.
          * 
@@ -155,7 +164,8 @@ abstract class Model {
     /**
      * Register model column types by attributes.
      */
-    protected static function registerModel(): void {
+    protected static function registerModel(): void
+    {
         if (count(self::$fieldTypes) > 0) {
             return;
         }
@@ -196,7 +206,8 @@ abstract class Model {
     /**
      * Handle all static calls for query builder interface.
      */
-    public static function __callStatic(string $method, array $args): mixed {
+    public static function __callStatic(string $method, array $args): mixed
+    {
         return match ($method) {
             'all',
             'create',

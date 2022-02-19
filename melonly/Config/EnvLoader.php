@@ -6,10 +6,12 @@ use Exception;
 use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Str;
 
-class EnvLoader {
+class EnvLoader
+{
     protected array $variables = [];
 
-    protected function parse(): void {
+    protected function parse(): void
+    {
         $lines = File::read(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         foreach ($lines as $line) {
@@ -37,7 +39,8 @@ class EnvLoader {
         }
     }
 
-    public function load(): void {
+    public function load(): void
+    {
         $this->parse();
 
         foreach ($this->variables as $variable => $value) {
@@ -45,11 +48,13 @@ class EnvLoader {
         }
     }
 
-    public function has(string $key): bool {
+    public function has(string $key): bool
+    {
         return array_key_exists($key, $this->variables);
     }
 
-    public function get(string $key): mixed {
+    public function get(string $key): mixed
+    {
         return $this->variables[$key];
     }
 }

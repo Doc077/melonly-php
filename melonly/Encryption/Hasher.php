@@ -4,8 +4,10 @@ namespace Melonly\Encryption;
 
 use Exception;
 
-class Hasher {
-    public function hash(string $data, int $cost = 10): string {
+class Hasher
+{
+    public function hash(string $data, int $cost = 10): string
+    {
         $hash = password_hash($data, PASSWORD_BCRYPT, [
             'cost' => $cost
         ]);
@@ -17,11 +19,13 @@ class Hasher {
         return $hash;
     }
 
-    public function check(string $input, string $output): bool {
+    public function check(string $input, string $output): bool
+    {
         return password_verify($input, $output);
     }
 
-    public function equals(string $input, string $output): bool {
+    public function equals(string $input, string $output): bool
+    {
         return hash_equals($input, $output);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace Melonly\Config;
 
-enum Entry {
+enum Entry
+{
     case Set;
     case Unset;
 }

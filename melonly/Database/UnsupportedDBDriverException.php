@@ -4,6 +4,7 @@ namespace Melonly\Database;
 
 use Exception;
 
-class UnsupportedDBDriverException extends Exception {
+class UnsupportedDBDriverException extends Exception
+{
     // 
 }

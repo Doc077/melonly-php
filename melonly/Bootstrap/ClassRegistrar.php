@@ -2,12 +2,13 @@
 
 namespace Melonly\Bootstrap;
 
-use App\Controllers;
 use ReflectionClass;
 use ReflectionMethod;
 
-class ClassRegistrar {
-    public static function registerControllers(): void {
+class ClassRegistrar
+{
+    public static function registerControllers(): void
+    {
         /**
          * Get all controllers and create attribute instances.
          * Here application will register HTTP routes.

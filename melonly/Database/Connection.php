@@ -8,7 +8,8 @@ use Melonly\Support\Containers\Vector;
 use PDO;
 use PDOException;
 
-class Connection implements ConnectionInterface {
+class Connection implements ConnectionInterface
+{
     protected readonly string $system;
 
     protected readonly string $host;
@@ -21,7 +22,8 @@ class Connection implements ConnectionInterface {
 
     protected ?PDO $pdo = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->system = config('database.system');
 
         $this->host = config('database.host');
@@ -48,7 +50,10 @@ class Connection implements ConnectionInterface {
         }
 
         $this->pdo = new PDO(
-            $dsn, $this->user, $this->password, [
+            $dsn,
+            $this->user,
+            $this->password,
+            [
                 PDO::ATTR_EMULATE_PREPARES => false,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]
@@ -58,7 +63,8 @@ class Connection implements ConnectionInterface {
     /**
      * Execute raw SQL query.
      */
-    public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array {
+    public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array
+    {
         if (!$this->pdo) {
             throw new Exception('Database connection failed. Provide config credentials or check your database');
         }
@@ -119,15 +125,18 @@ class Connection implements ConnectionInterface {
         }
     }
 
-    public function from(string $table): Query {
+    public function from(string $table): Query
+    {
         return (new Query())->setTable($table);
     }
 
-    public function getConnection(): PDO {
+    public function getConnection(): PDO
+    {
         return $this->pdo;
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->pdo = null;
     }
 }

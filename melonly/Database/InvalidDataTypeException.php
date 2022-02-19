@@ -4,6 +4,7 @@ namespace Melonly\Database;
 
 use RuntimeException;
 
-class InvalidDataTypeException extends RuntimeException {
+class InvalidDataTypeException extends RuntimeException
+{
     // 
 }

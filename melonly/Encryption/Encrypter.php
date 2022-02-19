@@ -2,14 +2,17 @@
 
 namespace Melonly\Encryption;
 
-class Encrypter {
+class Encrypter
+{
     protected string $key;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->key = config('encryption.key');
     }
 
-    public function encrypt(string $data, string $algorithm = 'aes-256-ctr', bool $encode = false): string {
+    public function encrypt(string $data, string $algorithm = 'aes-256-ctr', bool $encode = false): string
+    {
         $size = openssl_cipher_iv_length($algorithm);
         $nonce = openssl_random_pseudo_bytes($size);
 
@@ -28,7 +31,8 @@ class Encrypter {
         return $nonce . $cipherText;
     }
 
-    public function decrypt(string $data, string $algorithm = 'aes-256-ctr', bool $encoded = false): string {
+    public function decrypt(string $data, string $algorithm = 'aes-256-ctr', bool $encoded = false): string
+    {
         if ($encoded) {
             $data = base64_decode($data, true);
 

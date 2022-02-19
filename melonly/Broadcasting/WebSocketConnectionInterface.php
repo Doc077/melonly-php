@@ -2,6 +2,7 @@
 
 namespace Melonly\Broadcasting;
 
-interface WebSocketConnectionInterface {
+interface WebSocketConnectionInterface
+{
     public function broadcast(string $channel, string $event, mixed $data): void;
 }

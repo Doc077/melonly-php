@@ -5,10 +5,12 @@ namespace Melonly\Broadcasting;
 use Ably\AblyRest;
 use Pusher\Pusher;
 
-class WebSocketConnection implements WebSocketConnectionInterface {
+class WebSocketConnection implements WebSocketConnectionInterface
+{
     protected mixed $broadcaster = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         switch (config('websocket.driver')) {
             case 'pusher':
                 if (config('websocket.pusher_key') && config('websocket.pusher_secret') && config('websocket.pusher_id')) {
@@ -34,7 +36,8 @@ class WebSocketConnection implements WebSocketConnectionInterface {
         }
     }
 
-    public function broadcast(string $channel, string $event, mixed $data): void {
+    public function broadcast(string $channel, string $event, mixed $data): void
+    {
         if ($this->broadcaster === null) {
             throw new WebSocketDriverException('.env broadcasting credentials not supplied or driver package is not installed');
         }
