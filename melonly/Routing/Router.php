@@ -26,7 +26,7 @@ class Router implements RouterInterface
 
     protected array $redirects = [];
 
-    public function add(string|HttpMethod $method, string|array $uri, callable|array $action, array $data = []): void
+    public function add(HttpMethod|string $method, string|array $uri, callable|array $action, array $data = []): void
     {
         /**
          * Register multiple routes in case of array argument.
@@ -104,11 +104,23 @@ class Router implements RouterInterface
     public function any(string $uri, callable|array $action, array $data = []): void
     {
         $this->add(HttpMethod::Get, $uri, $action, $data);
+
         $this->add(HttpMethod::Post, $uri, $action, $data);
+
         $this->add(HttpMethod::Put, $uri, $action, $data);
+
         $this->add(HttpMethod::Patch, $uri, $action, $data);
+
         $this->add(HttpMethod::Delete, $uri, $action, $data);
+
         $this->add(HttpMethod::Options, $uri, $action, $data);
+    }
+
+    public function view(string $uri, string $view, array $variables = [], array $data = []): void
+    {
+        $this->add(HttpMethod::Get, $uri, function (Response $response) use ($view, $variables) {
+            $response->view($view, $variables);
+        }, $data);
     }
 
     public function evaluate(): void

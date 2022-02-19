@@ -14,6 +14,7 @@ use Melonly\Routing\Router;
  * @method static void delete(string $uri, callable $action, array $data = [])
  * @method static void options(string $uri, callable $action, array $data = [])
  * @method static void any(string $uri, callable $action, array $data = [])
+ * @method static void view(string $uri, string $view, array $variables = [], array $data)
  * @method static void evaluate()
  */
 class Route extends Facade
