@@ -4,6 +4,10 @@ namespace Melonly\Support\Helpers;
 
 class Str
 {
+    public function __construct(protected string $content)
+    {
+    }
+
     public static function uppercase(string $string): string
     {
         return strtoupper($string);

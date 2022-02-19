@@ -5,6 +5,7 @@ use Melonly\Filesystem\File;
 use Melonly\Http\Session;
 use Melonly\Support\Containers\Vector;
 use Melonly\Support\Debug\Dumper;
+use Melonly\Support\Helpers\Str;
 use Melonly\Translation\Facades\Lang;
 use Melonly\Views\HtmlNodeString;
 
@@ -177,6 +178,13 @@ if (!function_exists('redirectBack')) {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
 
         exit();
+    }
+}
+
+if (!function_exists('str')) {
+    function str(string $content): Str
+    {
+        return new Str($content);
     }
 }
 
