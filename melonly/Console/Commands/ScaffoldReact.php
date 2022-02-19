@@ -1,7 +1,5 @@
 <?php
 
-namespace Melonly\Console\Commands;
-
 use Melonly\Console\Command;
 
 return new class extends Command {

@@ -1,7 +1,5 @@
 <?php
 
-namespace Melonly\Console\Commands;
-
 use Melonly\Console\Command;
 use Melonly\Database\Facades\DB;
 use Melonly\Filesystem\File;
