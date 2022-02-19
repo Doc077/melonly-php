@@ -9,13 +9,15 @@ use Melonly\Translation\Facades\Lang;
 use Melonly\Views\HtmlNodeString;
 
 if (!function_exists('__')) {
-    function __(string $key): string {
+    function __(string $key): string
+    {
         return trans($key);
     }
 }
 
 if (!function_exists('config')) {
-    function config(string $key, mixed $default = Entry::Unset): mixed {
+    function config(string $key, mixed $default = Entry::Unset): mixed
+    {
         $parts = explode('.', $key);
 
         $file = __DIR__ . '/../../config/' . $parts[0] . '.php';
@@ -38,7 +40,8 @@ if (!function_exists('config')) {
 }
 
 if (!function_exists('csrfToken')) {
-    function csrfToken(): string {
+    function csrfToken(): string
+    {
         if (!Session::isSet('MELONLY_CSRF_TOKEN')) {
             throw new Exception('CSRF token is not set');
         }
@@ -48,19 +51,22 @@ if (!function_exists('csrfToken')) {
 }
 
 if (!function_exists('directoryUp')) {
-    function directoryUp(string $directory): string {
+    function directoryUp(string $directory): string
+    {
         return dirname($directory, 1);
     }
 }
 
 if (!function_exists('dump')) {
-    function dump(...$variables): void {
+    function dump(...$variables): void
+    {
         Dumper::dump(...$variables);
     }
 }
 
 if (!function_exists('dd')) {
-    function dd(...$variables): never {
+    function dd(...$variables): never
+    {
         dump(...$variables);
 
         exit();
@@ -68,7 +74,8 @@ if (!function_exists('dd')) {
 }
 
 if (!function_exists('env')) {
-    function env(string $key, mixed $default = null): mixed {
+    function env(string $key, mixed $default = null): mixed
+    {
         if (!array_key_exists($key, $_ENV)) {
             if ($default === null) {
                 throw new Exception(".env option '$key' is not set");
@@ -106,7 +113,8 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('esc')) {
-    function esc(mixed $data): void {
+    function esc(mixed $data): void
+    {
         if ($data instanceof HtmlNodeString) {
             print($data);
 
@@ -122,7 +130,8 @@ if (!function_exists('esc')) {
 }
 
 if (!function_exists('getNamespaceClasses')) {
-    function getNamespaceClasses(string $namespace): array {
+    function getNamespaceClasses(string $namespace): array
+    {
         $namespace .= '\\';
 
         $classList  = array_filter(get_declared_classes(), function ($item) use ($namespace) {
@@ -142,7 +151,8 @@ if (!function_exists('getNamespaceClasses')) {
 }
 
 if (!function_exists('redirect')) {
-    function redirect(string $url, array $data = []): never {
+    function redirect(string $url, array $data = []): never
+    {
         foreach ($data as $key => $value) {
             Session::flash($key, $value);
         }
@@ -154,7 +164,8 @@ if (!function_exists('redirect')) {
 }
 
 if (!function_exists('redirectBack')) {
-    function redirectBack(array $data = []): never {
+    function redirectBack(array $data = []): never
+    {
         foreach ($data as $key => $value) {
             Session::flash($key, $value);
         }
@@ -170,7 +181,8 @@ if (!function_exists('redirectBack')) {
 }
 
 if (!function_exists('throwIf')) {
-    function throwIf(bool $condition, string|object $exception, ...$params): never {
+    function throwIf(bool $condition, string|object $exception, ...$params): never
+    {
         if ($condition) {
             throw (is_string($exception) ? new $exception($params) : $exception($params));
         }
@@ -178,13 +190,15 @@ if (!function_exists('throwIf')) {
 }
 
 if (!function_exists('trans')) {
-    function trans(string $key): string {
+    function trans(string $key): string
+    {
         return Lang::getTranslation($key);
     }
 }
 
 if (!function_exists('vector')) {
-    function vector(...$values): Vector {
+    function vector(...$values): Vector
+    {
         return new Vector(...$values);
     }
 }

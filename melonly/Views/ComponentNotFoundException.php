@@ -4,6 +4,7 @@ namespace Melonly\Views;
 
 use RuntimeException;
 
-class ComponentNotFoundException extends RuntimeException {
+class ComponentNotFoundException extends RuntimeException
+{
     // 
 }

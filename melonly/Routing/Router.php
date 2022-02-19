@@ -14,7 +14,8 @@ use Melonly\Support\Helpers\Str;
 use Melonly\Views\View;
 use ReflectionClass;
 
-class Router implements RouterInterface {
+class Router implements RouterInterface
+{
     protected array $patterns = [];
 
     protected array $methods = [];
@@ -25,7 +26,8 @@ class Router implements RouterInterface {
 
     protected array $redirects = [];
 
-    public function add(string|HttpMethod $method, string|array $uri, callable|array $action, array $data = []): void {
+    public function add(string|HttpMethod $method, string|array $uri, callable|array $action, array $data = []): void
+    {
         /**
          * Register multiple routes in case of array argument.
          */
@@ -69,31 +71,38 @@ class Router implements RouterInterface {
         }
     }
 
-    public function get(string|array $uri, callable|array $action, array $data = []): void {
+    public function get(string|array $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Get, $uri, $action, $data);
     }
 
-    public function post(string|array $uri, callable|array $action, array $data = []): void {
+    public function post(string|array $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Post, $uri, $action, $data);
     }
 
-    public function put(string|array $uri, callable|array $action, array $data = []): void {
+    public function put(string|array $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Put, $uri, $action, $data);
     }
 
-    public function patch(string|array $uri, callable|array $action, array $data = []): void {
+    public function patch(string|array $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Patch, $uri, $action, $data);
     }
 
-    public function delete(string|array $uri, callable|array $action, array $data = []): void {
+    public function delete(string|array $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Delete, $uri, $action, $data);
     }
 
-    public function options(string|array $uri, callable|array $action, array $data = []): void {
+    public function options(string|array $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Options, $uri, $action, $data);
     }
 
-    public function any(string $uri, callable|array $action, array $data = []): void {
+    public function any(string $uri, callable|array $action, array $data = []): void
+    {
         $this->add(HttpMethod::Get, $uri, $action, $data);
         $this->add(HttpMethod::Post, $uri, $action, $data);
         $this->add(HttpMethod::Put, $uri, $action, $data);
@@ -102,7 +111,8 @@ class Router implements RouterInterface {
         $this->add(HttpMethod::Options, $uri, $action, $data);
     }
 
-    public function evaluate(): void {
+    public function evaluate(): void
+    {
         $uri = Container::get(Request::class)->uri();
 
         $uri = $this->cleanPath($uri);
@@ -122,7 +132,8 @@ class Router implements RouterInterface {
         $this->checkMatchedRoute($uri);
     }
 
-    protected function cleanPath(string $uri): string {
+    protected function cleanPath(string $uri): string
+    {
         /**
          * Trim leading slash.
          */
@@ -133,7 +144,8 @@ class Router implements RouterInterface {
         return $uri;
     }
 
-    protected function checkMatchedRoute(string $uri): void {
+    protected function checkMatchedRoute(string $uri): void
+    {
         $matchesOneRoute = false;
 
         foreach ($this->patterns as $pattern) {
@@ -193,13 +205,15 @@ class Router implements RouterInterface {
         }
     }
 
-    protected function handleClosure(string $pattern): void {
+    protected function handleClosure(string $pattern): void
+    {
         $services = Container::resolveDependencies($this->actions[$pattern]);
 
         $this->actions[$pattern](...$services);
     }
 
-    protected function handleController(string $class, string $method): void {
+    protected function handleController(string $class, string $method): void
+    {
         $classReflection = new ReflectionClass($class);
 
         $constructor = $classReflection->getConstructor();
@@ -215,7 +229,8 @@ class Router implements RouterInterface {
         $controller->{$method}(...$methodServices);
     }
 
-    protected function handleFileRequest(string $uri): void {
+    protected function handleFileRequest(string $uri): void
+    {
         $extension = pathinfo($uri)['extension'];
 
         $mime = 'text/plain';
@@ -250,7 +265,8 @@ class Router implements RouterInterface {
         print(readfile(__DIR__ . '/../../' . config('app.public') . '/' . $uri));
     }
 
-    protected function handleMiddleware(string $pattern): void {
+    protected function handleMiddleware(string $pattern): void
+    {
         $class = config('http.middleware')[$this->middleware[$pattern]];
 
         $classReflection = new ReflectionClass($class);
@@ -262,7 +278,8 @@ class Router implements RouterInterface {
         (new $class())->handle(...$services);
     }
 
-    protected function returnResponse(string $pattern): void {
+    protected function returnResponse(string $pattern): void
+    {
         /**
          * Handle route middleware if defined.
          */

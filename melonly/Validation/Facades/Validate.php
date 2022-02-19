@@ -7,12 +7,15 @@ use Melonly\Container\Facade;
 /**
  * @method static bool check(array $array)
  */
-class Validate extends Facade {
-    protected static function getAccessor(): string {
+class Validate extends Facade
+{
+    protected static function getAccessor(): string
+    {
         return Validator::class;
     }
 
-    public static function __callStatic(string $method, array $args): mixed {
+    public static function __callStatic(string $method, array $args): mixed
+    {
         return self::handleCall($method, $args, self::getAccessor());
     }
 }

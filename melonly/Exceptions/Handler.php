@@ -13,10 +13,12 @@ use Melonly\Views\View;
 use PDOException;
 use TypeError;
 
-use function Termwind\{render};
+use function Termwind\render;
 
-class Handler {
-    public static function handle(Error|Exception|PDOException|TypeError|UnhandledError $exception): never {
+class Handler
+{
+    public static function handle(Error|Exception|PDOException|TypeError|UnhandledError $exception): never
+    {
         if (!config('app.development')) {
             Container::get(Response::class)->abort(500);
 
@@ -34,7 +36,8 @@ class Handler {
         exit();
     }
 
-    public static function renderErrorPage(Error|Exception|PDOException|TypeError|UnhandledError $exception): void {
+    public static function renderErrorPage(Error|Exception|PDOException|TypeError|UnhandledError $exception): void
+    {
         $exceptionFile = $exception->getFile();
 
         /**
@@ -59,7 +62,8 @@ class Handler {
         ], true, __DIR__ . '/Assets', true);
     }
 
-    public static function registerConsoleHandler(Error|Exception|PDOException|TypeError|UnhandledError $exception): void {
+    public static function registerConsoleHandler(Error|Exception|PDOException|TypeError|UnhandledError $exception): void
+    {
         if (php_sapi_name() === 'cli') {
             render('
                 <div class="bg-red-400 text-gray-900 px-3 py-1 mt-2">
@@ -77,10 +81,11 @@ class Handler {
         }
     }
 
-    public static function clearTempFiles(): void {
+    public static function clearTempFiles(): void
+    {
         foreach (glob(__DIR__ . '/../../storage/temp/*.php', GLOB_BRACE) as $file) {
             if (is_file($file)) {
-                File::delete($file); 
+                File::delete($file);
             }
         }
     }

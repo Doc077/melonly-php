@@ -4,7 +4,8 @@ namespace Melonly\Routing;
 
 use Melonly\Http\Method as HttpMethod;
 
-interface RouterInterface {
+interface RouterInterface
+{
     public function add(string|HttpMethod $method, string $uri, callable|array $action, array $data = []): void;
 
     public function get(string $uri, callable|array $action, array $data = []): void;

@@ -6,7 +6,8 @@ use Melonly\Filesystem\File;
 use Melonly\Views\Engine as ViewEngine;
 use Melonly\Views\View;
 
-class Response {
+class Response
+{
     public const CONTINUE = 100;
     public const SWITCHING_PROTOCOLS = 101;
     public const PROCESSING = 102;
@@ -144,7 +145,8 @@ class Response {
 
     protected int $status = self::OK;
 
-    public function abort(int|Status $status, string|bool $text = false): never {
+    public function abort(int|Status $status, string|bool $text = false): never
+    {
         if ($status instanceof Status) {
             $status = $status->value;
         }
@@ -181,19 +183,23 @@ class Response {
         exit();
     }
 
-    public function getData(): mixed {
+    public function getData(): mixed
+    {
         return $this->data;
     }
 
-    public function getView(): string|array {
+    public function getView(): string|array
+    {
         return [$this->view, $this->viewVariables];
     }
 
-    public function getStatus(): int {
+    public function getStatus(): int
+    {
         return $this->status;
     }
 
-    public function send(...$data): void {
+    public function send(...$data): void
+    {
         if (is_array($data[0])) {
             $this->data = $data;
 
@@ -205,17 +211,20 @@ class Response {
         }
     }
 
-    public function json(array $data): void {
+    public function json(array $data): void
+    {
         $this->data = $data;
     }
 
-    public function header(iterable $headers): void {
+    public function header(iterable $headers): void
+    {
         foreach ($headers as $header => $value) {
             header($header . ': ' . $value);
         }
     }
 
-    public function status(int|Status $code): void {
+    public function status(int|Status $code): void
+    {
         if ($code instanceof Status) {
             $code = $code->value;
         }
@@ -223,15 +232,18 @@ class Response {
         $this->status = $code;
     }
 
-    public function redirect(string $uri, array $data = []): never {
+    public function redirect(string $uri, array $data = []): never
+    {
         redirect($uri, $data);
     }
 
-    public function redirectBack(array $data = []): never {
+    public function redirectBack(array $data = []): never
+    {
         redirectBack($data);
     }
 
-    public function view(string $name, array $variables = []): void {
+    public function view(string $name, array $variables = []): void
+    {
         $this->view = $name;
         $this->viewVariables = $variables;
     }

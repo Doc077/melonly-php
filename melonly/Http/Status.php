@@ -2,7 +2,8 @@
 
 namespace Melonly\Http;
 
-enum Status: int {
+enum Status: int
+{
     case Continue = 100;
     case SwitchingProtocols = 101;
     case Processing = 102;

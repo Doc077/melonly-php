@@ -2,7 +2,8 @@
 
 namespace Melonly\Views;
 
-enum Engine {
+enum Engine
+{
     case Twig;
     case Fruity;
 }

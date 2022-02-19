@@ -6,11 +6,14 @@ use Melonly\Filesystem\File;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
-class View implements ViewInterface {
+class View implements ViewInterface
+{
     protected static ?string $currentView = null;
 
-    public static function renderView(string $file, array $variables = [], bool $absolutePath = false, ?string $includePathRoot = null, bool $forceFruityRender = false): void {
-        if (!File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html') &&
+    public static function renderView(string $file, array $variables = [], bool $absolutePath = false, ?string $includePathRoot = null, bool $forceFruityRender = false): void
+    {
+        if (
+            !File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html') &&
             !File::exists(__DIR__ . '/../../frontend/views/' . $file . '.html.twig') &&
             !File::exists($file)
         ) {
@@ -28,17 +31,17 @@ class View implements ViewInterface {
                 if (!$absolutePath) {
                     $file = __DIR__ . '/../../frontend/views/' . $file . '.html.twig';
                 }
-        
+
                 $loader = new ArrayLoader([
                     'view' => File::content($file),
                 ]);
-        
+
                 $twig = new Environment($loader, [
                     'cache' => __DIR__ . '/../../storage/cache',
                 ]);
-        
+
                 self::clearBuffer();
-                
+
                 print($twig->render('view', $variables));
 
                 break;
@@ -51,7 +54,8 @@ class View implements ViewInterface {
         }
     }
 
-    public static function renderWithFruity(string $file, array $variables = [], ?string $includePathRoot = null, bool $absolutePath = false): void {
+    public static function renderWithFruity(string $file, array $variables = [], ?string $includePathRoot = null, bool $absolutePath = false): void
+    {
         if (!$absolutePath) {
             $file = __DIR__ . '/../../frontend/views/' . $file . '.html';
         }
@@ -75,7 +79,8 @@ class View implements ViewInterface {
         File::delete($compiled);
     }
 
-    public static function renderComponent(string $file, array $attributes = []): void {
+    public static function renderComponent(string $file, array $attributes = []): void
+    {
         if (!File::exists(__DIR__ . '/../../frontend/views/components/' . $file)) {
             throw new ComponentNotFoundException("Component '$file' does not exist");
         }
@@ -101,11 +106,13 @@ class View implements ViewInterface {
         File::delete($compiled);
     }
 
-    public static function getCurrentView(): string {
+    public static function getCurrentView(): string
+    {
         return self::$currentView;
     }
 
-    public static function clearBuffer(): void {
+    public static function clearBuffer(): void
+    {
         if (ob_get_contents()) {
             ob_end_clean();
         }

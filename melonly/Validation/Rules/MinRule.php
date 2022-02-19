@@ -2,8 +2,10 @@
 
 namespace Melonly\Validation\Rules;
 
-class MinRule {
-    public static function check(mixed $value, ?string $ruleValue): bool {
+class MinRule
+{
+    public static function check(mixed $value, ?string $ruleValue): bool
+    {
         if (is_int($value)) {
             if ($value >= (int) $ruleValue) {
                 return true;

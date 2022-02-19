@@ -4,20 +4,25 @@ namespace Melonly\Exceptions;
 
 use Stringable;
 
-class UnhandledError implements Stringable {
-    public function getCode(): int|string {
+class UnhandledError implements Stringable
+{
+    public function getCode(): int|string
+    {
         return $this->code;
     }
 
-    public function getMessage(): string {
+    public function getMessage(): string
+    {
         return $this->message;
     }
 
-    public function getFile(): string {
+    public function getFile(): string
+    {
         return $this->file;
     }
 
-    public function getLine(): int {
+    public function getLine(): int
+    {
         return $this->line;
     }
 
@@ -26,9 +31,12 @@ class UnhandledError implements Stringable {
         protected string $message,
         protected string $file,
         protected int $line,
-    ) {}
+    )
+    {
+    }
 
-    public function __toString(): string {
+    public function __toString(): string
+    {
         return $this->message;
     }
 }

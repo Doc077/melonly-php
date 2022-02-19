@@ -16,12 +16,15 @@ use Melonly\Routing\Router;
  * @method static void any(string $uri, callable $action, array $data = [])
  * @method static void evaluate()
  */
-class Route extends Facade {
-    protected static function getAccessor(): string {
+class Route extends Facade
+{
+    protected static function getAccessor(): string
+    {
         return Router::class;
     }
 
-    public static function __callStatic(string $method, array $args): mixed {
+    public static function __callStatic(string $method, array $args): mixed
+    {
         return self::handleCall($method, $args, self::getAccessor());
     }
 }

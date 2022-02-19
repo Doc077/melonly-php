@@ -4,10 +4,14 @@ namespace Melonly\Views;
 
 use Stringable;
 
-class HtmlNodeString implements Stringable {
-    public function __construct(protected string $content) {}
+class HtmlNodeString implements Stringable
+{
+    public function __construct(protected string $content)
+    {
+    }
 
-    public function __toString(): string {
+    public function __toString(): string
+    {
         return $this->content;
     }
 }

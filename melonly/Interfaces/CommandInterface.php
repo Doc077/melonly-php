@@ -2,6 +2,7 @@
 
 namespace Melonly\Interfaces;
 
-interface CommandInterface {
+interface CommandInterface
+{
     public function handle(): void;
 }

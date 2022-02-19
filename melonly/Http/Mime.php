@@ -2,7 +2,8 @@
 
 namespace Melonly\Http;
 
-class Mime {
+class Mime
+{
     public const TYPES = [
         'application/acrobat' => ['pdf'],
         'application/andrew-inset' => ['ez'],

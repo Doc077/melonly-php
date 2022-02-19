@@ -4,6 +4,7 @@ namespace Melonly\Exceptions;
 
 use RuntimeException;
 
-class Exception extends RuntimeException {
+class Exception extends RuntimeException
+{
     // 
 }

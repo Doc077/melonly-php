@@ -6,18 +6,22 @@ use Exception;
 use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Json;
 
-class Translator {
+class Translator
+{
     protected $currentLanguage = 'en';
 
-    public function getCurrent(): string {
+    public function getCurrent(): string
+    {
         return $this->currentLanguage;
     }
 
-    public function setCurrent(string $lang): void {
+    public function setCurrent(string $lang): void
+    {
         $this->currentLanguage = $lang;
     }
 
-    public function getTranslation(string $key): string {
+    public function getTranslation(string $key): string
+    {
         $parts = explode('.', $key);
 
         $file = __DIR__ . '/../../frontend/lang/' . $this->getCurrent() . '/' . $parts[0] . '.json';

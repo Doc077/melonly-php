@@ -2,6 +2,7 @@
 
 namespace Melonly\Validation;
 
-interface ValidatorInterface {
+interface ValidatorInterface
+{
     public function check(array $array): bool;
 }

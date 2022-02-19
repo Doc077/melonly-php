@@ -5,12 +5,15 @@ namespace Melonly\Http;
 use CurlHandle;
 use Melonly\Support\Helpers\Json;
 
-class Http {
-    protected static function initCurl(string $uri): CurlHandle|false {
+class Http
+{
+    protected static function initCurl(string $uri): CurlHandle|false
+    {
         return curl_init($uri);
     }
 
-    public static function get(string $uri, array|string $data = []): mixed {
+    public static function get(string $uri, array|string $data = []): mixed
+    {
         $curl = self::initCurl($uri);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -26,7 +29,8 @@ class Http {
         return $data;
     }
 
-    public static function post(string $uri, array|string $data = []): mixed {
+    public static function post(string $uri, array|string $data = []): mixed
+    {
         $curl = self::initCurl($uri);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -42,7 +46,8 @@ class Http {
         return $data;
     }
 
-    public static function put(string $uri, array|string $data = []): mixed {
+    public static function put(string $uri, array|string $data = []): mixed
+    {
         $curl = self::initCurl($uri);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -58,7 +63,8 @@ class Http {
         return $data;
     }
 
-    public static function patch(string $uri, array|string $data = []): mixed {
+    public static function patch(string $uri, array|string $data = []): mixed
+    {
         $curl = self::initCurl($uri);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -74,7 +80,8 @@ class Http {
         return $data;
     }
 
-    public static function delete(string $uri, array|string $data = []): mixed {
+    public static function delete(string $uri, array|string $data = []): mixed
+    {
         $curl = self::initCurl($uri);
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

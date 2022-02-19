@@ -7,7 +7,8 @@ use Melonly\Http\Response;
 use Melonly\Http\Status;
 use Melonly\Validation\Rules;
 
-class Validator implements ValidatorInterface {
+class Validator implements ValidatorInterface
+{
     protected array $rulePatterns = [
         '/^(accepted)$/' => Rules\AcceptedRule::class,
         '/^(alphanumeric)$/' => Rules\AlphanumericRule::class,
@@ -29,7 +30,8 @@ class Validator implements ValidatorInterface {
         '/^(url)$/' => Rules\UrlRule::class,
     ];
 
-    protected function isValidForRule(mixed $value, string $rule, string $field): bool {
+    protected function isValidForRule(mixed $value, string $rule, string $field): bool
+    {
         $matchesOneRule = false;
 
         foreach ($this->rulePatterns as $pattern => $ruleClass) {
@@ -47,7 +49,8 @@ class Validator implements ValidatorInterface {
         return true;
     }
 
-    public function check(array $array): bool {
+    public function check(array $array): bool
+    {
         foreach ($array as $field => $rules) {
             foreach ($rules as $rule) {
                 if (!empty($_POST[$field]) && !$this->isValidForRule($_POST[$field], $rule, $field)) {

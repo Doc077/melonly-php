@@ -2,6 +2,7 @@
 
 namespace Melonly\Interfaces;
 
-interface MailInterface {
+interface MailInterface
+{
     public function send(): string;
 }

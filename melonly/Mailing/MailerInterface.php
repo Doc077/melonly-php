@@ -2,6 +2,7 @@
 
 namespace Melonly\Mailing;
 
-interface MailerInterface {
+interface MailerInterface
+{
     public function send(string $to, string $subject, string $message): bool;
 }

@@ -2,8 +2,10 @@
 
 namespace Melonly\Validation\Rules;
 
-class IpRule {
-    public static function check(string $field, mixed $value, ?string $ruleValue): bool {
+class IpRule
+{
+    public static function check(string $field, mixed $value, ?string $ruleValue): bool
+    {
         if (!filter_var($_POST[$field], FILTER_VALIDATE_IP)) {
             return false;
         }

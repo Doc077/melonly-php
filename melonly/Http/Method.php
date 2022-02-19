@@ -2,7 +2,8 @@
 
 namespace Melonly\Http;
 
-enum Method: string {
+enum Method: string
+{
     case Get = 'GET';
     case Post = 'POST';
     case Put = 'PUT';

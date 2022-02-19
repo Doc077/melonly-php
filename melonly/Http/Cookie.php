@@ -4,8 +4,10 @@ namespace Melonly\Http;
 
 use Exception;
 
-class Cookie {
-    public static function get(string $key): mixed {
+class Cookie
+{
+    public static function get(string $key): mixed
+    {
         if (!isset($_COOKIE[$key])) {
             throw new Exception("Cookie '{$key}' is not set");
         }
@@ -13,7 +15,8 @@ class Cookie {
         return $_COOKIE[$key];
     }
 
-    public static function set(string $key, mixed $value, mixed $expires): bool {
+    public static function set(string $key, mixed $value, mixed $expires): bool
+    {
         return setcookie($key, $value, $expires);
     }
 }

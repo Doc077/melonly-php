@@ -7,7 +7,8 @@ use Melonly\Support\Helpers\Math;
 use Melonly\Support\Helpers\Str;
 use Melonly\Support\Helpers\Regex;
 
-class Compiler {
+class Compiler
+{
     protected static array $namespaceAliases = [
         'Arr' => \Melonly\Support\Helpers\Arr::class,
         'Auth' => \Melonly\Authentication\Facades\Auth::class,
@@ -62,7 +63,8 @@ class Compiler {
         '/\\[ ?# ?(:?.*?) #?\\]/' => '',
     ];
 
-    public static function compile(string $file, array $variables = [], ?string $includePathRoot = null): string {
+    public static function compile(string $file, array $variables = [], ?string $includePathRoot = null): string
+    {
         $content = File::content($file);
 
         /**
