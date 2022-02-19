@@ -10,7 +10,7 @@ use ReflectionClass;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route
 {
-    public function __construct(string $path, string $class, HttpMethod $method = HttpMethod::Get, array $data = [])
+    public function __construct(string $path, string $class, HttpMethod|string $method = HttpMethod::Get, array $data = [])
     {
         $classReflection = new ReflectionClass($class);
 
