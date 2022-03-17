@@ -9,11 +9,8 @@
 
 Melonly is a fast and modern web application development framework for PHP. It makes easy to create secure and fast web applications with awesome developer experience.
 
-*COMING SOON*: Melonly documentation will be available on the [official site](website).
+**Documentation**
 
-**Table of Contents | Documentation**
-
-- [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Application](#running-application)
@@ -991,11 +988,6 @@ To run tests you can use this command:
 When you're moving to server from the local environment, you will need to change serveral settings. Firstly let's change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking code snippets visible on dev exception page.
 
 Then if your server supports setting root web directory, set it to `public` directory. If it's not available, you have to upload all files (except these inside `public`) to a directory **above** your public server root. Then set the `APP_PUBLIC` option to `public_html` / `private_html` or whatever you have and upload there files from project `public` directory. Finally adjust the `INCLUDE_PATH` constant in `/public/index.php` to your structure.
-
-
-## Documentation
-
-*COMING SOON*: If you want to dig deeper and learn some advanced Melonly features, you may visit the official [documentation](website).
 
 
 ## Contributing
