@@ -20,6 +20,6 @@ Application::start();
 
     (c) 2021 - 2022 Dominik Rajkowski
 
-    Documentation: melonly.dev/docs
-    Repository: https://github.com/Doc077/melonly
+    Documentation: https://github.com/Doc077/melonly-php/blob/7.x/README.md
+    Repository: https://github.com/Doc077/melonly-php
 */
