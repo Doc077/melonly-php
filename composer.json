@@ -13,13 +13,13 @@
     "require": {
         "php": "^8.1",
         "intervention/image": "^2.7",
-        "nesbot/carbon": "^2.56",
-        "ramsey/uuid": "^4.2",
+        "nesbot/carbon": "^2.57",
+        "ramsey/uuid": "^4.3",
         "twig/twig": "^3.3",
         "vlucas/phpdotenv": "^5.4"
     },
     "require-dev": {
-        "nunomaduro/termwind": "^1.5",
+        "nunomaduro/termwind": "^1.7",
         "pestphp/pest": "^1.21"
     },
     "suggest": {
