@@ -7,7 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/melonly/melonly/downloads)](https://packagist.org/packages/melonly/melonly)
 [![License](https://poser.pugx.org/melonly/melonly/license)](https://packagist.org/packages/melonly/melonly)
 
-Melonly is a fast and modern web application development framework for PHP. It makes easy to create secure and fast web applications with awesome developer experience.
+Melonly PHP is a fast and modern web application development framework for PHP.
 
 **Documentation**
 
@@ -1004,15 +1004,3 @@ Melonly is open-source framework licensed under the [MIT license](melonly/LICENS
 Author: [Doc077](https://github.com/Doc077)
 
 Contact: dom.rajkowski@gmail.com
-
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="30"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" width="48"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" width="44"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain-wordmark.svg" width="66"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://melonly.dev"><img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-plain-wordmark.svg" width="88"></a>
-
-[website]: https://melonly.dev
