@@ -2,12 +2,12 @@
 
 ## Melonly PHP Framework
 
-[![PHP Version Require](https://poser.pugx.org/melonly/melonly/require/php)](https://packagist.org/packages/melonly/melonly)
+[![Required PHP Version](https://poser.pugx.org/melonly/melonly/require/php)](https://packagist.org/packages/melonly/melonly)
 [![Latest Stable Version](https://poser.pugx.org/melonly/melonly/v)](https://packagist.org/packages/melonly/melonly)
 [![Total Downloads](https://poser.pugx.org/melonly/melonly/downloads)](https://packagist.org/packages/melonly/melonly)
 [![License](https://poser.pugx.org/melonly/melonly/license)](https://packagist.org/packages/melonly/melonly)
 
-Melonly PHP is a fast and modern web application development framework for PHP.
+PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
 
 **Documentation**
 
@@ -1003,4 +1003,4 @@ Melonly is open-source framework licensed under the [MIT license](melonly/LICENS
 
 Author: [Doc077](https://github.com/Doc077)
 
-Contact: dom.rajkowski@gmail.com
+Contact email: dom.rajkowski@gmail.com
