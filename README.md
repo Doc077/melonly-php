@@ -16,16 +16,15 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
 - [Installation](#installation)
 - [Running Application](#running-application)
 - [Directory Structure](#directory-structure)
-  - [Root Directory](#root-directory)
-    - [`/config`](#config)
-    - [`/database`](#database)
-    - [`/frontend`](#frontend)
-    - [`/melonly`](#melonly)
-    - [`/public`](#public)
-    - [`/src`](#src)
-    - [`/storage`](#storage)
-    - [`/tests`](#tests)
-    - [`/vendor`](#vendor)
+  - [`/config`](#config)
+  - [`/database`](#database)
+  - [`/frontend`](#frontend)
+  - [`/melonly`](#melonly)
+  - [`/public`](#public)
+  - [`/src`](#src)
+  - [`/storage`](#storage)
+  - [`/tests`](#tests)
+  - [`/vendor`](#vendor)
 - [Routing](#routing)
   - [Basic Routing](#basic-routing)
   - [Route Parameters](#route-parameters)
@@ -120,52 +119,41 @@ Your application will be available on `localhost:5000` by default. If this port 
 
 Default Melonly application structure consists of several main folders:
 
-
-### Root Directory
-
-#### `/config`
+### `/config`
 
 This directory contains configuration files for your application. You can create custom file inside this directory and refer to it using `config($file, $key)` helper.
 
-
-#### `/database`
+### `/database`
 
 In this directory are created database migrations. You can store `sqlite` database here.
 
-
-#### `/frontend`
+### `/frontend`
 
 There are placed all files related to frontend side like views or uncompiled styles/scripts.
 
-
-#### `/melonly`
+### `/melonly`
 
 This folder contains framework files. You don't need to change anything there.
 
-
-#### `/public`
+### `/public`
 
 This is the only directory visible to users. It prevents from direct access to source code. `public` folder contains `.htaccess` and `index.php` files. This is where you should put client side things like compiled styles, JS scripts and images.
 
-
-#### `/src`
+### `/src`
 
 The `src` directory contains your application code. Feel free to add another folders there. All files inside this folder should be in `App` namespace since they are autoloaded.
 
-
-#### `/storage`
+### `/storage`
 
 There are placed cache and temporary files.
 
-
-#### `/tests`
+### `/tests`
 
 This directory contain test files. Melonly uses [Pest](https://pestphp.com) framework for handling unit tests.
 
+### `/vendor`
 
-#### `/vendor`
-
-Composer packages are installed there.
+Packages are installed inside this directory.
 
 
 ## Routing
