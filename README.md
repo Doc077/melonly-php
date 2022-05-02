@@ -1,5 +1,6 @@
 <img src="public/logo.png" width="68">
 
+<!-- omit in toc -->
 ## Melonly PHP Framework
 
 [![Required PHP Version](https://poser.pugx.org/melonly/melonly/require/php)](https://packagist.org/packages/melonly/melonly)
@@ -7,11 +8,10 @@
 [![Total Downloads](https://poser.pugx.org/melonly/melonly/downloads)](https://packagist.org/packages/melonly/melonly)
 [![License](https://poser.pugx.org/melonly/melonly/license)](https://packagist.org/packages/melonly/melonly)
 
-PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
+PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
 
 **Documentation**
 
-- [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Application](#running-application)
@@ -34,14 +34,9 @@ PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
     - [`/Services`](#services)
     - [`/Commands`](#commands)
     - [`/Emails`](#emails)
-- [Command Line Interface](#command-line-interface)
-  - [Useful Built-In Commands](#useful-built-in-commands)
-  - [Custom Commands](#custom-commands)
 - [Routing](#routing)
-  - [Basic Routing with Callbacks](#basic-routing-with-callbacks)
-  - [Routing Parameters](#routing-parameters)
-  - [Controllers](#controllers-1)
-    - [Single-Action Controllers](#single-action-controllers)
+  - [Basic Routing](#basic-routing)
+  - [Route Parameters](#route-parameters)
   - [Middleware](#middleware-1)
 - [Views](#views)
   - [Displaying a View](#displaying-a-view)
@@ -77,8 +72,13 @@ PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
   - [Other Helpers](#other-helpers)
 - [Encryption and Hashing](#encryption-and-hashing)
 - [Sending Emails](#sending-emails)
+- [Controllers](#controllers-1)
+  - [Single-Action Controllers](#single-action-controllers)
 - [Frontend Frameworks (React and Vue)](#frontend-frameworks-react-and-vue)
 - [WebSockets and Broadcasting](#websockets-and-broadcasting)
+- [Command Line Interface](#command-line-interface)
+  - [Useful Built-In Commands](#useful-built-in-commands)
+  - [Custom Commands](#custom-commands)
 - [Testing](#testing)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
@@ -211,52 +211,9 @@ This directory doesn't exist by default. It contains your custom console command
 This directory doesn't exist by default as well. It contains application e-mail classes.
 
 
-## Command Line Interface
-
-### Useful Built-In Commands
-
-Melonly ships with Melon CLI - terminal mode client for developers. It includes many useful commands during development. Using them you can quickly generate controllers, models or even custom commands. You can test some of them:
-
-```shell
-# Display information about framework version
-
-> php melon -v
-> php melon --version
-```
-
-```shell
-# Create new controller
-
-> php melon new:controller PostController
-```
-
-```shell
-# Create new database model
-
-> php melon new:model Post
-```
-
-```shell
-# Get list of all built-in commands
-
-> php melon command:list
-```
-
-
-### Custom Commands
-
-You can create your own commands using this command:
-
-```shell
-> php melon new:command SayHello
-```
-
-Then you'll be able to write custom command in generated file in `/src/Commands` directory.
-
-
 ## Routing
 
-### Basic Routing with Callbacks
+### Basic Routing
 
 To register application routes, edit the `routing/routes.php` file.
 
@@ -278,7 +235,7 @@ Route::get(['/home', '/login', 'register'], function () ...);
 ```
 
 
-### Routing Parameters
+### Route Parameters
 
 You can create dynamic routes by adding parameters. To make parameters in URL, use square brackets and provide param name.
 
@@ -293,64 +250,6 @@ Route::get('/users/{id}', function (Request $request, Response $response): void 
 Retrieving parameters is done using `parameter()` method from `Request` object.
 
 After entering to `/users/356` path you will see "User id: 356".
-
-
-### Controllers
-
-Rather than passing closures to route definitions there is more common to use `controller` classes. Melonly utilizes MVC structure so controllers are supported out-of-the-box. To create new controller run following command:
-
-```shell
-php melon new:controller SomeController
-```
-
-It will create a new file: `src/Controllers/SomeController.php` with the following structure:
-
-```php
-namespace App\Controllers;
-
-use Melonly\Http\Controller;
-use Melonly\Http\Request;
-use Melonly\Http\Response;
-
-class SomeController extends Controller
-{
-    public function index(Request $request, Response $response): void
-    {
-        // 
-    }
-}
-```
-
-To assign controller method to route use the array syntax:
-
-```php
-use App\Controllers;
-
-Route::get('/users', [Controllers\ControllerName::class, 'index']);
-```
-
-Now on specified `/users` route Melonly will invoke `index` method from `ControllerName`. If method name has not been provided, then `index` will be implicit.
-
-
-#### Single-Action Controllers
-
-If the controller has only one method you can pass controller class name instead of array to route definition:
-
-```php
-Route::get('/users', Controllers\ControllerName::class);
-```
-
-`ControllerName` should have a `handle` method invoked when using single-action controller:
-
-```php
-class ControllerName extends Controller
-{
-    public function handle(): void
-    {
-        // 
-    }
-}
-```
 
 
 ### Middleware
@@ -492,6 +391,13 @@ $name = DB::query('select `name` from `users` where `id` = 1');
 $count = DB::query('select count(*) as `count` from `users` where `name` = ...')->count;
 
 DB::query('insert into `users` ...');
+```
+
+As you can see, data from the query is represented as object properties:
+
+```php
+// Get column alias 'count'
+$count = DB::query('select count(*) as `count` from `users` where `name` = ...')->count;
 ```
 
 
@@ -998,6 +904,64 @@ Note that you have to setup PHP config on your server to send emails.
 Address from which messages are sent is specified in `MAIL_ADDRESS` in `.env` file.
 
 
+## Controllers
+
+Rather than passing closures to route definitions there is more common to use `controller` classes. Melonly utilizes MVC structure so controllers are supported out-of-the-box. To create new controller run following command:
+
+```shell
+php melon new:controller SomeController
+```
+
+It will create a new file: `src/Controllers/SomeController.php` with the following structure:
+
+```php
+namespace App\Controllers;
+
+use Melonly\Http\Controller;
+use Melonly\Http\Request;
+use Melonly\Http\Response;
+
+class SomeController extends Controller
+{
+    public function index(Request $request, Response $response): void
+    {
+        // 
+    }
+}
+```
+
+To assign controller method to route use the array syntax:
+
+```php
+use App\Controllers;
+
+Route::get('/users', [Controllers\ControllerName::class, 'index']);
+```
+
+Now on specified `/users` route Melonly will invoke `index` method from `ControllerName`. If method name has not been provided, then `index` will be implicit.
+
+
+### Single-Action Controllers
+
+If the controller has only one method you can pass controller class name instead of array to route definition:
+
+```php
+Route::get('/users', Controllers\ControllerName::class);
+```
+
+`ControllerName` should have a `handle` method invoked when using single-action controller:
+
+```php
+class ControllerName extends Controller
+{
+    public function handle(): void
+    {
+        // 
+    }
+}
+```
+
+
 ## Frontend Frameworks (React and Vue)
 
 Melonly has built-in scaffolding command for installing frontend frameworks like [React](https://reactjs.org) and [Vue](https://vuejs.org). Before you start, run the following command to install `webpack` included in `package.json` by default:
@@ -1057,6 +1021,49 @@ WebSocket::broadcast('channel-name', 'EventName', $data);
 ```
 
 Then on the client side you can listen for broadcasted events using your driver.
+
+
+## Command Line Interface
+
+### Useful Built-In Commands
+
+Melonly ships with Melon CLI - terminal mode client for developers. It includes many useful commands during development. Using them you can quickly generate controllers, models or even custom commands. You can test some of them:
+
+```shell
+# Display information about framework version
+
+> php melon -v
+> php melon --version
+```
+
+```shell
+# Create new controller
+
+> php melon new:controller PostController
+```
+
+```shell
+# Create new database model
+
+> php melon new:model Post
+```
+
+```shell
+# Get list of all built-in commands
+
+> php melon command:list
+```
+
+
+### Custom Commands
+
+You can create your own commands using this command:
+
+```shell
+> php melon new:command SayHello
+```
+
+Then you'll be able to write custom command in generated file in `/src/Commands` directory.
 
 
 ## Testing
