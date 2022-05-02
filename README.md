@@ -41,6 +41,7 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
   - [Rendering a View](#rendering-a-view)
   - [Passing Variables](#passing-variables)
   - [Templates](#templates)
+  - [Components](#components)
 - [Requests](#requests)
   - [Retrieving Form Data](#retrieving-form-data)
   - [User Browser's Information](#user-browsers-information)
@@ -56,20 +57,20 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
     - [Retrieving Data](#retrieving-data)
     - [Creating Records](#creating-records)
   - [Migrations](#migrations)
-- [Authentication](#authentication)
 - [Session](#session)
 - [Validation](#validation)
+- [Authentication](#authentication)
 - [CSRF Protection](#csrf-protection)
 - [Files](#files)
   - [Image files](#image-files)
 - [Helpers](#helpers)
   - [String Manipulation](#string-manipulation)
-  - [Date and Time Manipulation](#date-and-time-manipulation)
-  - [UUID Generation](#uuid-generation)
+  - [Date and Time](#date-and-time)
   - [JSON](#json)
-  - [Other Helpers](#other-helpers)
+  - [UUID Generation](#uuid-generation)
+  - [Other](#other)
 - [Encryption and Hashing](#encryption-and-hashing)
-- [Sending Emails](#sending-emails)
+- [Mail](#mail)
 - [Working With Frontend Frameworks (React and Vue)](#working-with-frontend-frameworks-react-and-vue)
 - [Advanced](#advanced)
   - [Controllers](#controllers-1)
@@ -309,6 +310,39 @@ Melonly ships with a convinient templating engine called Fruity. To see how it w
 ```
 
 As you can see Fruity is very simple yet powerful engine. It's also a lot more clean compared to plain PHP templates.
+
+
+### Components
+
+Melonly provides a concept known from frameworks like React.js or Vue - components. Component is a separated part of the interface with its own variables an data.
+
+Example usage of components in view templates:
+
+```html
+<Post content="Some post" />
+```
+
+To create new component, run command:
+
+```shell
+> php melon new:component Post
+```
+
+This command will generate a new file: `frontend/views/components/Post.html`. Example content of a component may look like this:
+
+```html
+<article class="post">
+    {{ $content }}
+</article>
+```
+
+`$content` variable has a value passed with `content="..."` attribute.
+
+Once you have created a component, you can use it in your view templates:
+
+```html
+<Post content="Some post" />
+```
 
 
 ## Requests
@@ -556,6 +590,66 @@ Migrations are stored in `database/migrations` directory. To run migrations you 
 Open your database and look for changes.
 
 
+## Session
+
+HTTP session is a useful mechanism. You can store there some user data or other things. To manipulate HTTP session, use the `Session` class.
+
+```php
+use Melonly\Http\Session;
+
+// Set session variable
+Session::set('invalid_data', 'Password is invalid.');
+
+// Retrieve data
+$message = Session::get('invalid_data');
+
+// Check whether data is set or not
+$isset = Session::isSet('invalid_data');
+
+// Delete session data
+Session::unset('invalid_data');
+```
+
+
+## Validation
+
+Request data validation with Melonly is super easy. Look how it works:
+
+```php
+use Melonly\Validation\Facades\Validate;
+
+// In some route definition or controller
+Validate::check([
+    'username' => ['required', 'min:3', 'max:30', 'alphanumeric'],
+    'email' => ['email', 'max:30'],
+    'age' => ['int'],
+]);
+```
+
+Melonly will check provided data against specified rules. If validation fails the 422 status is returned.
+
+Available validation rules are listed here:
+
+- accepted
+- alphanumeric
+- bool
+- domain
+- email
+- file
+- float
+- image
+- int
+- ip
+- max:{length}
+- min:{length}
+- number
+- regex:{pattern}
+- required
+- string
+- unique:{table}
+- url
+
+
 ## Authentication
 
 Authentication (user login system) is very needed on modern web applications. Melonly ships with a simple auth system.
@@ -640,66 +734,6 @@ Route::get('/logout', function (): void {
 ```
 
 
-## Session
-
-HTTP session is a useful mechanism. You can store there some user data or other things. To manipulate HTTP session, use the `Session` class.
-
-```php
-use Melonly\Http\Session;
-
-// Set session variable
-Session::set('invalid_data', 'Password is invalid.');
-
-// Retrieve data
-$message = Session::get('invalid_data');
-
-// Check whether data is set or not
-$isset = Session::isSet('invalid_data');
-
-// Delete session data
-Session::unset('invalid_data');
-```
-
-
-## Validation
-
-Request data validation with Melonly is super easy. Look how it works:
-
-```php
-use Melonly\Validation\Facades\Validate;
-
-// In some route definition or controller
-Validate::check([
-    'username' => ['required', 'min:3', 'max:30', 'alphanumeric'],
-    'email' => ['email', 'max:30'],
-    'age' => ['int'],
-]);
-```
-
-Melonly will check provided data against specified rules. If validation fails the 422 status is returned.
-
-Available validation rules are listed here:
-
-- accepted
-- alphanumeric
-- bool
-- domain
-- email
-- file
-- float
-- image
-- int
-- ip
-- max:{length}
-- min:{length}
-- number
-- regex:{pattern}
-- required
-- string
-- unique:{table}
-- url
-
-
 ## CSRF Protection
 
 [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) is a type of exploit relying on performing some actions by attacker on behalf of currently authenticated user without knowing his credentials.
@@ -782,8 +816,7 @@ $string = Str::replace(' ', '_', $string); // Output: 'lorem_ipsum'
 $string = Str::pascalCase($string); // Output: 'LoremIpsum'
 ```
 
-
-### Date and Time Manipulation
+### Date and Time
 
 Melonly uses [Carbon](https://carbon.nesbot.com/docs/) to manipulate date and time under the hood.
 
@@ -792,17 +825,6 @@ use Melonly\Support\Helpers\Time;
 
 $date = Time::now()->isoFormat('Y_MM_D'); // Output: 2022_02_02
 ```
-
-
-### UUID Generation
-
-```php
-use Melonly\Support\Helpers\Uuid;
-
-// Generate unique ID (UUID v4)
-$id = Uuid::v4();
-```
-
 
 ### JSON
 
@@ -814,8 +836,16 @@ $data = ['id' => 145];
 $json = Json::encode($data); // Return JSON object
 ```
 
+### UUID Generation
 
-### Other Helpers
+```php
+use Melonly\Support\Helpers\Uuid;
+
+// Generate unique ID (UUID v4)
+$id = Uuid::v4();
+```
+
+### Other
 
 ```php
 dd('Some data'); // Dump information about variable or some data and finish script
@@ -846,7 +876,7 @@ $isPasswordCorrect = Hash::equals($request->get('password'), $user->password);
 ```
 
 
-## Sending Emails
+## Mail
 
 Melonly has an built in interface for sending e-mails:
 
