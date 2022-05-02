@@ -1,6 +1,5 @@
 <?php
 
-use App\Controllers;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 use Melonly\Routing\Facades\Route;
