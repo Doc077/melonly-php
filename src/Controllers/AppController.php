@@ -6,12 +6,12 @@ use Melonly\Http\Controller;
 use Melonly\Http\Request;
 use Melonly\Http\Response;
 
-class ExampleController extends Controller
+class AppController extends Controller
 {
     public function index(Request $request, Response $response): void
     {
         $parameter = $request->parameter('slug');
 
-        $response->send('Example route | URI slug parameter: ', $parameter);
+        $response->send('Example route | URL slug parameter: ', $parameter);
     }
 }
