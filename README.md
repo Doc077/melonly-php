@@ -37,12 +37,18 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
 - [Routing](#routing)
   - [Basic Routing](#basic-routing)
   - [Route Parameters](#route-parameters)
-  - [Middleware](#middleware-1)
 - [Views](#views)
-  - [Displaying a View](#displaying-a-view)
+  - [Rendering a View](#rendering-a-view)
   - [Passing Variables](#passing-variables)
   - [Templates](#templates)
-  - [Twig Templates](#twig-templates)
+- [Requests](#requests)
+  - [Retrieving Form Data](#retrieving-form-data)
+  - [User Browser's Information](#user-browsers-information)
+  - [Making HTTP Requests](#making-http-requests)
+- [Responses](#responses)
+  - [Abort](#abort)
+  - [Sending Data](#sending-data)
+  - [Redirects](#redirects)
 - [Database](#database-1)
   - [Query Builder](#query-builder)
   - [Raw SQL Queries](#raw-sql-queries)
@@ -50,14 +56,6 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
     - [Retrieving Data](#retrieving-data)
     - [Creating Records](#creating-records)
   - [Migrations](#migrations)
-- [HTTP Requests](#http-requests)
-  - [Retrieving Form Data](#retrieving-form-data)
-  - [User Browser's Information](#user-browsers-information)
-  - [Making HTTP Requests](#making-http-requests)
-- [HTTP Responses](#http-responses)
-  - [Abort](#abort)
-  - [Sending Data](#sending-data)
-  - [Redirects](#redirects)
 - [Authentication](#authentication)
 - [Session](#session)
 - [Validation](#validation)
@@ -72,15 +70,18 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
   - [Other Helpers](#other-helpers)
 - [Encryption and Hashing](#encryption-and-hashing)
 - [Sending Emails](#sending-emails)
-- [Controllers](#controllers-1)
-  - [Single-Action Controllers](#single-action-controllers)
-- [Frontend Frameworks (React and Vue)](#frontend-frameworks-react-and-vue)
-- [WebSockets and Broadcasting](#websockets-and-broadcasting)
+- [Working With Frontend Frameworks (React and Vue)](#working-with-frontend-frameworks-react-and-vue)
+- [Advanced](#advanced)
+  - [Controllers](#controllers-1)
+    - [Single-Action Controllers](#single-action-controllers)
+  - [Middleware](#middleware-1)
+  - [Twig Templates](#twig-templates)
+  - [WebSockets and Broadcasting](#websockets-and-broadcasting)
 - [Command Line Interface](#command-line-interface)
   - [Useful Built-In Commands](#useful-built-in-commands)
   - [Custom Commands](#custom-commands)
 - [Testing](#testing)
-- [Deployment](#deployment)
+- [Deployment / Moving to Server](#deployment--moving-to-server)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -252,44 +253,13 @@ Retrieving parameters is done using `parameter()` method from `Request` object.
 After entering to `/users/356` path you will see "User id: 356".
 
 
-### Middleware
-
-Middleware can be used for filtering incoming requests or performing some actions on route enter. You can assign middleware to routes passing array argument to route definition.
-
-Melonly provides built-in middleware `auth` which checks if user is logged in. If not, the user will be redirected to `/login` route.
-
-```php
-Route::get('/profile', [Controllers\UserController::class, 'show'], ['middleware' => 'auth']);
-```
-
-To create custom middleware you can run Melon command:
-
-```shell
-> php melon new:middleware MiddlewareName
-```
-
-Then register middleware alias in `config/http.php`:
-
-```php
-'middleware' => [
-    'alias' => \App\Middleware\MiddlewareName::class,
-],
-```
-
-Middleware is stored in `src/Middleware` directory. Edit created file and you'll be able to use new middleware:
-
-```php
-Route::get('/users', [Controllers\ControllerName::class, 'index'], ['middleware' => 'alias']);
-```
-
-
 ## Views
 
 Modern applications deal with user interfaces. Therefore Melonly handles special HTML templates which help You building applications in pleasant way.
 View files / templates are located in `frontend/views` directory. You can display a view returning it from the response, using the "dot" syntax.
 
 
-### Displaying a View
+### Rendering a View
 
 Rendering views can be done with `view` method on `Response` object:
 
@@ -341,16 +311,92 @@ Melonly ships with a convinient templating engine called Fruity. To see how it w
 As you can see Fruity is very simple yet powerful engine. It's also a lot more clean compared to plain PHP templates.
 
 
-### Twig Templates
+## Requests
 
-However if you don't like these templates, Melonly supports [Twig](https://twig.symfony.com) engine for handling views. After setting the `engine` option in `config/view.php` file to `Twig`, you can use Twig templates in your app (note that view file extensions would be `.html.twig` then).
+Every HTTP request in Melonly is represented by `Request` objects. Every object has many useful methods for dealing with HTTP.
 
-```html
-Example Twig template
+### Retrieving Form Data
 
-{% for item in array %}
-    <li>{{ item }}</li>
-{% endfor %}
+You can easly obtain for input data using the `get` method:
+
+```php
+$username = $request->get('name');
+```
+
+### User Browser's Information
+
+You can also get user's preferred language / IP address or browser information:
+
+```php
+$language = $request->preferredLanguage();
+```
+
+```php
+$info = $request->browser();
+```
+
+```php
+$ip = $request->ip();
+```
+
+You can also determine if request is made using AJAX:
+
+```php
+$ajax = $request->isAjax();
+```
+
+### Making HTTP Requests
+
+Many times your application need to make some kind of request, for example for retrieving API data.
+
+```php
+use Melonly\Http\Http;
+
+// GET Request
+$data = Http::get('https://my-api');
+
+// POST Request
+Http::post('https://my-api', [
+    'id' => $userId,
+]);
+```
+
+
+## Responses
+
+Like requests, every HTTP response in Melonly is represented by `Response` objects. Every object has many useful methods for dealing with HTTP.
+
+### Abort
+
+You can abort current HTTP response with `abort`:
+
+```php
+$response->abort(404);
+```
+
+### Sending Data
+
+You may also send some data:
+
+```php
+$response->json([
+  'name' => $name,
+]);
+```
+
+```php
+$response->send('Hello World');
+```
+
+### Redirects
+
+You can redirect user to another location with `redirect` method:
+
+```php
+$response->redirect('/login');
+
+// Redirect to previous location
+$response->redirectBack();
 ```
 
 
@@ -508,95 +554,6 @@ Migrations are stored in `database/migrations` directory. To run migrations you 
 ```
 
 Open your database and look for changes.
-
-
-## HTTP Requests
-
-Every HTTP request in Melonly is represented by `Request` objects. Every object has many useful methods for dealing with HTTP.
-
-### Retrieving Form Data
-
-You can easly obtain for input data using the `get` method:
-
-```php
-$username = $request->get('name');
-```
-
-### User Browser's Information
-
-You can also get user's preferred language / IP address or browser information:
-
-```php
-$language = $request->preferredLanguage();
-```
-
-```php
-$info = $request->browser();
-```
-
-```php
-$ip = $request->ip();
-```
-
-You can also determine if request is made using AJAX:
-
-```php
-$ajax = $request->isAjax();
-```
-
-### Making HTTP Requests
-
-Many times your application need to make some kind of request, for example for retrieving API data.
-
-```php
-use Melonly\Http\Http;
-
-// GET Request
-$data = Http::get('https://my-api');
-
-// POST Request
-Http::post('https://my-api', [
-    'id' => $userId,
-]);
-```
-
-
-## HTTP Responses
-
-Like requests, every HTTP response in Melonly is represented by `Response` objects. Every object has many useful methods for dealing with HTTP.
-
-### Abort
-
-You can abort current HTTP response with `abort`:
-
-```php
-$response->abort(404);
-```
-
-### Sending Data
-
-You may also send some data:
-
-```php
-$response->json([
-  'name' => $name,
-]);
-```
-
-```php
-$response->send('Hello World');
-```
-
-### Redirects
-
-You can redirect user to another location with `redirect` method:
-
-```php
-$response->redirect('/login');
-
-// Redirect to previous location
-$response->redirectBack();
-```
 
 
 ## Authentication
@@ -904,7 +861,30 @@ Note that you have to setup PHP config on your server to send emails.
 Address from which messages are sent is specified in `MAIL_ADDRESS` in `.env` file.
 
 
-## Controllers
+## Working With Frontend Frameworks (React and Vue)
+
+Melonly has built-in scaffolding command for installing frontend frameworks like [React](https://reactjs.org) and [Vue](https://vuejs.org). Before you start, run the following command to install `webpack` included in `package.json` by default:
+
+```shell
+> npm install
+```
+
+Then you'll be able to create starter framework template:
+
+```shell
+> php melon scaffold:react
+
+> php melon scaffold:vue
+```
+
+These commands will create corresponding `react` or `vue` directories in `frontend` location and install Node dependencies.
+
+After running `npm start` command `webpack` will compile your code in watch mode. `npm run build` will build output only once. You can set development / production mode in `webpack.config.js`. All configuration is stored in this file.
+
+
+## Advanced
+
+### Controllers
 
 Rather than passing closures to route definitions there is more common to use `controller` classes. Melonly utilizes MVC structure so controllers are supported out-of-the-box. To create new controller run following command:
 
@@ -940,8 +920,7 @@ Route::get('/users', [Controllers\ControllerName::class, 'index']);
 
 Now on specified `/users` route Melonly will invoke `index` method from `ControllerName`. If method name has not been provided, then `index` will be implicit.
 
-
-### Single-Action Controllers
+#### Single-Action Controllers
 
 If the controller has only one method you can pass controller class name instead of array to route definition:
 
@@ -961,29 +940,50 @@ class ControllerName extends Controller
 }
 ```
 
+### Middleware
 
-## Frontend Frameworks (React and Vue)
+Middleware can be used for filtering incoming requests or performing some actions on route enter. You can assign middleware to routes passing array argument to route definition.
 
-Melonly has built-in scaffolding command for installing frontend frameworks like [React](https://reactjs.org) and [Vue](https://vuejs.org). Before you start, run the following command to install `webpack` included in `package.json` by default:
+Melonly provides built-in middleware `auth` which checks if user is logged in. If not, the user will be redirected to `/login` route.
 
-```shell
-> npm install
+```php
+Route::get('/profile', [Controllers\UserController::class, 'show'], ['middleware' => 'auth']);
 ```
 
-Then you'll be able to create starter framework template:
+To create custom middleware you can run Melon command:
 
 ```shell
-> php melon scaffold:react
-
-> php melon scaffold:vue
+> php melon new:middleware MiddlewareName
 ```
 
-These commands will create corresponding `react` or `vue` directories in `frontend` location and install Node dependencies.
+Then register middleware alias in `config/http.php`:
 
-After running `npm start` command `webpack` will compile your code in watch mode. `npm run build` will build output only once. You can set development / production mode in `webpack.config.js`. All configuration is stored in this file.
+```php
+'middleware' => [
+    'alias' => \App\Middleware\MiddlewareName::class,
+],
+```
+
+Middleware is stored in `src/Middleware` directory. Edit created file and you'll be able to use new middleware:
+
+```php
+Route::get('/users', [Controllers\ControllerName::class, 'index'], ['middleware' => 'alias']);
+```
+
+### Twig Templates
+
+However if you don't like these templates, Melonly supports [Twig](https://twig.symfony.com) engine for handling views. After setting the `engine` option in `config/view.php` file to `Twig`, you can use Twig templates in your app (note that view file extensions would be `.html.twig` then).
+
+```html
+Example Twig template
+
+{% for item in array %}
+    <li>{{ item }}</li>
+{% endfor %}
+```
 
 
-## WebSockets and Broadcasting
+### WebSockets and Broadcasting
 
 Modern web applications often need WebSocket connection. Melonly supports two popular broadcasting drivers out-of-the-box: [Pusher](https://pusher.com) and [Ably](https://ably.com). You can configure the driver in `.env` file:
 
@@ -1093,7 +1093,7 @@ To run tests you can use this command:
 ```
 
 
-## Deployment
+## Deployment / Moving to Server
 
 When you're moving to server from the local environment, you will need to change serveral settings. Firstly let's change the `APP_DEVELOPMENT` entry to `false` in `.env` file. It will prevent from leaking code snippets visible on dev exception page.
 
