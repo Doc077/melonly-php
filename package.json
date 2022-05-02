@@ -6,10 +6,10 @@
         "melon": "start"
     },
     "devDependencies": {
-        "postcss": "^8.4.5",
-        "sass": "^1.49.0",
-        "sass-loader": "^12.4.0",
-        "webpack": "^5.67.0",
+        "postcss": "^8.4.13",
+        "sass": "^1.51.0",
+        "sass-loader": "^12.6.0",
+        "webpack": "^5.72.0",
         "webpack-cli": "^4.9.2"
     }
 }
