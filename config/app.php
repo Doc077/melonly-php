@@ -2,7 +2,7 @@
 
 return [
     /**
-     * Clean HTML output from line breks and indentations.
+     * Clean HTML output from line breaks and indentation.
      */
     'compress' => env('OUTPUT_COMPRESS'),
 
