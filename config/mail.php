@@ -2,7 +2,7 @@
 
 return [
     /**
-     * Mail address from which are sent emails.
+     * Mail address for email sending.
      */
     'address' => env('MAIL_ADDRESS'),
 ];
