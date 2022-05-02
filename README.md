@@ -11,10 +11,11 @@ PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
 
 **Documentation**
 
+- [Melonly PHP Framework](#melonly-php-framework)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running Application](#running-application)
-- [App Directory Structure](#app-directory-structure)
+- [Directory Structure](#directory-structure)
   - [Root Directory](#root-directory)
     - [`/config`](#config)
     - [`/database`](#database)
@@ -54,10 +55,18 @@ PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
     - [Retrieving Data](#retrieving-data)
     - [Creating Records](#creating-records)
   - [Migrations](#migrations)
+- [HTTP Requests](#http-requests)
+  - [Retrieving Form Data](#retrieving-form-data)
+  - [User Browser's Information](#user-browsers-information)
+  - [Making HTTP Requests](#making-http-requests)
+- [HTTP Responses](#http-responses)
+  - [Abort](#abort)
+  - [Sending Data](#sending-data)
+  - [Redirects](#redirects)
 - [Authentication](#authentication)
 - [Session](#session)
 - [Validation](#validation)
-- [Making HTTP Requests](#making-http-requests)
+- [CSRF Protection](#csrf-protection)
 - [Files](#files)
   - [Image files](#image-files)
 - [Helpers](#helpers)
@@ -72,7 +81,6 @@ PHP version of [Melonly](https://github.com/Doc077/melonly) framework.
 - [WebSockets and Broadcasting](#websockets-and-broadcasting)
 - [Testing](#testing)
 - [Deployment](#deployment)
-- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -114,7 +122,7 @@ Your application will be available on `localhost:5000` by default. If this port 
 ```
 
 
-## App Directory Structure
+## Directory Structure
 
 Default Melonly application structure consists of several main folders:
 
@@ -477,10 +485,11 @@ Available query builder methods: `select`, `where`, `orWhere`, `limit` and `orde
 
 ### Raw SQL Queries
 
-Alternatively you can execute a raw SQL query with `query()` method though we do not recommend that:
+Alternatively you can execute a raw SQL query with `query()` method:
 
 ```php
 $name = DB::query('select `name` from `users` where `id` = 1');
+$count = DB::query('select count(*) as `count` from `users` where `name` = ...')->count;
 
 DB::query('insert into `users` ...');
 ```
@@ -595,6 +604,95 @@ Migrations are stored in `database/migrations` directory. To run migrations you 
 Open your database and look for changes.
 
 
+## HTTP Requests
+
+Every HTTP request in Melonly is represented by `Request` objects. Every object has many useful methods for dealing with HTTP.
+
+### Retrieving Form Data
+
+You can easly obtain for input data using the `get` method:
+
+```php
+$username = $request->get('name');
+```
+
+### User Browser's Information
+
+You can also get user's preferred language / IP address or browser information:
+
+```php
+$language = $request->preferredLanguage();
+```
+
+```php
+$info = $request->browser();
+```
+
+```php
+$ip = $request->ip();
+```
+
+You can also determine if request is made using AJAX:
+
+```php
+$ajax = $request->isAjax();
+```
+
+### Making HTTP Requests
+
+Many times your application need to make some kind of request, for example for retrieving API data.
+
+```php
+use Melonly\Http\Http;
+
+// GET Request
+$data = Http::get('https://my-api');
+
+// POST Request
+Http::post('https://my-api', [
+    'id' => $userId,
+]);
+```
+
+
+## HTTP Responses
+
+Like requests, every HTTP response in Melonly is represented by `Response` objects. Every object has many useful methods for dealing with HTTP.
+
+### Abort
+
+You can abort current HTTP response with `abort`:
+
+```php
+$response->abort(404);
+```
+
+### Sending Data
+
+You may also send some data:
+
+```php
+$response->json([
+  'name' => $name,
+]);
+```
+
+```php
+$response->send('Hello World');
+```
+
+### Redirects
+
+You can redirect user to another location with `redirect` method:
+
+```php
+$response->redirect('/login');
+
+// Redirect to previous location
+$response->redirectBack();
+```
+
+
 ## Authentication
 
 Authentication (user login system) is very needed on modern web applications. Melonly ships with a simple auth system.
@@ -637,11 +735,7 @@ Route::get('/login', function (Request $request, Response $response): void {
 });
 ```
 
-Note that you have to include `[csrf]` field in the form to secure users from [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks. If you're using Twig template engine instead of the built-in one, just add this hidden input:
-
-```html
-<input type="hidden" name="csrf_token" value="{{ csrfToken() }}">
-```
+Note that you have to include special `[csrf]` directive in the form to secure users from [CSRF attacks](#csrf-protection). [Read more](#csrf-protection) about protecting applications in React.js or other frameworks / libraries.
 
 Now we can set up the POST `/login` route with authentication logic:
 
@@ -743,20 +837,29 @@ Available validation rules are listed here:
 - url
 
 
-## Making HTTP Requests
+## CSRF Protection
 
-Many times your application need to make some kind of request, for example for retrieving API data.
+[Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) is a type of exploit relying on performing some actions by attacker on behalf of currently authenticated user without knowing his credentials.
 
-```php
-use Melonly\Http\Http;
+You have to include `[csrf]` field in HTML forms to protect users from CSRF attacks. Otherwise, request will be terminated with `419 - Token Expired` error.
 
-// GET Request
-$data = Http::get('https://my-api');
+```html
+<form action="/posts" method="post">
+    [csrf]
 
-// POST Request
-Http::post('https://my-api', [
-    'id' => $userId,
-]);
+    ...
+</form>
+```
+
+If you're using React / Vue or other framework instead of the built-in view template, just add a hidden input to the form:
+
+```html
+<script>window.token = '{{ csrfToken() }}'</script>
+
+...
+
+<!-- React.js example -->
+<input type="hidden" name="csrf_token" value={window.token}>
 ```
 
 
