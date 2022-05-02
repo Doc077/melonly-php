@@ -35,7 +35,7 @@ PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
   - [Components](#components)
 - [Requests](#requests)
   - [Retrieving Form Data](#retrieving-form-data)
-  - [User Browser's Information](#user-browsers-information)
+  - [User's Browser Information](#users-browser-information)
   - [Making HTTP Requests](#making-http-requests)
 - [Responses](#responses)
   - [Abort](#abort)
@@ -302,7 +302,7 @@ You can easly obtain for input data using the `get` method:
 $username = $request->get('name');
 ```
 
-### User Browser's Information
+### User's Browser Information
 
 You can also get user's preferred language / IP address or browser information:
 
