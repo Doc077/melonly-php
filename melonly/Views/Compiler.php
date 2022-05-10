@@ -97,21 +97,6 @@ class Compiler
         }
 
         /**
-         * Extract variables passed to a view and pass them further to component.
-         */
-        $variablesAsString = '';
-
-        foreach ($variables as $variable => $value) {
-            if (is_array($value)) {
-                $variablesAsString .= '"' . $variable . '" => [' . implode(',', $value) . '],';
-
-                continue;
-            }
-
-            $variablesAsString .= '"' . $variable . '" => "' . $value . '",';
-        }
-
-        /**
          * Get all registered components and compile component tags.
          */
         if (File::exists(__DIR__ . '/../../frontend/views/components')) {
@@ -124,8 +109,8 @@ class Compiler
                  * Handle self-closing tags.
                  */
                 $content = Regex::replace(
-                    '/<' . $name . '( (.*)="(.*)")* ?\/>/',
-                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [' . $variablesAsString . '\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
+                    '/<' . $name . '( (.*?)="(.*?)") ?\/>/',
+                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\', \'$6\' => \'$7\']); ?>',
 
                     $content,
                 );
@@ -134,11 +119,19 @@ class Compiler
                  * Handle opening & closing tags.
                  */
                 $content = Regex::replace(
-                    '/<' . $name . '( (.*)="(.*)")* ?>(?<slot>.*?)<\/' . $name . '>/',
-                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [' . $variablesAsString . '\'$2\' => \'$3\', \'$4\' => \'$5\']); ?>',
+                    '/<' . $name . '( (.*?)="(.*?)") ?>(?<slot>.*?)<\/' . $name . '>/',
+                    '<?php \Melonly\Views\View::renderComponent("' . $componentFile . '", [\'$2\' => \'$3\', \'$4\' => \'$5\', \'$6\' => \'$7\']); ?>',
 
                     $content,
                 );
+
+                /**
+                 * Get passed variables values.
+                 */
+                $content = Regex::replace('/=> \'\$(.*?)\'/', '=> $$1', $content);
+
+                $content = Regex::replace('/"? (.*?)="\$(.*?)"?/', ', \'$1\' => $$2', $content);
+                $content = Regex::replace('/" (.*?) =>/', ', \'$1 =>', $content);
             }
         }
 
