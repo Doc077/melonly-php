@@ -99,7 +99,9 @@ class Connection implements ConnectionInterface
                 $created = new $modelClass();
 
                 foreach ($record as $column => $value) {
-                    $created->{$column} = $value;
+                    if (!is_int($column)) {
+                        $created->{$column} = $value;
+                    }
                 }
 
                 $records[] = $created;
