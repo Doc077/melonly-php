@@ -19,6 +19,8 @@ class Handler
 {
     public static function handle(Error|Exception|PDOException|TypeError|UnhandledError $exception): never
     {
+        View::clearBuffer();
+
         if (!config('app.development')) {
             Container::get(Response::class)->abort(500);
 
