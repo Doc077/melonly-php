@@ -4,8 +4,8 @@ namespace Melonly\Views;
 
 use Melonly\Filesystem\File;
 use Melonly\Support\Helpers\Math;
-use Melonly\Support\Helpers\Str;
 use Melonly\Support\Helpers\Regex;
+use Melonly\Support\Helpers\Str;
 
 class Compiler
 {
@@ -132,6 +132,7 @@ class Compiler
 
                 $content = Regex::replace('/"? (.*?)="\$(.*?)"?/', ', \'$1\' => $$2', $content);
                 $content = Regex::replace('/" (.*?) =>/', ', \'$1 =>', $content);
+                $content = Regex::replace('/, \' {7}/', '', $content);
             }
         }
 
