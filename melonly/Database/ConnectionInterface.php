@@ -6,7 +6,7 @@ use PDO;
 
 interface ConnectionInterface
 {
-    public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): object|array;
+    public function query(string $sql, string $modelClass = Record::class, array $boundParams = []): mixed;
 
     public function getConnection(): PDO;
 }
