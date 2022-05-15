@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57ba6ef4c7f29ba2a1ce1e1a4288693a",
+    "content-hash": "471b2e75ebab38e5c1332458f52a584c",
     "packages": [
         {
             "name": "brick/math",
@@ -326,6 +326,63 @@
                 }
             ],
             "time": "2021-12-16T16:49:26+00:00"
+        },
+        {
+            "name": "melonly/core",
+            "version": "v7.25.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Doc077/melonly-php-core.git",
+                "reference": "dd3e4bd7c63c73eca9fca2bb924830a0a640c396"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Doc077/melonly-php-core/zipball/dd3e4bd7c63c73eca9fca2bb924830a0a640c396",
+                "reference": "dd3e4bd7c63c73eca9fca2bb924830a0a640c396",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "^2.7",
+                "nesbot/carbon": "^2.57",
+                "php": "^8.1",
+                "ramsey/uuid": "^4.3",
+                "twig/twig": "^3.3",
+                "vlucas/phpdotenv": "^5.4"
+            },
+            "require-dev": {
+                "nunomaduro/termwind": "^1.7"
+            },
+            "type": "package",
+            "autoload": {
+                "files": [
+                    "src/Support/constants.php",
+                    "src/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "Melonly\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dominik Rajkowski",
+                    "email": "dom.rajkowski@gmail.com"
+                }
+            ],
+            "description": "Melonly PHP Framework",
+            "keywords": [
+                "framework",
+                "melonly",
+                "mvc"
+            ],
+            "support": {
+                "issues": "https://github.com/Doc077/melonly-php-core/issues",
+                "source": "https://github.com/Doc077/melonly-php-core/tree/v7.25.0"
+            },
+            "time": "2022-05-15T16:29:48+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1870,92 +1927,6 @@
                 }
             ],
             "time": "2022-01-18T17:49:08+00:00"
-        },
-        {
-            "name": "nunomaduro/termwind",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "f962321d81169f0cd9832aa10d083f022f1ada3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/f962321d81169f0cd9832aa10d083f022f1ada3e",
-                "reference": "f962321d81169f0cd9832aa10d083f022f1ada3e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": "^8.0",
-                "symfony/console": "^5.3.0|^6.0.0"
-            },
-            "require-dev": {
-                "ergebnis/phpstan-rules": "^1.0.",
-                "illuminate/console": "^8.0|^9.0",
-                "illuminate/support": "^8.0|^9.0",
-                "pestphp/pest": "^1.21.0",
-                "pestphp/pest-plugin-mock": "^1.0",
-                "phpstan/phpstan": "^1.4.6",
-                "phpstan/phpstan-strict-rules": "^1.1.0",
-                "styleci/cli": "^1.2.0",
-                "symfony/var-dumper": "^5.2.7|^6.0.0",
-                "thecodingmachine/phpstan-strict-rules": "^1.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Termwind\\Laravel\\TermwindServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/Functions.php"
-                ],
-                "psr-4": {
-                    "Termwind\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "Its like Tailwind CSS, but for the console.",
-            "keywords": [
-                "cli",
-                "console",
-                "css",
-                "package",
-                "php",
-                "style"
-            ],
-            "support": {
-                "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v1.7.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/paypalme/enunomaduro",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/xiCO2k",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-03-30T11:19:29+00:00"
         },
         {
             "name": "pestphp/pest",
