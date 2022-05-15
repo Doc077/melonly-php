@@ -1,9 +1,0 @@
-<template>
-    <div class="content">
-        {{ appName }} with Vue.js 💙
-    </div>
-</template>
-
-<script setup>
-    const appName = 'Melonly'
-</script>
