@@ -8,8 +8,6 @@
 [![Total Downloads](https://poser.pugx.org/melonly/melonly/downloads)](https://packagist.org/packages/melonly/melonly)
 [![License](https://poser.pugx.org/melonly/melonly/license)](https://packagist.org/packages/melonly/melonly)
 
-PHP version of [Melonly.js](https://github.com/Doc077/melonly) framework.
-
 **Documentation**
 
 - [Requirements](#requirements)
