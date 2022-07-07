@@ -9,4 +9,5 @@ return [
     'password' => env('DB_PASSWORD'),
     'system' => env('DB_SYSTEM'),
     'username' => env('DB_USERNAME'),
+    'return_single_record' => false,
 ];
